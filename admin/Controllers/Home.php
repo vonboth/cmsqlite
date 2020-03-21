@@ -4,14 +4,15 @@
 namespace Admin\Controllers;
 
 
-use Admin\Controllers\Base;
-
-class Index extends Base
+/**
+ * Class Index
+ * @package Admin\Controllers
+ */
+class Home extends Base
 {
     public function index()
     {
         var_dump('HEllo from Admin');
         exit;
     }
-
 }

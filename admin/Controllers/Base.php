@@ -2,14 +2,12 @@
 
 namespace Admin\Controllers;
 
-use CodeIgniter\Controller;
+use App\Controllers\Base as AppBase;
 
-class Base extends Controller
+/**
+ * Class Base
+ * @package Admin\Controllers
+ */
+class Base extends AppBase
 {
-    public function index()
-    {
-        var_dump('Hello Admin');
-        exit;
-    }
-
 }

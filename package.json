@@ -4,8 +4,16 @@
   "description": "CMSQLite easy SQLite based CMS",
   "main": "index.js",
   "scripts": {
+    "copy": "node ./npmtasks/copy.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "axios": "^0.19.2",
+    "bulma": "^0.8.0",
+    "copy": "^0.3.2",
+    "vue": "^2.6.11"
+  }
 }

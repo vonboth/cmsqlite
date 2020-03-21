@@ -54,6 +54,8 @@ class Autoload extends \CodeIgniter\Config\AutoloadConfig
             APP_NAMESPACE => APPPATH,                // For custom namespace
             'Config' => APPPATH . 'Config',
             'Admin' => ROOTPATH . 'admin',
+            'Themes' => ROOTPATH . 'public/themes/frontend',
+            'AdminThemes' => ROOTPATH . 'public/themes/admin',
         ];
 
         /**
