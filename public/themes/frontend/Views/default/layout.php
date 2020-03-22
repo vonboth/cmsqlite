@@ -7,8 +7,6 @@
     <meta name="author" content="<?= $author ?>">
     <title><?= $title ?></title>
 
-    <?= link_tag('css/bulma.min.css') ?>
-
     <?= $this->renderSection('css') ?>
     <?= $this->renderSection('headerScripts') ?>
 </head>
@@ -18,7 +16,6 @@
     <?= $this->renderSection('main') ?>
 </main><!-- /.container -->
 
-<?= script_tag('js/axios.min.js') ?>
 <?= $this->renderSection('scripts') ?>
 </body>
 </html>

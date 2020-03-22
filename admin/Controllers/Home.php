@@ -12,7 +12,6 @@ class Home extends Base
 {
     public function index()
     {
-        var_dump('HEllo from Admin');
-        exit;
+        return view('AdminThemes\default\home.php');
     }
 }

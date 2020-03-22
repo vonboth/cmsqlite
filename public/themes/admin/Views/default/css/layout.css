@@ -1,0 +1,35 @@
+body {
+    display: flex;
+    flex-direction: column;
+    background: #f4f4f4;
+    font-family: Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    font-size: 14px;
+    min-height: 100%;
+}
+
+.has-fixed-sidenav .navbar-fixed nav.navbar {
+    width: calc(100% - 300px);
+    left: 300px;
+}
+
+.has-fixed-sidenav main {
+    flex: 1 0 auto;
+}
+
+.page-footer {
+    background-color: #fff;
+    border-top: 1px solid #e0e0e0;
+    color: #444;
+    padding: 40px 0;
+    margin: 0;
+}
+
+@media screen and (min-width: 993px){
+    body.has-fixed-sidenav {
+        padding-left: 300px;
+    }
+
+    .container {
+        width: 80%;
+    }
+}

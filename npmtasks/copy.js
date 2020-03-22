@@ -10,9 +10,5 @@ var options = {
 };
 
 copy([
-  'node_modules/bulma/css/*'
-], 'public/css', options, callback);
-
-copy([
   'node_modules/axios/dist/*'
 ], 'public/js', options, callback);

@@ -17,12 +17,13 @@ class AuthorizeFilter implements FilterInterface
      */
     public function before(RequestInterface $request)
     {
-        $current = explode('/', $request->detectPath());
+        return $request;
+        /*$current = explode('/', $request->detectPath());
 
         if (in_array('login', $current) || in_array('logout', $current)) {
             return $request;
         }
-        return redirect('admin/authenticate/login');
+        return redirect('admin/authenticate/login');*/
     }
 
     /**

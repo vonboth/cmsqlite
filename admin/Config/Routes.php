@@ -17,5 +17,3 @@ $routes->group(
         $routes->add('home', 'Home::index');
     }
 );
-
-$routes->get('(:any)', 'Home::index/$1');

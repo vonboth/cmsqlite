@@ -3,22 +3,37 @@
 
 namespace Admin\Controllers;
 
-
+/**
+ * Class Authenticate
+ * Controller to handle authentication
+ *
+ * @package Admin\Controllers
+ */
 class Authenticate extends Base
 {
+    /**
+     * shows the login form
+     * @return string
+     */
     public function login()
     {
         return view('AdminThemes\default\login');
     }
 
+    /**
+     * Handles the post request
+     * to login a user
+     */
     public function authenticate()
     {
-        var_dump('Authenticate');
     }
 
+    /**
+     * Logout user
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function logout()
     {
-        var_dump('Log me out');
+        return redirect('/');
     }
-
 }
