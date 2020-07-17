@@ -1,5 +1,12 @@
-<?php namespace Config;
+<?php
 
+namespace Config;
+
+use Admin\Validator\ArticleRules;
+use Admin\Validator\CategoryRules;
+use Admin\Validator\MenuitemRules;
+use Admin\Validator\MenuRules;
+use Admin\Validator\UserRules;
 use CodeIgniter\Validation\CreditCardRules;
 use CodeIgniter\Validation\FileRules;
 use CodeIgniter\Validation\FormatRules;
@@ -22,6 +29,11 @@ class Validation
         FormatRules::class,
         FileRules::class,
         CreditCardRules::class,
+        UserRules::class,
+        ArticleRules::class,
+        CategoryRules::class,
+        MenuRules::class,
+        MenuitemRules::class
     ];
 
     /**

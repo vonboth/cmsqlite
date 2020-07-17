@@ -22,7 +22,7 @@
     <div class="navbar-fixed">
         <nav class="navbar white">
             <div class="nav-wrapper">
-                <a href="#!" class="brand-logo grey-text text-darken-4">Home</a>
+                <a href="#!" class="brand-logo grey-text text-darken-4">CMSQlite Administration</a>
                 <a href="#!"
                    data-target="sidenav-left" class="sidenav-trigger right">
                     <i class="material-icons black-text">menu</i>
@@ -32,6 +32,9 @@
     </div>
     <ul class="sidenav sidenav-fixed">
         <li>Startseite</li>
+        <li><a href="/admin/articles"><?= lang('Menu.articles') ?></a></li>
+        <li><a href="/admin/categories"><?= lang('Menu.categories') ?></a></li>
+        <li><a href="/admin/users"><?= lang('Menu.users') ?></a></li>
     </ul>
 </header>
 <main>
@@ -45,6 +48,8 @@
     </div>
 </footer>
 
+<?= script_tag('themes/admin/Views/default/js/admin.js') ?>
 <?= $this->renderSection('scripts') ?>
+<?= $this->renderSection('js') ?>
 </body>
 </html>

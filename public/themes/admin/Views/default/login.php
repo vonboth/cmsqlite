@@ -24,17 +24,23 @@
                     <span class="card-title indigo white-text z-depth-4">Login</span>
                     <form>
                         <div class="input-field">
-                            <input id="username" name="username" type="text" class="validate">
-                            <label for="username" class="">Username</label>
+                            <input id="username" required
+                                   name="username"
+                                   type="text"
+                                   class="validate">
+                            <label for="username" class=""><?= lang('Admin.login.username') ?></label>
                         </div>
                         <div class="input-field">
-                            <input id="password" name="password" type="password" class="validate">
-                            <label for="password">Password</label>
+                            <input id="password" required
+                                   name="password"
+                                   type="password"
+                                   class="validate">
+                            <label for="password"><?= lang('Admin.login.password') ?></label>
                         </div>
                         <br>
                         <div>
                             <button class="btn right indigo waves-effect waves-light white-text"
-                                    type="submit"><?= lang('general.login') ?></button>
+                                    type="submit"><?= lang('Admin.login.login') ?></button>
                         </div>
                     </form>
                 </div>

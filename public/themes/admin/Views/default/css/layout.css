@@ -24,6 +24,15 @@ body {
     margin: 0;
 }
 
+ul.action-list {
+    margin: 0;
+    padding: 0;
+}
+
+ul.action-list > li {
+    display: inline-block;
+}
+
 @media screen and (min-width: 993px){
     body.has-fixed-sidenav {
         padding-left: 300px;

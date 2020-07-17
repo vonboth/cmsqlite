@@ -1,4 +1,6 @@
-<?php namespace Config;
+<?php
+
+namespace Config;
 
 require_once SYSTEMPATH . 'Config/AutoloadConfig.php';
 

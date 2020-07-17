@@ -18,6 +18,8 @@ namespace App\Controllers;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
+use Config\Database;
+use Config\Services;
 use Psr\Log\LoggerInterface;
 
 class Base extends Controller
@@ -29,7 +31,7 @@ class Base extends Controller
      *
      * @var array
      */
-    protected $helpers = ['html', 'form'];
+    protected $helpers = ['html', 'form', 'app'];
 
     /**
      * @var $db
@@ -53,8 +55,8 @@ class Base extends Controller
         // Preload any models, libraries, etc, here.
         //--------------------------------------------------------------------
         // E.g.:
-        $this->session = \Config\Services::session();
-        $this->db = \Config\Database::connect();
+        $this->session = Services::session();
+        $this->db = Database::connect();
+        $this->validator = Services::validation();
     }
-
 }

@@ -8,10 +8,10 @@ namespace Admin\Controllers;
  * Class Index
  * @package Admin\Controllers
  */
-class Home extends Base
+class Start extends Base
 {
     public function index()
     {
-        return view('AdminThemes\default\home.php');
+        return view('Admin\Views\Start\start.php');
     }
 }

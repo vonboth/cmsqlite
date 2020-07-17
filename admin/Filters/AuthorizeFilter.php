@@ -15,7 +15,7 @@ class AuthorizeFilter implements FilterInterface
      * @inheritDoc
      * @param IncomingRequest|RequestInterface $request
      */
-    public function before(RequestInterface $request)
+    public function before(RequestInterface $request, $arguments = null)
     {
         return $request;
         /*$current = explode('/', $request->detectPath());
@@ -29,7 +29,7 @@ class AuthorizeFilter implements FilterInterface
     /**
      * @inheritDoc
      */
-    public function after(RequestInterface $request, ResponseInterface $response)
+    public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {
     }
 }

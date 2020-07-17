@@ -10,5 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^18.0.0",
+    "copy": "^0.3.2"
+  }
 }
