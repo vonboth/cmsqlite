@@ -38,18 +38,20 @@
     </ul>
 </header>
 <main>
-    <div class="container">
+    <div class="container" id="main">
         <?= $this->renderSection('main') ?>
     </div>
 </main>
-<footer class="page-footer">
+<footer class="page-footer" id="footer">
     <div class="container">
         <span>Hallo Welt</span>
     </div>
 </footer>
 
-<?= script_tag('themes/admin/Views/default/js/admin.js') ?>
+<?= script_tag('themes/admin/Views/default/js/vendor.bundle.js') ?>
+<?= script_tag('themes/admin/Views/default/js/admin.bundle.js') ?>
 <?= $this->renderSection('scripts') ?>
 <?= $this->renderSection('js') ?>
+<?= $this->include('Admin\Partials\flash') ?>
 </body>
 </html>

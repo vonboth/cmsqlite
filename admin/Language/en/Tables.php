@@ -2,6 +2,7 @@
 return [
     'created' => 'created',
     'updated' => 'updated',
+    'actions' => 'actions',
     'articles' => [
         'articles' => 'Articles',
         'article' => 'Article',

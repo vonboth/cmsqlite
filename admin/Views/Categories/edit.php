@@ -1,18 +1,16 @@
-<?php $this->extend('AdminThemes\default\layout') ?>
+<?php
+$this->extend('AdminThemes\default\layout') ?>
 
-<?php $this->section('headerScripts')?>
-<?php $this->endSection() ?>
-
-<?php $this->section('main') ?>
-<h2>
-    <?= lang('edit') . lang('categories') ?>
-</h2>
-<form method="post">
+<?php
+$this->section('main') ?>
 <div class="row">
-    <div class="col s12">
-        <section class="">
-        </section>
-    </div>
+    <h3><?= lang('Admin.edit') . ' ' . lang('Tables.categories.category') ?></h3>
+
+    <?= $this->include('Admin\Partials\form_errors'); ?>
+
+    <?= form_open('/admin/categories/edit/' . $category->id, 'class="col s12"') ?>
+    <?= $this->include('Admin\Categories\partials\category_form', ['disabled' => 0]) ?>
+    <?= form_close() ?>
 </div>
-</form>
-<?php $this->endSection() ?>
+<?php
+$this->endSection() ?>

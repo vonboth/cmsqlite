@@ -1,20 +1,12 @@
-<?php $this->extend('AdminThemes\default\layout') ?>
+<?php
 
-<?php $this->section('headerScripts')?>
-<?= script_tag('js/ckeditor/classic/ckeditor.js') ?>
-<?php $this->endSection() ?>
+$this->extend('AdminThemes\default\layout') ?>
 
-<?php $this->section('main') ?>
-<h2>
-    <?= lang('view') . lang('categories') ?>
-</h2>
-<form>
+<?php
+$this->section('main') ?>
 <div class="row">
-    <div class="col s12">
-        <section class="article">
-
-        </section>
-    </div>
+  <h3><?= lang('Admin.view') . ' ' . lang('Tables.categories.category') ?></h3>
+    <?= $this->include('Admin\Categories\partials\category_form', ['disabled' => 1]) ?>
 </div>
-</form>
-<?php $this->endSection() ?>
+<?php
+$this->endSection() ?>

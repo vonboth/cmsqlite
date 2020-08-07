@@ -5,6 +5,7 @@ namespace Admin\Controllers;
 
 
 use App\Models\ArticlesModel;
+use App\Models\Entities\Article;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
@@ -50,41 +51,96 @@ class Articles extends Base
 
     public function view($id = null)
     {
-        $article = $this->Articles->find($id);
         return view(
             'Admin\Articles\view',
-            compact('article')
+            ['article' => $this->Articles->find($id)]
         );
     }
 
     public function add()
     {
-        $article = new ArticlesModel();
-        $errors = [];
+        $article = new Article();
 
         if ($this->request->getMethod() === 'post') {
-            if (!$this->validate([])) {
-                $errors = $this->validator->getErrors();
+            if ($this->validate(
+                [
+                    'title' => 'required',
+                    'content' => 'required'
+                ]
+            )) {
+                $article->fill($this->request->getPost());
+                if ($lastId = $this->Articles->insert($article) !== false) {
+                    return redirect("/admin/articles/edit/$lastId")
+                        ->with('flash', lang('General.saved'));
+                } else {
+                    return redirect()
+                        ->back()
+                        ->withInput()
+                        ->with('flash', lang('General.save_error'));
+                }
+            } else {
+                return redirect()
+                    ->back()
+                    ->withInput();
             }
         }
 
-        return view('Admin\Articles\add', [
-            'article' => $article,
-            'errors' => $errors
-        ]);
+        return view(
+            'Admin\Articles\add',
+            [
+                'article' => $article,
+                'validator' => $this->validator
+            ]
+        );
     }
 
     public function edit($id = null)
     {
         $article = $this->Articles->find($id);
+        if ($this->request->getMethod() === 'post') {
+            if ($this->validate(
+                [
+                    'title' => 'required',
+                    'content' => 'required'
+                ]
+            )) {
+                $article->fill($this->request->getPost());
+                if ($this->Articles->save($article)) {
+                    return redirect()
+                        ->back()
+                        ->with('flash', lang('General.saved'));
+                } else {
+                    return redirect()
+                        ->back()
+                        ->withInput()
+                        ->with('flash', lang('General.save_error'));
+                }
+            } else {
+                return redirect()
+                    ->back()
+                    ->withInput();
+            }
+        }
+
         return view(
             'Admin\Articles\edit',
-            compact('article')
+            [
+                'article' => $article,
+                'validator' => $this->validator
+            ]
         );
     }
 
     public function delete($id)
     {
-        return redirect('admin/articles');
+        if ($this->Articles->delete($id)) {
+            return redirect()
+                ->back()
+                ->with('flash', lang('General.deleted'));
+        } else {
+            return redirect()
+                ->back()
+                ->with('flash', lang('General.delete_error'));
+        }
     }
 }

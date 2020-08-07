@@ -5,13 +5,19 @@
   "main": "index.js",
   "scripts": {
     "copy": "node ./npmtasks/copy.js",
+    "admin-dev": "webpack --config webpack.admin.config.js --watch true",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC",
-  "dependencies": {},
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "sweetalert2": "^9.17.1",
+    "vue": "^2.6.11",
+    "@ckeditor/ckeditor5-build-classic": "^18.0.0"
+  },
   "devDependencies": {
-    "@ckeditor/ckeditor5-build-classic": "^18.0.0",
-    "copy": "^0.3.2"
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
   }
 }

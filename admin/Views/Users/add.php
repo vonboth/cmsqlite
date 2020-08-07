@@ -1,30 +1,19 @@
 <?php
+
 $this->setData(['edit' => false]);
 $this->extend('AdminThemes\default\layout');
 ?>
 
-<?php $this->section('main') ?>
-<h2><?= lang('add user') ?></h2>
-
+<?php
+$this->section('main') ?>
 <div class="row">
-    <div class="col s12">
-        <?= $validator->listErrors() ?>
-    </div>
-</div>
+  <h3><?= lang('Admin.add') . ' ' . lang('Tables.users.user') ?></h3>
 
-<?= form_open(
-    'admin/users/add',
-    [
-        'class' => 'col s12'
-    ]
-) ?>
-<?= $this->include('Admin\Users\user_form') ?>
-<div class="row">
-    <div class="col s3">
-        <button class="btn waves-effect waves-light" type="submit" name="action"><?= lang('save') ?>
-            <i class="material-icons right">send</i>
-        </button>
-    </div>
+    <?= $this->include('Admin\Partials\form_errors'); ?>
+
+    <?= form_open('/admin/users/add', 'class="col s12"') ?>
+    <?= $this->include('Admin\Users\partials\user_form', ['disabled' => 0]) ?>
+    <?= form_close() ?>
 </div>
-<?= form_close() ?>
-<?php $this->endSection() ?>
+<?php
+$this->endSection() ?>

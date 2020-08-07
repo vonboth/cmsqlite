@@ -5,6 +5,7 @@ namespace Admin\Controllers;
 
 
 use Admin\Models\CategoriesModel;
+use Admin\Models\Entities\Category;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
@@ -46,16 +47,78 @@ class Categories extends Base
 
     public function add()
     {
-        return view('Admin\Categories\add');
+        $category = new Category();
+
+        if ($this->request->getMethod() === 'post') {
+            if ($this->validate(['name' => 'required'])) {
+                $category->fill($this->request->getPost());
+                if ($lastId = $this->Categories->insert($category) !== false) {
+                    return redirect("/admin/categories/edit/$lastId")
+                        ->with('flash', lang('General.saved'));
+                } else {
+                    return redirect()
+                        ->back()
+                        ->withInput()
+                        ->with('flash', lang('General.save_error'));
+                }
+            } else {
+                return redirect()
+                    ->back()
+                    ->withInput();
+            }
+        }
+
+        return view(
+            'Admin\Categories\add',
+            [
+                'validator' => $this->validator,
+                'category' => $category
+            ]
+        );
     }
 
     public function edit($id = null)
     {
-        return view('Admin\Categories\edit');
+        $category = $this->Categories->find($id);
+        if ($this->request->getMethod() === 'post') {
+            if ($this->validate(['name' => 'required'])) {
+                $category->fill($this->request->getPost());
+                if ($this->Categories->save($category)) {
+                    return redirect()
+                        ->back()
+                        ->with('flash', lang('General.saved'));
+                } else {
+                    return redirect()
+                        ->back()
+                        ->withInput()
+                        ->with('flash', lang('General.save_error'));
+                }
+            } else {
+                return redirect()
+                    ->back()
+                    ->withInput();
+            }
+        }
+
+        return view(
+            'Admin\Categories\edit',
+            [
+                'category' => $category,
+                'validator' => $this->validator
+            ]
+        );
     }
 
     public function delete($id)
     {
-        return redirect('admin/categories');
+        if ($this->Categories->delete($id)) {
+            return redirect()
+                ->back()
+                ->with('flash', lang('General.deleted'));
+        } else {
+            return redirect()
+                ->back()
+                ->with('flash', lang('General.delete_error'));
+        }
     }
 }

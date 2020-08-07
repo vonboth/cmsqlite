@@ -1,5 +1,7 @@
 <?php
 
+namespace Admin\Models\Entities;
+
 use CodeIgniter\Entity;
 
 class Category extends Entity

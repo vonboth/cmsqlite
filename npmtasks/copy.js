@@ -11,10 +11,11 @@ var options = {
 copy([
 'node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js',
 'node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js.map',
-], 'public/js/ckeditor/classic', options, callback);
+], 'public/themes/admin/Views/default/js/ckeditor', options, callback);
 copy([
-'node_modules/@ckeditor/ckeditor5-build-classic/build/translations/*.js',
-], 'public/js/ckeditor/classic/translations', options, callback);
+'node_modules/@ckeditor/ckeditor5-build-classic/build/translations/de.js',
+'node_modules/@ckeditor/ckeditor5-build-classic/build/translations/en-gb.js',
+], 'public/themes/admin/Views/default/js/ckeditor/translations', options, callback);
 copy([
   'node_modules/axios/dist/*'
 ], 'public/js', options, callback);

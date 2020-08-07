@@ -1,40 +1,17 @@
 <?php
+
 $this->extend('AdminThemes\default\layout') ?>
 
 <?php
-$this->section('headerScripts') ?>
-<?= script_tag('js/ckeditor/classic/ckeditor.js') ?>
-<?php
-$this->endSection() ?>
-
-<?php
 $this->section('main') ?>
-    <h3>
-        <?= lang('Admin.edit') . ' ' . lang('Tables.articles.article') ?>
-    </h3>
-    <form>
-        <div class="row">
-            <?= $this->include('Admin\Articles\partials\article_form', ['disabled' => false]) ?>
-        </div>
-    </form>
-<?php
-$this->endSection() ?>
+<div id="articles">
+  <h3><?= lang('Admin.edit') . ' ' . lang('Tables.articles.article') ?></h3>
 
-<?php
-$this->section('js') ?>
-    <script type="text/javascript">
-      document.addEventListener('DOMContentLoaded', function() {
-        let editor = ClassicEditor
-          .create(document.getElementById('editor'), {
-            language: 'de'
-          })
-          .catch(error => {
-            console.error(error);
-          });
+    <?= $this->include('Admin\Partials\form_errors'); ?>
 
-        M.Datepicker.init(document.querySelectorAll('#start_publish'));
-        M.Datepicker.init(document.querySelectorAll('#stop_publish'));
-      });
-    </script>
+    <?= form_open('/admin/articles/edit' . $article->id, 'class="col s12"') ?>
+    <?= $this->include('Admin\Articles\partials\article_form', ['disabled' => false]) ?>
+    <?= form_close() ?>
+</div>
 <?php
 $this->endSection() ?>

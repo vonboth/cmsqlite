@@ -22,7 +22,6 @@ class Users extends Base
     {
         parent::initController($request, $response, $logger);
         $this->Users = new UsersModel();
-        helper(['form']);
     }
 
     public function index()
@@ -35,15 +34,9 @@ class Users extends Base
 
     public function view($id = null)
     {
-        if (is_null($id)) {
-            return redirect()->to('index');
-        }
-
         return view(
             'Admin\Users\view',
-            [
-                'user' => $this->Users->find($id),
-            ]
+            ['user' => $this->Users->find($id)]
         );
     }
 
@@ -51,8 +44,6 @@ class Users extends Base
     {
         $user = new User();
         if ($this->request->getMethod() == 'post') {
-            $post = $this->request->getPost();
-            $user->fill($post);
             if ($this->validate(
                 [
                     'username' => 'required',
@@ -62,9 +53,20 @@ class Users extends Base
                     'role' => 'required',
                 ]
             )) {
-                if ($this->Users->save($user)) {
-                    return redirect()->to('/admin/users/view/' . $this->Users->getInsertID());
+                $user->fill($this->request->getPost());
+                if ($lastId = $this->Users->insert($user) !== false) {
+                    return redirect("/admin/users/edit/$lastId")
+                        ->with('flash', lang('General.saved'));
+                } else {
+                    return redirect()
+                        ->back()
+                        ->withInput()
+                        ->with('flash', lang('Genreal.save_error'));
                 }
+            } else {
+                return redirect()
+                    ->back()
+                    ->withInput();
             }
         }
 
@@ -77,16 +79,11 @@ class Users extends Base
         );
     }
 
+    // TODO: Validation rules for updating a user
     public function edit($id = null)
     {
-        if (is_null($id)) {
-            return redirect()->to('index');
-        }
         $user = $this->Users->find($id);
-
         if ($this->request->getMethod() == 'post') {
-            $post = $this->request->getPost();
-            $user->fill($post);
             if ($this->validate(
                 [
                     'username' => 'required',
@@ -96,9 +93,21 @@ class Users extends Base
                     'role' => 'required',
                 ]
             )) {
+                $user->fill($this->request->getPost());
                 if ($this->Users->save($user)) {
-                    return redirect()->to('/admin/users/view/' . $user->id);
+                    return redirect()
+                        ->back()
+                        ->with('flash', lang('General.saved'));
+                } else {
+                    return redirect()
+                        ->back()
+                        ->withInput()
+                        ->with('flash', lang('General.save_error'));
                 }
+            } else {
+                return redirect()
+                    ->back()
+                    ->withInput();
             }
         }
 
@@ -113,5 +122,14 @@ class Users extends Base
 
     public function delete($id = null)
     {
+        if ($this->Users->delete($id)) {
+            return redirect()
+                ->back()
+                ->with('flash', lang('General.deleted'));
+        } else {
+            return redirect()
+                ->back()
+                ->with('flash', lang('General.delete_error'));
+        }
     }
 }

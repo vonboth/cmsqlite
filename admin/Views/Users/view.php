@@ -1,23 +1,13 @@
 <?php
 
-$this->extend('AdminThemes\default\layout');
-?>
+$this->setData(['edit' => false]);
+$this->extend('AdminThemes\default\layout'); ?>
 
-<?php $this->section('main') ?>
-    <div class="row">
-        <div class="col s12 m6">
-            <div class="card">
-                <div class="card-content">
-                    <span class="card-title"><?= $user->username ?></span>
-                    <div class="field-view">
-                        <label><?= lang('email') ?></label>
-                        <p>
-                            some email
-                            <?= $user->email ?>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-<?php $this->endSection() ?>
+<?php
+$this->section('main') ?>
+  <div class="row">
+    <h3><?= lang('Admin.view') . ' ' . lang('Tables.users.user') ?></h3>
+      <?= $this->include('Admin\Users\partials\user_form', ['disabled' => 1]) ?>
+  </div>
+<?php
+$this->endSection() ?>

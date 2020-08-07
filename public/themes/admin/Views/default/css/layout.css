@@ -33,6 +33,10 @@ ul.action-list > li {
     display: inline-block;
 }
 
+.errors.card-panel {
+    padding: 15px 24px;
+}
+
 @media screen and (min-width: 993px){
     body.has-fixed-sidenav {
         padding-left: 300px;
