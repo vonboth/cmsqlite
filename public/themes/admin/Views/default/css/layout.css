@@ -1,3 +1,6 @@
+html {
+    height: 100%;
+}
 body {
     display: flex;
     flex-direction: column;
@@ -7,13 +10,23 @@ body {
     min-height: 100%;
 }
 
+main {
+    flex: 1 0 auto;
+}
+
+.navbar-fixed {
+    position: relative;
+    z-index: 997;
+}
+
+.navbar-fixed nav.navbar {
+    width: 100%;
+    left: 0;
+}
+
 .has-fixed-sidenav .navbar-fixed nav.navbar {
     width: calc(100% - 300px);
     left: 300px;
-}
-
-.has-fixed-sidenav main {
-    flex: 1 0 auto;
 }
 
 .page-footer {
@@ -37,12 +50,41 @@ ul.action-list > li {
     padding: 15px 24px;
 }
 
-@media screen and (min-width: 993px){
+.navbar-fixed nav {
+    position: fixed;
+}
+
+nav.navbar {
+    z-index: 10;
+    transition: box-shadow .3s, background-color .3s;
+    padding: 0 20px;
+    color: rgba(0, 0, 0, 0.87);
+}
+
+@media screen and (min-width: 993px) {
     body.has-fixed-sidenav {
         padding-left: 300px;
     }
 
     .container {
-        width: 80%;
+        width: 100%;
     }
+}
+
+@media only screen and (min-width: 601px) {
+    nav, nav .nav-wrapper i, nav a.sidenav-trigger, nav a.sidenav-trigger i {
+        height: 64px;
+        line-height: 64px;
+    }
+}
+
+@media only screen and (min-width: 993px) {
+    .has-fixed-sidenav .navbar-fixed nav.navbar {
+        width: calc(100% - 300px);
+        left: 300px;
+    }
+}
+
+.ck-editor__editable {
+    min-height: 500px !important;
 }

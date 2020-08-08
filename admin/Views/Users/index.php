@@ -12,6 +12,8 @@ $this->section('main') ?>
   </a>
 </h3>
 
+<div class="card">
+  <div class="card-content">
 <table class="responsive-table">
   <thead>
   <tr>
@@ -44,5 +46,7 @@ $this->section('main') ?>
   endforeach; ?>
   </tbody>
 </table>
+  </div>
+  </div>
 <?php
 $this->endSection() ?>

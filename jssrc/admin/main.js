@@ -5,6 +5,8 @@ const main = new Vue({
   mounted: function() {
     M.FormSelect.init(document.querySelectorAll('select'));
     M.Datepicker.init(document.querySelectorAll('input.datepicker'));
+    M.Dropdown.init(document.querySelectorAll('.dropdown-trigger'));
+    M.Collapsible.init(document.querySelectorAll('.collapsible'));
 
     if (this.$refs.CKEditor) {
       ClassicEditor

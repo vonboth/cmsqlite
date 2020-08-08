@@ -8,6 +8,7 @@ return [
         'article' => 'Article',
         'is_startpage' => 'Is Startpage',
         'title' => 'Title',
+        'additional_information' => 'Additional Information',
         'alias' => 'Alias',
         'doc_key' => 'Document Key',
         'content' => 'Content',
