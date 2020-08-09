@@ -12,7 +12,7 @@ $this->section('main') ?>
 <div class="card">
   <div class="card-content">
     <div class="row">
-      <h3><?= lang('Admin.add') . ' ' . lang('Tables.users.user') ?></h3>
+      <h3><?= lang('Admin.add') ?></h3>
         <?= form_open('/admin/users/add', 'class="col s12"') ?>
         <?= $this->include('Admin\Users\partials\user_form', ['disabled' => 0]) ?>
         <?= form_close() ?>

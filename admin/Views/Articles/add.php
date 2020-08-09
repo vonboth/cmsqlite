@@ -10,7 +10,7 @@ $this->section('main') ?>
 <div class="card">
   <div class="card-content">
     <div class="row">
-      <h3><?= lang('Admin.add') . ' ' . lang('Tables.articles.article') ?></h3>
+      <h3><?= lang('Admin.add') ?></h3>
         <?= form_open('/admin/articles/add', 'class="col s12"') ?>
         <?= $this->include('Admin\Articles\partials\article_form', ['disabled' => 0]) ?>
         <?= form_close() ?>

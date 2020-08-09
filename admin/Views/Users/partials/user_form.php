@@ -97,9 +97,9 @@ endif; ?>
 
 <div class="row">
   <div class="col s12">
-    <button type="button" onclick="history.back()"
-            class="btn waves-effect waves-light"><?= lang('General.back') ?>
-      <i class="material-icons left">arrow_back</i></button>
+    <a href="/admin/<?= $controller ?>"
+       class="btn waves-effect waves-light"><?= lang('General.back') ?>
+      <i class="material-icons left">arrow_back</i></a>
       <?php
       if (!$options['disabled']) : ?>
         <button type="submit" class="btn waves-effect waves-light"><?= lang('General.submit') ?>

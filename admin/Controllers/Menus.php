@@ -4,6 +4,7 @@
 namespace Admin\Controllers;
 
 
+use Admin\Models\MenuitemsModel;
 use Admin\Models\MenusModel;
 use App\Models\Entities\Article;
 use CodeIgniter\HTTP\RequestInterface;
@@ -14,10 +15,12 @@ use Psr\Log\LoggerInterface;
  * Class Articles
  * @package Admin\Controllers
  * @property MenusModel $Menus
+ * @property MenuitemsModel $Menuitems
  */
 class Menus extends Base
 {
     protected $Menus;
+    protected $Menuitems;
 
     /**
      * @param RequestInterface $request
@@ -31,6 +34,7 @@ class Menus extends Base
     ) {
         parent::initController($request, $response, $logger);
         $this->Menus = new MenusModel();
+        $this->Menuitems = new MenuitemsModel();
     }
 
     /**
@@ -38,7 +42,9 @@ class Menus extends Base
      */
     public function index()
     {
-
+        $menus = $this->Menuitems->findTreeList();
+        //var_dump($menus);
+        var_dump(menu_list($menus));
     }
 
     public function view($id = null)

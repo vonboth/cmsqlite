@@ -10,5 +10,4 @@ class MenusModel extends Model
 {
     protected $table = 'menus';
     protected $returnType = 'Admin\Models\Entities\Menu';
-
 }

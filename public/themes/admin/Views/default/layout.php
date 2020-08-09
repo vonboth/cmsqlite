@@ -24,6 +24,7 @@
   <div class="navbar-fixed">
     <nav class="navbar blue">
       <div class="nav-wrapper">
+        <a href="/admin/<?= $controller ?>" class="brand-logo"><?= $section ?></a>
         <ul class="right">
           <li>
             <a href="#!" class="dropdown-trigger" data-target="profile_menu">

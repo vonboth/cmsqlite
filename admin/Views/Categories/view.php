@@ -7,7 +7,7 @@ $this->section('main') ?>
 <div class="card">
   <div class="card-content">
     <div class="row">
-      <h3><?= lang('Admin.view') . ' ' . lang('Tables.categories.category') ?></h3>
+      <h3><?= lang('Admin.view') ?></h3>
         <?= $this->include('Admin\Categories\partials\category_form', ['disabled' => 1]) ?>
     </div>
   </div>

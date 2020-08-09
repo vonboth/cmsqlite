@@ -10,7 +10,7 @@ $this->section('main') ?>
 <div class="card">
   <div class="card-content">
     <div class="row">
-      <h3><?= lang('Admin.edit') . ' ' . lang('Tables.categories.category') ?></h3>
+      <h3><?= lang('Admin.edit') ?></h3>
         <?= form_open('/admin/categories/edit/' . $category->id, 'class="col s12"') ?>
         <?= $this->include('Admin\Categories\partials\category_form', ['disabled' => 0]) ?>
         <?= form_close() ?>
