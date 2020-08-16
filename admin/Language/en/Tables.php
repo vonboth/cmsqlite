@@ -3,6 +3,9 @@ return [
     'created' => 'created',
     'updated' => 'updated',
     'actions' => 'actions',
+    'start' => [
+        'start' => 'Start'
+    ],
     'articles' => [
         'articles' => 'Articles',
         'article' => 'Article',
@@ -39,6 +42,9 @@ return [
         'parent_id' => 'Parent Item',
         'menu_id' => 'Menu',
         'url' => 'Url',
+        'alias' => 'Alias',
+        'layout' => 'Layout',
+        'target' => 'target',
     ],
     'users' => [
         'users' => 'Users',
@@ -49,5 +55,10 @@ return [
         'lastname' => 'Last name',
         'email' => 'Email',
         'role' => 'Role',
+        'roles' => [
+            'admin' => 'Admin',
+            'author' => 'Author',
+            'guest' => 'Guest',
+        ]
     ]
 ];

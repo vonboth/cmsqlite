@@ -4,20 +4,101 @@ if (!function_exists('tree_list')) {
     /**
      * generates an unordered list from a nested set
      *
-     * @param $levels
+     * @param $menuitems
+     * @param string $ulClass css class for the ul
      * @return mixed
      */
-    function menu_list($levels)
+    function menu_list($menuitems, $ulClass = 'ul_parent')
     {
-        $ul = '<ul>';
-        foreach ($levels[0] as $topLevel) {
-            $ul .= "<li><a href='{$topLevel['url']}'>{$topLevel['title']}</a>";
-            if (!empty($topLevel['list'])) {
-                $ul .= "<ul>{$topLevel['list']}</ul>";
+        $ul = "<ul class='$ulClass'>";
+        foreach ($menuitems as $menuitem) {
+            $css = (count($menuitem['children']) > 0) ? 'li_parent' : 'li_child';
+            $css .= ' level' . $menuitem['level'];
+            $ul .= "<li class='{$css}'>" .
+                "<a href='{$menuitem['url']}'>{$menuitem['title']}</a>";
+
+            if (count($menuitem['children']) > 0) {
+                $ul .= menu_list($menuitem['children'], 'ul_child');
             }
-            $ul .= "</li>";
+
+            $ul .= '</li>';
         }
         $ul .= "</ul>\n";
+
         return $ul;
+    }
+
+    /**
+     * generates a tree for the
+     * admin-section to change menus
+     *
+     * @param $menuitems
+     * @param string $ulClass
+     * @return string
+     */
+    function admin_menu_list($menuitems, $ulClass = 'ul_parent')
+    {
+        $ul = "<ul class='{$ulClass} admin-menu-list'>";
+        foreach ($menuitems as $menuitem) {
+            $css = (count($menuitem['children']) > 0) ? 'li_parent' : 'li_child';
+            $css .= ' level' . $menuitem['level'];
+            $ul .= "<li class='{$css}'>
+<div class='flex space-between'>
+    <a href='javascript:void(0)' 
+       title='" . lang('Menu.edit_menu_item') . "'
+       @click='onEditMenuitem({$menuitem['id']})'>{$menuitem['title']}</a>
+    <span class='clickable' 
+          title='" . lang('Menu.delete_menu_item') . "'
+          @click='onDeleteMenuitem({$menuitem['id']})'>
+      <i class='material-icons'>delete</i>
+    </span>
+</div>";
+
+            if (count($menuitem['children']) > 0) {
+                $ul .= admin_menu_list($menuitem['children']);
+            }
+
+            $ul .= '</li>';
+        }
+        $ul .= "</ul>\n";
+
+        return $ul;
+    }
+
+    /**
+     * generates a collapsible list
+     * with menus as headlines and
+     * the menus inside the collapsibles
+     * @param $menus
+     * @return string
+     */
+    function admin_menu_tree($menus)
+    {
+        $ul = '<ul class="collapsible collapsible-accordion">';
+        foreach ($menus as $menu) {
+            $ul .= '
+<li class="menu-administration">
+    <div class="flex space-between collapsible-header-wrapper">
+        <div class="collapsible-header flex-center" 
+             @click="onSelectMenu(' . $menu->id . ')"><div>' . $menu->name . '</div></div>
+        <div class="flex flex-center p1rem">
+           <span class="clickable"
+                 @click="onEditMenu"><i class="material-icons">edit</i></span>
+           <span class="clickable"
+                 @click="onDeleteMenu"><i class="material-icons">delete</i></span>
+        </div>
+    </div>
+    <div class="collapsible-body">
+        <div class="right">
+            <a href="javascript:void(0)" 
+               title="' . lang('Menu.add_menu_item') . '" 
+               @click="onAddMenuitem">
+              <i class="material-icons">add_circle_outline</i></a>
+        </div>
+        <div class="clearfix">' . admin_menu_list($menu->tree) . '<div>
+    </div>
+</li>';
+        }
+        return $ul .= '</ul>';
     }
 }

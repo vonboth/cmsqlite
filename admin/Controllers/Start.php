@@ -10,6 +10,8 @@ namespace Admin\Controllers;
  */
 class Start extends Base
 {
+    protected $controllerName = 'Start';
+
     public function index()
     {
         return view('Admin\Views\Start\start.php');

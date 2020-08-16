@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Admin Page">
   <meta name="author" content="Christoph von Both | creatingcode.de">
-  <title>Title</title>
+  <?= csrf_meta() ?>
+  <title><?= isset($title) ? $title : 'CMSQlite' ?></title>
 
   <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -50,6 +51,7 @@
       <ul class="collapsible collapsible-accordion">
         <li><a href="/admin/articles"><?= lang('Menu.articles') ?></a></li>
         <li><a href="/admin/categories"><?= lang('Menu.categories') ?></a></li>
+        <li><a href="/admin/menus"><?= lang('Menu.menus') ?></a></li>
         <li><a href="/admin/users"><?= lang('Menu.users') ?></a></li>
       </ul>
     </li>

@@ -84,9 +84,9 @@ endif; ?>
       <?= form_dropdown(
           'role',
           [
-              'guest' => lang('guest'),
-              'author' => lang('author'),
-              'admin' => lang('admin')
+              'guest' => lang('Tables.users.roles.guest'),
+              'author' => lang('Tables.users.roles.author'),
+              'admin' => lang('Tables.users.roles.admin')
           ],
           $user->role,
           ($options['disabled']) ? 'disabled' : ''

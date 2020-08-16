@@ -1,6 +1,6 @@
 <?php
 
-$this->extend('AdminThemes\default\layout.php') ?>
+$this->extend('AdminThemes\default\default') ?>
 
 <?php
 $this->section('main') ?>

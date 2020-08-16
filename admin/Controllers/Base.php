@@ -31,12 +31,22 @@ class Base extends AppBase
         parent::initController($request, $response, $logger);
         $this->view = Services::renderer();
         helper(['form', 'Admin\Helpers\tree_helper']);
-        $this->controllerName = $request->uri->getSegment(2);
+        $this->controllerName = $this->parseControllerName();
         $this->view->setData(
             [
-                'controller' => $this->controllerName,
-                'section' => lang("Tables.{$this->controllerName}.{$this->controllerName}")
+                'controller' => ($this->controllerName),
+                'section' => lang("Tables.{$this->controllerName}.{$this->controllerName}"),
+                'title' => 'CMSQLite'
             ]
+        );
+    }
+
+    protected function parseControllerName()
+    {
+        $router = Services::router();
+        $namespace = '\\' . $router->getMatchedRouteOptions()['namespace'] . "\\";
+        return strtolower(
+            str_replace($namespace, '', $router->controllerName())
         );
     }
 }
