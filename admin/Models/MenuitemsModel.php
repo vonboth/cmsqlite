@@ -4,15 +4,20 @@
 namespace Admin\Models;
 
 
-use CodeIgniter\Model;
-
-class MenuitemsModel extends Model
+class MenuitemsModel extends BaseModel
 {
     protected $table = 'menuitems';
     protected $returnType = 'Admin\Models\Entities\Menuitem';
-
     protected $beforeInsert = ['beforeInsertTree'];
+    protected $allowedFields = [
+        'id', 'title', 'parent_id', 'menu_id', 'article_id', 'type',
+        'url', 'alias', 'layout', 'target', 'lft', 'rgt'
+    ];
 
+    /**
+     * @param null $menu_id
+     * @return array
+     */
     public function findLeveledNodes($menu_id = null)
     {
         /*SELECT node.title, node.parent_id, COUNT(*)-1 AS level
@@ -49,6 +54,10 @@ class MenuitemsModel extends Model
             ->getResultArray();
     }
 
+    /**
+     * @param null $menu_id
+     * @return mixed
+     */
     public function findTree($menu_id = null)
     {
         $tree = $this->findLeveledNodes($menu_id);
@@ -69,6 +78,9 @@ class MenuitemsModel extends Model
             }
         }
 
+        if (count($levels) == 0) {
+            return [];
+        }
         return $levels[0];
     }
 

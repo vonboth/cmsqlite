@@ -18,8 +18,6 @@ class Article extends Entity
         'description' => null,
         'class' => null,
         'category_id' => null,
-        'language_id' => null,
-        'translation_id' => null,
         'published' => null,
         'start_publish' => null,
         'stop_publish' => null,

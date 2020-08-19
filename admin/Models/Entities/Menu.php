@@ -6,7 +6,11 @@ namespace Admin\Models\Entities;
 
 use CodeIgniter\Entity;
 
-class Menu extends Entity
+/**
+ * Class Menu
+ * @package Admin\Models\Entities
+ */
+class Menu extends Base
 {
     protected $attributes = [
         'id' => null,
@@ -14,10 +18,5 @@ class Menu extends Entity
         'description' => null,
         'created' => null,
         'updated' => null,
-    ];
-
-    protected $dates = [
-        'created',
-        'updated',
     ];
 }

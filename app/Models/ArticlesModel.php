@@ -19,7 +19,6 @@ class ArticlesModel extends BaseModel
         'content',
         'description',
         'class',
-        'class',
         'category_id',
         'published',
         'start_publish',

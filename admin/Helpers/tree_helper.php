@@ -74,7 +74,7 @@ if (!function_exists('tree_list')) {
      */
     function admin_menu_tree($menus)
     {
-        $ul = '<ul class="collapsible collapsible-accordion">';
+        $ul = '<ul class="collapsible collapsible-accordion admin-menu">';
         foreach ($menus as $menu) {
             $ul .= '
 <li class="menu-administration">
@@ -83,9 +83,9 @@ if (!function_exists('tree_list')) {
              @click="onSelectMenu(' . $menu->id . ')"><div>' . $menu->name . '</div></div>
         <div class="flex flex-center p1rem">
            <span class="clickable"
-                 @click="onEditMenu"><i class="material-icons">edit</i></span>
+                 @click="onEditMenu(' . $menu->id . ')"><i class="material-icons">edit</i></span>
            <span class="clickable"
-                 @click="onDeleteMenu"><i class="material-icons">delete</i></span>
+                 @click="onDeleteItem(\'menus\', ' . $menu->id . ')"><i class="material-icons">delete</i></span>
         </div>
     </div>
     <div class="collapsible-body">

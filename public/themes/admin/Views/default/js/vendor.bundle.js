@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("window.ClassicEditor = __webpack_require__(/*! @ckeditor/ckeditor5-build-classic */ \"./node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js\");\nwindow.Swal = __webpack_require__(/*! sweetalert2 */ \"./node_modules/sweetalert2/dist/sweetalert2.all.js\");\nwindow.Axios = __webpack_require__(/*! axios */ \"./node_modules/axios/index.js\");\n\n\n//# sourceURL=webpack:///./jssrc/admin/vendor.js?");
+eval("window.ClassicEditor = __webpack_require__(/*! @ckeditor/ckeditor5-build-classic */ \"./node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js\");\nwindow.Swal = __webpack_require__(/*! sweetalert2 */ \"./node_modules/sweetalert2/dist/sweetalert2.all.js\");\nlet axios = __webpack_require__(/*! axios */ \"./node_modules/axios/index.js\");\nwindow.Axios = axios.create({\n  headers: {\n    'X-Requested-With': 'XMLHttpRequest'\n  }\n})\n\n\n//# sourceURL=webpack:///./jssrc/admin/vendor.js?");
 
 /***/ }),
 

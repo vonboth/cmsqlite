@@ -4,16 +4,10 @@
 namespace Admin\Models;
 
 
-use CodeIgniter\Model;
-
-class CategoriesModel extends Model
+class CategoriesModel extends BaseModel
 {
     protected $table = 'categories';
     protected $returnType = 'Admin\Models\Entities\Category';
-
-    protected $useTimestamps = true;
-    protected $updatedField = 'updated';
-    protected $createdField = 'created';
 
     protected $allowedFields = [
         'name',

@@ -3,10 +3,11 @@
 
 namespace Admin\Models\Entities;
 
-
-use CodeIgniter\Entity;
-
-class Menuitem extends Entity
+/**
+ * Class Menuitem
+ * @package Admin\Models\Entities
+ */
+class Menuitem extends Base
 {
     protected $attributes = [
         'id' => null,
@@ -23,10 +24,5 @@ class Menuitem extends Entity
         'updated' => null,
         'lft' => null,
         'rght' => null,
-    ];
-
-    protected $dates = [
-        'created',
-        'updated',
     ];
 }

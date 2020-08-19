@@ -49,6 +49,10 @@ class Articles extends Base
         );
     }
 
+    /**
+     * @param null $id
+     * @return string
+     */
     public function view($id = null)
     {
         return view(
@@ -57,10 +61,13 @@ class Articles extends Base
         );
     }
 
+    /**
+     * @return \CodeIgniter\HTTP\RedirectResponse|string
+     * @throws \ReflectionException
+     */
     public function add()
     {
         $article = new Article();
-
         if ($this->request->getMethod() === 'post') {
             if ($this->validate(
                 [
@@ -70,7 +77,8 @@ class Articles extends Base
             )) {
                 $article->fill($this->request->getPost());
                 if ($lastId = $this->Articles->insert($article) !== false) {
-                    return redirect("/admin/articles/edit/$lastId")
+                    return redirect()
+                        ->to("/admin/articles/edit/$lastId")
                         ->with('flash', lang('General.saved'));
                 } else {
                     return redirect()
@@ -94,6 +102,11 @@ class Articles extends Base
         );
     }
 
+    /**
+     * @param null $id
+     * @return \CodeIgniter\HTTP\RedirectResponse|string
+     * @throws \ReflectionException
+     */
     public function edit($id = null)
     {
         $article = $this->Articles->find($id);
@@ -131,6 +144,10 @@ class Articles extends Base
         );
     }
 
+    /**
+     * @param $id
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function delete($id)
     {
         if ($this->Articles->delete($id)) {

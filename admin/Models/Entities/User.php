@@ -6,6 +6,10 @@ namespace Admin\Models\Entities;
 
 use CodeIgniter\Entity;
 
+/**
+ * Class User
+ * @package Admin\Models\Entities
+ */
 class User extends Entity
 {
     protected $attributes = [
@@ -20,8 +24,15 @@ class User extends Entity
         'updated' => null,
     ];
 
-    protected $dates = [
-        'created',
-        'updated',
-    ];
+    /**
+     * Hash Password before handling
+     * User data
+     * @param string $password
+     * @return User
+     */
+    protected function setPassword(string $password)
+    {
+        $this->attributes['password'] = password_hash($password, PASSWORD_BCRYPT);
+        return $this;
+    }
 }

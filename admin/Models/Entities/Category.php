@@ -2,9 +2,11 @@
 
 namespace Admin\Models\Entities;
 
-use CodeIgniter\Entity;
-
-class Category extends Entity
+/**
+ * Class Category
+ * @package Admin\Models\Entities
+ */
+class Category extends Base
 {
     protected $attributes = [
         'id' => null,
@@ -13,10 +15,5 @@ class Category extends Entity
         'is_system' => null,
         'created' => null,
         'updated' => null,
-    ];
-
-    protected $dates = [
-        'created',
-        'updated',
     ];
 }

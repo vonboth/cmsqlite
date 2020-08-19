@@ -49,16 +49,16 @@
   <div class="col s12">
     <h5><?= lang('Tables.articles.content') ?></h5>
     <div>
-                <textarea name="content"
-                          rows="30"
-                          ref="CKEditor"
-                          <?= ($options['disabled']) ? 'disabled' : '' ?>
-                          id="editor"><?= old('content', $article->content) ?></textarea>
+      <textarea name="content"
+                rows="30"
+                ref="CKEditor"
+                <?= ($options['disabled']) ? 'disabled' : '' ?>
+                id="editor"><?= old('content', $article->content) ?></textarea>
     </div>
   </div>
 </div>
 
-<ul class="collapsible">
+<ul class="collapsible simple">
   <li>
     <div class="collapsible-header">
       <i class="material-icons">add_circle_outline</i><?= lang('Tables.articles.additional_information') ?></div>

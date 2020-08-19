@@ -49,6 +49,17 @@ $routes->group(
                 $routes->add('/', 'Menus::index');
             }
         );
+        /*$routes->group(
+            'menuresource',
+            function (RouteCollection $routes) {
+                $routes->get('index', '\Admin\Controllers\Resource\Menus::index');
+                $routes->get('show/(:num)', '\Admin\Controllers\Resource\Menus::show/$1');
+                $routes->post('create', '\Admin\Controllers\Resource\Menus::create');
+                $routes->post('update/(:num)', '\Admin\Controllers\Resource\Menus::update/$1');
+                $routes->post('delete/(:num)', '\Admin\Controllers\Resource\Menus::delete/$1');
+                $routes->get('/', '\Admin\Controllers\Resource\Menus::index');
+            }
+        );*/
         $routes->group(
             'users',
             function (RouteCollection $routes) {

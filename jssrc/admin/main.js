@@ -1,19 +1,37 @@
 import Vue from 'vue';
 
+// TODO: TRANSLATIONS OF JS MUST BE IMPL
 const main = new Vue({
   el: '#main',
   data: function() {
     return {
+      isLoading: false,
       selectedMenuItem: {},
+      selectedMenu: {},
       selectedMenuId: null,
+      hideMenuForm: true,
       hideMenuitemForm: true,
+      menuFormAction: '/admin/menus/add',
+      menuitemsFormAction: '/admin/menuitems/add'
     };
   },
+  // computed values
+  computed: {
+    canSaveMenu: function() {
+      return this.selectedMenu.name !== '';
+    }
+  },
+  // mounted hook
   mounted: function() {
     M.FormSelect.init(document.querySelectorAll('select:not(.no-material)'));
     M.Datepicker.init(document.querySelectorAll('input.datepicker'));
     M.Dropdown.init(document.querySelectorAll('.dropdown-trigger'));
-    M.Collapsible.init(document.querySelectorAll('.collapsible'));
+    M.Collapsible.init(document.querySelectorAll('.collapsible.simple'));
+    M.Collapsible.init(document.querySelectorAll('.collapsible.admin-menu'), {
+      onCloseEnd: function(el) {
+        this.selectedMenuId = null;
+      }.bind(this)
+    });
     M.Tabs.init(document.querySelectorAll('.tabs'));
     M.Tooltip.init(document.querySelectorAll('.tooltipped'));
     M.FloatingActionButton.init(document.querySelectorAll('.action-btn-menu'));
@@ -30,6 +48,7 @@ const main = new Vue({
     }
   },
   methods: {
+    // general dialog when deleting an item
     onDeleteItem: function(controller, id) {
       Swal.fire({
         icon: 'warning',
@@ -53,14 +72,54 @@ const main = new Vue({
     },
     // ask to delete the menuitem
     onDeleteMenuitem: function(id) {
-
+      Swal.fire();
     },
+    // add a new menu
+    onAddMenu: function() {
+      this.menuFormAction = '/admin/menus/add';
+      this.selectedMenu = {
+        name: '',
+        description: ''
+      };
+      this.hideMenuForm = false;
+    },
+    // edit a new menu
     onEditMenu: function(id) {
-      console.log('edit the menu');
+      this.menuFormAction = `/admin/menus/edit/${id}`;
+      this.selectedMenu = menus.find((menu) => menu.id === id);
+      this.hideMenuForm = false;
     },
-    onDeleteMenu: function(id) {
-      console.log('delete the menu');
+    onCancelEditMenu: function() {
+      this.selectedMenu = {};
+      this.hideMenuForm = true;
     },
+    onSaveMenu: function() {
+      this.$refs.menu_form.submit();
+    },
+    /*onDeleteMenu: function(id) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Are you sure?',
+        text: 'Do you really want to delete the item?',
+        confirmButtonText: 'yes',
+        showCancelButton: true,
+        cancelButtonText: 'no'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Axios
+            .post(`/admin/menus/delete/${id}`,
+              {cmsql_sec_token: this.getCsrfToken()}
+            )
+            .then((result) => {
+              M.toast({html: result.statusText});
+            })
+            .catch((error) => {
+              console.error(error);
+            })
+            .then(() => window.location.reload());
+        }
+      });
+    },*/
     // Menu actions:
     onChangeMenuitemTitle: function() {
       this.selectedMenuItem.alias = this.selectedMenuItem.title
@@ -71,7 +130,8 @@ const main = new Vue({
         .replace(/ß/g, 'ss')
         .replace(/Ö|ö/g, 'oe')
         .toLowerCase();
-    }
+    },
+    getCsrfToken: () => document.querySelectorAll(
+      'meta[name="X-CSRF-TOKEN"]')[0].content
   }
 });
-console.log(main);

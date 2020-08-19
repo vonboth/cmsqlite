@@ -55,7 +55,7 @@ class Users extends Base
             )) {
                 $user->fill($this->request->getPost());
                 if ($lastId = $this->Users->insert($user) !== false) {
-                    return redirect("/admin/users/edit/$lastId")
+                    return redirect()->to("/admin/users/edit/$lastId")
                         ->with('flash', lang('General.saved'));
                 } else {
                     return redirect()
@@ -87,13 +87,22 @@ class Users extends Base
             if ($this->validate(
                 [
                     'username' => 'required',
-                    //'password' => 'required_with[password,password_confirm]|matches[password_confirm]',
-                    'password' => 'password_update[8,password_confirm]',
+                    'password' => 'required_with[password,password_confirm]|matches[password_confirm]',
+                    //'password' => 'password_update[8,password_confirm]',
                     'email' => 'required|valid_email',
                     'role' => 'required',
                 ]
             )) {
-                $user->fill($this->request->getPost());
+                $user->username = $this->request->getPost('username');
+                $user->email = $this->request->getPost('email');
+                $user->firstname = $this->request->getPost('firstname');
+                $user->lastname = $this->request->getPost('lastname');
+                $user->role = $this->request->getPost('role');
+                if ($this->request->getPost('password') && $this->request->getPost('password_confirm')) {
+                    $user->password = $this->request->getPost('password');
+                }
+
+                //$user->fill($this->request->getPost());
                 if ($this->Users->save($user)) {
                     return redirect()
                         ->back()
