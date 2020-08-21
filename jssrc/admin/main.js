@@ -6,11 +6,12 @@ const main = new Vue({
   data: function() {
     return {
       isLoading: false,
-      selectedMenuItem: {},
+      hideMenuForm: true,
       selectedMenu: {},
       selectedMenuId: null,
-      hideMenuForm: true,
       hideMenuitemForm: true,
+      selectedMenuitem: {},
+      parentMenus: [],
       menuFormAction: '/admin/menus/add',
       menuitemsFormAction: '/admin/menuitems/add'
     };
@@ -19,19 +20,21 @@ const main = new Vue({
   computed: {
     canSaveMenu: function() {
       return this.selectedMenu.name !== '';
+    },
+    canSaveMenuitem: function() {
+      return this.selectedMenuitem.title !== ''
+        && (this.selectedMenuitem.article_id || this.selectedMenuitem.url);
     }
   },
   // mounted hook
   mounted: function() {
     M.FormSelect.init(document.querySelectorAll('select:not(.no-material)'));
     M.Datepicker.init(document.querySelectorAll('input.datepicker'));
-    M.Dropdown.init(document.querySelectorAll('.dropdown-trigger'));
-    M.Collapsible.init(document.querySelectorAll('.collapsible.simple'));
-    M.Collapsible.init(document.querySelectorAll('.collapsible.admin-menu'), {
-      onCloseEnd: function(el) {
-        this.selectedMenuId = null;
-      }.bind(this)
+    M.Dropdown.init(document.querySelectorAll('.dropdown-trigger'), {
+      constrainWidth: false
     });
+    M.Collapsible.init(document.querySelectorAll('.collapsible.simple'));
+    M.Collapsible.init(document.querySelectorAll('.collapsible.admin-menu'));
     M.Tabs.init(document.querySelectorAll('.tabs'));
     M.Tooltip.init(document.querySelectorAll('.tooltipped'));
     M.FloatingActionButton.init(document.querySelectorAll('.action-btn-menu'));
@@ -64,15 +67,47 @@ const main = new Vue({
     },
     // select menu id, opening the collapsible
     onSelectMenu: function(id) {
+      this.hideMenuitemForm = true;
+      this.hideMenuForm = true;
+      this.selectedMenuitem = {};
+      this.selectedMenu = {};
       this.selectedMenuId = id;
     },
     // create a new menu item
-    onAddMenuitem: function() {
-
+    onAddMenuitem: function(menuId) {
+      console.log(this.selectedMenuId);
+      this.parentMenus = menuitems
+        .filter((item) => item.menu_id === this.selectedMenuId);
+      this.selectedMenuitem = {
+        title: '',
+        parent_id: null,
+        menu_id: this.selectedMenuId,
+        article_id: null,
+        type: 'article',
+        url: null,
+        alias: '',
+        layout: 'default',
+        target: '_self',
+        lft: 0,
+        rgt: 0
+      };
+      this.hideMenuitemForm = false;
     },
-    // ask to delete the menuitem
-    onDeleteMenuitem: function(id) {
-      Swal.fire();
+    onEditMenuitem: function(id) {
+      this.selectedMenuitem = menuitems.find((item) => item.id === id);
+      this.hideMenuitemForm = false;
+    },
+    onChangeMenuitemType: function() {
+      this.selectedMenuitem.article_id = null;
+      this.selectedMenuitem.url = '';
+    },
+    onCancelEditMenuitem: function() {
+      this.selectedMenuitem = {};
+      this.hideMenuitemForm = true;
+    },
+    // save the menuitem
+    onSaveMenuitem: function() {
+      this.$refs.menuitem_form.submit();
     },
     // add a new menu
     onAddMenu: function() {
@@ -89,40 +124,18 @@ const main = new Vue({
       this.selectedMenu = menus.find((menu) => menu.id === id);
       this.hideMenuForm = false;
     },
+    // cancel edit menu
     onCancelEditMenu: function() {
       this.selectedMenu = {};
       this.hideMenuForm = true;
     },
+    // save the menu form
     onSaveMenu: function() {
       this.$refs.menu_form.submit();
     },
-    /*onDeleteMenu: function(id) {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Are you sure?',
-        text: 'Do you really want to delete the item?',
-        confirmButtonText: 'yes',
-        showCancelButton: true,
-        cancelButtonText: 'no'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          Axios
-            .post(`/admin/menus/delete/${id}`,
-              {cmsql_sec_token: this.getCsrfToken()}
-            )
-            .then((result) => {
-              M.toast({html: result.statusText});
-            })
-            .catch((error) => {
-              console.error(error);
-            })
-            .then(() => window.location.reload());
-        }
-      });
-    },*/
-    // Menu actions:
+    // auto prepare the alias
     onChangeMenuitemTitle: function() {
-      this.selectedMenuItem.alias = this.selectedMenuItem.title
+      this.selectedMenuitem.alias = this.selectedMenuitem.title
         .replace(/\s/gi, '_')
         .replace(/!|\?|"|\'|\$|&/gi, '')
         .replace(/Ä|ä/gi, 'ae')
@@ -131,6 +144,7 @@ const main = new Vue({
         .replace(/Ö|ö/g, 'oe')
         .toLowerCase();
     },
+    // read the CSRF token from the meta header
     getCsrfToken: () => document.querySelectorAll(
       'meta[name="X-CSRF-TOKEN"]')[0].content
   }

@@ -4,6 +4,7 @@
 namespace Admin\Models;
 
 
+use Admin\Controllers\Menuitems;
 use CodeIgniter\Database\ConnectionInterface;
 use CodeIgniter\Validation\ValidationInterface;
 
@@ -17,6 +18,8 @@ class MenusModel extends BaseModel
         'description'
     ];
 
+    protected $afterDelete = ['afterDelete'];
+
     /**
      * MenusModel constructor.
      * @param ConnectionInterface|null $db
@@ -29,6 +32,8 @@ class MenusModel extends BaseModel
     }
 
     /**
+     * this adds the "nested tree" to
+     * the menu as tree property
      * @return array
      */
     public function findAllMenusWithTrees()
@@ -40,5 +45,24 @@ class MenusModel extends BaseModel
         }
 
         return $menus;
+    }
+
+    /**
+     * handle after deleting a menu
+     * - delete all menuitems related to the menu
+     * @param array $data
+     */
+    public function afterDelete(array $data)
+    {
+        if ($data['result']) {
+            $Menuitems = new MenuitemsModel();
+            $items = $Menuitems->where('menu_id', $data['id'])
+                ->get()
+                ->getResult();
+
+            foreach ($items as $item) {
+                $Menuitems->delete($item->id);
+            }
+        }
     }
 }

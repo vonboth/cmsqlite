@@ -9,9 +9,20 @@ class MenuitemsModel extends BaseModel
     protected $table = 'menuitems';
     protected $returnType = 'Admin\Models\Entities\Menuitem';
     protected $beforeInsert = ['beforeInsertTree'];
+    protected $beforeDelete = ['beforeDelete'];
     protected $allowedFields = [
-        'id', 'title', 'parent_id', 'menu_id', 'article_id', 'type',
-        'url', 'alias', 'layout', 'target', 'lft', 'rgt'
+        'id',
+        'title',
+        'parent_id',
+        'menu_id',
+        'article_id',
+        'type',
+        'url',
+        'alias',
+        'layout',
+        'target',
+        'lft',
+        'rgt'
     ];
 
     /**
@@ -20,11 +31,6 @@ class MenuitemsModel extends BaseModel
      */
     public function findLeveledNodes($menu_id = null)
     {
-        /*SELECT node.title, node.parent_id, COUNT(*)-1 AS level
-            FROM menuitems AS node, menuitems AS parent
-            WHERE node.lft BETWEEN parent.lft AND parent.rgt
-            GROUP BY node.lft
-            ORDER BY node.lft*/
         $builder = $this->builder();
         $builder
             ->select(
@@ -55,6 +61,8 @@ class MenuitemsModel extends BaseModel
     }
 
     /**
+     * creates a nested tree from the menuitems
+     *
      * @param null $menu_id
      * @return mixed
      */
@@ -84,25 +92,61 @@ class MenuitemsModel extends BaseModel
         return $levels[0];
     }
 
-    public function moveUp()
+    /**
+     * Move an item up within
+     * it's branch (lft/rgt borders)
+     *
+     * @param int|null $id the id of the item
+     */
+    public function moveUp($id = null)
     {
     }
 
-    public function moveDown()
+    /**
+     * move an item down within
+     * it's branch (lft/rgt borders)
+     *
+     * @param int|null $id the id of the item
+     */
+    public function moveDown($id)
     {
     }
 
-    public function recover()
+    /**
+     * before delete handler
+     * for deleting menuitems
+     * - recover lft/rgt values
+     * @param array $data
+     */
+    public function beforeDelete(array $data)
     {
     }
 
-    public function removeFromTree()
-    {
-    }
-
+    /**
+     * Update the tree before inserting
+     * a new menuitem
+     * @param array $data
+     * @return array
+     */
     protected function beforeInsertTree(array $data)
     {
         $builder = $this->builder();
-        $builder->update(['rgt' => 'rgt + 2'], "rgt >= {$data['rgt']}");
+        $max = $builder->select('max(rgt) as maxRgt')
+            ->get()
+            ->getResult()[0];
+
+        if (!$data['data']['parent_id']) {
+            $data['data']['lft'] = $max->maxRgt + 1;
+            $data['data']['rgt'] = $max->maxRgt + 2;
+        } elseif ($data['data']['parent_id']) {
+            $parentItem = $this->where('id', $data['data']['parent_id'])->first();
+            $rgt = $parentItem->rgt;
+            $data['data']['lft'] = $rgt;
+            $data['data']['rgt'] = $rgt + 1;
+            $this->db->query('UPDATE menuitems SET rgt=rgt+2 WHERE rgt >= ' . $rgt);
+            $this->db->query('UPDATE menuitems SET lft=lft+2 WHERE lft > ' . $rgt);
+        }
+
+        return $data;
     }
 }

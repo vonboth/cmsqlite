@@ -16,6 +16,7 @@ class UserRules
      */
     public function password_update(string $str, string $vars, array $data): bool
     {
+        // TODO: Testen, warum diese Regel eine Exception wirft!
         $vars = explode(',', $vars);
 
         //if password is not set, dismiss validation

@@ -1,5 +1,5 @@
 <div class="row">
-  <div>
+  <div class="col s12">
       <?= $validator->listErrors() ?>
   </div>
 </div>

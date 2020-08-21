@@ -1,8 +1,8 @@
 <div class=""
-     :class="{hide: hideMenuForm}"
-     id="menu-form">
+     :class="{hide: hideMenuForm}">
   <form ref="menu_form" method="post" :action="menuFormAction">
-    <?= csrf_field() ?>
+      <?= csrf_field() ?>
+
     <div class="card">
       <div class="progress" :class="{hide: !(isLoading)}">
         <div class="indeterminate"></div>

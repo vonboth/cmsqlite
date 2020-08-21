@@ -17,12 +17,12 @@ class Menuitem extends Base
         'article_id' => null,
         'type' => null,
         'url' => null,
-        'alias',
-        'layout',
-        'target',
+        'alias' => null,
+        'layout' => null,
+        'target' => null,
+        'lft' => null,
+        'rgt' => null,
         'created' => null,
         'updated' => null,
-        'lft' => null,
-        'rght' => null,
     ];
 }

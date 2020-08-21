@@ -185,6 +185,7 @@ li.menu-administration .collapsible-header {
     display: inline-block !important;
     border: none;
     line-height: 30px;
+    flex-grow: 2;
 }
 .collapsible-header-wrapper {
     border-bottom: 1px solid #ddd;

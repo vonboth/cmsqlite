@@ -9,6 +9,8 @@ $this->extend('AdminThemes\default\default') ?>
 
 <?php
 $this->section('main') ?>
+<?= $this->include('Admin\Partials\form_errors'); ?>
+
 <div class="row">
   <div class="col s12">
     <a href="javascript: void(0)"
@@ -24,6 +26,7 @@ $this->section('main') ?>
   </div>
   <div class="col s8">
       <?= $this->include('\Admin\Menus\partials\menu_form') ?>
+      <?= $this->include('\Admin\Menus\partials\menuitem_form') ?>
   </div>
 </div>
 
@@ -34,6 +37,7 @@ $this->endSection() ?>
 $this->section('js') ?>
 <script>
   var menus = <?= json_encode($menus) ?>;
+  var menuitems = <?= json_encode($menuitems) ?>;
 </script>
 <?php
 $this->endSection('js') ?>

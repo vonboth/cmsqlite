@@ -3,29 +3,24 @@
 
 namespace Admin\Controllers;
 
-
-use Admin\Models\Entities\Menu;
+use Admin\Models\Entities\Menuitem;
 use Admin\Models\MenuitemsModel;
-use Admin\Models\MenusModel;
-use App\Models\ArticlesModel;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
 
 /**
- * Class Articles
+ * Class Menuitems
  * @package Admin\Controllers
- * @property MenusModel $Menus
- * @property MenuitemsModel $Menuitems
- * @property ArticlesModel $Articles
+ * @property MenuitemsModel $Menuitems;
  */
-class Menus extends Base
+class Menuitems extends Base
 {
-    protected $Menus;
+    /** @var MenuitemsModel $Menuitems */
     protected $Menuitems;
-    protected $Articles;
 
     /**
+     * init controller
      * @param RequestInterface $request
      * @param ResponseInterface $response
      * @param LoggerInterface $logger
@@ -36,56 +31,37 @@ class Menus extends Base
         LoggerInterface $logger
     ) {
         parent::initController($request, $response, $logger);
-        $this->Menus = new MenusModel();
         $this->Menuitems = new MenuitemsModel();
-        $this->Articles = new ArticlesModel();
     }
 
     /**
-     * index page for menus
-     *
-     * @return string
-     */
-    public function index()
-    {
-        $menutrees = $this->Menus->findAllMenusWithTrees();
-        $menus = $this->Menus->findAll();
-        $menuitems = $this->Menuitems->findAll();
-        $articles = $this->Articles->findAll();
-
-        return view(
-            'Admin\Menus\index',
-            [
-                'menutrees' => $menutrees,
-                'menus' => $menus,
-                'menuitems' => $menuitems,
-                'articles' => $articles,
-                'validator' => $this->validator
-            ]
-        );
-    }
-
-    /**
-     * add menu
-     *
-     * @return \CodeIgniter\HTTP\RedirectResponse|string
+     * add menu item
+     * @return \CodeIgniter\HTTP\RedirectResponse
      * @throws \ReflectionException
      */
     public function add()
     {
-        $menu = new Menu();
+        // TODO: required_if rule programmieren
+        $item = new Menuitem();
         if ($this->request->getMethod() === 'post') {
-            if ($this->validate(['name' => 'required'])) {
-                $menu->fill($this->request->getPost());
-                if ($lastId = $this->Menus->insert($menu) !== false) {
+            if ($this->validate(
+                [
+                    'title' => 'required',
+                    'menu_id' => 'required',
+                    'type' => 'in_list[article,other]',
+                    'article_id' => 'required_if[type,article]',
+                    'url' => 'required_if[type,other]'
+                ]
+            )) {
+                $item->fill($this->request->getPost());
+                if ($this->Menuitems->insert($item) !== false) {
                     return redirect()
                         ->to('/admin/menus/index')
                         ->with('flash', lang('General.saved'));
                 } else {
                     return redirect()
                         ->to('/admin/menus/index')
-                        ->withInput()
-                        ->with('flash', lang('General.save_error'));
+                        ->with('flash', lang('General. save_error'));
                 }
             } else {
                 return redirect()
@@ -101,27 +77,25 @@ class Menus extends Base
     }
 
     /**
-     * edit menu
-     *
+     * edit menuitem
      * @param null $id
-     * @return string
-     * @throws \ReflectionException
+     * @return \CodeIgniter\HTTP\RedirectResponse
      */
     public function edit($id = null)
     {
-        $menu = $this->Menus->find($id);
+        $item = $this->Menuitems->find($id);
         if ($this->request->getMethod() === 'post') {
-            if ($this->validate(['name' => 'required'])) {
-                $menu->fill($this->request->getPost());
+            if ($this->validate([])) {
+                $item->fill($this->request->getPost());
                 try {
-                    if ($this->Menus->save($menu)) {
+                    if ($this->Menuitems->save($item)) {
                         return redirect()
                             ->to('/admin/menus/index')
                             ->with('flash', lang('General.saved'));
                     } else {
                         return redirect()
                             ->to('/admin/menus/index')
-                            ->with('flash', lang('General.save_error'));
+                            ->with('flash', lang('General. save_error'));
                     }
                 } catch (\Exception $exception) {
                     return redirect()
@@ -136,17 +110,17 @@ class Menus extends Base
         }
         return redirect()
             ->to('/admin/menus/index')
-            ->with('flash', 'Not Implemented');
+            ->with('flash', 'Not implemented');
     }
 
     /**
-     * delete menu
-     * @param $id
+     * delete menu item
+     * @param null $id
      * @return \CodeIgniter\HTTP\RedirectResponse
      */
-    public function delete($id)
+    public function delete($id = null)
     {
-        if ($this->Menus->delete($id)) {
+        if ($this->Menuitems->delete($id)) {
             return redirect()
                 ->to('/admin/menus/index')
                 ->with('flash', lang('General.deleted'));
