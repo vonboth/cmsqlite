@@ -30,7 +30,7 @@ class Base extends AppBase
         $this->validator = Services::validation(new Validation());
         parent::initController($request, $response, $logger);
         $this->view = Services::renderer();
-        helper(['form', 'Admin\Helpers\tree_helper']);
+        helper(['form', 'Admin\Helpers\tree_helper', 'inflector']);
         $this->controllerName = $this->parseControllerName();
         $this->view->setData(
             [

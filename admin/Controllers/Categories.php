@@ -27,12 +27,9 @@ class Categories extends Base
 
     public function index()
     {
-        /** @var  $query */
-        $query = $this->db->table('categories')->get();
-
         return view(
             'Admin\Categories\index',
-            ['categories' => $query->getResult()]
+            ['categories' => $this->Categories->findAll()]
         );
     }
 

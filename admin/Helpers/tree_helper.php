@@ -44,14 +44,27 @@ if (!function_exists('tree_list')) {
             $css .= ' level' . $menuitem['level'];
             $ul .= "<li class='{$css}'>
 <div class='flex space-between'>
-    <a href='javascript:void(0)' 
-       title='" . lang('Menu.edit_menu_item') . "'
-       @click='onEditMenuitem({$menuitem['id']})'>{$menuitem['title']}</a>
+  <a href='javascript:void(0)' 
+     class='menuitem-title'
+     title='" . lang('Menu.edit_menu_item') . "'
+     @click='onEditMenuitem({$menuitem['id']})'>{$menuitem['title']}</a>
+  <div>
+    <a href='/admin/menuitems/movedown/{$menuitem['id']}'
+       :class='{hide: !hasAncestor({$menuitem['rgt']}, {$menuitem['menu_id']})}'
+       title='" . lang('Menu.move_item_down') . "'>
+      <i class='material-icons'>arrow_downward</i>
+    </a>
+    <a href='/admin/menuitems/moveup/{$menuitem['id']}'
+       :class='{hide: !hasParent({$menuitem['lft']}, {$menuitem['menu_id']})}'
+       title='" . lang('Menu.move_item_up') . "'>
+      <i class='material-icons'>arrow_upward</i>
+    </a>
     <span class='clickable' 
           title='" . lang('Menu.delete_menu_item') . "'
           @click='onDeleteMenuitem({$menuitem['id']})'>
       <i class='material-icons'>delete</i>
     </span>
+  </div>
 </div>";
 
             if (count($menuitem['children']) > 0) {

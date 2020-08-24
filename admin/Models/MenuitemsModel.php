@@ -9,7 +9,6 @@ class MenuitemsModel extends BaseModel
     protected $table = 'menuitems';
     protected $returnType = 'Admin\Models\Entities\Menuitem';
     protected $beforeInsert = ['beforeInsertTree'];
-    protected $beforeDelete = ['beforeDelete'];
     protected $allowedFields = [
         'id',
         'title',
@@ -100,6 +99,8 @@ class MenuitemsModel extends BaseModel
      */
     public function moveUp($id = null)
     {
+        $nodeToMove = $this->find($id);
+        return $this->_move($nodeToMove);
     }
 
     /**
@@ -110,16 +111,130 @@ class MenuitemsModel extends BaseModel
      */
     public function moveDown($id)
     {
+        $nodeToMove = $this->find($id);
+        $lowerNode = $this
+            ->where('lft', ($nodeToMove->rgt + 1))
+            ->where('menu_id', $nodeToMove->menu_id)
+            ->first();
+
+        return $this->_move($lowerNode);
     }
+
+    /**
+     * Move node
+     * @param $nodeToMove
+     * @return bool
+     */
+    private function _move($nodeToMove)
+    {
+        $upperNode = $this
+            ->where('rgt', ($nodeToMove->lft - 1))
+            ->where('menu_id', $nodeToMove->menu_id)
+            ->first();
+
+        // no item available? return;
+        if (!$upperNode) {
+            return true;
+        }
+        $lftDist = $nodeToMove->lft - $upperNode->lft;
+        $rgtDist = $nodeToMove->rgt - $upperNode->rgt;
+
+        $nodesToMoveUp = $this
+            ->where("lft BETWEEN $nodeToMove->lft AND $nodeToMove->rgt")
+            ->orderBy('lft')
+            ->get()
+            ->getResult();
+        $nodesToMoveDown = $this
+            ->where("lft BETWEEN $upperNode->lft AND $upperNode->rgt")
+            ->orderBy('lft')
+            ->get()
+            ->getResult();
+
+        try {
+            // set lft/rgt for node in new pos
+            foreach ($nodesToMoveUp as $node) {
+                $node->lft = $node->lft - $lftDist;
+                $node->rgt = $node->rgt - $lftDist;
+                $this->save($node);
+            }
+
+            // set lft/rgt for node moved down
+            foreach ($nodesToMoveDown as $node) {
+                $node->lft = $node->lft + $rgtDist;
+                $node->rgt = $node->rgt + $rgtDist;
+                $this->save($node);
+            }
+        } catch (\Exception $exception) {
+            return false;
+        }
+
+        return true;
+    }
+
 
     /**
      * before delete handler
      * for deleting menuitems
      * - recover lft/rgt values
-     * @param array $data
+     * @param int $id
+     * @param bool $removeTree whether to remove the complete branch
+     * @return bool
      */
-    public function beforeDelete(array $data)
+    public function removeFromTree($id, $removeTree = false)
     {
+        /* einzelnes entfernen
+         * DELETE FROM tree WHERE lft=3;
+	        UPDATE tree SET lft=lft-2 WHERE lft>4;
+	        UPDATE tree SET rgt=rgt-2 WHERE rgt>4;
+         *
+         * ganzen Baum löschen
+         * DELETE FROM tree WHERE lft BETWEEN $LFT AND $RGT;
+	        UPDATE tree SET lft=lft-ROUND(($RGT-$LFT+1)) WHERE lft>$RGT;
+	        UPDATE tree SET rgt=rgt-ROUND(($RGT-$LFT+1)) WHERE rgt>$RGT;
+         *
+         * erhalten
+         * DELETE FROM tree WHERE lft = $LFT;
+	        UPDATE tree SET lft=lft-1, rgt=rgt-1 WHERE lft BETWEEN $LFT AND $RGT;
+	        UPDATE tree SET lft=lft-2 WHERE lft>$RGT;
+	        UPDATE tree SET rgt=rgt-2 WHERE rgt>$RGT;
+         */
+
+        $builder = $this->builder();
+        $item = $this->find($id);
+        if (!$item) {
+            return false;
+        }
+
+        $rgt = $item->rgt;
+        $lft = $item->lft;
+
+        if ($rgt - $lft == 1) {
+            // remove single
+            $result = $builder->delete("id={$item->id}");
+            $result = $this->db->query("UPDATE menuitems SET lft=lft-2 WHERE lft>{$rgt}");
+            $result = $this->db->query("UPDATE menuitems SET rgt=rgt-2 WHERE rgt>{$rgt}");
+            return true;
+        } elseif (($rgt - $lft > 1) && $removeTree) {
+            // remove tree
+            $result = $builder->delete("lft BETWEEN $lft AND $rgt");
+            $result = $this->db->query(
+                'UPDATE menuitems SET lft=lft-ROUND(' . ($rgt - $lft + 1) . ') WHERE lft>' . $rgt
+            );
+            $result = $this->db->query(
+                'UPDATE menuitems SET rgt=rgt-ROUND(' . ($rgt - $lft + 1) . ') WHERE rgt>' . $rgt
+            );
+            return true;
+        } elseif (($rgt - $lft > 1) && !$removeTree) {
+            // remove single but keep elements below the item
+            $parentId = is_null($item->parent_id) ? 'NULL' : $item->parent_id;
+            $result = $builder->delete("id=$item->id");
+            $result = $this->db->query(
+                "UPDATE menuitems SET lft=lft-1, rgt=rgt-1, parent_id=$parentId WHERE lft BETWEEN $lft AND $rgt"
+            );
+            $result = $this->db->query("UPDATE menuitems SET lft=lft-2 WHERE lft>$rgt");
+            $result = $this->db->query("UPDATE menuitems SET rgt=rgt-2 WHERE rgt>$rgt");
+        }
+        return false;
     }
 
     /**

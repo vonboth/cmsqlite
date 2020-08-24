@@ -11,6 +11,15 @@ class ArticlesModel extends BaseModel
     protected $updatedField = 'updated';
     protected $createdField = 'created';
 
+    protected $beforeUpdate = ['setStartpageFlagToNull'];
+
+    protected $relations = [
+        'categories' => [
+            'type' => 'belongsTo',
+            'key' => 'category_id'
+        ]
+    ];
+
     protected $allowedFields = [
         'is_startpage',
         'title',
@@ -24,4 +33,17 @@ class ArticlesModel extends BaseModel
         'start_publish',
         'stop_publish',
     ];
+
+    /**
+     * set all flags is_startpage to null
+     * so that we will have only one startpage
+     *
+     * @param array $data
+     */
+    protected function setStartpageFlagToNull(array $data)
+    {
+        if ($data['data']['is_startpage']) {
+            $this->db->query('UPDATE articles SET is_startpage=NULL');
+        }
+    }
 }

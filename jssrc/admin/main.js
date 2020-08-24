@@ -57,10 +57,12 @@ const main = new Vue({
         icon: 'warning',
         title: 'delete item',
         text: 'are you sure to delete the selected item?',
-        showCancelButton: true
+        showCancelButton: true,
+        cancelButtonText: 'no',
+        confirmButtonText: 'yes'
       })
         .then(function(result) {
-          if (result.value) {
+          if (result.isConfirmed) {
             window.location.href = `/admin/${controller}/delete/${id}`;
           }
         });
@@ -73,9 +75,14 @@ const main = new Vue({
       this.selectedMenu = {};
       this.selectedMenuId = id;
     },
+    hasAncestor: function(rgt, menu_id) {
+      return menuitems.find((item) => (item.lft === (rgt + 1) && item.menu_id === menu_id))
+    },
+    hasParent: function(lft, menu_id) {
+      return menuitems.find((item) => (item.rgt === (lft - 1) && item.menu_id === menu_id ))
+    },
     // create a new menu item
     onAddMenuitem: function(menuId) {
-      console.log(this.selectedMenuId);
       this.parentMenus = menuitems
         .filter((item) => item.menu_id === this.selectedMenuId);
       this.selectedMenuitem = {
@@ -108,6 +115,37 @@ const main = new Vue({
     // save the menuitem
     onSaveMenuitem: function() {
       this.$refs.menuitem_form.submit();
+    },
+    onDeleteMenuitem: function(id) {
+      let menuitem = menuitems.find((item) => item.id === id),
+        withInput = false,
+        options = {
+          icon: 'warning',
+          title: 'Delete menu item',
+          text: 'are you sure to delete the selected item?',
+          showCancelButton: true,
+          cancelButtonText: 'no',
+          confirmButtonText: 'yes'
+        };
+
+      if (menuitem.rgt - menuitem.lft > 1) {
+        withInput = true;
+        options = Object.assign(options, {
+          input: 'checkbox',
+          inputValue: 0,
+          inputPlaceholder: 'delete menu item with all children?'
+        });
+      }
+      Swal.fire(options)
+        .then((result) => {
+          if (result.isConfirmed) {
+            let url = `/admin/menuitems/delete/${id}`;
+            if (withInput) {
+              url = url + `?remove_tree=${result.value}`;
+            }
+            window.location.href = url;
+          }
+        });
     },
     // add a new menu
     onAddMenu: function() {

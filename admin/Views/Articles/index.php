@@ -14,7 +14,11 @@ $this->section('main') ?>
         <table class="responsive-table">
           <thead>
           <tr>
-            <th><?= lang('title') ?></th>
+            <th><?= lang('Tables.articles.is_startpage') ?></th>
+            <th><?= lang('Tables.articles.title') ?></th>
+            <th><?= lang('Tables.articles.description') ?></th>
+            <th><?= lang('Tables.articles.category_id') ?></th>
+            <th><?= lang('Tables.articles.published') ?></th>
             <th><?= lang('action') ?></th>
           </tr>
           </thead>
@@ -22,7 +26,19 @@ $this->section('main') ?>
           <?php
           foreach ($articles as $article): ?>
             <tr>
+              <td><?= $article->is_startpage ?
+                      '<span><i class="material-icons">check</i></span>'
+                      : '<span><i class="material-icons">clear</i></span>' ?>
+              </td>
               <td><?= $article->title ?></td>
+              <td><?= $article->description ?></td>
+              <td>
+                  <?= (is_null($article->category)) ? '' : $article->category->name ?>
+              </td>
+              <td><?= $article->published ?
+                      '<span><i class="material-icons">check</i></span>'
+                      : '<span><i class="material-icons">clear</i></span>' ?>
+              </td>
               <td>
                   <?= $this->include(
                       'Admin\Partials\table_action',

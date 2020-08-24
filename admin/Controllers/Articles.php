@@ -39,13 +39,9 @@ class Articles extends Base
     public function index()
     {
         /** @var  $query */
-        $query = $this->db->table('articles')
-            ->join('categories', 'articles.category_id = categories.id', 'left')
-            ->get();
-
         return view(
             'Admin\Articles\index',
-            ['articles' => $query->getResult()]
+            ['articles' => $this->Articles->findAllWith('categories')]
         );
     }
 

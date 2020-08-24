@@ -50,7 +50,8 @@ class Menuitems extends Base
                     'menu_id' => 'required',
                     'type' => 'in_list[article,other]',
                     'article_id' => 'required_if[type,article]',
-                    'url' => 'required_if[type,other]'
+                    'url' => 'required_if[type,other]',
+                    'alias' => 'is_unique[menuitems.alias]'
                 ]
             )) {
                 $item->fill($this->request->getPost());
@@ -120,7 +121,8 @@ class Menuitems extends Base
      */
     public function delete($id = null)
     {
-        if ($this->Menuitems->delete($id)) {
+        $removeFromTree = (bool)$this->request->getGet('remove_tree');
+        if ($this->Menuitems->removeFromTree($id, $removeFromTree)) {
             return redirect()
                 ->to('/admin/menus/index')
                 ->with('flash', lang('General.deleted'));
@@ -129,5 +131,36 @@ class Menuitems extends Base
                 ->to('/admin/menus/index')
                 ->with('flash', lang('General.delete_error'));
         }
+    }
+
+    /**
+     * Move an item in the menu
+     * @param null $id
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
+    public function moveup($id = null)
+    {
+        $flash = ($this->Menuitems->moveUp($id)) ? lang('Menu.node_move_success')
+            : lang('Menus.node_move_error');
+
+        return redirect()
+            ->to('/admin/menus/index')
+            ->with('flash', $flash);
+    }
+
+    /**
+     * move item in the menu
+     *
+     * @param null $id
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
+    public function movedown($id = null)
+    {
+        $flash = ($this->Menuitems->moveDown($id)) ? lang('Menu.node_move_success')
+            : lang('Menus.node_move_error');
+
+        return redirect()
+            ->to('/admin/menus/index')
+            ->with('flash', $flash);
     }
 }

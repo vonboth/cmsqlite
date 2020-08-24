@@ -57,6 +57,8 @@ $routes->group(
                 $routes->add('edit/(:num)', 'Menuitems::edit/$1');
                 $routes->add('view/(:num)', 'Menus::index');
                 $routes->add('delete/(:num)', 'Menuitems::delete/$1');
+                $routes->add('moveup/(:num)', 'Menuitems::moveup/$1');
+                $routes->add('movedown/(:num)', 'Menuitems::movedown/$1');
                 $routes->add('/', 'Menus::index');
             }
         );

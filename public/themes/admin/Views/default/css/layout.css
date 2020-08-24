@@ -160,7 +160,7 @@ li.level1 {
     margin-left: .75rem;
 }
 
-li.level1 a::before {
+li.level1 a.menuitem-title::before {
     font-family: "Material Icons";
     content: '\E5C8';
     margin-right: .25rem;

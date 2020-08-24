@@ -34,7 +34,7 @@ $this->section('main') ?>
 $this->endSection() ?>
 
 <?php
-$this->section('js') ?>
+$this->section('js_vars') ?>
 <script>
   var menus = <?= json_encode($menus) ?>;
   var menuitems = <?= json_encode($menuitems) ?>;
