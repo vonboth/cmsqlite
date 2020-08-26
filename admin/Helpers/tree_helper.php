@@ -68,7 +68,7 @@ if (!function_exists('tree_list')) {
 </div>";
 
             if (count($menuitem['children']) > 0) {
-                $ul .= admin_menu_list($menuitem['children']);
+                $ul .= admin_menu_list($menuitem['children'], 'ul_child');
             }
 
             $ul .= '</li>';

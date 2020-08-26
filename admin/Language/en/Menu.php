@@ -9,8 +9,8 @@ return [
     'add_menu_item' => 'Add menu item',
     'edit_menu_item' => 'Edit menu item',
     'delete_menu_item' => 'Delete menu item',
-    'node_move_success' => 'Node successfully moved',
-    'node_move_error' => 'Error moving menu node',
+    'node_move_success' => 'Node moved successfully',
+    'node_move_error' => 'Failed to move node',
     'move_item_down' => 'Move item down',
     'move_item_up' => 'Move item up',
 ];

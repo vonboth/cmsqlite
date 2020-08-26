@@ -32,8 +32,8 @@
               <i class="material-icons">person</i>
             </a>
             <ul id="profile_menu" class="dropdown-content">
-              <li><a href="#!">My Profile</a></li>
-              <li><a href="#!">Logout</a></li>
+              <li><a href="/admin/profile">My Profile</a></li>
+              <li><a href="/admin/authenticate/logout"><?= lang('User.logout') ?></a></li>
             </ul>
           </li>
         </ul>

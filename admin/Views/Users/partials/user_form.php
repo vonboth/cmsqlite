@@ -1,7 +1,3 @@
-<?php
-/** @var \Admin\Models\Entities\Category $user */
-
-?>
 <div class=row>
   <div class="col s12 <?= (is_null($user->id) ? 'hide' : '') ?>">
         <span class="right">
@@ -12,7 +8,7 @@
 </div>
 
 <div class="row">
-  <div class="input-field col s6">
+  <div class="input-field col s12 m6">
     <input id="username"
            name="username"
            value="<?= old('username', $user->username) ?>"
@@ -20,9 +16,9 @@
            type="text"
            class="validate"
            required="required">
-    <label for="username"><?= lang('username') ?></label>
+    <label for="username"><?= lang('Table.users.username') ?></label>
   </div>
-  <div class="input-field col s6">
+  <div class="input-field col s12 m6">
     <input id="email"
            name="email"
         <?= ($options['disabled']) ? 'disabled' : '' ?>
@@ -30,13 +26,13 @@
            type="text"
            required="required"
            class="validate">
-    <label for="email"><?= lang('email') ?></label>
+    <label for="email"><?= lang('Table.users.email') ?></label>
   </div>
 </div>
 <?php
 if (!$options['disabled']): ?>
   <div class="row">
-    <div class="input-field col s6">
+    <div class="input-field col s12 m6">
       <input id="password"
           <?= ($options['disabled']) ? 'disabled' : '' ?>
              name="password"
@@ -44,9 +40,9 @@ if (!$options['disabled']): ?>
              class="validate"
           <?= (!$edit) ? 'required' : '' ?>
       >
-      <label for="password"><?= lang('password') ?></label>
+      <label for="password"><?= lang('Table.users.password') ?></label>
     </div>
-    <div class="input-field col s6">
+    <div class="input-field col s12 m6">
       <input id="password-confirm"
           <?= ($options['disabled']) ? 'disabled' : '' ?>
              name="password_confirm"
@@ -54,33 +50,34 @@ if (!$options['disabled']): ?>
              class="validate"
           <?= (!$edit) ? 'required' : '' ?>
       >
-      <label for="password-confirm"><?= lang('confirm password') ?></label>
+      <label for="password-confirm"><?= lang('Table.users.confirm_password') ?></label>
     </div>
   </div>
 <?php
 endif; ?>
 
 <div class="row">
-  <div class="input-field col s6">
+  <div class="input-field col s12 m6">
     <input id="firstname"
            name="firstname"
         <?= ($options['disabled']) ? 'disabled' : '' ?>
            value="<?= old('firstname', $user->firstname) ?>"
            type="text"
            class="validate">
-    <label for="firstname"><?= lang('firstname') ?></label>
+    <label for="firstname"><?= lang('Table.users.firstname') ?></label>
   </div>
-  <div class="input-field col s6">
+  <div class="input-field col s12 m6">
     <input id="lastname"
            name="lastname"
         <?= ($options['disabled']) ? 'disabled' : '' ?>
            value="<?= old('lastname', $user->lastname) ?>"
            type="text">
-    <label for="lastname"><?= lang('lastname') ?></label>
+    <label for="lastname"><?= lang('Table.users.lastname') ?></label>
   </div>
 </div>
+
 <div class="row">
-  <div class="input-field col s6">
+  <div class="input-field col s12 m6">
       <?= form_dropdown(
           'role',
           [
@@ -91,7 +88,7 @@ endif; ?>
           $user->role,
           ($options['disabled']) ? 'disabled' : ''
       ) ?>
-    <label for="role"><?= lang('role') ?></label>
+    <label for="role"><?= lang('Table.users.role') ?></label>
   </div>
 </div>
 

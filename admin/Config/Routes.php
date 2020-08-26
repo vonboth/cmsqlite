@@ -11,11 +11,12 @@ $routes->group(
     'admin',
     ['namespace' => 'Admin\Controllers'],
     function (RouteCollection $routes) {
-        $routes->get('authenticate/login', 'Authenticate::login');
-        $routes->post('authenticate/login', 'Authenticate::authenticate');
-        $routes->get('authenticate/logout', 'Authenticate::logout');
         $routes->add('/', 'Start::index');
         $routes->add('start', 'Start::index');
+        $routes->group('authenticate', function(RouteCollection $routes) {
+            $routes->add('login', 'Authenticate::login');
+            $routes->get('logout', 'Authenticate::logout');
+        });
         $routes->group(
             'articles',
             function (RouteCollection $routes) {
@@ -71,6 +72,14 @@ $routes->group(
                 $routes->add('view/(:num)', 'Users::view/$1');
                 $routes->add('delete/(:num)', 'Users::delete/$1');
                 $routes->add('/', 'Users::index');
+            }
+        );
+        $routes->group(
+            'profile',
+            function(RouteCollection $routes) {
+                $routes->get('index', 'Profile::edit');
+                $routes->add('edit', 'Profile::edit');
+                $routes->add('/', 'Profile::edit');
             }
         );
     }

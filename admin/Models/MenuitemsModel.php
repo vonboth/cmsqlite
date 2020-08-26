@@ -96,6 +96,7 @@ class MenuitemsModel extends BaseModel
      * it's branch (lft/rgt borders)
      *
      * @param int|null $id the id of the item
+     * @return bool
      */
     public function moveUp($id = null)
     {
@@ -108,6 +109,7 @@ class MenuitemsModel extends BaseModel
      * it's branch (lft/rgt borders)
      *
      * @param int|null $id the id of the item
+     * @return bool
      */
     public function moveDown($id)
     {
@@ -210,29 +212,29 @@ class MenuitemsModel extends BaseModel
 
         if ($rgt - $lft == 1) {
             // remove single
-            $result = $builder->delete("id={$item->id}");
-            $result = $this->db->query("UPDATE menuitems SET lft=lft-2 WHERE lft>{$rgt}");
-            $result = $this->db->query("UPDATE menuitems SET rgt=rgt-2 WHERE rgt>{$rgt}");
+            $builder->delete("id={$item->id}");
+            $this->db->query("UPDATE menuitems SET lft=lft-2 WHERE lft>{$rgt}");
+            $this->db->query("UPDATE menuitems SET rgt=rgt-2 WHERE rgt>{$rgt}");
             return true;
         } elseif (($rgt - $lft > 1) && $removeTree) {
             // remove tree
-            $result = $builder->delete("lft BETWEEN $lft AND $rgt");
-            $result = $this->db->query(
+            $builder->delete("lft BETWEEN $lft AND $rgt");
+            $this->db->query(
                 'UPDATE menuitems SET lft=lft-ROUND(' . ($rgt - $lft + 1) . ') WHERE lft>' . $rgt
             );
-            $result = $this->db->query(
+            $this->db->query(
                 'UPDATE menuitems SET rgt=rgt-ROUND(' . ($rgt - $lft + 1) . ') WHERE rgt>' . $rgt
             );
             return true;
         } elseif (($rgt - $lft > 1) && !$removeTree) {
             // remove single but keep elements below the item
             $parentId = is_null($item->parent_id) ? 'NULL' : $item->parent_id;
-            $result = $builder->delete("id=$item->id");
-            $result = $this->db->query(
+            $builder->delete("id=$item->id");
+            $this->db->query(
                 "UPDATE menuitems SET lft=lft-1, rgt=rgt-1, parent_id=$parentId WHERE lft BETWEEN $lft AND $rgt"
             );
-            $result = $this->db->query("UPDATE menuitems SET lft=lft-2 WHERE lft>$rgt");
-            $result = $this->db->query("UPDATE menuitems SET rgt=rgt-2 WHERE rgt>$rgt");
+            $this->db->query("UPDATE menuitems SET lft=lft-2 WHERE lft>$rgt");
+            $this->db->query("UPDATE menuitems SET rgt=rgt-2 WHERE rgt>$rgt");
         }
         return false;
     }
@@ -245,14 +247,15 @@ class MenuitemsModel extends BaseModel
      */
     protected function beforeInsertTree(array $data)
     {
-        $builder = $this->builder();
-        $max = $builder->select('max(rgt) as maxRgt')
-            ->get()
-            ->getResult()[0];
-
         if (!$data['data']['parent_id']) {
+            $max = $this->select('max(rgt) as maxRgt')
+                ->where('menu_id', $data['data']['menu_id'])
+                ->first();
+
             $data['data']['lft'] = $max->maxRgt + 1;
             $data['data']['rgt'] = $max->maxRgt + 2;
+            $this->db->query('UPDATE menuitems SET rgt=rgt+2 WHERE rgt > ' . $max->maxRgt);
+            $this->db->query('UPDATE menuitems SET lft=lft+2 WHERE lft > ' . $max->maxRgt);
         } elseif ($data['data']['parent_id']) {
             $parentItem = $this->where('id', $data['data']['parent_id'])->first();
             $rgt = $parentItem->rgt;

@@ -1,8 +1,11 @@
 <?php
+/**
+ * view to create menus
+ */
 
 /** @var $menutrees */
-
 /** @var $menus */
+/** @var $menuitems */
 /** @var $articles */
 
 $this->extend('AdminThemes\default\default') ?>

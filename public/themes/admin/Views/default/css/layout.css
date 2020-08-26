@@ -157,7 +157,16 @@ select.no-material {
 }
 
 li.level1 {
+    margin-left: .25rem;
+}
+li.level2 {
+    margin-left: .5rem;
+}
+li.level3 {
     margin-left: .75rem;
+}
+li.level4 {
+    margin-left: 1rem;
 }
 
 li.level1 a.menuitem-title::before {

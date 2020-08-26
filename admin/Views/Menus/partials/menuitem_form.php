@@ -1,9 +1,9 @@
 <div class="" :class="{hide: hideMenuitemForm}">
-  <form ref="menuitem_form" method="post" :action="menuitemsFormAction">
+  <form ref="menuitem_form" method="post" :action="menuitemFormAction">
       <?= csrf_field() ?>
     <input type="hidden" name="menu_id" v-model="selectedMenuitem.menu_id"/>
-    <input type="hidden" name="lft" value="0"/>
-    <input type="hidden" name="rgt" value="0"/>
+    <input type="hidden" name="lft" v-model="selectedMenuitem.lft"/>
+    <input type="hidden" name="rgt" v-model="selectedMenuitem.rgt"/>
 
     <div class="card">
       <div class="progress" :class="{hide: !(isLoading)}">

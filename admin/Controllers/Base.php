@@ -3,6 +3,7 @@
 namespace Admin\Controllers;
 
 use Admin\Config\Validation;
+use Admin\Services\AuthService;
 use App\Controllers\Base as AppBase;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -22,12 +23,16 @@ class Base extends AppBase
     /** @var string $controllerName */
     protected $controllerName = '';
 
+    /** @var AuthService $AuthService */
+    protected $AuthService;
+
     /**
      * @inheritdoc
      */
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
         $this->validator = Services::validation(new Validation());
+        $this->AuthService = service('auth');
         parent::initController($request, $response, $logger);
         $this->view = Services::renderer();
         helper(['form', 'Admin\Helpers\tree_helper', 'inflector']);
@@ -41,6 +46,10 @@ class Base extends AppBase
         );
     }
 
+    /**
+     * parse controller name from request
+     * @return string
+     */
     protected function parseControllerName()
     {
         $router = Services::router();

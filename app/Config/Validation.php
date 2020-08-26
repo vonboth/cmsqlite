@@ -3,6 +3,7 @@
 namespace Config;
 
 use Admin\Validator\ArticleRules;
+use Admin\Validator\AuthenticationRules;
 use Admin\Validator\CategoryRules;
 use Admin\Validator\MenuitemRules;
 use Admin\Validator\MenuRules;
@@ -33,7 +34,8 @@ class Validation
         ArticleRules::class,
         CategoryRules::class,
         MenuRules::class,
-        MenuitemRules::class
+        MenuitemRules::class,
+        AuthenticationRules::class
     ];
 
     /**

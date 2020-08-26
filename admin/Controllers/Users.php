@@ -16,14 +16,22 @@ use Psr\Log\LoggerInterface;
  */
 class Users extends Base
 {
+    /** @var UsersModel $Users */
     protected $Users;
 
+    /**
+     * @inheritdoc
+     */
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
         parent::initController($request, $response, $logger);
         $this->Users = new UsersModel();
     }
 
+    /**
+     * view all users / starting point
+     * @return string
+     */
     public function index()
     {
         return view(
@@ -32,6 +40,11 @@ class Users extends Base
         );
     }
 
+    /**
+     * view single user
+     * @param null $id
+     * @return string
+     */
     public function view($id = null)
     {
         return view(
@@ -40,6 +53,11 @@ class Users extends Base
         );
     }
 
+    /**
+     * add a new user
+     * @return \CodeIgniter\HTTP\RedirectResponse|string
+     * @throws \ReflectionException
+     */
     public function add()
     {
         $user = new User();
@@ -47,6 +65,7 @@ class Users extends Base
             if ($this->validate(
                 [
                     'username' => 'required',
+                    'firstname' => 'required',
                     'password' => 'required|min_length[8]|matches[password_confirm]',
                     'password_confirm' => 'required',
                     'email' => 'required|valid_email',
@@ -87,8 +106,8 @@ class Users extends Base
             if ($this->validate(
                 [
                     'username' => 'required',
+                    'firstname' => 'required',
                     'password' => 'required_with[password,password_confirm]|matches[password_confirm]',
-                    //'password' => 'password_update[8,password_confirm]',
                     'email' => 'required|valid_email',
                     'role' => 'required',
                 ]
@@ -102,16 +121,21 @@ class Users extends Base
                     $user->password = $this->request->getPost('password');
                 }
 
-                //$user->fill($this->request->getPost());
-                if ($this->Users->save($user)) {
+                try {
+                    if ($this->Users->save($user)) {
+                        return redirect()
+                            ->back()
+                            ->with('flash', lang('General.saved'));
+                    } else {
+                        return redirect()
+                            ->back()
+                            ->withInput()
+                            ->with('flash', lang('General.save_error'));
+                    }
+                } catch (\Exception $exception) {
                     return redirect()
                         ->back()
-                        ->with('flash', lang('General.saved'));
-                } else {
-                    return redirect()
-                        ->back()
-                        ->withInput()
-                        ->with('flash', lang('General.save_error'));
+                        ->with('flash', $exception->getMessage());
                 }
             } else {
                 return redirect()
@@ -129,6 +153,11 @@ class Users extends Base
         );
     }
 
+    /**
+     * delete single user
+     * @param null $id
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function delete($id = null)
     {
         if ($this->Users->delete($id)) {

@@ -55,6 +55,7 @@ return [
         'user' => 'User',
         'username' => 'Username',
         'password' => 'Password',
+        'confirm_password' => 'Confirm password',
         'firstname' => 'First name',
         'lastname' => 'Last name',
         'email' => 'Email',

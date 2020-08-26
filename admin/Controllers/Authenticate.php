@@ -17,15 +17,29 @@ class Authenticate extends Base
      */
     public function login()
     {
-        return view('AdminThemes\default\login');
-    }
+        if ($this->request->getMethod() == 'post') {
+            if ($this->validate(
+                [
+                    'username' => 'required|authenticate[password]',
+                    'password' => 'required'
+                ]
+            )) {
+                return redirect()
+                    ->to('/admin');
+            } else {
+                return redirect()
+                    ->back()
+                    ->withInput()
+                    ->with('flash', lang('Validation.auth_failed'));
+            }
+        }
 
-    /**
-     * Handles the post request
-     * to login a user
-     */
-    public function authenticate()
-    {
+        return view(
+            'AdminThemes\default\login',
+            [
+                'validator' => $this->validator,
+            ]
+        );
     }
 
     /**
@@ -34,6 +48,7 @@ class Authenticate extends Base
      */
     public function logout()
     {
+        $this->AuthService->logout();
         return redirect('/');
     }
 }

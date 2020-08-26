@@ -13,7 +13,7 @@ const main = new Vue({
       selectedMenuitem: {},
       parentMenus: [],
       menuFormAction: '/admin/menus/add',
-      menuitemsFormAction: '/admin/menuitems/add'
+      menuitemFormAction: '/admin/menuitems/add'
     };
   },
   // computed values
@@ -79,19 +79,21 @@ const main = new Vue({
       return menuitems.find((item) => (item.lft === (rgt + 1) && item.menu_id === menu_id))
     },
     hasParent: function(lft, menu_id) {
+      console.log(lft, menu_id);
       return menuitems.find((item) => (item.rgt === (lft - 1) && item.menu_id === menu_id ))
     },
     // create a new menu item
     onAddMenuitem: function(menuId) {
+      this.menuitemFormAction = '/admin/menuitems/add';
       this.parentMenus = menuitems
         .filter((item) => item.menu_id === this.selectedMenuId);
       this.selectedMenuitem = {
         title: '',
         parent_id: null,
         menu_id: this.selectedMenuId,
-        article_id: null,
+        article_id: '',
         type: 'article',
-        url: null,
+        url: '',
         alias: '',
         layout: 'default',
         target: '_self',
@@ -101,7 +103,9 @@ const main = new Vue({
       this.hideMenuitemForm = false;
     },
     onEditMenuitem: function(id) {
+      this.menuitemFormAction = `/admin/menuitems/edit/${id}`;
       this.selectedMenuitem = menuitems.find((item) => item.id === id);
+      console.log(this.selectedMenuitem);
       this.hideMenuitemForm = false;
     },
     onChangeMenuitemType: function() {

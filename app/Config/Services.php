@@ -21,6 +21,14 @@ require_once SYSTEMPATH . 'Config/Services.php';
  */
 class Services extends CoreServices
 {
+    /**
+     * get an Instance from the AuthService::class
+     */
+    public static function auth()
+    {
+        return new \Admin\Services\AuthService();
+    }
+
     //    public static function example($getShared = true)
     //    {
     //        if ($getShared)

@@ -13,7 +13,6 @@ class AuthorizeFilter implements FilterInterface
 {
     /**
      * @inheritDoc
-     * @param IncomingRequest|RequestInterface $request
      */
     public function before(RequestInterface $request, $arguments = null)
     {

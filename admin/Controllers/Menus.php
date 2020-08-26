@@ -90,8 +90,11 @@ class Menus extends Base
             } else {
                 return redirect()
                     ->to('/admin/menus/index')
-                    ->withInput()
-                    ->with('validator', $this->validator);
+                    ->with('flash', $this->validator->getErrors())
+                    ->with(
+                        '_ci_validation_errors',
+                        serialize($this->validator->getErrors())
+                    );
             }
         }
 
@@ -130,8 +133,11 @@ class Menus extends Base
                 }
             } else {
                 return redirect()
-                    ->to('/admin/menus/index')
-                    ->with('validator', $this->validator);
+                    ->with('flash', $this->validator->getErrors())
+                    ->with(
+                        '_ci_validation_errors',
+                        serialize($this->validator->getErrors())
+                    );
             }
         }
         return redirect()

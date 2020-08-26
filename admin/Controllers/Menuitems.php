@@ -41,7 +41,6 @@ class Menuitems extends Base
      */
     public function add()
     {
-        // TODO: required_if rule programmieren
         $item = new Menuitem();
         if ($this->request->getMethod() === 'post') {
             if ($this->validate(
@@ -49,8 +48,8 @@ class Menuitems extends Base
                     'title' => 'required',
                     'menu_id' => 'required',
                     'type' => 'in_list[article,other]',
-                    'article_id' => 'required_if[type,article]',
-                    'url' => 'required_if[type,other]',
+                    'article_id' => 'required_if[article_id]',
+                    'url' => 'required_if[url]',
                     'alias' => 'is_unique[menuitems.alias]'
                 ]
             )) {
@@ -67,8 +66,8 @@ class Menuitems extends Base
             } else {
                 return redirect()
                     ->to('/admin/menus/index')
-                    ->withInput()
-                    ->with('validator', $this->validator);
+                    ->with('flash', $this->validator->getErrors())
+                    ->with('_ci_validation_errors', serialize($this->validator->getErrors()));
             }
         }
 
@@ -86,7 +85,16 @@ class Menuitems extends Base
     {
         $item = $this->Menuitems->find($id);
         if ($this->request->getMethod() === 'post') {
-            if ($this->validate([])) {
+            if ($this->validate(
+                [
+                    'title' => 'required',
+                    'menu_id' => 'required',
+                    'type' => 'in_list[article,other]',
+                    'article_id' => 'required_if[article_id]',
+                    'url' => 'required_if[url]',
+                    'alias' => 'required|is_unique[menuitems.alias,alias,' . $item->alias . ']'
+                ]
+            )) {
                 $item->fill($this->request->getPost());
                 try {
                     if ($this->Menuitems->save($item)) {
@@ -106,7 +114,8 @@ class Menuitems extends Base
             } else {
                 return redirect()
                     ->to('/admin/menus/index')
-                    ->with('validator', $this->validator);
+                    ->with('flash', $this->validator->getErrors())
+                    ->with('_ci_validation_errors', serialize($this->validator->getErrors()));
             }
         }
         return redirect()

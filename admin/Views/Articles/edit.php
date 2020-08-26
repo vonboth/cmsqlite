@@ -1,9 +1,8 @@
 <?php
 
-$this->extend('AdminThemes\default\default') ?>
-
-<?php
-$this->section('main') ?>
+$this->extend('AdminThemes\default\default');
+$this->section('main');
+?>
 
 <?= $this->include('Admin\Partials\form_errors'); ?>
 

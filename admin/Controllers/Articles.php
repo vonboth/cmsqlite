@@ -17,6 +17,7 @@ use Psr\Log\LoggerInterface;
  */
 class Articles extends Base
 {
+    /** @var ArticlesModel $Articles */
     protected $Articles;
 
     /**
@@ -34,6 +35,7 @@ class Articles extends Base
     }
 
     /**
+     * index action / entry point
      * @return string
      */
     public function index()
@@ -46,6 +48,7 @@ class Articles extends Base
     }
 
     /**
+     * view item
      * @param null $id
      * @return string
      */
@@ -58,6 +61,7 @@ class Articles extends Base
     }
 
     /**
+     * add item
      * @return \CodeIgniter\HTTP\RedirectResponse|string
      * @throws \ReflectionException
      */
@@ -99,6 +103,7 @@ class Articles extends Base
     }
 
     /**
+     * edit / update item
      * @param null $id
      * @return \CodeIgniter\HTTP\RedirectResponse|string
      * @throws \ReflectionException
@@ -141,6 +146,7 @@ class Articles extends Base
     }
 
     /**
+     * delete / remove item
      * @param $id
      * @return \CodeIgniter\HTTP\RedirectResponse
      */
