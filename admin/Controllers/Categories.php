@@ -6,9 +6,6 @@ namespace Admin\Controllers;
 
 use Admin\Models\CategoriesModel;
 use Admin\Models\Entities\Category;
-use CodeIgniter\HTTP\RequestInterface;
-use CodeIgniter\HTTP\ResponseInterface;
-use Psr\Log\LoggerInterface;
 
 /**
  * Class Categories
@@ -21,14 +18,10 @@ class Categories extends Base
     protected $Categories;
 
     /**
-     * Init Controller
-     * @param RequestInterface $request
-     * @param ResponseInterface $response
-     * @param LoggerInterface $logger
+     * init controller
      */
-    public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
+    public function initialize()
     {
-        parent::initController($request, $response, $logger);
         $this->Categories = new CategoriesModel();
     }
 

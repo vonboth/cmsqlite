@@ -4,30 +4,22 @@
 namespace Admin\Controllers;
 
 use Admin\Models\UsersModel;
-use CodeIgniter\HTTP\RequestInterface;
-use CodeIgniter\HTTP\ResponseInterface;
-use Psr\Log\LoggerInterface;
-use Tests\Support\Models\UserModel;
 
 /**
  * Class Profile
  * @package Admin\Controllers
- * @property UserModel $Users;
+ * @property UsersModel $Users;
  */
 class Profile extends Base
 {
-    /** @var UserModel $Users */
+    /** @var UsersModel $Users */
     private $Users;
 
     /**
      * Init Controller
-     * @param RequestInterface $request
-     * @param ResponseInterface $response
-     * @param LoggerInterface $logger
      */
-    public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
+    public function initialize()
     {
-        parent::initController($request, $response, $logger);
         $this->Users = new UsersModel();
     }
 

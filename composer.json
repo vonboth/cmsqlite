@@ -1,8 +1,9 @@
 {
-  "name": "codeigniter4/appstarter",
+  "name": "creatingcode/cmsqlite",
+  "version": "2.0.0",
   "type": "project",
-  "description": "CodeIgniter4 starter app",
-  "homepage": "https://codeigniter.com",
+  "description": "CMSQLite easy SQLite based CMS",
+  "homepage": "https://creatingcode.de",
   "license": "MIT",
   "require": {
     "php": ">=7.2",
@@ -30,10 +31,5 @@
     "post-update-cmd": [
       "@composer dump-autoload"
     ]
-  },
-  "support": {
-    "forum": "http://forum.codeigniter.com/",
-    "source": "https://github.com/codeigniter4/CodeIgniter4",
-    "slack": "https://codeigniterchat.slack.com"
   }
 }

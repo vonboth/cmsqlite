@@ -35,7 +35,7 @@ class Base extends AppBase
         $this->AuthService = service('auth');
         parent::initController($request, $response, $logger);
         $this->view = Services::renderer();
-        helper(['form', 'Admin\Helpers\tree_helper', 'inflector']);
+        helper(['form', 'Admin\Helpers\tree_helper', 'inflector', 'filesystem']);
         $this->controllerName = $this->parseControllerName();
         $this->view->setData(
             [
@@ -44,6 +44,16 @@ class Base extends AppBase
                 'title' => 'CMSQLite'
             ]
         );
+
+        $this->initialize();
+    }
+
+    /**
+     * Initialize method to keep sub-controllers
+     * signature cleaner
+     */
+    public function initialize()
+    {
     }
 
     /**

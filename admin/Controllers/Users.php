@@ -5,9 +5,6 @@ namespace Admin\Controllers;
 
 use Admin\Models\Entities\User;
 use Admin\Models\UsersModel;
-use CodeIgniter\HTTP\RequestInterface;
-use CodeIgniter\HTTP\ResponseInterface;
-use Psr\Log\LoggerInterface;
 
 /**
  * Class Users
@@ -22,9 +19,8 @@ class Users extends Base
     /**
      * @inheritdoc
      */
-    public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
+    public function initialize()
     {
-        parent::initController($request, $response, $logger);
         $this->Users = new UsersModel();
     }
 

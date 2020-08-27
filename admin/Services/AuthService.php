@@ -79,6 +79,10 @@ class AuthService extends BaseService
      */
     public function authenticate($username, $password)
     {
+        if (!$username || !$password) {
+            return false;
+        }
+
         $user = $this->Users
             ->where('username', $username)
             ->asArray()

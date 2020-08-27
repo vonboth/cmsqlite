@@ -5,9 +5,6 @@ namespace Admin\Controllers;
 
 use Admin\Models\Entities\Menuitem;
 use Admin\Models\MenuitemsModel;
-use CodeIgniter\HTTP\RequestInterface;
-use CodeIgniter\HTTP\ResponseInterface;
-use Psr\Log\LoggerInterface;
 
 /**
  * Class Menuitems
@@ -21,16 +18,9 @@ class Menuitems extends Base
 
     /**
      * init controller
-     * @param RequestInterface $request
-     * @param ResponseInterface $response
-     * @param LoggerInterface $logger
      */
-    public function initController(
-        RequestInterface $request,
-        ResponseInterface $response,
-        LoggerInterface $logger
-    ) {
-        parent::initController($request, $response, $logger);
+    public function initialize()
+    {
         $this->Menuitems = new MenuitemsModel();
     }
 

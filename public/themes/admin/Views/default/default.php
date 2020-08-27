@@ -50,6 +50,7 @@
     <li class="no-padding">
       <ul class="collapsible collapsible-accordion">
         <li><a href="/admin/articles"><?= lang('Menu.articles') ?></a></li>
+        <li><a href="/admin/media"><?= lang('Menu.media') ?></a></li>
         <li><a href="/admin/categories"><?= lang('Menu.categories') ?></a></li>
         <li><a href="/admin/menus"><?= lang('Menu.menus') ?></a></li>
         <li><a href="/admin/users"><?= lang('Menu.users') ?></a></li>

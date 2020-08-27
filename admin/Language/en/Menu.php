@@ -3,6 +3,7 @@
 return [
     'articles' => 'Articles',
     'categories' => 'Categories',
+    'media' => 'Media',
     'menus' => 'Menus',
     'users' => 'Users',
     'add_menu' => 'Add menu',

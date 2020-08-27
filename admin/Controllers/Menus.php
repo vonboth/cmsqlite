@@ -8,9 +8,6 @@ use Admin\Models\Entities\Menu;
 use Admin\Models\MenuitemsModel;
 use Admin\Models\MenusModel;
 use App\Models\ArticlesModel;
-use CodeIgniter\HTTP\RequestInterface;
-use CodeIgniter\HTTP\ResponseInterface;
-use Psr\Log\LoggerInterface;
 
 /**
  * Class Articles
@@ -26,16 +23,10 @@ class Menus extends Base
     protected $Articles;
 
     /**
-     * @param RequestInterface $request
-     * @param ResponseInterface $response
-     * @param LoggerInterface $logger
+     * init controller
      */
-    public function initController(
-        RequestInterface $request,
-        ResponseInterface $response,
-        LoggerInterface $logger
-    ) {
-        parent::initController($request, $response, $logger);
+    public function initialize()
+    {
         $this->Menus = new MenusModel();
         $this->Menuitems = new MenuitemsModel();
         $this->Articles = new ArticlesModel();

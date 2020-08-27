@@ -82,5 +82,12 @@ $routes->group(
                 $routes->add('/', 'Profile::edit');
             }
         );
+        $routes->group(
+            'media',
+            function(RouteCollection $routes) {
+                $routes->add('index', 'Media::index');
+                $routes->add('/', 'Media::index');
+            }
+        );
     }
 );
