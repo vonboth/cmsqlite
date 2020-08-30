@@ -94,7 +94,11 @@ class Users extends Base
         );
     }
 
-    // TODO: Validation rules for updating a user
+    /**
+     * edit a user
+     * @param null $id
+     * @return \CodeIgniter\HTTP\RedirectResponse|string
+     */
     public function edit($id = null)
     {
         $user = $this->Users->find($id);

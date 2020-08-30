@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Admin Page">
   <meta name="author" content="Christoph von Both | creatingcode.de">
-  <?= csrf_meta() ?>
+    <?= csrf_meta() ?>
   <title><?= isset($title) ? $title : 'CMSQlite' ?></title>
 
   <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
@@ -43,17 +43,42 @@
 
   <!-- sidenav -->
   <ul ref="sidenav-left" class="sidenav sidenav-fixed">
-    <li><a href="/admin" class="logo-container">CMSQlite Admin
+    <li><a href="/admin" class="logo-container"><?= lang('Menu.startpage') ?>
         <i class="material-icons left">settings_applications</i>
       </a>
     </li>
     <li class="no-padding">
       <ul class="collapsible collapsible-accordion">
-        <li><a href="/admin/articles"><?= lang('Menu.articles') ?></a></li>
-        <li><a href="/admin/media"><?= lang('Menu.media') ?></a></li>
-        <li><a href="/admin/categories"><?= lang('Menu.categories') ?></a></li>
-        <li><a href="/admin/menus"><?= lang('Menu.menus') ?></a></li>
-        <li><a href="/admin/users"><?= lang('Menu.users') ?></a></li>
+        <li>
+          <a href="/admin/articles">
+              <?= lang('Menu.articles') ?>
+            <i class="material-icons left">description</i>
+          </a>
+        </li>
+        <li>
+          <a href="/admin/media">
+              <?= lang('Menu.media') ?>
+            <i class="material-icons left">insert_photo</i>
+          </a>
+        </li>
+        <li>
+          <a href="/admin/categories">
+              <?= lang('Menu.categories') ?>
+            <i class="material-icons left">label outline</i>
+          </a>
+        </li>
+        <li>
+          <a href="/admin/menus">
+              <?= lang('Menu.menus') ?>
+            <i class="material-icons left">list</i>
+          </a>
+        </li>
+        <li>
+          <a href="/admin/users">
+              <?= lang('Menu.users') ?>
+            <i class="material-icons left">people</i>
+          </a>
+        </li>
       </ul>
     </li>
   </ul>

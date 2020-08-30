@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'startpage' => 'Start page',
     'articles' => 'Articles',
     'categories' => 'Categories',
     'media' => 'Media',

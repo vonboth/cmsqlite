@@ -86,6 +86,8 @@ $routes->group(
             'media',
             function(RouteCollection $routes) {
                 $routes->add('index', 'Media::index');
+                $routes->post('upload', 'Media::upload');
+                $routes->post('remove', 'Media::remove');
                 $routes->add('/', 'Media::index');
             }
         );

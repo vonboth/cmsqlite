@@ -186,6 +186,24 @@ const main = new Vue({
         .replace(/Ö|ö/g, 'oe')
         .toLowerCase();
     },
+    // delete media file
+    onDeleteMedia: function(filename) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'delete item',
+        text: 'are you sure to delete the selected item?',
+        showCancelButton: true,
+        cancelButtonText: 'no',
+        confirmButtonText: 'yes'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.$refs.remove_file.value = filename;
+          this.$refs.file_form.submit();
+        } else {
+          this.$refs.remove_file.value = '';
+        }
+      })
+    },
     // read the CSRF token from the meta header
     getCsrfToken: () => document.querySelectorAll(
       'meta[name="X-CSRF-TOKEN"]')[0].content

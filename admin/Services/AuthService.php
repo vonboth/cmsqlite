@@ -15,7 +15,7 @@ use CodeIgniter\Config\BaseService;
 class AuthService extends BaseService
 {
     /** @var string $redirectUrl */
-    public $redirectUrl = 'admin/authenticate/login';
+    public $redirectUrl = '/admin/authenticate/login';
 
     /** @var UsersModel $Users */
     private $Users;
