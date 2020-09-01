@@ -4,36 +4,6 @@ $this->extend('AdminThemes\default\default'); ?>
 
 <?php
 $this->section('main') ?>
-<div class="row">
-  <div class="col s12">
-    <div class="card">
-      <div class="card-content">
-        <p><?= lang('General.upload_file') ?></p>
-        <form method="post" enctype="multipart/form-data" action="/admin/media/upload">
-            <?= csrf_field() ?>
-          <div class="row flex flex-center">
-            <div class="col s10">
-              <div class="file-field input-field">
-                <div class="btn">
-                  <span>File</span>
-                  <input type="file" required="required" name="media_file">
-                </div>
-                <div class="file-path-wrapper">
-                  <input class="file-path validate" type="text">
-                </div>
-              </div>
-            </div>
-            <div class="col s2 right-align">
-              <button type="submit" class="btn waves-effect waves-light">
-                  <?= lang('General.submit') ?>
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
 
 <?= $this->include('Admin\Partials\form_errors'); ?>
 
@@ -46,9 +16,77 @@ $this->section('main') ?>
   </div>
 </div>
 
-<form ref="file_form" method="post" action="/admin/media/remove">
-  <?= csrf_field() ?>
-  <input type="hidden" ref="remove_file" name="remove_file" value="" />
+<div class="row">
+  <div class="col s12 m6">
+    <div class="card">
+      <div class="card-content">
+        <p><?= lang('General.upload_file') ?></p>
+        <form method="post" enctype="multipart/form-data" action="/admin/media/upload">
+            <?= csrf_field() ?>
+          <div class="flex flex-center">
+            <div class="col s12 m10">
+              <div class="file-field input-field">
+                <div class="btn">
+                  <span>File</span>
+                  <input type="file" required="required" name="media_file">
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text">
+                </div>
+              </div>
+            </div>
+            <div class="col s12 m2 right-align">
+              <button type="submit" class="btn waves-effect waves-light">
+                  <?= lang('General.upload') ?>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col s12 m6">
+    <div class="card">
+      <div class="card-content">
+        <p><?= lang('General.create_folder') ?></p>
+        <form method="post" action="/admin/media/create-folder">
+            <?= csrf_field() ?>
+          <div class="flex flex-center">
+            <div class="col s12 m10">
+              <div class="input-field">
+                <input id="dir_name"
+                       type="text"
+                       required="required"
+                       name="dir_name"/>
+                <label for="dir_name"><?= lang('General.folder_name') ?></label>
+              </div>
+            </div>
+            <div class="col s12 m2 right-align">
+              <button type="submit" class="btn waves-effect waves-light">
+                  <?= lang('General.create') ?>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<?php
+if (empty($dirs) && empty($files)): ?>
+  <div class="row">
+    <div class="col s12 center-align">
+      <h4><?= lang('General.empty_dir') ?></h4>
+    </div>
+  </div>
+<?php
+endif; ?>
+
+<form ref="file_form" method="post" :action="fileFormAction">
+    <?= csrf_field() ?>
+  <input type="hidden" ref="remove_file" name="remove_file" value=""/>
+  <input type="hidden" ref="remove_dir" name="remove_dir" value=""/>
   <div class="row">
     <div class="col s12">
         <?php
@@ -57,7 +95,6 @@ $this->section('main') ?>
             <div class="card-content">
               <a class="white-text" href="/admin/media/index?dir=up">
                 <p><i class="large material-icons">arrow_upward</i></p>
-                <p>..</p>
               </a>
             </div>
           </div>
@@ -70,11 +107,18 @@ $this->section('main') ?>
         /** @var string $dir */
         foreach ($dirs as $dir): ?>
           <div class="card folder-card yellow darken-2">
-            <div class="card-content">
-              <a class="white-text" href="/admin/media/index?dir=<?= urlencode($dir) ?>">
-                <p><i class="large material-icons">folder</i></p>
-                <p><?= $dir ?></p>
+            <div class="card-content center-align">
+              <a class="flex flex-center flex-columm"
+                 href="/admin/media/index?dir=<?= urlencode($dir) ?>">
+                <p class="white-text"><i class="medium material-icons">folder</i></p>
+                <p class="folder-name"><?= $dir ?></p>
               </a>
+              <button type="button"
+                      @click="onDeleteDirectory('<?= $dir ?>')"
+                      title="<?= lang('General.delete') ?>"
+                      class="btn-small waves-effect waves-light red darken-2">
+                <i class="material-icons">delete</i>
+              </button>
             </div>
           </div>
         <?php
@@ -113,7 +157,7 @@ $this->section('main') ?>
               <div class="card-action">
                 <button type="button"
                         @click="onDeleteMedia('<?= $file['name'] ?>')"
-                        class="btn waves-light waves-effect red darken-2"><?= lang('General.delete') ?>
+                        class="btn-small waves-light waves-effect red darken-2"><?= lang('General.delete') ?>
                   <i class="material-icons right">delete_forever</i></button>
               </div>
             </div>

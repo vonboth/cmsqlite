@@ -1,7 +1,8 @@
 import Vue from 'vue';
 
 // TODO: TRANSLATIONS OF JS MUST BE IMPL
-const main = new Vue({
+// TODO: SET DEFAULT LANG FOR JS AND PHP
+window.adminVue = new Vue({
   el: '#main',
   data: function() {
     return {
@@ -13,7 +14,8 @@ const main = new Vue({
       selectedMenuitem: {},
       parentMenus: [],
       menuFormAction: '/admin/menus/add',
-      menuitemFormAction: '/admin/menuitems/add'
+      menuitemFormAction: '/admin/menuitems/add',
+      fileFormAction: '/admin/media/remove-file'
     };
   },
   // computed values
@@ -39,16 +41,6 @@ const main = new Vue({
     M.Tooltip.init(document.querySelectorAll('.tooltipped'));
     M.FloatingActionButton.init(document.querySelectorAll('.action-btn-menu'));
     M.FloatingActionButton.init(document.querySelectorAll('.fixed-action-btn'));
-
-    if (this.$refs.CKEditor) {
-      ClassicEditor
-        .create(document.getElementById('editor'), {
-          language: 'de'
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    }
   },
   methods: {
     // general dialog when deleting an item
@@ -76,11 +68,13 @@ const main = new Vue({
       this.selectedMenuId = id;
     },
     hasAncestor: function(rgt, menu_id) {
-      return menuitems.find((item) => (item.lft === (rgt + 1) && item.menu_id === menu_id))
+      return menuitems.find(
+        (item) => (item.lft === (rgt + 1) && item.menu_id === menu_id));
     },
     hasParent: function(lft, menu_id) {
       console.log(lft, menu_id);
-      return menuitems.find((item) => (item.rgt === (lft - 1) && item.menu_id === menu_id ))
+      return menuitems.find(
+        (item) => (item.rgt === (lft - 1) && item.menu_id === menu_id));
     },
     // create a new menu item
     onAddMenuitem: function(menuId) {
@@ -188,6 +182,8 @@ const main = new Vue({
     },
     // delete media file
     onDeleteMedia: function(filename) {
+      this.fileFormAction = '/admin/media/remove-file';
+
       Swal.fire({
         icon: 'warning',
         title: 'delete item',
@@ -202,7 +198,25 @@ const main = new Vue({
         } else {
           this.$refs.remove_file.value = '';
         }
-      })
+      });
+    },
+    onDeleteDirectory: function(dirname) {
+      this.fileFormAction = '/admin/media/remove-dir';
+      Swal.fire({
+        icon: 'warning',
+        title: 'delete directory',
+        text: 'are you sure to delete the selected item?',
+        showCancelButton: true,
+        cancelButtonText: 'no',
+        confirmButtonText: 'yes'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.$refs.remove_dir.value = dirname;
+          this.$refs.file_form.submit();
+        } else {
+          this.$refs.remove_dir.value = '';
+        }
+      });
     },
     // read the CSRF token from the meta header
     getCsrfToken: () => document.querySelectorAll(

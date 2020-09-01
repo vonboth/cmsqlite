@@ -19,3 +19,9 @@ $this->section('main') ?>
 </div>
 <?php
 $this->endSection() ?>
+
+<?php
+$this->section('js') ?>
+<?= $this->include('Admin\Articles\partials\ckeditor') ?>
+<?php
+$this->endSection() ?>

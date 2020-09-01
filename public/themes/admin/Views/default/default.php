@@ -100,9 +100,9 @@
 </footer>
 
 <?= $this->renderSection('js_vars') ?>
+<?= $this->renderSection('scripts') ?>
 <?= script_tag('themes/admin/Views/default/js/vendor.bundle.js') ?>
 <?= script_tag('themes/admin/Views/default/js/admin.bundle.js') ?>
-<?= $this->renderSection('scripts') ?>
 <?= $this->renderSection('js') ?>
 <?= $this->include('Admin\Partials\flash') ?>
 </body>

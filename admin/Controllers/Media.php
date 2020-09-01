@@ -3,14 +3,16 @@
 
 namespace Admin\Controllers;
 
+use CodeIgniter\API\ResponseTrait;
+
 /**
  * Class Media
  * @package Admin\Controllers
- *
- * TODO: REMOVE DIRECTORY
  */
 class Media extends Base
 {
+    use ResponseTrait;
+
     protected $mediaPath = FCPATH . 'media/';
     protected $currentPath = [];
     protected $mediaConfig;
@@ -78,7 +80,7 @@ class Media extends Base
                             '_ci_validation_errors',
                             serialize($this->validator->getErrors())
                         )
-                        ->with('flash', lang('General..invalid_file'));
+                        ->with('flash', lang('General.invalid_file'));
                 }
 
                 // allowed mime-types
@@ -91,7 +93,7 @@ class Media extends Base
                             '_ci_validation_errors',
                             serialize($this->validator->getErrors())
                         )
-                        ->with('flash', lang('General..invalid_file'));
+                        ->with('flash', lang('General.invalid_file'));
                 }
 
                 // try to move the uploaded file to it's location
@@ -99,7 +101,7 @@ class Media extends Base
                     $path = $this->getCurrentPath();
                     $file->move($path);
                     $response
-                        ->with('flash', lang('General..upload_success'));
+                        ->with('flash', lang('General.upload_success'));
                 } catch (\Exception $exception) {
                     $this->validator->setError('media_file', $exception->getMessage());
 
@@ -108,7 +110,7 @@ class Media extends Base
                             '_ci_validation_errors',
                             serialize($this->validator->getErrors())
                         )
-                        ->with('flash', lang('General..upload_error'));
+                        ->with('flash', lang('General.upload_error'));
                 }
             } else {
                 $this->validator
@@ -118,7 +120,7 @@ class Media extends Base
                         '_ci_validation_errors',
                         serialize($this->validator->getErrors())
                     )
-                    ->with('flash', lang('General..invalid_file'));
+                    ->with('flash', lang('General.invalid_file'));
             }
         }
         return $response
@@ -128,7 +130,7 @@ class Media extends Base
     /**
      * unlink a file from the file system
      */
-    public function remove()
+    public function removeFile()
     {
         $response = redirect();
 
@@ -155,6 +157,41 @@ class Media extends Base
 
         return $response
             ->back();
+    }
+
+    /**
+     * remove directory
+     */
+    public function removeDir()
+    {
+        $response = redirect();
+        if ($this->request->getMethod() == 'post') {
+            $path = $this->getCurrentPath();
+            $dir = $this->request->getPost('remove_dir');
+
+            if (!$dir || !is_dir($path . '/' . $dir)) {
+                $this->validator->setError('media_file', lang('General.dir_not_exist'));
+                $response
+                    ->with('_ci_validation_errors', serialize($this->validator->getErrors()))
+                    ->with('flash', lang('General.dir_not_exist'));
+            }
+
+            try {
+                if (!rmdir($path . '/' . $dir)) {
+                    $this->validator->setError('media_file', lang('General.dir_delete_error'));
+                    $response
+                        ->with('_ci_validation_errors', serialize($this->validator->getErrors()))
+                        ->with('flash', lang('General.dir_delete_error'));
+                }
+
+                $response->with('flash', lang('General.dir_delete_success'));
+            } catch (\Exception $exception) {
+                $this->validator->setError('media_file', lang('General.dir_not_empty'));
+                $response->with('_ci_validation_errors', serialize($this->validator->getErrors()))
+                    ->with('flash', lang('General.dir_not_empty'));
+            }
+        }
+        return $response->back();
     }
 
     /**
@@ -192,6 +229,71 @@ class Media extends Base
         }
 
         return ['dirs' => $dirs, 'files' => $files];
+    }
+
+    /**
+     * create a new folder in the
+     * current directory
+     */
+    public function createFolder()
+    {
+        $response = redirect();
+        if ($this->request->getMethod() == 'post') {
+            $name = $this->request->getPost('dir_name');
+            $path = $this->getCurrentPath();
+            if (mkdir($path . '/' . $name, 0755)) {
+                $response->with('flash', lang('General.create_dir_success'));
+            } else {
+                $this->validator->setError('dir_name', lang('General.create_dir_error'));
+                $response
+                    ->with('_ci_validation_errors', serialize($this->validator->getErrors()))
+                    ->with('flash', lang('General.create_id_error'));
+            }
+        }
+
+        return $response->to('/admin/media/index');
+    }
+
+    /**
+     * Endpoint to upload images
+     * via CKEditor
+     *
+     * {
+     * "uploaded": 1,
+     * "fileName": "foo.jpg",
+     * "url": "/files/foo.jpg"
+     * }
+     */
+    public function ckupload()
+    {
+        if ($this->request->getMethod() == 'post') {
+            $file = $this->request->getFile('upload');
+            $ext = $file->getExtension();
+
+            if (!$file->isValid() || !in_array($ext, $this->mediaConfig->allowedExtensions)) {
+                return $this->fail('Invalid file', 500);
+            }
+
+            try {
+                $file->move($this->mediaPath);
+                return $this->respondCreated(
+                    [
+                        'uploaded' => 1,
+                        'fileName' => $file->getName(),
+                        'url' => '/media/' . $file->getName()
+                    ]
+                );
+            } catch (\Exception $exception) {
+                return $this->fail($exception->getMessage(), 500);
+            }
+        }
+    }
+
+    public function ckbrowse()
+    {
+        return view(
+            'Admin\Media\ckbrowse'
+        );
     }
 
     /**

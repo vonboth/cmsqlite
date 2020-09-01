@@ -4,7 +4,6 @@ $this->extend('AdminThemes\default\default') ?>
 
 <?php
 $this->section('main') ?>
-
 <div class="card">
   <div class="card-content">
     <div class="row">
@@ -13,5 +12,11 @@ $this->section('main') ?>
     </div>
   </div>
 </div>
+<?php
+$this->endSection() ?>
+
+<?php
+$this->section('js') ?>
+<?= $this->include('Admin\Articles\partials\ckeditor') ?>
 <?php
 $this->endSection() ?>

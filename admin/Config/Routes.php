@@ -87,7 +87,11 @@ $routes->group(
             function(RouteCollection $routes) {
                 $routes->add('index', 'Media::index');
                 $routes->post('upload', 'Media::upload');
-                $routes->post('remove', 'Media::remove');
+                $routes->post('remove-file', 'Media::removeFile');
+                $routes->post('remove-dir', 'Media::removeDir');
+                $routes->post('create-folder', 'Media::createFolder');
+                $routes->get('ckbrowse', 'Media::ckbrowse');
+                $routes->post('ckupload', 'Media::ckupload');
                 $routes->add('/', 'Media::index');
             }
         );

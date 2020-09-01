@@ -51,7 +51,6 @@
     <div>
       <textarea name="content"
                 rows="30"
-                ref="CKEditor"
                 <?= ($options['disabled']) ? 'disabled' : '' ?>
                 id="editor"><?= old('content', $article->content) ?></textarea>
     </div>

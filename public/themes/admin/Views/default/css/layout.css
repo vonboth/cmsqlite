@@ -47,6 +47,9 @@ main > .container {
     justify-content: center;
     align-items: center;
 }
+.flex-columm {
+    flex-direction: column;
+}
 
 .space-between {
     justify-content: space-between;
@@ -215,16 +218,20 @@ li.menu-administration .collapsible-header {
 .folder-card, .file-card {
     float: left;
     margin-right: .75rem;
-    max-height: 150px;
+    height: 160px;
     overflow: hidden;
 }
 
 .folder-card {
-    max-width: 150px;
-    text-align: center;
+    width: 160px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
+.folder-name {
+    position: absolute;
+}
 .file-card img {
-    max-height: 150px;
+    max-height: 160px;
     width: auto;
 }
