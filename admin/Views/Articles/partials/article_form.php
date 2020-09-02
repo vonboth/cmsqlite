@@ -49,9 +49,7 @@
   <div class="col s12">
     <h5><?= lang('Tables.articles.content') ?></h5>
     <div>
-      <textarea name="content"
-                rows="30"
-                <?= ($options['disabled']) ? 'disabled' : '' ?>
+      <textarea name="content" <?= ($options['disabled']) ? 'disabled' : '' ?>
                 id="editor"><?= old('content', $article->content) ?></textarea>
     </div>
   </div>

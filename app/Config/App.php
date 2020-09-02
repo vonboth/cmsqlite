@@ -184,7 +184,7 @@ class App extends BaseConfig
     |
     */
     public $sessionDriver = 'CodeIgniter\Session\Handlers\FileHandler';
-    public $sessionCookieName = 'cmsql_session';
+    public $sessionCookieName = 'session';
     public $sessionExpiration = 7200;
     public $sessionSavePath = WRITEPATH . 'session';
     public $sessionMatchIP = false;
@@ -247,7 +247,7 @@ class App extends BaseConfig
     */
     public $CSRFTokenName = 'cmsql_sec_token';
     public $CSRFHeaderName = 'X-CSRF-TOKEN';
-    public $CSRFCookieName = 'cmsql_csrf';
+    public $CSRFCookieName = 'csrf';
     public $CSRFExpire = 7200;
     public $CSRFRegenerate = true;
     public $CSRFRedirect = true;

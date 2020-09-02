@@ -394,7 +394,9 @@ class Mimes
         'mp4' => 'video/mp4',
         'm4a' => 'audio/x-m4a',
         'f4v' => [
-            'video/mp4',
+            'video/mp4','mpeg' => 'video/mpeg',
+            'mpg' => 'video/mpeg',
+            'mpe' => 'video/mpeg',
             'video/x-f4v',
         ],
         'flv' => 'video/x-flv',

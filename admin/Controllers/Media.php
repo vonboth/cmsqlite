@@ -73,27 +73,27 @@ class Media extends Base
                 // allowed file extensions
                 if (!in_array($ext, $this->mediaConfig->allowedExtensions)) {
                     $this->validator
-                        ->setError('media_file', lang('General.filetype_not_allowed'));
+                        ->setError('media_file', lang('Media.filetype_not_allowed'));
 
                     $response
                         ->with(
                             '_ci_validation_errors',
                             serialize($this->validator->getErrors())
                         )
-                        ->with('flash', lang('General.invalid_file'));
+                        ->with('flash', lang('Media.invalid_file'));
                 }
 
                 // allowed mime-types
                 if (!in_array($mime, $this->mediaConfig->allowedMimeTypes)) {
                     $this->validator
-                        ->setError('media_file', lang('General.mimetype_not_allowed'));
+                        ->setError('media_file', lang('Media.mimetype_not_allowed'));
 
                     $response
                         ->with(
                             '_ci_validation_errors',
                             serialize($this->validator->getErrors())
                         )
-                        ->with('flash', lang('General.invalid_file'));
+                        ->with('flash', lang('Media.invalid_file'));
                 }
 
                 // try to move the uploaded file to it's location
@@ -101,7 +101,7 @@ class Media extends Base
                     $path = $this->getCurrentPath();
                     $file->move($path);
                     $response
-                        ->with('flash', lang('General.upload_success'));
+                        ->with('flash', lang('Media.upload_success'));
                 } catch (\Exception $exception) {
                     $this->validator->setError('media_file', $exception->getMessage());
 
@@ -110,7 +110,7 @@ class Media extends Base
                             '_ci_validation_errors',
                             serialize($this->validator->getErrors())
                         )
-                        ->with('flash', lang('General.upload_error'));
+                        ->with('flash', lang('Media.upload_error'));
                 }
             } else {
                 $this->validator
@@ -120,7 +120,7 @@ class Media extends Base
                         '_ci_validation_errors',
                         serialize($this->validator->getErrors())
                     )
-                    ->with('flash', lang('General.invalid_file'));
+                    ->with('flash', lang('Media.invalid_file'));
             }
         }
         return $response
@@ -139,20 +139,20 @@ class Media extends Base
             $filename = $this->request->getPost('remove_file');
 
             if (!$filename || !file_exists($path . '/' . $filename)) {
-                $this->validator->setError('media_file', lang('General.file_not_exist'));
+                $this->validator->setError('media_file', lang('Media.file_not_exist'));
                 $response
                     ->with('_ci_validation_errors', serialize($this->validator->getErrors()))
-                    ->with('flash', lang('General.file_not_exist'));
+                    ->with('flash', lang('Media.file_not_exist'));
             }
 
             if (!unlink($path . '/' . $filename)) {
-                $this->validator->setError('media_file', lang('General.file_delete_error'));
+                $this->validator->setError('media_file', lang('Media.file_delete_error'));
                 $response
                     ->with('_ci_validation_errors', serialize($this->validator->getErrors()))
-                    ->with('flash', lang('General.file_delete_error'));
+                    ->with('flash', lang('Media.file_delete_error'));
             }
 
-            $response->with('flash', lang('General.file_delete_success'));
+            $response->with('flash', lang('Media.file_delete_success'));
         }
 
         return $response
@@ -170,25 +170,25 @@ class Media extends Base
             $dir = $this->request->getPost('remove_dir');
 
             if (!$dir || !is_dir($path . '/' . $dir)) {
-                $this->validator->setError('media_file', lang('General.dir_not_exist'));
+                $this->validator->setError('media_file', lang('Media.dir_not_exist'));
                 $response
                     ->with('_ci_validation_errors', serialize($this->validator->getErrors()))
-                    ->with('flash', lang('General.dir_not_exist'));
+                    ->with('flash', lang('Media.dir_not_exist'));
             }
 
             try {
                 if (!rmdir($path . '/' . $dir)) {
-                    $this->validator->setError('media_file', lang('General.dir_delete_error'));
+                    $this->validator->setError('media_file', lang('Media.dir_delete_error'));
                     $response
                         ->with('_ci_validation_errors', serialize($this->validator->getErrors()))
-                        ->with('flash', lang('General.dir_delete_error'));
+                        ->with('flash', lang('Media.dir_delete_error'));
                 }
 
-                $response->with('flash', lang('General.dir_delete_success'));
+                $response->with('flash', lang('Media.dir_delete_success'));
             } catch (\Exception $exception) {
-                $this->validator->setError('media_file', lang('General.dir_not_empty'));
+                $this->validator->setError('media_file', lang('Media.dir_not_empty'));
                 $response->with('_ci_validation_errors', serialize($this->validator->getErrors()))
-                    ->with('flash', lang('General.dir_not_empty'));
+                    ->with('flash', lang('Media.dir_not_empty'));
             }
         }
         return $response->back();
@@ -242,12 +242,12 @@ class Media extends Base
             $name = $this->request->getPost('dir_name');
             $path = $this->getCurrentPath();
             if (mkdir($path . '/' . $name, 0755)) {
-                $response->with('flash', lang('General.create_dir_success'));
+                $response->with('flash', lang('Media.create_dir_success'));
             } else {
-                $this->validator->setError('dir_name', lang('General.create_dir_error'));
+                $this->validator->setError('dir_name', lang('Media.create_dir_error'));
                 $response
                     ->with('_ci_validation_errors', serialize($this->validator->getErrors()))
-                    ->with('flash', lang('General.create_id_error'));
+                    ->with('flash', lang('Media.create_dir_error'));
             }
         }
 
@@ -291,8 +291,25 @@ class Media extends Base
 
     public function ckbrowse()
     {
+        $directory = new \RecursiveDirectoryIterator($this->mediaPath);
+        $iterator = new \RecursiveIteratorIterator($directory);
+
+        $files = [];
+        /** @var \SplFileInfo $item */
+        foreach ($iterator as $item) {
+            if (in_array($item->getExtension(), $this->mediaConfig->allowedImages)) {
+                $files[] = [
+                    'name' => $item->getFilename(),
+                    'path' => substr($item->getRealPath(), strpos($item->getRealPath(), '/media'))
+                ];
+            }
+        }
         return view(
-            'Admin\Media\ckbrowse'
+            'Admin\Media\ckbrowse',
+            [
+                'files' => $files,
+                'section' => lang('Media.browse_files')
+            ]
         );
     }
 

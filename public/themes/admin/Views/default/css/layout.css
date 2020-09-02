@@ -233,5 +233,14 @@ li.menu-administration .collapsible-header {
 }
 .file-card img {
     max-height: 160px;
-    width: auto;
+    width: auto !important;
+}
+
+.browse-image-card {
+    width: 210px
+}
+
+.browse-image-card img {
+    max-height: 180px;
+    width: auto !important;
 }

@@ -9,7 +9,7 @@ $this->section('main') ?>
 
 <div class="row">
   <div class="col s12">
-    <h5><?= lang('General.media_content') ?></h5>
+    <h5><?= lang('Media.media_content') ?></h5>
     <p>
         <?= view_cell('\Admin\Views\Cells\MediaBreadcrumb::render', ['path' => $currentPath]) ?>
     </p>
@@ -20,7 +20,7 @@ $this->section('main') ?>
   <div class="col s12 m6">
     <div class="card">
       <div class="card-content">
-        <p><?= lang('General.upload_file') ?></p>
+        <p><?= lang('Media.upload_file') ?></p>
         <form method="post" enctype="multipart/form-data" action="/admin/media/upload">
             <?= csrf_field() ?>
           <div class="flex flex-center">
@@ -48,7 +48,7 @@ $this->section('main') ?>
   <div class="col s12 m6">
     <div class="card">
       <div class="card-content">
-        <p><?= lang('General.create_folder') ?></p>
+        <p><?= lang('Media.create_folder') ?></p>
         <form method="post" action="/admin/media/create-folder">
             <?= csrf_field() ?>
           <div class="flex flex-center">
@@ -58,7 +58,7 @@ $this->section('main') ?>
                        type="text"
                        required="required"
                        name="dir_name"/>
-                <label for="dir_name"><?= lang('General.folder_name') ?></label>
+                <label for="dir_name"><?= lang('Media.folder_name') ?></label>
               </div>
             </div>
             <div class="col s12 m2 right-align">
@@ -77,7 +77,7 @@ $this->section('main') ?>
 if (empty($dirs) && empty($files)): ?>
   <div class="row">
     <div class="col s12 center-align">
-      <h4><?= lang('General.empty_dir') ?></h4>
+      <h4><?= lang('Media.empty_dir') ?></h4>
     </div>
   </div>
 <?php
@@ -150,8 +150,8 @@ endif; ?>
             </div>
             <div class="card-stacked">
               <div class="card-content">
-                <p><span><?= lang('General.file_name') ?></span>: <span><?= $file['name'] ?></span></p>
-                <p><span><?= lang('General.file_size') ?></span>: <span>~ <?= round($file['size'] / 1000) ?> kB</span>
+                <p><span><?= lang('Media.file_name') ?></span>: <span><?= $file['name'] ?></span></p>
+                <p><span><?= lang('Media.file_size') ?></span>: <span>~ <?= round($file['size'] / 1000) ?> kB</span>
                 </p>
               </div>
               <div class="card-action">
