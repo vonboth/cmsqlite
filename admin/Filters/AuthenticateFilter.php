@@ -25,7 +25,6 @@ class AuthenticateFilter implements FilterInterface
 
         if (!$AuthService->passTrough($request->detectPath())) {
             if (!$AuthService->isLoggedIn()) {
-                $r = $AuthService->getRedirectUrl();
                 return redirect()->to($AuthService->getRedirectUrl());
             }
         }
@@ -34,11 +33,7 @@ class AuthenticateFilter implements FilterInterface
     /**
      * @inheritdoc
      */
-    public
-    function after(
-        RequestInterface $request,
-        ResponseInterface $response,
-        $arguments = null
-    ) {
+    public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
+    {
     }
 }

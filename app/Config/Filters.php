@@ -37,7 +37,9 @@ class Filters extends BaseConfig
     // that they should run on, like:
     //    'isLoggedIn' => ['before' => ['account/*', 'profiles/*']],
     public $filters = [
-        'authorize' => ['before' => ['*']],
         'authenticate' => ['before' => ['admin', 'admin/*']],
+        // TODO: AUTHORIZE FILTER IN ROUTES?
+        //'authorize' => ['before' => ['*']],
+        // TODO: DOWN FOR MAINTENACE-PAGE-FILTER
     ];
 }

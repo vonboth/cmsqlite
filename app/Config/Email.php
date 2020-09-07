@@ -4,6 +4,11 @@ namespace Config;
 
 use CodeIgniter\Config\BaseConfig;
 
+/**
+ * Class Email
+ * @package Config
+ * TODO: EMAIL SETTINGS SET UP THINK AND SET
+ */
 class Email extends BaseConfig
 {
 

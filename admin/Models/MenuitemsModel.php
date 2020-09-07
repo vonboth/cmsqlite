@@ -3,7 +3,10 @@
 
 namespace Admin\Models;
 
-
+/**
+ * Class MenuitemsModel
+ * @package Admin\Models
+ */
 class MenuitemsModel extends BaseModel
 {
     protected $table = 'menuitems';
@@ -23,6 +26,16 @@ class MenuitemsModel extends BaseModel
         'lft',
         'rgt'
     ];
+
+    /**
+     * get home menu item
+     * @return array|object|null
+     */
+    public function getStartpageItem()
+    {
+        return $this->where('url', '/')
+            ->first();
+    }
 
     /**
      * @param null $menu_id

@@ -2,6 +2,11 @@
 
 namespace Config;
 
+/**
+ * Class View
+ * @package Config
+ * TODO: CHECK DEFAULT TIME FORMATTING IN $filters
+ */
 class View extends \CodeIgniter\Config\View
 {
     /**

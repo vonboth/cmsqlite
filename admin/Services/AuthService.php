@@ -38,12 +38,22 @@ class AuthService extends BaseService
     }
 
     /**
-     * get current logged in user
+     * get currently logged in user
      * @return mixed|null
      */
     public function getUser()
     {
         return is_null(session('Auth')) ? null : unserialize(session('Auth')['User']);
+    }
+
+    /**
+     * get role of currently
+     * logged in user
+     * @return mixed|null
+     */
+    public function getRole()
+    {
+        return is_null(session('Auth')) ? null : unserialize(session('Auth')['User'])['role'];
     }
 
     /**

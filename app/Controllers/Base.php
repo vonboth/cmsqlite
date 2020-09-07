@@ -2,6 +2,16 @@
 
 namespace App\Controllers;
 
+use Admin\Models\MenuitemsModel;
+use Admin\Models\MenusModel;
+use App\Models\ArticlesModel;
+use CodeIgniter\Controller;
+use CodeIgniter\HTTP\RequestInterface;
+use CodeIgniter\HTTP\ResponseInterface;
+use CodeIgniter\View\RendererInterface;
+use Config\Services;
+use Psr\Log\LoggerInterface;
+
 /**
  * Class BaseController
  *
@@ -12,16 +22,10 @@ namespace App\Controllers;
  *
  * For security be sure to declare any new methods as protected or private.
  *
- * @package CodeIgniter
+ * @property ArticlesModel $Articles
+ * @property MenusModel $Menus
+ * @property MenuitemsModel $Menuitems
  */
-
-use CodeIgniter\Controller;
-use CodeIgniter\HTTP\RequestInterface;
-use CodeIgniter\HTTP\ResponseInterface;
-use Config\Database;
-use Config\Services;
-use Psr\Log\LoggerInterface;
-
 class Base extends Controller
 {
     /**
@@ -31,32 +35,35 @@ class Base extends Controller
      *
      * @var array
      */
-    protected $helpers = ['html', 'form', 'app'];
+    protected $helpers = ['html', 'form', 'app', 'Admin\Helpers\tree_helper'];
 
-    /**
-     * @var $db
-     */
-    protected $db;
-
-    /**
-     * @var $session
-     */
+    /** @var $session */
     protected $session;
 
+    /** @var ArticlesModel $Articles */
+    protected $Articles;
+
+    /** @var MenusModel $Menus */
+    protected $Menus;
+
+    /** @var MenuitemsModel $Menuitems */
+    protected $Menuitems;
+
+    /** @var RendererInterface $View */
+    protected $View;
+
     /**
-     * Constructor.
+     * @inheritdoc
      */
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
-        // Do Not Edit This Line
         parent::initController($request, $response, $logger);
 
-        //--------------------------------------------------------------------
-        // Preload any models, libraries, etc, here.
-        //--------------------------------------------------------------------
-        // E.g.:
         $this->session = Services::session();
-        $this->db = Database::connect();
-        $this->validator = Services::validation();
+
+        $this->Articles = new ArticlesModel();
+        $this->Menuitems = new MenuitemsModel();
+        $this->Menus = new MenusModel();
+        $this->View = Services::renderer();
     }
 }

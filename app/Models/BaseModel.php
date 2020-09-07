@@ -11,6 +11,7 @@ class BaseModel extends Model
     protected $relations = [];
 
     /**
+     * find one item from the database
      * @param $id
      * @return array|object|null
      */
@@ -22,11 +23,38 @@ class BaseModel extends Model
     }
 
     /**
-     * Maybe later as array
+     * @param string $modelName
+     * @return null
+     */
+    public function hasOne($modelName)
+    {
+        return null;
+    }
+
+    public function hasMany($modelName)
+    {
+        return null;
+    }
+
+    public function belongsTo($modelName)
+    {
+        return null;
+    }
+
+    /**
+     * find associations of a model
+     * currently only one association is possible
+     * and no nested arrays
+     * "hasMany" returns an array of items in pluralized property
+     * e.g. categories -> [ [], [], ...]
+     * "hasOne" returns a singularized property on the item
+     * e.g. category -> category
+     *
      * @param string $relation
      * @param int $limit
      * @param int $offset
      * @return array
+     *
      */
     public function findAllWith($relation, int $limit = 0, int $offset = 0)
     {
@@ -44,7 +72,8 @@ class BaseModel extends Model
 
         foreach ($currents as &$current) {
             switch($setting['type']) {
-                case 'belongsTo':
+                case 'hasOne':
+                //case 'belongsTo':
                     $varName = singular($relation);
                     $res = $instance
                         ->where('id', $current->{$setting['key']})

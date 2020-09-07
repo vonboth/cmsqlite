@@ -14,9 +14,13 @@ use Psr\Log\LoggerInterface;
 /**
  * Class Base
  * @package Admin\Controllers
+ * TODO: INSTALLATION ROUTINE WITH: ADMIN PASS, EMAIL SETTINGS, FOLDER CHECK, ...
  */
 class Base extends AppBase
 {
+    /** @var array $helpers Helpers to load */
+    protected $helpers = ['html', 'form', 'Admin\Helpers\tree_helper', 'inflector', 'filesystem'];
+
     /** @var null|View $view */
     protected $view = null;
 
@@ -35,7 +39,6 @@ class Base extends AppBase
         $this->AuthService = service('auth');
         parent::initController($request, $response, $logger);
         $this->view = Services::renderer();
-        helper(['form', 'Admin\Helpers\tree_helper', 'inflector', 'filesystem']);
         $this->controllerName = $this->parseControllerName();
         $this->view->setData(
             [

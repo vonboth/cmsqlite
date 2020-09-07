@@ -11,8 +11,6 @@ use App\Models\Entities\Article;
  * Class Articles
  * @package Admin\Controllers
  * @property ArticlesModel $Articles
- *
- * TODO: AUSWAHL BILDER IM CKEDITOR
  */
 class Articles extends Base
 {

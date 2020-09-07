@@ -15,9 +15,7 @@ class Acl extends BaseConfig
 
     protected $manager = [
         'allow' => [],
-        'deny' => [
-            '/admin/users'
-        ]
+        'deny' => []
     ];
 
     protected $guest = [

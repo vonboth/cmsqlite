@@ -5,7 +5,7 @@ namespace Admin\Filters;
 
 
 use Admin\Config\Acl;
-use Admin\Services\AuthService;
+use App\Exceptions\ForbiddenException;
 use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -17,17 +17,15 @@ class AuthorizeFilter implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        $acl = new Acl();
-        $auth = service('auth');
-        $user = $auth->getUser();
+        $Acl = new Acl();
+        $AuthService = service('auth');
+        $role = $AuthService->getUserRole() ?? 'public';
+        $access = $Acl->$role;
 
-        var_dump($request); exit;
-        /*$current = explode('/', $request->detectPath());
-
-        if (in_array('login', $current) || in_array('logout', $current)) {
-            return $request;
+        // pass generally allowed URLs
+        if (!$AuthService->passTrough($request->detectPath())) {
+            throw new ForbiddenException(lang('Error.not_authorized'));
         }
-        return redirect('admin/authenticate/login');*/
     }
 
     /**

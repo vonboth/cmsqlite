@@ -20,6 +20,13 @@ class MenusModel extends BaseModel
 
     protected $afterDelete = ['afterDelete'];
 
+    protected $relations = [
+        'menuitems' => [
+            'type' => 'hasMany',
+            'key' => 'menu_id'
+        ]
+    ];
+
     /**
      * MenusModel constructor.
      * @param ConnectionInterface|null $db
@@ -38,10 +45,12 @@ class MenusModel extends BaseModel
      */
     public function findAllMenusWithTrees()
     {
-        $menus = $this->findAll();
+        $entities = $this->findAll();
+        $menus = [];
 
-        foreach ($menus as $menu) {
-            $menu->tree = $this->MenuItems->findTree($menu->id);
+        foreach ($entities as $entity) {
+            $entity->tree = $this->MenuItems->findTree($entity->id);
+            $menus[$entity->name] = $entity;
         }
 
         return $menus;
