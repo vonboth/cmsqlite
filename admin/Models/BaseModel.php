@@ -11,7 +11,7 @@ use CodeIgniter\Model;
  * @package Admin\Models
  * TODO: IMPL. hasOne, hasMany, belongsTo VIA MAGIC GET IN ENEITY AND PULIC FUNCTIONS IN BASE MODEL, SEE LARAVEL OR
  * https://stackoverflow.com/questions/37582848/what-is-the-difference-between-belongsto-and-hasone-in-laravel
- * TODO: EVTL. HASONE... IN ENTITY?
+ * TODO: EVTL. HASONE... IN ENTITY? TRAIT!
  */
 class BaseModel extends Model
 {

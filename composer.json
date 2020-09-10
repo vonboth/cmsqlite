@@ -6,10 +6,11 @@
   "homepage": "https://creatingcode.de",
   "license": "MIT",
   "require": {
-    "php": ">=7.2",
+    "php": ">=7.4",
     "codeigniter4/framework": "^4",
     "ext-mbstring": "*",
-    "ext-json": "*"
+    "ext-json": "*",
+    "tatter/relations": "^2.0"
   },
   "require-dev": {
     "mikey179/vfsstream": "1.6.*",

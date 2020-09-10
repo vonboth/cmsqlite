@@ -35,7 +35,7 @@ class Base extends Controller
      *
      * @var array
      */
-    protected $helpers = ['html', 'form', 'app', 'Admin\Helpers\tree_helper'];
+    protected $helpers = ['html', 'form', 'format', 'Admin\Helpers\tree_helper'];
 
     /** @var $session */
     protected $session;

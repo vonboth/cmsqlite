@@ -7,9 +7,12 @@ namespace Admin\Models;
 use Admin\Controllers\Menuitems;
 use CodeIgniter\Database\ConnectionInterface;
 use CodeIgniter\Validation\ValidationInterface;
+use Tatter\Relations\Traits\ModelTrait;
 
 class MenusModel extends BaseModel
 {
+    use ModelTrait;
+
     protected $table = 'menus';
     protected $returnType = 'Admin\Models\Entities\Menu';
     protected $MenuItems;
@@ -43,7 +46,7 @@ class MenusModel extends BaseModel
      * the menu as tree property
      * @return array
      */
-    public function findAllMenusWithTrees()
+    public function findAllMenusWithTrees() : array
     {
         $entities = $this->findAll();
         $menus = [];

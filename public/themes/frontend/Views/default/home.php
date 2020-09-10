@@ -5,11 +5,11 @@
   <h1>Hallo Public</h1>
   <section>
       <?= $title ?>
-      <?= view_cell('\App\Views\Cells\Article::render') ?>
+      <?= view_cell('\App\Views\Cells\Article::render', ['alias' => 'startpage']) ?>
   </section>
   <section>
       Menus
-    <?= menu_list($menus['main']->tree) ?>
+    <?= view_cell('\App\Views\Cells\Menu::render', ['id' => 1]) ?>
   </section>
 
 <?= $this->endSection() ?>
