@@ -3,7 +3,7 @@
 
 namespace ViewCells;
 
-use App\Models\ArticlesModel;
+use Admin\Models\ArticlesModel;
 
 /**
  * Class Article

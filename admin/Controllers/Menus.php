@@ -7,7 +7,7 @@ namespace Admin\Controllers;
 use Admin\Models\Entities\Menu;
 use Admin\Models\MenuitemsModel;
 use Admin\Models\MenusModel;
-use App\Models\ArticlesModel;
+use Admin\Models\ArticlesModel;
 
 /**
  * Class Articles
@@ -68,7 +68,7 @@ class Menus extends Base
         if ($this->request->getMethod() === 'post') {
             if ($this->validate(['name' => 'required'])) {
                 $menu->fill($this->request->getPost());
-                if ($lastId = $this->Menus->insert($menu) !== false) {
+                if ($this->Menus->insert($menu) !== false) {
                     return redirect()
                         ->to('/admin/menus/index')
                         ->with('flash', lang('General.saved'));

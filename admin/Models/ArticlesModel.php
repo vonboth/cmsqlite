@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Admin\Models;
 
 use Admin\Services\AuthService;
 
@@ -11,7 +11,7 @@ use Admin\Services\AuthService;
 class ArticlesModel extends BaseModel
 {
     protected $table = 'articles';
-    protected $returnType = 'App\Models\Entities\Article';
+    protected $returnType = 'Admin\Models\Entities\Article';
 
     protected $useTimestamps = true;
     protected $updatedField = 'updated';
@@ -51,17 +51,20 @@ class ArticlesModel extends BaseModel
      * so that we will have only one startpage
      *
      * @param array $data
+     * @return array
      */
     protected function setStartpageFlagToNull(array $data)
     {
-        if ($data['data']['is_startpage']) {
+        if (isset($data['data']['is_startpage'])) {
             $this->db->query('UPDATE articles SET is_startpage=NULL');
         }
+        return $data;
     }
 
     /**
      * set the user id for the creat
      * @param array $data
+     * @return array
      */
     protected function setUser(array $data)
     {
@@ -69,5 +72,6 @@ class ArticlesModel extends BaseModel
         $authService = service('auth');
         $user = $authService->getUser();
         $data['user_id'] = $user['id'];
+        return $data;
     }
 }

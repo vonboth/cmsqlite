@@ -63,8 +63,9 @@ class Categories extends Base
         if ($this->request->getMethod() === 'post') {
             if ($this->validate(['name' => 'required'])) {
                 $category->fill($this->request->getPost());
-                if ($lastId = $this->Categories->insert($category) !== false) {
-                    return redirect()->to("/admin/categories/edit/$lastId")
+                if ($this->Categories->insert($category) !== false) {
+                    return redirect()
+                        ->to('/admin/categories/edit/' . $this->Categories->getInsertID())
                         ->with('flash', lang('General.saved'));
                 } else {
                     return redirect()

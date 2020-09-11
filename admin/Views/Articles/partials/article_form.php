@@ -1,5 +1,5 @@
 <?php
-/** @var \App\Models\Entities\Article $article */
+/** @var Admin\Models\Entities\Article $article */
 
 ?>
 <!-- Some information related to the article -->

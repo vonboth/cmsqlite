@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Models\Entities;
+namespace Admin\Models\Entities;
 
 
 use Admin\Models\CategoriesModel;
@@ -29,10 +29,10 @@ class Article extends Entity
 
     /**
      * @return array|object|null
-     */
+
     protected function getCategory()
     {
         $model = new CategoriesModel();
-        return $model->find($this->category_id)->first();
-    }
+        return $model->find($this->category_id);
+    }*/
 }

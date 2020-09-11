@@ -4,8 +4,8 @@
 namespace Admin\Controllers;
 
 
-use App\Models\ArticlesModel;
-use App\Models\Entities\Article;
+use Admin\Models\ArticlesModel;
+use Admin\Models\Entities\Article;
 
 /**
  * Class Articles
@@ -58,7 +58,7 @@ class Articles extends Base
      */
     public function add()
     {
-        $article = new Article();
+        $article = new Article(['published' => 1]);
         if ($this->request->getMethod() === 'post') {
             if ($this->validate(
                 [
@@ -67,9 +67,9 @@ class Articles extends Base
                 ]
             )) {
                 $article->fill($this->request->getPost());
-                if ($lastId = $this->Articles->insert($article) !== false) {
+                if ($this->Articles->insert($article) !== false) {
                     return redirect()
-                        ->to("/admin/articles/edit/$lastId")
+                        ->to('/admin/articles/edit/' . $this->Articles->getInsertID())
                         ->with('flash', lang('General.saved'));
                 } else {
                     return redirect()

@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use Admin\Models\MenuitemsModel;
 use Admin\Models\MenusModel;
-use App\Models\ArticlesModel;
+use Admin\Models\ArticlesModel;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;

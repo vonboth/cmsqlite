@@ -22,6 +22,7 @@ class BaseModel extends Model
     protected $relations = [];
 
     /**
+     * find one item from the database
      * @param $id
      * @return array|object|null
      */
@@ -55,7 +56,8 @@ class BaseModel extends Model
 
         foreach ($currents as &$current) {
             switch($setting['type']) {
-                case 'belongsTo':
+                case 'hasOne':
+                //case 'belongsTo':
                     $varName = singular($relation);
                     $res = $instance
                         ->where('id', $current->{$setting['key']})

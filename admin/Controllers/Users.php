@@ -69,8 +69,9 @@ class Users extends Base
                 ]
             )) {
                 $user->fill($this->request->getPost());
-                if ($lastId = $this->Users->insert($user) !== false) {
-                    return redirect()->to("/admin/users/edit/$lastId")
+                if ($this->Users->insert($user) !== false) {
+                    return redirect()
+                        ->to('/admin/users/edit/' . $this->Users->getInsertID())
                         ->with('flash', lang('General.saved'));
                 } else {
                     return redirect()
