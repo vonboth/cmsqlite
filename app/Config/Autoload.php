@@ -58,6 +58,7 @@ class Autoload extends \CodeIgniter\Config\AutoloadConfig
             'Admin' => ROOTPATH . 'admin',
             'Themes' => ROOTPATH . 'public/themes/frontend',
             'AdminThemes' => ROOTPATH . 'public/themes/admin',
+            'ViewCells' => APPPATH . '/Views/Cells'
         ];
 
         /**

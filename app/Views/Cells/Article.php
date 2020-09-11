@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Views\Cells;
+namespace ViewCells;
 
 use App\Models\ArticlesModel;
 
@@ -12,8 +12,8 @@ use App\Models\ArticlesModel;
  * ViewCell to render a single article
  * Pass an array with a key ID with the ID of the article
  * or the alias of the article
- * e.g.: view_cell('App\Views\Cells\Article::render, ['id' => 1]')
- * e.g.: view_cell('App\Views\Cells\Article::render, ['alias' => 'startpage']')
+ * e.g.: view_cell('ViewCells\Article::render, ['id' => 1]')
+ * e.g.: view_cell('ViewCells\Article::render, ['alias' => 'startpage']')
  *
  * You need to know the ID and/or the alias from the database or
  * the CMSQLite-Backend
@@ -47,6 +47,7 @@ class Article
 
     /**
      * __call to catch any class function call
+     * or miss-spelling in the template
      * to redirect it to the render method
      * @param $name
      * @param $arguments
