@@ -1,8 +1,8 @@
 <div class=row>
   <div class="col s12 <?= (is_null($user->id) ? 'hide' : '') ?>">
         <span class="right">
-            <?= lang('Tables.created') . ': ' . $user->created
-            . '/' . lang('Tables.updated') . ': ' . $user->updated ?>
+            <?= lang('Tables.created') . ': ' . format_date('d.m.Y H:i', $user->created)
+            . ' | ' . lang('Tables.updated') . ': ' . format_date('d.m.Y H:i', $user->updated) ?>
         </span>
   </div>
 </div>
@@ -16,7 +16,7 @@
            type="text"
            class="validate"
            required="required">
-    <label for="username"><?= lang('Table.users.username') ?></label>
+    <label for="username"><?= lang('Tables.users.username') ?></label>
   </div>
   <div class="input-field col s12 m6">
     <input id="email"
@@ -26,7 +26,7 @@
            type="text"
            required="required"
            class="validate">
-    <label for="email"><?= lang('Table.users.email') ?></label>
+    <label for="email"><?= lang('Tables.users.email') ?></label>
   </div>
 </div>
 <?php
@@ -40,7 +40,7 @@ if (!$options['disabled']): ?>
              class="validate"
           <?= (!$edit) ? 'required' : '' ?>
       >
-      <label for="password"><?= lang('Table.users.password') ?></label>
+      <label for="password"><?= lang('Tables.users.password') ?></label>
     </div>
     <div class="input-field col s12 m6">
       <input id="password-confirm"
@@ -50,7 +50,7 @@ if (!$options['disabled']): ?>
              class="validate"
           <?= (!$edit) ? 'required' : '' ?>
       >
-      <label for="password-confirm"><?= lang('Table.users.confirm_password') ?></label>
+      <label for="password-confirm"><?= lang('Tables.users.confirm_password') ?></label>
     </div>
   </div>
 <?php
@@ -64,7 +64,7 @@ endif; ?>
            value="<?= old('firstname', $user->firstname) ?>"
            type="text"
            class="validate">
-    <label for="firstname"><?= lang('Table.users.firstname') ?></label>
+    <label for="firstname"><?= lang('Tables.users.firstname') ?></label>
   </div>
   <div class="input-field col s12 m6">
     <input id="lastname"
@@ -72,7 +72,7 @@ endif; ?>
         <?= ($options['disabled']) ? 'disabled' : '' ?>
            value="<?= old('lastname', $user->lastname) ?>"
            type="text">
-    <label for="lastname"><?= lang('Table.users.lastname') ?></label>
+    <label for="lastname"><?= lang('Tables.users.lastname') ?></label>
   </div>
 </div>
 
@@ -88,7 +88,7 @@ endif; ?>
           $user->role,
           ($options['disabled']) ? 'disabled' : ''
       ) ?>
-    <label for="role"><?= lang('Table.users.role') ?></label>
+    <label for="role"><?= lang('Tables.users.role') ?></label>
   </div>
 </div>
 

@@ -2,12 +2,14 @@
 
 namespace Config;
 
+use CodeIgniter\Database\Config;
+
 /**
  * Database Configuration
  *
  * @package Config
  */
-class Database extends \CodeIgniter\Database\Config
+class Database extends Config
 {
     /**
      * The directory that holds the Migrations

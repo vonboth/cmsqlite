@@ -2,6 +2,7 @@
 
 namespace Admin\Controllers;
 
+use Admin\Config\SystemSettings;
 use Admin\Config\Validation;
 use Admin\Services\AuthService;
 use App\Controllers\Base as AppBase;
@@ -19,7 +20,10 @@ use Psr\Log\LoggerInterface;
 class Base extends AppBase
 {
     /** @var array $helpers Helpers to load */
-    protected $helpers = ['html', 'form', 'Admin\Helpers\tree_helper', 'inflector', 'filesystem'];
+    protected $helpers = ['html', 'form', 'Admin\Helpers\tree_helper', 'inflector', 'filesystem', 'format'];
+
+    /** @var SystemSettings|null $SystemSettings */
+    protected $SystemSettings = null;
 
     /** @var null|View $view */
     protected $view = null;
@@ -38,6 +42,8 @@ class Base extends AppBase
         $this->validator = Services::validation(new Validation());
         $this->AuthService = service('auth');
         parent::initController($request, $response, $logger);
+
+        $this->SystemSettings = config('Admin\Config\SystemSettings');
         $this->view = Services::renderer();
         $this->controllerName = $this->parseControllerName();
         $this->view->setData(

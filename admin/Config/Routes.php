@@ -95,5 +95,15 @@ $routes->group(
                 $routes->add('/', 'Media::index');
             }
         );
+        $routes->group(
+            'settings',
+            function(RouteCollection $routes) {
+                $routes->get('index', 'Settings::index');
+                $routes->post('save/(:num)', 'Settings::save/$1');
+                $routes->post('add', 'Settings::add');
+                $routes->post('delete/(:num)', 'Settings::delete/$1');
+                $routes->get('/', 'Settings::index');
+            }
+        );
     }
 );

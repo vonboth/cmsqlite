@@ -55,28 +55,39 @@
             <i class="material-icons left">description</i>
           </a>
         </li>
+
         <li>
           <a href="/admin/media">
               <?= lang('Menu.media') ?>
             <i class="material-icons left">insert_photo</i>
           </a>
         </li>
+
         <li>
           <a href="/admin/categories">
               <?= lang('Menu.categories') ?>
             <i class="material-icons left">label outline</i>
           </a>
         </li>
+
         <li>
           <a href="/admin/menus">
               <?= lang('Menu.menus') ?>
             <i class="material-icons left">list</i>
           </a>
         </li>
+
         <li>
           <a href="/admin/users">
               <?= lang('Menu.users') ?>
             <i class="material-icons left">people</i>
+          </a>
+        </li>
+
+        <li>
+          <a href="/admin/settings">
+              <?= lang('Menu.settings') ?>
+            <i class="material-icons left">settings</i>
           </a>
         </li>
       </ul>

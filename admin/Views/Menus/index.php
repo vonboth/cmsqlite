@@ -39,8 +39,8 @@ $this->endSection() ?>
 <?php
 $this->section('js_vars') ?>
 <script>
-  var menus = <?= json_encode($menus) ?>;
-  var menuitems = <?= json_encode($menuitems) ?>;
+  const menus = <?= json_encode(array_values($menus)) ?>;
+  const menuitems = <?= json_encode(array_values($menuitems)) ?>;
 </script>
 <?php
 $this->endSection('js') ?>

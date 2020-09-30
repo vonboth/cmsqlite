@@ -82,10 +82,7 @@ class Menus extends Base
                 return redirect()
                     ->to('/admin/menus/index')
                     ->with('flash', $this->validator->getErrors())
-                    ->with(
-                        '_ci_validation_errors',
-                        serialize($this->validator->getErrors())
-                    );
+                    ->with('_ci_validation_errors', serialize($this->validator->getErrors()));
             }
         }
 
@@ -124,16 +121,13 @@ class Menus extends Base
                 }
             } else {
                 return redirect()
+                    ->to('/admin/menus/index')
                     ->with('flash', $this->validator->getErrors())
-                    ->with(
-                        '_ci_validation_errors',
-                        serialize($this->validator->getErrors())
-                    );
+                    ->with('_ci_validation_errors', serialize($this->validator->getErrors()));
             }
         }
         return redirect()
-            ->to('/admin/menus/index')
-            ->with('flash', 'Not Implemented');
+            ->to('/admin/menus/index');
     }
 
     /**

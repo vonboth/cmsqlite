@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("window.Swal = __webpack_require__(/*! sweetalert2 */ \"./node_modules/sweetalert2/dist/sweetalert2.all.js\");\nlet axios = __webpack_require__(/*! axios */ \"./node_modules/axios/index.js\");\nwindow.Axios = axios.create({\n  headers: {\n    'X-Requested-With': 'XMLHttpRequest'\n  }\n})\n\n\n//# sourceURL=webpack:///./jssrc/admin/vendor.js?");
+eval("window.Swal = __webpack_require__(/*! sweetalert2 */ \"./node_modules/sweetalert2/dist/sweetalert2.all.js\");\nconst axios = __webpack_require__(/*! axios */ \"./node_modules/axios/index.js\");\nwindow.Axios = axios.create({\n  headers: {\n    'X-Requested-With': 'XMLHttpRequest'\n  }\n})\n\n\n//# sourceURL=webpack:///./jssrc/admin/vendor.js?");
 
 /***/ }),
 

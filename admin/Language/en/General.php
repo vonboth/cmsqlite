@@ -5,6 +5,8 @@ return [
     'no' => 'no',
     'submit' => 'Submit',
     'escape' => 'Escape',
+    'edit' => 'Edit',
+    'save' => 'Save',
     'cancel' => 'Cancel',
     'delete' => 'Delete',
     'create' => 'Create',
@@ -13,5 +15,5 @@ return [
     'saved' => 'saved successfully',
     'save_error' => 'the entity was not saved',
     'deleted' => 'deleted successfully',
-    'delete_error' => 'the entity was not deleted'
+    'delete_error' => 'the entity has not been deleted'
 ];

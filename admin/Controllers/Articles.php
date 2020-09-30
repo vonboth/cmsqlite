@@ -34,7 +34,7 @@ class Articles extends Base
         /** @var  $query */
         return view(
             'Admin\Articles\index',
-            ['articles' => $this->Articles->findAllWith('categories')]
+            ['articles' => $this->Articles->with('categories')->findAll()]
         );
     }
 
@@ -60,12 +60,7 @@ class Articles extends Base
     {
         $article = new Article(['published' => 1]);
         if ($this->request->getMethod() === 'post') {
-            if ($this->validate(
-                [
-                    'title' => 'required',
-                    'content' => 'required'
-                ]
-            )) {
+            if ($this->validate(['title' => 'required', 'content' => 'required'])) {
                 $article->fill($this->request->getPost());
                 if ($this->Articles->insert($article) !== false) {
                     return redirect()

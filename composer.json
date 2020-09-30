@@ -8,9 +8,9 @@
   "require": {
     "php": ">=7.4",
     "codeigniter4/framework": "^4",
+    "tatter/relations": "^2.0",
     "ext-mbstring": "*",
-    "ext-json": "*",
-    "tatter/relations": "^2.0"
+    "ext-json": "*"
   },
   "require-dev": {
     "mikey179/vfsstream": "1.6.*",

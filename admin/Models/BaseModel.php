@@ -5,16 +5,16 @@ namespace Admin\Models;
 
 
 use CodeIgniter\Model;
+use Tatter\Relations\Traits\ModelTrait;
 
 /**
  * Class BaseModel
  * @package Admin\Models
- * TODO: IMPL. hasOne, hasMany, belongsTo VIA MAGIC GET IN ENEITY AND PULIC FUNCTIONS IN BASE MODEL, SEE LARAVEL OR
- * https://stackoverflow.com/questions/37582848/what-is-the-difference-between-belongsto-and-hasone-in-laravel
- * TODO: EVTL. HASONE... IN ENTITY? TRAIT!
  */
 class BaseModel extends Model
 {
+    use ModelTrait;
+
     protected $useTimestamps = true;
     protected $updatedField = 'updated';
     protected $createdField = 'created';
@@ -39,6 +39,7 @@ class BaseModel extends Model
      * @param int $limit
      * @param int $offset
      * @return array
+     * @deprecated
      */
     public function findAllWith($relation, int $limit = 0, int $offset = 0)
     {
@@ -55,9 +56,9 @@ class BaseModel extends Model
         $currents = $this->findAll($limit, $offset);
 
         foreach ($currents as &$current) {
-            switch($setting['type']) {
+            switch ($setting['type']) {
                 case 'hasOne':
-                //case 'belongsTo':
+                    //case 'belongsTo':
                     $varName = singular($relation);
                     $res = $instance
                         ->where('id', $current->{$setting['key']})

@@ -8,8 +8,8 @@
         <span class="right">
             <?= lang('Tables.articles.published') . ': '
             . (($article->published) ? lang('General.yes') : lang('General.no'))
-            . ' / ' . lang('Tables.created') . ': ' . $article->created
-            . '/' . lang('Tables.updated') . ': ' . $article->updated ?>
+            . ' / ' . lang('Tables.created') . ': ' . format_date('d.m.Y H:i', $article->created)
+            . '/' . lang('Tables.updated') . ': ' . format_date('d.m.Y H:i', $article->updated) ?>
         </span>
   </div>
 </div>

@@ -23,6 +23,10 @@ main > .container {
     width: 100%;
 }
 
+.pt1 {
+    padding-top: 1em !important;
+}
+
 .relative {
     position: relative;
 }
@@ -47,6 +51,7 @@ main > .container {
     justify-content: center;
     align-items: center;
 }
+
 .flex-columm {
     flex-direction: column;
 }
@@ -221,6 +226,9 @@ li.menu-administration .collapsible-header {
     height: 160px;
     overflow: hidden;
 }
+.file-card {
+    max-width: 48%;
+}
 
 .folder-card {
     width: 160px;
@@ -234,6 +242,13 @@ li.menu-administration .collapsible-header {
 .file-card img {
     max-height: 160px;
     width: auto !important;
+    padding: 5px;
+}
+
+.file-card .card-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .browse-image-card {

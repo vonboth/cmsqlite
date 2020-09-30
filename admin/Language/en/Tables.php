@@ -65,5 +65,11 @@ return [
             'author' => 'Author',
             'guest' => 'Guest',
         ]
+    ],
+    'settings' => [
+        'settings' => 'Settings',
+        'layout' => 'Layout',
+        'name' => 'Name',
+        'value' => 'Value',
     ]
 ];

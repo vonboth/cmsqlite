@@ -1,5 +1,5 @@
 window.Swal = require('sweetalert2');
-let axios = require('axios');
+const axios = require('axios');
 window.Axios = axios.create({
   headers: {
     'X-Requested-With': 'XMLHttpRequest'

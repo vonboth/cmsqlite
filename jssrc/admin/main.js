@@ -15,7 +15,10 @@ window.adminVue = new Vue({
       parentMenus: [],
       menuFormAction: '/admin/menus/add',
       menuitemFormAction: '/admin/menuitems/add',
-      fileFormAction: '/admin/media/remove-file'
+      fileFormAction: '/admin/media/remove-file',
+      addNewSetting: false,
+      editSettingId: '',
+      prevSettingsValue: ''
     };
   },
   // computed values
@@ -67,16 +70,20 @@ window.adminVue = new Vue({
       this.selectedMenu = {};
       this.selectedMenuId = id;
     },
+
+    // Menu section: check if menuitem has an ancestor
     hasAncestor: function(rgt, menu_id) {
       return menuitems.find(
         (item) => (item.lft === (rgt + 1) && item.menu_id === menu_id));
     },
+
+    // Menu section: check if menuitem has parent item
     hasParent: function(lft, menu_id) {
-      console.log(lft, menu_id);
       return menuitems.find(
         (item) => (item.rgt === (lft - 1) && item.menu_id === menu_id));
     },
-    // create a new menu item
+
+    // Menu section: create a new menuitem
     onAddMenuitem: function(menuId) {
       this.menuitemFormAction = '/admin/menuitems/add';
       this.parentMenus = menuitems
@@ -96,24 +103,32 @@ window.adminVue = new Vue({
       };
       this.hideMenuitemForm = false;
     },
+
+    // Menu section: edit a menuitem
     onEditMenuitem: function(id) {
       this.menuitemFormAction = `/admin/menuitems/edit/${id}`;
       this.selectedMenuitem = menuitems.find((item) => item.id === id);
-      console.log(this.selectedMenuitem);
       this.hideMenuitemForm = false;
     },
+
+    // Menu section: change menuitem callback
     onChangeMenuitemType: function() {
       this.selectedMenuitem.article_id = null;
       this.selectedMenuitem.url = '';
     },
+
+    // Menu section: cancel edit a menuitem
     onCancelEditMenuitem: function() {
       this.selectedMenuitem = {};
       this.hideMenuitemForm = true;
     },
-    // save the menuitem
+
+    // Menu section: save the menuitem
     onSaveMenuitem: function() {
       this.$refs.menuitem_form.submit();
     },
+
+    // Menu section: remove a menuitem
     onDeleteMenuitem: function(id) {
       let menuitem = menuitems.find((item) => item.id === id),
         withInput = false,
@@ -145,7 +160,8 @@ window.adminVue = new Vue({
           }
         });
     },
-    // add a new menu
+
+    // Menu section: add a new menu
     onAddMenu: function() {
       this.menuFormAction = '/admin/menus/add';
       this.selectedMenu = {
@@ -154,22 +170,26 @@ window.adminVue = new Vue({
       };
       this.hideMenuForm = false;
     },
-    // edit a new menu
+
+    // Menu section: edit a new menu
     onEditMenu: function(id) {
       this.menuFormAction = `/admin/menus/edit/${id}`;
       this.selectedMenu = menus.find((menu) => menu.id === id);
       this.hideMenuForm = false;
     },
-    // cancel edit menu
+
+    // Menu section: cancel edit menu
     onCancelEditMenu: function() {
       this.selectedMenu = {};
       this.hideMenuForm = true;
     },
-    // save the menu form
+
+    // Menu section: save the menu form
     onSaveMenu: function() {
       this.$refs.menu_form.submit();
     },
-    // auto prepare the alias
+
+    // Menu section: auto prepare the alias
     onChangeMenuitemTitle: function() {
       this.selectedMenuitem.alias = this.selectedMenuitem.title
         .replace(/\s/gi, '_')
@@ -180,7 +200,8 @@ window.adminVue = new Vue({
         .replace(/Ö|ö/g, 'oe')
         .toLowerCase();
     },
-    // delete media file
+
+    // Media section: delete media file
     onDeleteMedia: function(filename) {
       this.fileFormAction = '/admin/media/remove-file';
 
@@ -200,6 +221,8 @@ window.adminVue = new Vue({
         }
       });
     },
+
+    // Media section: remove a directory
     onDeleteDirectory: function(dirname) {
       this.fileFormAction = '/admin/media/remove-dir';
       Swal.fire({
@@ -218,8 +241,89 @@ window.adminVue = new Vue({
         }
       });
     },
+
+    // Settings section: add new
+    onAddNewSetting: function() {
+      this.addNewSetting = true;
+    },
+
+    // Settings section: cancel new setting
+    onCancelNewSetting: function() {
+      this.addNewSetting = false;
+      document.getElementById('new_name').value = '';
+      document.getElementById('new_value').value = '';
+    },
+
+    // Settings section: start editing a setting
+    onEditSetting: function(id, name) {
+      let el = document.getElementById('id-' + name);
+      this.prevSettingsValue = el.value;
+      this.editSettingId = id;
+      el.removeAttribute('disabled');
+    },
+
+    // cancel edit setting
+    onCancelEditSetting: function(name) {
+      let el = document.getElementById('id-' + name);
+      el.value = this.prevSettingsValue;
+      this.prevSettingsValue = '';
+      this.editSettingId = '';
+      el.setAttribute('disabled', true);
+    },
+
+    // Setting section: save setting
+    onSaveSetting: function(id, name) {
+      let formData = new FormData(),
+        el = document.getElementById('id-' + name);
+
+      formData.append('value', el.value);
+      Axios.post(
+        `/admin/settings/save/${id}`,
+        formData, {
+          headers: {
+            'X-CSRF-TOKEN': this.getCsrfToken()
+          }
+        })
+        .then((response) => {
+          window.location.reload();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
+    // Setting section: delete setting
+    onDeleteSetting: function(id) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'delete setting',
+        text: 'are you sure to delete the selected item?',
+        showCancelButton: true,
+        cancelButtonText: 'no',
+        confirmButtonText: 'yes'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Axios
+            .post(
+              `/admin/settings/delete/${id}`,
+              {},
+              {
+                headers: {
+                  'X-CSRF-TOKEN': this.getCsrfToken()
+                }
+              })
+            .then((response) => {
+              window.location.reload();
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        }
+      });
+    },
+
     // read the CSRF token from the meta header
-    getCsrfToken: () => document.querySelectorAll(
-      'meta[name="X-CSRF-TOKEN"]')[0].content
+    getCsrfToken: () => document
+      .querySelectorAll('meta[name="X-CSRF-TOKEN"]')[0].content
   }
 });
