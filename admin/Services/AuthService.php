@@ -4,6 +4,7 @@
 namespace Admin\Services;
 
 
+use Admin\Filters\LoginThrottleFilter;
 use Admin\Models\UsersModel;
 use CodeIgniter\Config\BaseService;
 
@@ -93,15 +94,28 @@ class AuthService extends BaseService
             return false;
         }
 
+        // get SLEEP from session to prevent BruteForce
+        // attacks against the login form
+        $sleep = session()
+            ->get(LoginThrottleFilter::SESSION_KEY)['SLEEP'];
+
         $user = $this->Users
             ->where('username', $username)
             ->asArray()
             ->first();
 
         if ($user && password_verify($password, $user['password'])) {
+            $this->_setTries($user, 0);
+            $this->_resetLoginAttack();
             unset($user['password']);
             session()->set('Auth', ['User' => serialize($user)]);
             return true;
+        } else {
+            $this->_setTries($user, $user['tries'] + 1);
+        }
+
+        if ($sleep > 0) {
+            sleep($sleep * $sleep);
         }
 
         return false;
@@ -116,6 +130,7 @@ class AuthService extends BaseService
     }
 
     /**
+     * check if current user is logged in
      * @return mixed
      */
     public function isLoggedIn()
@@ -124,6 +139,11 @@ class AuthService extends BaseService
     }
 
     /**
+     * some urls should not be protected
+     * from the filter. E.g. login page
+     * check if the current url is in the array
+     * of allowed urls
+     *
      * @param string $url
      * @return bool
      */
@@ -133,6 +153,7 @@ class AuthService extends BaseService
     }
 
     /**
+     * TODO: Needs implementation
      * @return false
      */
     public function authorize()
@@ -142,5 +163,28 @@ class AuthService extends BaseService
             return false;
         }
         return false;
+    }
+
+    /**
+     * reset tries after successfull login
+     * @param array|object $user
+     * @param $num
+     */
+    private function _setTries($user, int $num)
+    {
+        $user['tries'] = $num;
+        try {
+            $this->Users->save($user);
+        } catch (\Exception $exception) {
+        }
+    }
+
+    /**
+     * After successful login: remove the
+     * throttle check from the session
+     */
+    private function _resetLoginAttack()
+    {
+        session()->remove('LOGIN_ATTACK');
     }
 }

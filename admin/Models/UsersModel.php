@@ -18,5 +18,6 @@ class UsersModel extends BaseModel
         'lastname',
         'email',
         'role',
+        'tries'
     ];
 }

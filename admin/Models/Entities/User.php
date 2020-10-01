@@ -20,6 +20,7 @@ class User extends Entity
         'lastname' => null,
         'email' => null,
         'role' => null,
+        'tries' => null,
         'created' => null,
         'updated' => null,
     ];
