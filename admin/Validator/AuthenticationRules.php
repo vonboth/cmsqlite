@@ -9,8 +9,6 @@ use Admin\Services\AuthService;
 /**
  * Class AuthenticationRules
  * @package Admin\Validator
- *
- * TODO: PASSWORD VALIDATORS FOR LENGTH AND COMPOSITION
  */
 class AuthenticationRules
 {

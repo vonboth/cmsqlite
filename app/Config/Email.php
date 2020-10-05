@@ -32,7 +32,7 @@ class Email extends BaseConfig
      *
      * @var string
      */
-    public $userAgent = 'CodeIgniter';
+    public $userAgent = 'CMSQLite';
 
     /**
      * The mail sending protocol: mail, sendmail, smtp

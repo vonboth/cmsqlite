@@ -11,8 +11,6 @@ use CodeIgniter\API\ResponseTrait;
  * Class Settings
  * @package Admin\Controllers
  * @property SettingsModel $Settings
- *
- * TODO: ALLES TESTEN!
  */
 class Settings extends Base
 {
@@ -51,12 +49,14 @@ class Settings extends Base
             $setting->fill($this->request->getPost());
             try {
                 if ($this->Settings->save($setting)) {
-                    session()->set('flash', lang('General.saved'));
+                    session()->setFlashdata('flash', lang('General.saved'));
                     return $this->respondUpdated($setting);
                 } else {
+                    session()->setFlashdata('flash', lang('General.save_error'));
                     return $this->fail(lang('General.save_error'));
                 }
             } catch (\Exception $exception) {
+                session()->setFlashdata('flash', $exception->getMessage());
                 return $this->fail($exception->getMessage());
             }
         } else {
@@ -101,8 +101,10 @@ class Settings extends Base
     {
         $setting = $this->Settings->find($id);
         if ($setting && $this->Settings->delete($id)) {
+            session()->setFlashdata('flash', lang('General.deleted'));
             return $this->respondDeleted($setting);
         } else {
+            session()->setFlashdata('flash', lang('General.delete_error'));
             return $this->fail(lang('General.delete_error'));
         }
     }

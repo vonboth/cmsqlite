@@ -35,7 +35,7 @@ class Profile extends Base
             if ($this->validate(
                 [
                     'firstname' => 'required',
-                    'password' => 'required_with[password,password_confirm]|matches[password_confirm]',
+                    'password' => 'required_with[password,password_confirm]|matches[password_confirm]|password_rule[8]',
                     'email' => 'required|valid_email'
                 ]
             )) {

@@ -81,7 +81,7 @@
           </div>
         </div>
 
-        <div class="row">
+        <div class="row" :class="{hide: selectedMenuitem.id}">
           <div class="col s12">
             <label for="parent_id"><?= lang('Tables.menuitems.parent_id') ?>
               <span class="helper-text">

@@ -158,7 +158,7 @@ class AuthService extends BaseService
      */
     public function authorize()
     {
-        $user = unserialize(session('Auth')['User']);
+        $user = $this->getUser();
         if (!$user) {
             return false;
         }

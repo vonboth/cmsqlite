@@ -23,16 +23,16 @@ class Base extends AppBase
     protected $helpers = ['html', 'form', 'Admin\Helpers\tree_helper', 'inflector', 'filesystem', 'format'];
 
     /** @var SystemSettings|null $SystemSettings */
-    protected $SystemSettings = null;
+    protected ?SystemSettings $SystemSettings = null;
 
     /** @var null|View $view */
-    protected $view = null;
+    protected ?View $view = null;
 
     /** @var string $controllerName */
-    protected $controllerName = '';
+    protected string $controllerName = '';
 
     /** @var AuthService $AuthService */
-    protected $AuthService;
+    protected AuthService $AuthService;
 
     /**
      * @inheritdoc

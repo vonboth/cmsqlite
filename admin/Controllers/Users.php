@@ -62,7 +62,7 @@ class Users extends Base
                 [
                     'username' => 'required',
                     'firstname' => 'required',
-                    'password' => 'required|min_length[8]|matches[password_confirm]',
+                    'password' => 'required|matches[password_confirm]|password_rule[8]',
                     'password_confirm' => 'required',
                     'email' => 'required|valid_email',
                     'role' => 'required',
@@ -108,7 +108,7 @@ class Users extends Base
                 [
                     'username' => 'required',
                     'firstname' => 'required',
-                    'password' => 'required_with[password,password_confirm]|matches[password_confirm]',
+                    'password' => 'required_with[password,password_confirm]|matches[password_confirm]|password_rule[8]',
                     'email' => 'required|valid_email',
                     'role' => 'required',
                 ]

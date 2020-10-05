@@ -208,6 +208,18 @@ li.menu-administration {
     background-color: #fff;
 }
 
+.menu-administration .menu-name:before {
+    font-family: "Material Icons";
+    font-size: 1.5em;
+    content: '\e5c5';
+    float: left;
+    margin-right: .2rem;
+}
+
+.menu-administration.active .menu-name:before {
+    content: '\e5c7';
+}
+
 li.menu-administration .collapsible-header {
     display: inline-block !important;
     border: none;

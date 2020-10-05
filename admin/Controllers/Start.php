@@ -10,7 +10,7 @@ namespace Admin\Controllers;
  */
 class Start extends Base
 {
-    protected $controllerName = 'Start';
+    protected string $controllerName = 'Start';
 
     public function index()
     {
