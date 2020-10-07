@@ -1,7 +1,5 @@
 import Vue from 'vue';
 
-// TODO: TRANSLATIONS OF JS MUST BE IMPL
-// TODO: SET DEFAULT LANG FOR JS AND PHP
 window.adminVue = new Vue({
   el: '#main',
   data: function() {
@@ -50,11 +48,11 @@ window.adminVue = new Vue({
     onDeleteItem: function(controller, id) {
       Swal.fire({
         icon: 'warning',
-        title: 'delete item',
-        text: 'are you sure to delete the selected item?',
+        title: translations.delete_item,
+        text: translations.delete_question,
         showCancelButton: true,
-        cancelButtonText: 'no',
-        confirmButtonText: 'yes'
+        cancelButtonText: translations.yes,
+        confirmButtonText: translations.no
       })
         .then(function(result) {
           if (result.isConfirmed) {
@@ -134,11 +132,11 @@ window.adminVue = new Vue({
         withInput = false,
         options = {
           icon: 'warning',
-          title: 'Delete menu item',
-          text: 'are you sure to delete the selected item?',
+          title: translations.delete_item,
+          text: translations.delete_question,
           showCancelButton: true,
-          cancelButtonText: 'no',
-          confirmButtonText: 'yes'
+          cancelButtonText: translations.no,
+          confirmButtonText: translations.yes
         };
 
       if (menuitem.rgt - menuitem.lft > 1) {
@@ -146,7 +144,7 @@ window.adminVue = new Vue({
         options = Object.assign(options, {
           input: 'checkbox',
           inputValue: 0,
-          inputPlaceholder: 'delete menu item with all children?'
+          inputPlaceholder: translations.delete_menu_all_children
         });
       }
       Swal.fire(options)
@@ -207,11 +205,11 @@ window.adminVue = new Vue({
 
       Swal.fire({
         icon: 'warning',
-        title: 'delete item',
-        text: 'are you sure to delete the selected item?',
+        title: translations.delete_item,
+        text: translations.delete_question,
         showCancelButton: true,
-        cancelButtonText: 'no',
-        confirmButtonText: 'yes'
+        cancelButtonText: translations.no,
+        confirmButtonText: translations.yes
       }).then((result) => {
         if (result.isConfirmed) {
           this.$refs.remove_file.value = filename;
@@ -227,11 +225,11 @@ window.adminVue = new Vue({
       this.fileFormAction = '/admin/media/remove-dir';
       Swal.fire({
         icon: 'warning',
-        title: 'delete directory',
-        text: 'are you sure to delete the selected item?',
+        title: translations.delete_directory,
+        text: translations.delete_question,
         showCancelButton: true,
-        cancelButtonText: 'no',
-        confirmButtonText: 'yes'
+        cancelButtonText: translations.no,
+        confirmButtonText: translations.yes
       }).then((result) => {
         if (result.isConfirmed) {
           this.$refs.remove_dir.value = dirname;
@@ -296,11 +294,11 @@ window.adminVue = new Vue({
     onDeleteSetting: function(id) {
       Swal.fire({
         icon: 'warning',
-        title: 'delete setting',
-        text: 'are you sure to delete the selected item?',
+        title: translations.delete_setting,
+        text: translations.delete_question,
         showCancelButton: true,
-        cancelButtonText: 'no',
-        confirmButtonText: 'yes'
+        cancelButtonText: translations.no,
+        confirmButtonText: translations.yes
       }).then((result) => {
         if (result.isConfirmed) {
           Axios

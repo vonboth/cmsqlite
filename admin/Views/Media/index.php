@@ -17,7 +17,7 @@ $this->section('main') ?>
 </div>
 
 <div class="row">
-  <div class="col s12 m6">
+  <div class="col xl6 l12 s12">
     <div class="card">
       <div class="card-content">
         <p><?= lang('Media.upload_file') ?></p>
@@ -45,7 +45,7 @@ $this->section('main') ?>
       </div>
     </div>
   </div>
-  <div class="col s12 m6">
+  <div class="col xl6 l12 s12">
     <div class="card">
       <div class="card-content">
         <p><?= lang('Media.create_folder') ?></p>

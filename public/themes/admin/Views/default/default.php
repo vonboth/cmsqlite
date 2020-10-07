@@ -13,6 +13,10 @@
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <script src="//cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
+  <script type="text/javascript">
+    const translations = <?= json_encode(lang('Javascript.all')) ?>;
+  </script>
+
     <?= link_tag('themes/admin/Views/default/css/layout.css') ?>
 
     <?= $this->renderSection('css') ?>
@@ -32,7 +36,7 @@
               <i class="material-icons">person</i>
             </a>
             <ul id="profile_menu" class="dropdown-content">
-              <li><a href="/admin/profile">My Profile</a></li>
+              <li><a href="/admin/profile"><?= lang('User.my_profile') ?></a></li>
               <li><a href="/admin/authenticate/logout"><?= lang('User.logout') ?></a></li>
             </ul>
           </li>
