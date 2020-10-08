@@ -14,7 +14,8 @@ class Filters extends BaseConfig
         'honeypot' => \CodeIgniter\Filters\Honeypot::class,
         'authenticate' => \Admin\Filters\AuthenticateFilter::class,
         'authorize' => \Admin\Filters\AuthorizeFilter::class,
-        'loginThrottle' => \Admin\Filters\LoginThrottleFilter::class
+        'loginThrottle' => \Admin\Filters\LoginThrottleFilter::class,
+        'maintenance' => \App\Filters\MaintenanceFilter::class
     ];
 
     // Always applied before every request
@@ -38,10 +39,10 @@ class Filters extends BaseConfig
     // that they should run on, like:
     //    'isLoggedIn' => ['before' => ['account/*', 'profiles/*']],
     public $filters = [
+        'maintenance' => ['before' => ['*']],
         'loginThrottle' => ['before' => ['admin/authenticate/login']],
         'authenticate' => ['before' => ['admin', 'admin/*']],
         // TODO: AUTHORIZE FILTER IN ROUTES?
-        //'authorize' => ['before' => ['*']],
-        // TODO: DOWN FOR MAINTENACE-PAGE-FILTER
+        //'authorize' => ['before' => ['*']]
     ];
 }

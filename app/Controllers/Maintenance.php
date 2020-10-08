@@ -3,11 +3,18 @@
 
 namespace App\Controllers;
 
-
-class Maintenance
+/**
+ * Class Maintenance
+ * @package App\Controllers
+ */
+class Maintenance extends Base
 {
+    /**
+     * index page
+     * @return string
+     */
     public function index()
     {
-        return view('Maintenance.index');
+        return view('Themes\default\maintenance');
     }
 }
