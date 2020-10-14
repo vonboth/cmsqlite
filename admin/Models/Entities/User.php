@@ -36,4 +36,9 @@ class User extends Entity
         $this->attributes['password'] = password_hash($password, PASSWORD_BCRYPT);
         return $this;
     }
+
+    protected function getFullname()
+    {
+        return $this->attributes['firstname'] . ' ' . $this->attributes['lastname'];
+    }
 }

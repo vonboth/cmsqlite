@@ -3,6 +3,7 @@
 namespace Admin\Models;
 
 use Admin\Services\AuthService;
+use Tatter\Relations\Traits\ModelTrait;
 
 /**
  * Class ArticlesModel
@@ -10,6 +11,8 @@ use Admin\Services\AuthService;
  */
 class ArticlesModel extends BaseModel
 {
+    use ModelTrait;
+
     protected $table = 'articles';
     protected $returnType = 'Admin\Models\Entities\Article';
 
@@ -62,7 +65,8 @@ class ArticlesModel extends BaseModel
     }
 
     /**
-     * set the user id for the creat
+     * set the user id for
+     * the article
      * @param array $data
      * @return array
      */
@@ -73,5 +77,10 @@ class ArticlesModel extends BaseModel
         $user = $authService->getUser();
         $data['user_id'] = $user['id'];
         return $data;
+    }
+
+    protected function unsetPassword($data)
+    {
+        var_dump($data); exit;
     }
 }

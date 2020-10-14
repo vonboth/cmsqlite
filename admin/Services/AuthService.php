@@ -153,7 +153,7 @@ class AuthService extends BaseService
     }
 
     /**
-     * TODO: Needs implementation
+     * TODO: AUTHORIZE NEEDS IMPLEMENTATION
      * @return false
      */
     public function authorize()

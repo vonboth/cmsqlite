@@ -2,6 +2,11 @@
 
 namespace App\Controllers;
 
+use Admin\Models\UsersModel;
+use CodeIgniter\HTTP\RequestInterface;
+use CodeIgniter\HTTP\ResponseInterface;
+use Psr\Log\LoggerInterface;
+
 /**
  * Class Home
  * @package App\Controllers
@@ -9,12 +14,25 @@ namespace App\Controllers;
  */
 class Pages extends Base
 {
+    protected $Users;
+
+    public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
+    {
+        parent::initController($request, $response, $logger);
+        $this->Users = new UsersModel();
+    }
+
     /**
      * Entrypoint for the startpage
      */
     public function start()
     {
-        $article = $this->Articles->where('is_startpage', 1)->first();
+        $article = $this->Articles
+            ->where('is_startpage', 1)
+            ->first();
+
+        $article->user = $this->Users->findAuthor($article->user_id);
+
         $this->_setViewVars();
         return view(
             "Themes\default\home",
@@ -44,10 +62,12 @@ class Pages extends Base
         );
     }
 
+    /**
+     * set common data for the view
+     */
     private function _setViewVars()
     {
         $menus = $this->Menus->findAllMenusWithTrees();
-        //var_dump($menus); exit;
         $this->View->setVar('menus', $menus);
         $this->View->setVar('description', 'Descrption');
     }

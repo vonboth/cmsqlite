@@ -35,7 +35,7 @@ class Authenticate extends Base
         }
 
         return view(
-            'AdminThemes\default\login',
+            'AdminThemes\default\layouts\login',
             [
                 'validator' => $this->validator,
             ]

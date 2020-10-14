@@ -1,6 +1,6 @@
 <?php
 
-$this->extend('AdminThemes\default\default');
+$this->extend('AdminThemes\default\layouts\default');
 $this->section('main'); ?>
   <div class="row">
     <div class="col s12">

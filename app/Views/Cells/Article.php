@@ -1,7 +1,7 @@
 <?php
 
 
-namespace ViewCells;
+namespace Views\Cells;
 
 use Admin\Models\ArticlesModel;
 

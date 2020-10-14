@@ -84,11 +84,10 @@
       <div class="row">
         <div class="input-field col s12">
         <textarea id="description"
+                  name="description"
                   <?= ($options['disabled']) ? 'disabled' : '' ?>
                   class="materialize-textarea"
-                  placeholder="<?= lang('Tables.articles.description') ?>">
-            <?= esc(old('description', $article->description)) ?>
-        </textarea>
+                  placeholder="<?= lang('Tables.articles.description') ?>"><?= esc(old('description', $article->description)) ?></textarea>
           <label for="description"><?= lang('Tables.articles.description') ?></label>
         </div>
       </div>

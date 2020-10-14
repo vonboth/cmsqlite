@@ -1,7 +1,7 @@
 <?php
 
 
-namespace ViewCells;
+namespace Views\Cells;
 
 use Admin\Models\MenuitemsModel;
 use Admin\Models\MenusModel;

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace ViewCells;
+namespace Views\Cells;
 
 /**
  * Class Slider

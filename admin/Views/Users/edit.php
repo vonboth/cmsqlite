@@ -1,7 +1,7 @@
 <?php
 
 $this->setData(['edit' => true]);
-$this->extend('AdminThemes\default\default');
+$this->extend('AdminThemes\default\layouts\default');
 ?>
 
 <?php

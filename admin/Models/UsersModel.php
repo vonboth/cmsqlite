@@ -4,9 +4,6 @@
 namespace Admin\Models;
 
 
-use CodeIgniter\Model;
-use Tests\Support\Models\UserModel;
-
 class UsersModel extends BaseModel
 {
     protected $table = 'users';
@@ -20,4 +17,24 @@ class UsersModel extends BaseModel
         'role',
         'tries'
     ];
+
+    /*/**
+     * Find Author data for an article
+     * DO NOT INCLUDE A USER DUE TO SECURITY REASONS
+     *
+     * @param $id
+     * @return array|object|null
+     */
+    public function findAuthor($id)
+    {
+        $author = $this->find($id);
+        unset($author->username);
+        unset($author->password);
+        unset($author->role);
+        unset($author->tries);
+        unset($author->created);
+        unset($author->updated);
+
+        return $author;
+    }
 }
