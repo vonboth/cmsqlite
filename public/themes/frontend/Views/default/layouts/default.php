@@ -1,5 +1,6 @@
 <?php
 /** @var $article */
+/** @var $layout */
 ?>
 <!DOCTYPE html>
 <html lang="en">

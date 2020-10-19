@@ -26,7 +26,7 @@ class SystemSettings extends BaseConfig
     /** @var array|string[] $defaults default settings */
     protected array $defaults = [
         'layout' => 'default',
-        'adminLayout' => 'default',
+        'admin_layout' => 'default',
         'language' => 'de',
         'maintenance' => 0
     ];

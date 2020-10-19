@@ -22,17 +22,14 @@ class Base extends AppBase
     /** @var array $helpers Helpers to load */
     protected $helpers = ['html', 'form', 'Admin\Helpers\tree_helper', 'inflector', 'filesystem', 'format'];
 
-    /** @var SystemSettings|null $SystemSettings */
-    protected ?SystemSettings $SystemSettings = null;
-
-    /** @var null|View $view */
-    protected ?View $view = null;
-
     /** @var string $controllerName */
     protected string $controllerName = '';
 
     /** @var AuthService $AuthService */
     protected AuthService $AuthService;
+
+    /** @var string $layout */
+    protected $layout;
 
     /**
      * @inheritdoc
@@ -43,14 +40,15 @@ class Base extends AppBase
         $this->AuthService = service('auth');
         parent::initController($request, $response, $logger);
 
-        $this->SystemSettings = config('Admin\Config\SystemSettings');
-        $this->view = Services::renderer();
+        $this->layout = $this->SystemSettings->admin_layout;
+        $this->View = Services::renderer();
         $this->controllerName = $this->parseControllerName();
-        $this->view->setData(
+        $this->View->setData(
             [
                 'controller' => ($this->controllerName),
                 'section' => lang("Tables.{$this->controllerName}.{$this->controllerName}"),
-                'title' => 'CMSQLite'
+                'title' => 'CMSQLite',
+                'layout' => $this->layout
             ]
         );
 

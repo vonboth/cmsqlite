@@ -1,10 +1,10 @@
-<?= $this->extend("Themes\default\layouts\default") ?>
+<?= $this->extend("Themes\\$layout\layouts\default") ?>
 
 <?= $this->section('main') ?>
 
   <h1>Hallo Public</h1>
   <section>
-      <?= $title ?>
+      <?= $article->title ?>
       <?= view_cell('Views\Cells\Article::render', ['alias' => 'startpage']) ?>
   </section>
   <section>

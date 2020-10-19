@@ -4,6 +4,7 @@
 namespace Views\Cells;
 
 use Admin\Models\ArticlesModel;
+use App\Views\Cells\AppCell;
 
 /**
  * Class Article
@@ -18,14 +19,14 @@ use Admin\Models\ArticlesModel;
  * You need to know the ID and/or the alias from the database or
  * the CMSQLite-Backend
  */
-class Article
+class Article extends AppCell
 {
     /**
      * render method to create the output
      * @param array $params
      * @return string
      */
-    public function render(array $params = [])
+    public function render(array $params = []) : string
     {
         $Articles = new ArticlesModel();
         $output = '';
@@ -43,21 +44,5 @@ class Article
         }
 
         return $output;
-    }
-
-    /**
-     * __call to catch any class function call
-     * or miss-spelling in the template
-     * to redirect it to the render method
-     * @param $name
-     * @param $arguments
-     * @return string
-     */
-    public
-    function __call(
-        $name,
-        $arguments
-    ) {
-        return $this->render($arguments);
     }
 }

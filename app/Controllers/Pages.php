@@ -10,7 +10,7 @@ use Psr\Log\LoggerInterface;
 /**
  * Class Home
  * @package App\Controllers
- * TODO: LAYOUT AUS DEM MENUITEM PARSEN !
+ * TODO: LAYOUT/VIEW LAYOUT AUS DEM MENUITEM PARSEN ?!
  */
 class Pages extends Base
 {
@@ -35,11 +35,9 @@ class Pages extends Base
 
         $this->_setViewVars();
         return view(
-            "Themes\default\home",
+            "Themes\\$this->layout\start",
             [
                 'article' => $article,
-                'author' => 'Hallo',
-                'title' => 'Hallo Title',
             ]
         );
     }
@@ -48,16 +46,14 @@ class Pages extends Base
      * @param null $var
      * @return string
      */
-    public function index($var = null)
+    public function pages($var = null)
     {
         $article = $this->Articles->find($var);
         $this->_setViewVars();
         return view(
-            'Themes\default\home',
+            "Themes\\$this->layout\page",
             [
                 'article' => $article,
-                'author' => 'Hallo',
-                'title' => 'Hallo Title',
             ]
         );
     }

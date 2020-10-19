@@ -3,6 +3,8 @@
 
 namespace Views\Cells;
 
+use App\Views\Cells\AppCell;
+
 /**
  * Class Slider
  * @package App\Views\Cells
@@ -14,10 +16,8 @@ namespace Views\Cells;
  *
  * e.g. view_cells('ViewCells\Slider::render()', ['path' => 'slider'])
  * will display all images in the folder /public/media/slider
- *
- * TODO: THEMING IMPLEMENTATION!
  */
-class Slider
+class Slider extends AppCell
 {
     /** @var string[] $imageExtensions list of allowed images extensions */
     private array $imageExtensions = ['png', 'jpg', 'jpeg', 'webp'];
@@ -27,7 +27,7 @@ class Slider
      * @param array $params
      * @return string|null
      */
-    public function render(array $params)
+    public function render(array $params = []): string
     {
         if (isset($params['path']) && is_dir(FCPATH . 'media/' . $params['path'])) {
             $path = FCPATH . 'media/' . $params['path'];
@@ -50,23 +50,15 @@ class Slider
 
             // output if not empty
             if (!empty($images)) {
-                return view('Themes\default\cells\slider\slider', [
-                    'images' => $images
-                ]);
+                return view(
+                    "Themes\\$this->layout\cells\slider\slider",
+                    [
+                        'images' => $images
+                    ]
+                );
             }
-
-            return null;
         }
 
-        return null;
-    }
-
-    /**
-     * @param $name
-     * @param $arguments
-     */
-    public function __call($name, $arguments)
-    {
-        $this->render($arguments);
+        return '';
     }
 }

@@ -2,9 +2,10 @@
 
 namespace App\Controllers;
 
+use Admin\Config\SystemSettings;
+use Admin\Models\ArticlesModel;
 use Admin\Models\MenuitemsModel;
 use Admin\Models\MenusModel;
-use Admin\Models\ArticlesModel;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -49,6 +50,12 @@ class Base extends Controller
     /** @var MenuitemsModel $Menuitems */
     protected $Menuitems;
 
+    /** @var SystemSettings|null $SystemSettings */
+    protected ?SystemSettings $SystemSettings = null;
+
+    /** @var string $layout */
+    protected $layout;
+
     /** @var RendererInterface $View */
     protected $View;
 
@@ -61,9 +68,17 @@ class Base extends Controller
 
         $this->session = Services::session();
 
+        $this->SystemSettings = config('Admin\Config\SystemSettings');
         $this->Articles = new ArticlesModel();
         $this->Menuitems = new MenuitemsModel();
         $this->Menus = new MenusModel();
+        $this->layout = $this->SystemSettings->layout;
         $this->View = Services::renderer();
+
+        $this->View->setData(
+            [
+                'layout' => $this->layout
+            ]
+        );
     }
 }

@@ -5,6 +5,7 @@ namespace Views\Cells;
 
 use Admin\Models\MenuitemsModel;
 use Admin\Models\MenusModel;
+use App\Views\Cells\AppCell;
 
 /**
  * Class Menu
@@ -18,7 +19,7 @@ use Admin\Models\MenusModel;
  * You need to know the ID and/or the name from the database or
  * the CMSQLite-Backend
  */
-class Menu
+class Menu extends AppCell
 {
     /**
      * renders an un-ordered list of the menu
@@ -46,19 +47,5 @@ class Menu
         }
 
         return $output;
-    }
-
-    /**
-     * just a backup for miss-spelling
-     * in the tempalte. This will allways
-     * call $this->render
-     *
-     * @param $name
-     * @param $arguments
-     * @return string
-     */
-    public function __call($name, $arguments): string
-    {
-        return $this->render($arguments);
     }
 }
