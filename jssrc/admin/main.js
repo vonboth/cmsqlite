@@ -51,8 +51,8 @@ window.adminVue = new Vue({
         title: translations.delete_item,
         text: translations.delete_question,
         showCancelButton: true,
-        cancelButtonText: translations.yes,
-        confirmButtonText: translations.no
+        cancelButtonText: translations.no,
+        confirmButtonText: translations.yes
       })
         .then(function(result) {
           if (result.isConfirmed) {

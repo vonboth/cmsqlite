@@ -40,6 +40,7 @@ class Base extends AppBase
         $this->AuthService = service('auth');
         parent::initController($request, $response, $logger);
 
+        $request->setLocale($this->SystemSettings->language);
         $this->layout = $this->SystemSettings->admin_layout;
         $this->View = Services::renderer();
         $this->controllerName = $this->parseControllerName();

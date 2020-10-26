@@ -113,7 +113,7 @@
           </div>
         </div>
 
-        <div class="row">
+        <!--div class="row">
           <div class="col s12">
             <label for="layout"><?= lang('Tables.menuitems.layout') ?>
               <span class="helper-text">
@@ -124,7 +124,7 @@
             <input type="text" v-model="selectedMenuitem.layout"
                    name="layout" id="layout" value="default"/>
           </div>
-        </div>
+        </div-->
 
         <div class="row">
           <div class="col s12">

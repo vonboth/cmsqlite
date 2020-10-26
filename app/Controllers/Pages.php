@@ -10,7 +10,8 @@ use Psr\Log\LoggerInterface;
 /**
  * Class Home
  * @package App\Controllers
- * TODO: LAYOUT/VIEW LAYOUT AUS DEM MENUITEM PARSEN ?!
+ *
+ * TODO: STANDARDSPRACHE UND STANDARD-FORMATIERUNG BEARBEITEN
  */
 class Pages extends Base
 {

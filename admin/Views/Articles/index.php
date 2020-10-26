@@ -19,7 +19,9 @@ $this->section('main') ?>
             <th><?= lang('Tables.articles.description') ?></th>
             <th><?= lang('Tables.articles.category_id') ?></th>
             <th><?= lang('Tables.articles.published') ?></th>
-            <th><?= lang('action') ?></th>
+            <th><?= lang('Tables.created') ?></th>
+            <th><?= lang('Tables.updated') ?></th>
+            <th><?= lang('Tables.actions') ?></th>
           </tr>
           </thead>
           <tbody>
@@ -38,6 +40,12 @@ $this->section('main') ?>
               <td><?= $article->published ?
                       '<span><i class="material-icons">check</i></span>'
                       : '<span><i class="material-icons">clear</i></span>' ?>
+              </td>
+              <td>
+                <?= $article->created; ?>
+              </td>
+              <td>
+                <?= $article->updated; ?>
               </td>
               <td>
                   <?= $this->include(

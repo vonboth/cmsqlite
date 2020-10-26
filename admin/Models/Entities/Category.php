@@ -16,4 +16,6 @@ class Category extends Base
         'created' => null,
         'updated' => null,
     ];
+
+    protected $dates = ['created', 'updated'];
 }

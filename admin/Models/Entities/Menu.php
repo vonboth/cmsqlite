@@ -19,4 +19,6 @@ class Menu extends Base
         'created' => null,
         'updated' => null,
     ];
+
+    protected $date = ['created', 'updated'];
 }

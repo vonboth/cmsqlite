@@ -86,4 +86,18 @@ class SystemSettings extends BaseConfig
             return null;
         }
     }
+
+    /**
+     * read a value from the database
+     *
+     * @param $key
+     * @param $default
+     * @return mixed
+     */
+    public static function read($key, $default)
+    {
+        $settings = new SettingsModel();
+        $value = $settings->where('name', $key)->first()->get();
+        return ($value) ? $value : $default;
+    }
 }

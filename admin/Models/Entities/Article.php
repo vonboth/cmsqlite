@@ -27,12 +27,5 @@ class Article extends Entity
         'updated' => null
     ];
 
-    /**
-     * @return array|object|null
-
-    protected function getCategory()
-    {
-        $model = new CategoriesModel();
-        return $model->find($this->category_id);
-    }*/
+    protected $dates = ['created', 'updated'];
 }

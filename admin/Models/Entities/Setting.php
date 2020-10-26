@@ -16,4 +16,6 @@ class Setting extends Base
         'created' => null,
         'updated' => null,
     ];
+
+    protected $dates = ['created', 'updated'];
 }
