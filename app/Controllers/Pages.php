@@ -10,8 +10,6 @@ use Psr\Log\LoggerInterface;
 /**
  * Class Home
  * @package App\Controllers
- *
- * TODO: STANDARDSPRACHE UND STANDARD-FORMATIERUNG BEARBEITEN
  */
 class Pages extends Base
 {

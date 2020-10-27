@@ -6,8 +6,8 @@
 <div class=row>
   <div class="col s12 <?= (is_null($category->id) ? 'hide' : '') ?>">
         <span class="right">
-            <?= lang('Tables.created') . ': ' . format_date('d.m.Y H:i', $category->created)
-            . '/' . lang('Tables.updated') . ': ' . format_date('d.m.Y H:i', $category->updated) ?>
+            <?= lang('Tables.created') . ': ' . lang('{created, date} {created, time}', ['created' => $category->created])
+            . '/' . lang('Tables.updated') . ': ' . lang('{updated, date} {updated, time}', ['updated' => $category->updated]) ?>
         </span>
   </div>
 </div>

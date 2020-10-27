@@ -14,6 +14,6 @@ return [
     'delete_menu_item' => 'Element löschen',
     'node_move_success' => 'Element erfolgreich verschoben',
     'node_move_error' => 'Element nicht verschoben',
-    'move_item_down' => 'Element hoch bewegen',
-    'move_item_up' => 'Element runter bewegen',
+    'move_item_up' => 'Element hoch bewegen',
+    'move_item_down' => 'Element runter bewegen',
 ];

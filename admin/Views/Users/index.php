@@ -33,8 +33,8 @@ $this->section('main') ?>
               <td><?= $user->email ?></td>
               <td><?= $user->firstname ?></td>
               <td><?= $user->lastname ?></td>
-              <td><?= format_date('d.m.Y H:i:s', $user->created) ?></td>
-              <td><?= format_date('d.m.Y H:i:s', $user->updated) ?></td>
+              <td><?= lang('{created, date} {created, time}', ['created' => $user->created]) ?></td>
+              <td><?= lang('{updated, date} {updated, time}', ['updated' => $user->updated]) ?></td>
               <td>
                   <?= $this->include('Admin\Partials\table_action', ['controller' => 'users', 'id' => $user->id]) ?>
               </td>

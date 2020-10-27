@@ -42,10 +42,10 @@ $this->section('main') ?>
                       : '<span><i class="material-icons">clear</i></span>' ?>
               </td>
               <td>
-                <?= $article->created; ?>
+                  <?= lang('{created, date} {created, time}', ['created' => $article->created]) ?>
               </td>
               <td>
-                <?= $article->updated; ?>
+                  <?= lang('{updated, date} {updated, time}', ['updated' => $article->updated]) ?>
               </td>
               <td>
                   <?= $this->include(

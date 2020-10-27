@@ -1,8 +1,8 @@
 <div class=row>
   <div class="col s12 <?= (is_null($user->id) ? 'hide' : '') ?>">
         <span class="right">
-            <?= lang('Tables.created') . ': ' . format_date('d.m.Y H:i', $user->created)
-            . ' | ' . lang('Tables.updated') . ': ' . format_date('d.m.Y H:i', $user->updated) ?>
+            <?= lang('Tables.created') . ': ' . lang('{created, date} {created, time}', ['created' => $user->created])
+            . ' | ' . lang('Tables.updated') . ': ' . lang('{updated, date} {updated, time}', ['updated' => $user->updated]) ?>
         </span>
   </div>
 </div>

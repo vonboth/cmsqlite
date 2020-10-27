@@ -75,12 +75,7 @@ class ArticlesModel extends BaseModel
         /** @var AuthService $authService */
         $authService = service('auth');
         $user = $authService->getUser();
-        $data['user_id'] = $user['id'];
+        $data['data']['user_id'] = $user['id'];
         return $data;
-    }
-
-    protected function unsetPassword($data)
-    {
-        var_dump($data); exit;
     }
 }

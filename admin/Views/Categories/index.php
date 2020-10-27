@@ -29,8 +29,8 @@ $this->section('main') ?>
               <td><?= $category->name ?></td>
               <td><?= $category->description ?></td>
               <td><?= $category->is_system ?></td>
-              <td><?= format_date('d.m.Y H:i', $category->created) ?></td>
-              <td><?= format_date('d.m.Y H:i', $category->updated) ?></td>
+              <td><?= lang('{created, date} {created, time}', ['created' => $category->created]) ?></td>
+              <td><?= lang('{updated, date} {updated, time}', ['updated' => $category->updated]) ?></td>
               <td>
                   <?= $this->include(
                       'Admin\Partials\table_action',
