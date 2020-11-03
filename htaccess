@@ -1,0 +1,8 @@
+#in a subfolder
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    # subfolder name
+    RewriteBase /
+    RewriteRule ^$ public/ [L]
+    RewriteRule (.*) public/$1 [L]
+</IfModule>
