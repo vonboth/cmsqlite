@@ -113,19 +113,6 @@
           </div>
         </div>
 
-        <!--div class="row">
-          <div class="col s12">
-            <label for="layout"><?= lang('Tables.menuitems.layout') ?>
-              <span class="helper-text">
-            <i class="material-icons tooltipped" data-position="right"
-               data-tooltip="<?= lang('Help.menus.title') ?>">help_outline</i>
-          </span>
-            </label>
-            <input type="text" v-model="selectedMenuitem.layout"
-                   name="layout" id="layout" value="default"/>
-          </div>
-        </div-->
-
         <div class="row">
           <div class="col s12">
             <label for="target"><?= lang('Tables.menuitems.target') ?>

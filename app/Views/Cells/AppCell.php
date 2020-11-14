@@ -8,6 +8,7 @@ namespace App\Views\Cells;
  * @package App\Views\Cells
  *
  * Basic Cell class for all CMSQLite view cells
+ * TODO: Contact-form cell
  */
 abstract class AppCell
 {
@@ -31,10 +32,10 @@ abstract class AppCell
     /**
      * renders a view cell
      * Implement this for any child class
-     * @param array $params
+     * @param array $options
      * @return mixed
      */
-    abstract public function render(array $params = []): string;
+    abstract public function render(array $options = []): string;
 
     /**
      * init cell
@@ -51,11 +52,8 @@ abstract class AppCell
      * @param $arguments
      * @return string
      */
-    public
-    function __call(
-        $name,
-        $arguments
-    ) {
+    public function __call($name, $arguments)
+    {
         return $this->render($arguments);
     }
 }

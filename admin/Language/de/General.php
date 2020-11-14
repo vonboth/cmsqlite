@@ -5,6 +5,8 @@ return [
     'no' => 'nein',
     'submit' => 'Senden',
     'escape' => 'Abbrechen',
+    'add' => 'Hinzufügen',
+    'new' => 'Neu',
     'edit' => 'Bearbeiten',
     'save' => 'Speichern',
     'cancel' => 'Abbrechen',

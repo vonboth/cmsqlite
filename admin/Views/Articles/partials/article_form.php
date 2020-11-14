@@ -6,10 +6,10 @@
 <div class="row">
   <div class="col s12 <?= (is_null($article->id) ? 'hide' : '') ?>">
         <span class="right">
-            <?= lang('Tables.articles.published') . ': '
-            . (($article->published) ? lang('General.yes') : lang('General.no'))
-            . ' / ' . lang('Tables.created') . ': ' . lang('{created, date} {created, time}', ['created' => $article->created])
-            . '/' . lang('Tables.updated') . ': ' . lang('{updated, date} {updated, time}', ['created' => $article->updated]) ?>
+            <?= 'ID: ' . $article->id
+            . ' | ' . lang('Tables.articles.published') . ': ' . (($article->published) ? lang('General.yes') : lang('General.no'))
+            . ' | ' . lang('Tables.created') . ': ' . lang('{created, date} {created, time}', ['created' => $article->created])
+            . ' | ' . lang('Tables.updated') . ': ' . lang('{updated, date} {updated, time}', ['updated' => $article->updated]) ?>
         </span>
   </div>
 </div>
@@ -121,9 +121,12 @@
     <a href="/admin/<?= $controller ?>"
        class="btn waves-effect waves-light"><?= lang('General.back') ?>
       <i class="material-icons left">arrow_back</i></a>
+    <a href="/admin/articles/add"
+       class="btn waves-effect waves-light"><?= lang('General.new') ?>
+      <i class="material-icons left">add</i></a>
       <?php
       if (!$options['disabled']) : ?>
-        <button type="submit" class="btn waves-effect waves-light"><?= lang('General.submit') ?>
+        <button type="submit" class="btn waves-effect waves-light"><?= lang('General.save') ?>
           <i class="material-icons right">send</i></button>
       <?php
       endif; ?>

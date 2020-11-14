@@ -21,7 +21,7 @@ class ArticlesModel extends BaseModel
     protected $createdField = 'created';
 
     protected $beforeUpdate = ['setStartpageFlagToNull'];
-    protected $beforeInsert = ['setUser'];
+    protected $beforeInsert = ['setUser', 'setAlias'];
 
     protected $relations = [
         'categories' => [
@@ -76,6 +76,25 @@ class ArticlesModel extends BaseModel
         $authService = service('auth');
         $user = $authService->getUser();
         $data['data']['user_id'] = $user['id'];
+        return $data;
+    }
+
+    /**
+     * create a page alias of none exists
+     * @param array $data
+     * @return array
+     */
+    protected function setAlias(array $data)
+    {
+        if (empty($data['data']['alias'])) {
+            $search = [' ', '-', '_'];
+            $replace = ['_', '_', '_'];
+            $data['data']['alias'] = str_replace(
+                $search,
+                $replace,
+                strtolower($data['data']['title'])
+            );
+        }
         return $data;
     }
 }

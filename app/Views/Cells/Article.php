@@ -13,8 +13,8 @@ use App\Views\Cells\AppCell;
  * ViewCell to render a single article
  * Pass an array with a key ID with the ID of the article
  * or the alias of the article
- * e.g.: view_cell('ViewCells\Article::render, ['id' => 1]')
- * e.g.: view_cell('ViewCells\Article::render, ['alias' => 'startpage']')
+ * e.g.: view_cell("Views\Cells\Article::render, ['id' => 1]")
+ * e.g.: view_cell("Views\Cells\Article::render, ['alias' => 'startpage']")
  *
  * You need to know the ID and/or the alias from the database or
  * the CMSQLite-Backend
@@ -23,20 +23,20 @@ class Article extends AppCell
 {
     /**
      * render method to create the output
-     * @param array $params
+     * @param array $options
      * @return string
      */
-    public function render(array $params = []) : string
+    public function render(array $options = []) : string
     {
         $Articles = new ArticlesModel();
         $output = '';
 
         $article = null;
-        if (isset($params['id'])) {
-            $article = $Articles->find($params['id']);
-        } elseif (isset($params['alias'])) {
+        if (isset($options['id'])) {
+            $article = $Articles->find($options['id']);
+        } elseif (isset($options['alias'])) {
             $article = $Articles
-                ->where('alias', $params['alias'])
+                ->where('alias', $options['alias'])
                 ->first();
         }
         if ($article) {

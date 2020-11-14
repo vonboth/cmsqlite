@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-define('LATEST_RELEASE', '^4@rc');
+define('LATEST_RELEASE', '^4.0');
 define('GITHUB_URL', 'https://github.com/codeigniter4/codeigniter4');
 
 /*
@@ -36,6 +36,7 @@ if (is_file($file)) {
             if ($dev) {
                 // Set 'minimum-stability'
                 $array['minimum-stability'] = 'dev';
+                $array['prefer-stable'] = true;
 
                 // Make sure the repo is configured
                 if (!isset($array['repositories'])) {

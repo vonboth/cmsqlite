@@ -10,6 +10,7 @@ use Psr\Log\LoggerInterface;
 /**
  * Class Home
  * @package App\Controllers
+ * @property UsersModel $Users
  */
 class Pages extends Base
 {

@@ -18,7 +18,6 @@ class Menuitem extends Base
         'type' => null,
         'url' => null,
         'alias' => null,
-        'layout' => null,
         'target' => null,
         'lft' => null,
         'rgt' => null,

@@ -5,12 +5,15 @@ if (!function_exists('tree_list')) {
      * generates an unordered list from a nested set
      *
      * @param $menuitems
-     * @param string $ulClass css class for the ul
+     * @param array $options
      * @return mixed
      */
-    function menu_list($menuitems, $ulClass = 'ul_parent')
+    function menu_list($menuitems, array $options = [])
     {
-        $ul = "<ul class='$ulClass'>";
+        $ulClass = $options['ulClass'] ?? 'ul_parent';
+        $ulId = isset($options['ulId']) ? ' id="' . $options['ulId'] . '"' : '';
+
+        $ul = "<ul{$ulId} class='$ulClass'>";
         foreach ($menuitems as $menuitem) {
             $css = (count($menuitem['children']) > 0) ? 'li_parent' : 'li_child';
             $css .= ' level' . $menuitem['level'];
@@ -18,7 +21,7 @@ if (!function_exists('tree_list')) {
                 "<a href='{$menuitem['url']}'>{$menuitem['title']}</a>";
 
             if (count($menuitem['children']) > 0) {
-                $ul .= menu_list($menuitem['children'], 'ul_child');
+                $ul .= menu_list($menuitem['children'], ['ulClass' => 'ul_child']);
             }
 
             $ul .= '</li>';

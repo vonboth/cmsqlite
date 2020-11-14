@@ -17,3 +17,7 @@
   </section>
 
 <?= $this->endSection() ?>
+
+<?= $this->section('scripts') ?>
+<?= script_tag('themes/frontend/Views/default/js/materialize.min.js') ?>
+<?= $this->endSection() ?>

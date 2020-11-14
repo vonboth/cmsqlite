@@ -21,7 +21,6 @@ class MenuitemsModel extends BaseModel
         'type',
         'url',
         'alias',
-        'layout',
         'target',
         'lft',
         'rgt'
@@ -262,20 +261,24 @@ class MenuitemsModel extends BaseModel
     {
         if (!$data['data']['parent_id']) {
             $max = $this->select('max(rgt) as maxRgt')
-                ->where('menu_id', $data['data']['menu_id'])
+                //->where('menu_id', $data['data']['menu_id'])
                 ->first();
 
             $data['data']['lft'] = $max->maxRgt + 1;
             $data['data']['rgt'] = $max->maxRgt + 2;
-            $this->db->query('UPDATE menuitems SET rgt=rgt+2 WHERE rgt > ' . $max->maxRgt);
-            $this->db->query('UPDATE menuitems SET lft=lft+2 WHERE lft > ' . $max->maxRgt);
+            if (!is_null($max->maxRgt)) {
+                $this->db->query('UPDATE menuitems SET rgt=rgt+2 WHERE rgt > ' . $max->maxRgt);
+                $this->db->query('UPDATE menuitems SET lft=lft+2 WHERE lft > ' . $max->maxRgt);
+            }
         } elseif ($data['data']['parent_id']) {
             $parentItem = $this->where('id', $data['data']['parent_id'])->first();
             $rgt = $parentItem->rgt;
             $data['data']['lft'] = $rgt;
             $data['data']['rgt'] = $rgt + 1;
-            $this->db->query('UPDATE menuitems SET rgt=rgt+2 WHERE rgt >= ' . $rgt);
-            $this->db->query('UPDATE menuitems SET lft=lft+2 WHERE lft > ' . $rgt);
+            if ($parentItem) {
+                $this->db->query('UPDATE menuitems SET rgt=rgt+2 WHERE rgt >= ' . $rgt);
+                $this->db->query('UPDATE menuitems SET lft=lft+2 WHERE lft > ' . $rgt);
+            }
         }
 
         return $data;

@@ -13,8 +13,8 @@ use App\Views\Cells\AppCell;
  *
  * ViewCell to print out a menu
  * Pass an array with the ID of the menu or the name
- * e.g. view_cell('ViewCells\Menu:render, ['id' => 1])
- * e.g. view_cell('ViewCells\Menu:render, ['name' => 'main'])
+ * e.g. view_cell('View\Cells\Menu:render, ['id' => 1])
+ * e.g. view_cell('View\Cells\Menu:render, ['name' => 'main'])
  *
  * You need to know the ID and/or the name from the database or
  * the CMSQLite-Backend
@@ -24,26 +24,31 @@ class Menu extends AppCell
     /**
      * renders an un-ordered list of the menu
      * You can pass either the ID or the name of a
-     * menu.
-     * e.g. view_cell(ViewCells\Menu::render(), ['id' => 1]);
-     * e.g. view_cell(ViewCells\Menu::render(), ['name' => 'main']);
+     * menu but one of the two is required
+     * e.g. view_cell(Views\Cells\Menu::render(), ['id' => 1]);
+     * e.g. view_cell(Views\Cells\Menu::render(), ['name' => 'main']);
      *
-     * @param array $params
+     * Possible options:
+     * - id: Id of menu
+     * - name: name of menu
+     * - ulId: id for the UL element
+     * - ulClass: css classes for the ul element
+     * @param array $options
      * @return string
      */
-    public function render(array $params = []): string
+    public function render(array $options = []): string
     {
         $output = '';
         $Menuitems = new MenuitemsModel();
 
-        if (isset($params['id'])) {
-            $items = $Menuitems->findTree($params['id']);
-            $output = menu_list($items);
-        } elseif (isset($params['name'])) {
+        if (isset($options['id'])) {
+            $items = $Menuitems->findTree($options['id']);
+            $output = menu_list($items, $options);
+        } elseif (isset($options['name'])) {
             $Menus = new MenusModel();
-            $menu = $Menus->where('name', $params['name']);
+            $menu = $Menus->where('name', $options['name']);
             $items = $Menuitems->findTree($menu->id);
-            $output = menu_list($items);
+            $output = menu_list($items, $options);
         }
 
         return $output;

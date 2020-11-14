@@ -10,6 +10,8 @@ use Admin\Models\MenuitemsModel;
  * Class Menuitems
  * @package Admin\Controllers
  * @property MenuitemsModel $Menuitems;
+ *
+ * TODO: Im Fehlerfall bei Items die Daten mit übergeben, Form befüllen und anzeigen
  */
 class Menuitems extends Base
 {
@@ -51,11 +53,13 @@ class Menuitems extends Base
                 } else {
                     return redirect()
                         ->to('/admin/menus/index')
-                        ->with('flash', lang('General. save_error'));
+                        ->withInput()
+                        ->with('flash', lang('General.save_error'));
                 }
             } else {
                 return redirect()
                     ->to('/admin/menus/index')
+                    ->withInput()
                     ->with('flash', $this->validator->getErrors())
                     ->with('_ci_validation_errors', serialize($this->validator->getErrors()));
             }
