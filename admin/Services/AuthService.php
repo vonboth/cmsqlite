@@ -19,7 +19,7 @@ class AuthService extends BaseService
     public $redirectUrl = '/admin/authenticate/login';
 
     /** @var UsersModel $Users */
-    private $Users;
+    private UsersModel $Users;
 
     /**
      * allowed URLs without login
@@ -107,6 +107,7 @@ class AuthService extends BaseService
         if ($user && password_verify($password, $user['password'])) {
             $this->_setTries($user, 0);
             $this->_resetLoginAttack();
+            $this->_updateLogin($user);
             unset($user['password']);
             session()->set('Auth', ['User' => serialize($user)]);
             return true;
@@ -186,5 +187,18 @@ class AuthService extends BaseService
     private function _resetLoginAttack()
     {
         session()->remove('LOGIN_ATTACK');
+    }
+
+    /**
+     * Update login time for the user
+     * @param $user
+     */
+    private function _updateLogin($user)
+    {
+        $user['lastlogin'] = date('Y-m-d H:i:s');
+        try {
+            $this->Users->save($user);
+        } catch (\Exception $exception) {
+        }
     }
 }

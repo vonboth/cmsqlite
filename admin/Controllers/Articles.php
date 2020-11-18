@@ -11,6 +11,9 @@ use Admin\Models\Entities\Article;
  * Class Articles
  * @package Admin\Controllers
  * @property ArticlesModel $Articles
+ *
+ * TODO: save HITs
+ * TODO: reset HITs
  */
 class Articles extends Base
 {

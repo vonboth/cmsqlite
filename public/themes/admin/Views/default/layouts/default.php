@@ -48,7 +48,7 @@
   <!-- sidenav -->
   <ul ref="sidenav-left" class="sidenav sidenav-fixed">
     <li><a href="/admin" class="logo-container"><?= lang('Menu.startpage') ?>
-        <i class="material-icons left">settings_applications</i>
+        <i class="material-icons left">home</i>
       </a>
     </li>
     <li class="no-padding">

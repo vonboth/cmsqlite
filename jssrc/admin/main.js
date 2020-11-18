@@ -290,6 +290,23 @@ window.adminVue = new Vue({
         });
     },
 
+    // rest article hits
+    onResetHits: () => {
+      Swal.fire({
+        icon: 'warning',
+        tile: translations.reset_hits,
+        text: translations.reset_hits_question,
+        showCancelButton: true,
+        cancelButtonText: translations.no,
+        confirmButtonText: translations.yes
+      })
+        .then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = '/admin/start/reset-hits';
+          }
+        })
+    },
+
     // Setting section: delete setting
     onDeleteSetting: function(id) {
       Swal.fire({

@@ -26,7 +26,7 @@ class Article extends AppCell
      * @param array $options
      * @return string
      */
-    public function render(array $options = []) : string
+    public function render(array $options = []): string
     {
         $Articles = new ArticlesModel();
         $output = '';
@@ -41,6 +41,13 @@ class Article extends AppCell
         }
         if ($article) {
             $output = $article->content;
+            $article->hits++;
+            try {
+                if (!$article->is_startpage) {
+                    $Articles->save($article);
+                }
+            } catch (\Exception $exception) {
+            }
         }
 
         return $output;

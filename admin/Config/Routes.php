@@ -12,11 +12,21 @@ $routes->group(
     ['namespace' => 'Admin\Controllers'],
     function (RouteCollection $routes) {
         $routes->add('/', 'Start::index');
-        $routes->add('start', 'Start::index');
-        $routes->group('authenticate', function(RouteCollection $routes) {
-            $routes->add('login', 'Authenticate::login');
-            $routes->get('logout', 'Authenticate::logout');
-        });
+        $routes->group(
+            'start',
+            function (RouteCollection $routes) {
+                $routes->add('index', 'Start::index');
+                $routes->add('reset-hits', 'Start::resetHits');
+                $routes->add('/', 'Start::index');
+            }
+        );
+        $routes->group(
+            'authenticate',
+            function (RouteCollection $routes) {
+                $routes->add('login', 'Authenticate::login');
+                $routes->get('logout', 'Authenticate::logout');
+            }
+        );
         $routes->group(
             'articles',
             function (RouteCollection $routes) {
@@ -76,7 +86,7 @@ $routes->group(
         );
         $routes->group(
             'profile',
-            function(RouteCollection $routes) {
+            function (RouteCollection $routes) {
                 $routes->get('index', 'Profile::edit');
                 $routes->add('edit', 'Profile::edit');
                 $routes->add('/', 'Profile::edit');
@@ -84,7 +94,7 @@ $routes->group(
         );
         $routes->group(
             'media',
-            function(RouteCollection $routes) {
+            function (RouteCollection $routes) {
                 $routes->add('index', 'Media::index');
                 $routes->post('upload', 'Media::upload');
                 $routes->post('remove-file', 'Media::removeFile');
@@ -97,7 +107,7 @@ $routes->group(
         );
         $routes->group(
             'settings',
-            function(RouteCollection $routes) {
+            function (RouteCollection $routes) {
                 $routes->get('index', 'Settings::index');
                 $routes->post('save/(:num)', 'Settings::save/$1');
                 $routes->post('add', 'Settings::add');

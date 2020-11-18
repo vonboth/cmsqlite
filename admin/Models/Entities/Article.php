@@ -23,6 +23,7 @@ class Article extends Entity
         'published' => null,
         'start_publish' => null,
         'stop_publish' => null,
+        'hits' => null,
         'created' => null,
         'updated' => null
     ];

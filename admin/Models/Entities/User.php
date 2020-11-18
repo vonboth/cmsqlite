@@ -12,6 +12,7 @@ use CodeIgniter\Entity;
  */
 class User extends Entity
 {
+    /** @inheritdoc  */
     protected $attributes = [
         'id' => null,
         'username' => null,
@@ -21,9 +22,12 @@ class User extends Entity
         'email' => null,
         'role' => null,
         'tries' => null,
+        'lastlogin' => null,
         'created' => null,
         'updated' => null,
     ];
+
+    protected $dates = ['lastlogin'];
 
     /**
      * Hash Password before handling

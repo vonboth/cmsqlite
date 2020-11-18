@@ -2,13 +2,11 @@
 
 namespace Admin\Controllers;
 
-use Admin\Config\SystemSettings;
 use Admin\Config\Validation;
 use Admin\Services\AuthService;
 use App\Controllers\Base as AppBase;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
-use CodeIgniter\View\View;
 use Config\Services;
 use Psr\Log\LoggerInterface;
 

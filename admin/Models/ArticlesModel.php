@@ -47,7 +47,17 @@ class ArticlesModel extends BaseModel
         'published',
         'start_publish',
         'stop_publish',
+        'hits'
     ];
+
+    /**
+     * Reset hits for all articles
+     * @return mixed
+     */
+    public function resetHits()
+    {
+        return $this->db->simpleQuery('UPDATE articles SET hits=0');
+    }
 
     /**
      * set all flags is_startpage to null

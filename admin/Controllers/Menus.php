@@ -15,6 +15,9 @@ use Admin\Models\ArticlesModel;
  * @property MenusModel $Menus
  * @property MenuitemsModel $Menuitems
  * @property ArticlesModel $Articles
+ *
+ * TODO: Category-Type Menu
+ * TODO: add "active" to active menu
  */
 class Menus extends Base
 {

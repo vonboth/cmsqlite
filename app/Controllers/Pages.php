@@ -14,7 +14,8 @@ use Psr\Log\LoggerInterface;
  */
 class Pages extends Base
 {
-    protected $Users;
+    /** @var UsersModel $Users */
+    protected UsersModel $Users;
 
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
@@ -31,9 +32,12 @@ class Pages extends Base
             ->where('is_startpage', 1)
             ->first();
 
+        $this->_updateHits($article);
+
         $article->user = $this->Users->findAuthor($article->user_id);
 
         $this->_setViewVars();
+
         return view(
             "Themes\\$this->layout\start",
             [
@@ -49,6 +53,8 @@ class Pages extends Base
     public function pages($var = null)
     {
         $article = $this->Articles->find($var);
+        $this->_updateHits($article);
+
         $this->_setViewVars();
         return view(
             "Themes\\$this->layout\page",
@@ -66,5 +72,20 @@ class Pages extends Base
         $menus = $this->Menus->findAllMenusWithTrees();
         $this->View->setVar('menus', $menus);
         $this->View->setVar('description', 'Descrption');
+    }
+
+    /**
+     * Update hits after finding the article
+     * @param array|object|null $article
+     */
+    private function _updateHits($article)
+    {
+        if ($article) {
+            $article->hits++;
+            try {
+                $this->Articles->save($article);
+            } catch (\Exception $exception) {
+            }
+        }
     }
 }

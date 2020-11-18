@@ -69,6 +69,13 @@ main > .container {
     margin: 1rem;
 }
 
+.mr1rem {
+    margin-right: 1rem;
+}
+.ml1rem {
+    margin-right: 1rem;
+}
+
 .navbar-fixed {
     position: relative;
     z-index: 997;
@@ -271,4 +278,9 @@ li.menu-administration .collapsible-header {
 .browse-image-card img {
     max-height: 180px;
     width: auto !important;
+}
+
+.welcome-box a > i {
+    font-size: 16px;
+    margin-right: 6px;
 }
