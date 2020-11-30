@@ -18,6 +18,7 @@ class MenuitemsModel extends BaseModel
         'parent_id',
         'menu_id',
         'article_id',
+        'category_id',
         'type',
         'url',
         'alias',

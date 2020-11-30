@@ -16,4 +16,6 @@ return [
     'node_move_error' => 'Element nicht verschoben',
     'move_item_up' => 'Element hoch bewegen',
     'move_item_down' => 'Element runter bewegen',
+    'self' => 'Gleiches Fenster',
+    'blank' => 'Neues Fenster'
 ];

@@ -23,17 +23,6 @@ class ArticlesModel extends BaseModel
     protected $beforeUpdate = ['setStartpageFlagToNull'];
     protected $beforeInsert = ['setUser', 'setAlias'];
 
-    protected $relations = [
-        'categories' => [
-            'type' => 'hasOne',
-            'key' => 'category_id'
-        ],
-        'users' => [
-            'type' => 'hasOne',
-            'key' => 'user_id'
-        ]
-    ];
-
     protected $allowedFields = [
         'is_startpage',
         'title',
@@ -43,6 +32,7 @@ class ArticlesModel extends BaseModel
         'description',
         'class',
         'category_id',
+        'layout',
         'user_id',
         'published',
         'start_publish',
@@ -69,7 +59,7 @@ class ArticlesModel extends BaseModel
     protected function setStartpageFlagToNull(array $data)
     {
         if (isset($data['data']['is_startpage'])) {
-            $this->db->query('UPDATE articles SET is_startpage=NULL');
+            $this->db->simpleQuery('UPDATE articles SET is_startpage=NULL');
         }
         return $data;
     }

@@ -26,7 +26,10 @@ window.adminVue = new Vue({
     },
     canSaveMenuitem: function() {
       return this.selectedMenuitem.title !== ''
-        && (this.selectedMenuitem.article_id || this.selectedMenuitem.url);
+        && (this.selectedMenuitem.article_id
+          || this.selectedMenuitem.url
+          || this.selectedMenuitem.category_id
+        );
     }
   },
   // mounted hook
@@ -91,6 +94,7 @@ window.adminVue = new Vue({
         parent_id: null,
         menu_id: this.selectedMenuId,
         article_id: '',
+        category_id: '',
         type: 'article',
         url: '',
         alias: '',
@@ -304,7 +308,7 @@ window.adminVue = new Vue({
           if (result.isConfirmed) {
             window.location.href = '/admin/start/reset-hits';
           }
-        })
+        });
     },
 
     // Setting section: delete setting

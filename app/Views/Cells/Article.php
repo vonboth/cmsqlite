@@ -15,9 +15,14 @@ use App\Views\Cells\AppCell;
  * or the alias of the article
  * e.g.: view_cell("Views\Cells\Article::render, ['id' => 1]")
  * e.g.: view_cell("Views\Cells\Article::render, ['alias' => 'startpage']")
- *
+ *  *
  * You need to know the ID and/or the alias from the database or
  * the CMSQLite-Backend
+ *
+ * allowed options:
+ * - id: ID of the article
+ * - alias: alias of the article
+ * - readon: true | false: cut the text at the "readon"-tag and replace it with a link
  */
 class Article extends AppCell
 {
@@ -28,6 +33,9 @@ class Article extends AppCell
      */
     public function render(array $options = []): string
     {
+        $default = ['readon' => false];
+
+        $options = $options + $default;
         $Articles = new ArticlesModel();
         $output = '';
 
@@ -41,6 +49,15 @@ class Article extends AppCell
         }
         if ($article) {
             $output = $article->content;
+
+            if ($options['readon'] === true) {
+                $output = substr($output, 0, strpos($output, '<hr class="readon" />'));
+                $output .= view(
+                    "Themes\\$this->layout\\cells\\readon\\readon",
+                    ['article' => $article]
+                );
+            }
+
             $article->hits++;
             try {
                 if (!$article->is_startpage) {

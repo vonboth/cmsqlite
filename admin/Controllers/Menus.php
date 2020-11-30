@@ -4,10 +4,11 @@
 namespace Admin\Controllers;
 
 
+use Admin\Models\ArticlesModel;
+use Admin\Models\CategoriesModel;
 use Admin\Models\Entities\Menu;
 use Admin\Models\MenuitemsModel;
 use Admin\Models\MenusModel;
-use Admin\Models\ArticlesModel;
 
 /**
  * Class Articles
@@ -15,15 +16,23 @@ use Admin\Models\ArticlesModel;
  * @property MenusModel $Menus
  * @property MenuitemsModel $Menuitems
  * @property ArticlesModel $Articles
+ * @property CategoriesModel $Categories
  *
- * TODO: Category-Type Menu
- * TODO: add "active" to active menu
+ * TODO: add css class "active" to active menu
  */
 class Menus extends Base
 {
+    /** @var MenusModel $Menus */
     protected $Menus;
+
+    /** @var MenuitemsModel $Menuitems */
     protected $Menuitems;
+
+    /** @var ArticlesModel $Articles */
     protected $Articles;
+
+    /** @var CategoriesModel $Categories */
+    protected $Categories;
 
     /**
      * init controller
@@ -33,6 +42,7 @@ class Menus extends Base
         $this->Menus = new MenusModel();
         $this->Menuitems = new MenuitemsModel();
         $this->Articles = new ArticlesModel();
+        $this->Categories = new CategoriesModel();
     }
 
     /**
@@ -42,18 +52,14 @@ class Menus extends Base
      */
     public function index()
     {
-        $menutrees = $this->Menus->findAllMenusWithTrees();
-        $menus = $this->Menus->findAll();
-        $menuitems = $this->Menuitems->findAll();
-        $articles = $this->Articles->findAll();
-
         return view(
             'Admin\Menus\index',
             [
-                'menutrees' => $menutrees,
-                'menus' => $menus,
-                'menuitems' => $menuitems,
-                'articles' => $articles,
+                'menutrees' => $this->Menus->findAllMenusWithTrees(),
+                'menus' => $this->Menus->findAll(),
+                'menuitems' => $this->Menuitems->findAll(),
+                'articles' => $this->Articles->findAll(),
+                'categories' => $this->Categories->findAll(),
                 'validator' => $this->validator
             ]
         );

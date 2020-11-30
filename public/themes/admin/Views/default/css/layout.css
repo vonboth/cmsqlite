@@ -272,12 +272,20 @@ li.menu-administration .collapsible-header {
 }
 
 .browse-image-card {
-    width: 210px
+    width: 210px;
+    float: left;
+    margin-right: 1rem;
 }
 
+.card.browse-image-card .card-image {
+    height: 180px;
+}
+
+.card.browse-image-card .card-image img,
 .browse-image-card img {
     max-height: 180px;
-    width: auto !important;
+    width: auto;
+    max-width: 100% !important;
 }
 
 .welcome-box a > i {

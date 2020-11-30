@@ -17,5 +17,6 @@ return [
     'saved' => 'Daten gespeichert',
     'save_error' => 'Die Daten wurden nicht gespeichert',
     'deleted' => 'Daten Gelöscht',
-    'delete_error' => 'Die Daten wurden nicht gelöscht'
+    'delete_error' => 'Die Daten wurden nicht gelöscht',
+    'readon' => 'Weiterlesen ...'
 ];

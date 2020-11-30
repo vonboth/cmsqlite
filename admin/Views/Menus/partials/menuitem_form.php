@@ -1,3 +1,6 @@
+<?php
+// TODO: SELECT in MATERIAL DESIGN
+?>
 <div class="" :class="{hide: hideMenuitemForm}">
   <form ref="menuitem_form" method="post" :action="menuitemFormAction">
       <?= csrf_field() ?>
@@ -42,18 +45,20 @@
                     v-model="selectedMenuitem.type"
                     name="type">
               <option value="article"><?= lang('Tables.menuitems.article') ?></option>
+              <option value="category"><?= lang('Tables.menuitems.category') ?></option>
               <option value="other"><?= lang('Tables.menuitems.other') ?></option>
             </select>
           </div>
         </div>
 
+        <!-- article selector -->
         <div class="row" :class="{hide: selectedMenuitem.type !== 'article'}">
           <div class="col s12">
             <label for="article_id"><?= lang('Tables.menuitems.article_id') ?>
               <span class="helper-text">
-            <i class="material-icons tooltipped" data-position="right"
-               data-tooltip="<?= lang('Help.menus.article_id') ?>">help_outline</i>
-          </span>
+                <i class="material-icons tooltipped" data-position="right"
+                   data-tooltip="<?= lang('Help.menus.article_id') ?>">help_outline</i>
+              </span>
             </label>
             <select id="article_id"
                     class="no-material"
@@ -62,6 +67,30 @@
                 <?php
                 foreach ($articles as $article): ?>
                   <option value="<?= $article->id ?>"><?= $article->title ?></option>
+                <?php
+                endforeach; ?>
+            </select>
+          </div>
+        </div>
+
+        <!-- category selector -->
+        <div class="row" :class="{hide: selectedMenuitem.type !== 'category'}">
+          <div class="col s12">
+            <label for="category_id"><?= lang('Tables.menuitems.category_id') ?>
+              <span class="helper-text">
+                <i class="material-icons tooltipped" data-position="right"
+                   data-tooltip="<?= lang('Help.menus.category_id') ?>">help_outline</i>
+              </span>
+            </label>
+            <select id="category_id"
+                    class="no-material"
+                    v-model="selectedMenuitem.category_id"
+                    v-bind:required="selectedMenuitem.type === 'category'"
+                    name="category_id">
+              <option value="">-</option>
+                <?php
+                foreach ($categories as $category): ?>
+                  <option value="<?= $category->id ?>"><?= $category->name ?></option>
                 <?php
                 endforeach; ?>
             </select>
@@ -86,7 +115,7 @@
             <label for="parent_id"><?= lang('Tables.menuitems.parent_id') ?>
               <span class="helper-text">
             <i class="material-icons tooltipped" data-position="right"
-               data-tooltip="<?= lang('Help.menus.parent_item') ?>">help_outline</i>
+               data-tooltip="<?= lang('Help.menus.parent_id') ?>">help_outline</i>
           </span>
             </label>
             <select name="parent_id"
@@ -125,10 +154,10 @@
                     class="no-material"
                     id="target"
                     v-model="selectedMenuitem.target">
-              <option value="_blank">_blank</option>
-              <option value="_parent">_parent</option>
-              <option value="_self">_self</option>
-              <option value="_top">_top</option>
+              <option value="_self"><?= lang('Menu.self') ?></option>
+              <option value="_blank"><?= lang('Menu.blank') ?></option>
+              <!--option value="_parent">_parent</option-->
+              <!--option value="_top">_top</option-->
             </select>
           </div>
         </div>

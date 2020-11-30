@@ -58,7 +58,7 @@
 
 <div class="container">
   <div class="section">
-      <?= view_cell('Views\Cells\Article::render', ['id' => 1]) ?>
+      <?= view_cell('Views\Cells\Article::render', ['id' => 1, 'readon' => true]) ?>
   </div>
 </div>
 

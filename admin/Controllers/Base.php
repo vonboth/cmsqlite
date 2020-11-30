@@ -26,7 +26,7 @@ class Base extends AppBase
     /** @var AuthService $AuthService */
     protected AuthService $AuthService;
 
-    /** @var string $layout */
+    /** @var string $layout layout from config table*/
     protected $layout;
 
     /**

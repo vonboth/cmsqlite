@@ -53,7 +53,7 @@ class Base extends Controller
     /** @var SystemSettings|null $SystemSettings */
     protected ?SystemSettings $SystemSettings = null;
 
-    /** @var string $layout */
+    /** @var string $layout default layout from config*/
     protected $layout;
 
     /** @var RendererInterface $View */
