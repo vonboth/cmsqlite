@@ -50,6 +50,17 @@ class ArticlesModel extends BaseModel
     }
 
     /**
+     * sets a hit on the page preventing updating
+     * the "update" field
+     * @param $id
+     * @return mixed
+     */
+    public function setHit($id)
+    {
+        return $this->db->simpleQuery('UPDATE articles SET hits=hits+1 WHERE id=' . $id);
+    }
+
+    /**
      * set all flags is_startpage to null
      * so that we will have only one startpage
      *

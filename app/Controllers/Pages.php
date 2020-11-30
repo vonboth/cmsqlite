@@ -81,9 +81,8 @@ class Pages extends Base
     private function _updateHits($article)
     {
         if ($article) {
-            $article->hits++;
             try {
-                $this->Articles->save($article);
+                $this->Articles->setHit($article->id);
             } catch (\Exception $exception) {
             }
         }

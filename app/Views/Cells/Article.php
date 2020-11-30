@@ -61,7 +61,7 @@ class Article extends AppCell
             $article->hits++;
             try {
                 if (!$article->is_startpage) {
-                    $Articles->save($article);
+                    $Articles->setHit($article->id);
                 }
             } catch (\Exception $exception) {
             }
