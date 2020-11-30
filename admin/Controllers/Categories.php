@@ -54,12 +54,10 @@ class Categories extends Base
 
     /**
      * add new item
-     *
-     * @return string
-     *
+     * @return string|RedirectResponse
      * @throws \ReflectionException
      */
-    public function add(): string
+    public function add()
     {
         $category = new Category();
 
@@ -96,12 +94,10 @@ class Categories extends Base
      * edit / update item
      *
      * @param null $id
-     *
-     * @return string
-     *
+     * @return string|RedirectResponse
      * @throws \ReflectionException
      */
-    public function edit($id = null): string
+    public function edit($id = null)
     {
         $category = $this->Categories->find($id);
         if ($this->request->getMethod() === 'post') {

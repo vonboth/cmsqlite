@@ -37,7 +37,7 @@ abstract class AppCell
      *
      * @return string
      */
-    abstract public function render(array $options = []): string;
+    abstract public function render(array $options = []) : string;
 
     /**
      * init cell

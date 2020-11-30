@@ -79,7 +79,9 @@
 
     <div class="row">
       <div class="col s12 center">
-          <?= view_cell('Views\Cells\Article::render', ['id' => 4]) ?>
+          <?/*= view_cell('Views\Cells\Article::render', ['id' => 4]) */?>
+          <?= view_cell('Views\Cells\Category::render', ['id' => 2, 'readon' => true])
+          ?>
       </div>
     </div>
 

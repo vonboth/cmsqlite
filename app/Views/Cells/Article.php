@@ -51,14 +51,16 @@ class Article extends AppCell
             $output = $article->content;
 
             if ($options['readon'] === true) {
-                $output = substr($output, 0, strpos($output, '<hr class="readon" />'));
-                $output .= view(
-                    "Themes\\$this->layout\\cells\\readon\\readon",
-                    ['article' => $article]
-                );
+                $pos = strpos($output, '<hr class="readon" />');
+                if ($pos !== false) {
+                    $output = substr($output, 0,);
+                    $output .= view(
+                        "Themes\\$this->layout\\cells\\readon\\readon",
+                        ['article' => $article]
+                    );
+                }
             }
 
-            $article->hits++;
             try {
                 if (!$article->is_startpage) {
                     $Articles->setHit($article->id);

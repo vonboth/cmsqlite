@@ -19,7 +19,7 @@ class Users extends Base
     /**
      * @inheritdoc
      */
-    public function initialize()
+    public function initialize(): void
     {
         $this->Users = new UsersModel();
     }

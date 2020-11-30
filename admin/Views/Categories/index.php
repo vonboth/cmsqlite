@@ -14,6 +14,7 @@ $this->section('main') ?>
         <table class="responsive-table">
           <thead>
           <tr>
+            <th><?= lang('Tables.categories.id') ?></th>
             <th><?= lang('Tables.categories.name') ?></th>
             <th><?= lang('Tables.categories.description') ?></th>
             <th><?= lang('Tables.categories.is_system') ?></th>
@@ -26,6 +27,7 @@ $this->section('main') ?>
           <?php
           foreach ($categories as $category): ?>
             <tr>
+              <td><?= $category->id ?></td>
               <td><?= $category->name ?></td>
               <td><?= $category->description ?></td>
               <td><?= $category->is_system ?></td>

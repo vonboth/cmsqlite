@@ -47,7 +47,7 @@ class Articles extends Base
      * @param null $id
      * @return string
      */
-    public function view($id = null): string
+    public function view($id = null)
     {
         return view(
             'Admin\Articles\view',
@@ -60,7 +60,7 @@ class Articles extends Base
      * @return \CodeIgniter\HTTP\RedirectResponse|string
      * @throws \ReflectionException
      */
-    public function add(): string
+    public function add()
     {
         $article = new Article(['published' => 1]);
         if ($this->request->getMethod() === 'post') {
@@ -98,7 +98,7 @@ class Articles extends Base
      * @return \CodeIgniter\HTTP\RedirectResponse|string
      * @throws \ReflectionException
      */
-    public function edit($id = null): string
+    public function edit($id = null)
     {
         $article = $this->Articles->find($id);
         if ($this->request->getMethod() === 'post') {
@@ -140,7 +140,7 @@ class Articles extends Base
      * @param $id
      * @return \CodeIgniter\HTTP\RedirectResponse
      */
-    public function delete($id): RedirectResponse
+    public function delete($id)
     {
         if ($this->Articles->delete($id)) {
             return redirect()

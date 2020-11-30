@@ -24,6 +24,7 @@ return [
         'stop_publish' => 'Enddatum',
     ],
     'categories' => [
+        'id' => 'Id',
         'categories' => 'Kategorien',
         'category' => 'Kategorie',
         'name' => 'Name',

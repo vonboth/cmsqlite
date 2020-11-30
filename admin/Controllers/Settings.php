@@ -22,7 +22,7 @@ class Settings extends Base
     /**
      * init controller
      */
-    public function initialize()
+    public function initialize(): void
     {
         $this->Settings = new SettingsModel();
     }
