@@ -33,6 +33,9 @@ class UsersModel extends BaseModel
      * @param $id
      * @return array|object|null
      */
+    /**
+     * @return array|null|object
+     */
     public function findAuthor($id)
     {
         $author = $this->find($id);

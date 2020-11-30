@@ -14,6 +14,8 @@ class AuthorizeFilter implements FilterInterface
 {
     /**
      * @inheritDoc
+     *
+     * @return void
      */
     public function before(RequestInterface $request, $arguments = null)
     {
@@ -30,6 +32,8 @@ class AuthorizeFilter implements FilterInterface
 
     /**
      * @inheritDoc
+     *
+     * @return void
      */
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {

@@ -27,8 +27,10 @@ class Slider extends AppCell
 
     /**
      * renders a slider
+     *
      * @param array $options
-     * @return string|null
+     *
+     * @return string
      */
     public function render(array $options = []): string
     {

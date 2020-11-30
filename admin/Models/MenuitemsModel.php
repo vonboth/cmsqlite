@@ -137,7 +137,9 @@ class MenuitemsModel extends BaseModel
 
     /**
      * Move node
-     * @param $nodeToMove
+     *
+     * @param array|null|object $nodeToMove
+     *
      * @return bool
      */
     private function _move($nodeToMove)

@@ -23,8 +23,10 @@ class Services extends CoreServices
 {
     /**
      * get an Instance from the AuthService::class
+     *
+     * @return \Admin\Services\AuthService
      */
-    public static function auth()
+    public static function auth(): \Admin\Services\AuthService
     {
         return new \Admin\Services\AuthService();
     }

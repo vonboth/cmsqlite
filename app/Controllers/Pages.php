@@ -17,8 +17,11 @@ class Pages extends Base
     /** @var UsersModel $Users */
     protected UsersModel $Users;
 
-    public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
-    {
+    public function initController(
+        RequestInterface $request,
+        ResponseInterface $response,
+        LoggerInterface $logger
+    ): void {
         parent::initController($request, $response, $logger);
         $this->Users = new UsersModel();
     }
@@ -66,8 +69,10 @@ class Pages extends Base
 
     /**
      * set common data for the view
+     *
+     * @return void
      */
-    private function _setViewVars()
+    private function _setViewVars(): void
     {
         $menus = $this->Menus->findAllMenusWithTrees();
         $this->View->setVar('menus', $menus);
@@ -76,9 +81,12 @@ class Pages extends Base
 
     /**
      * Update hits after finding the article
+     *
      * @param array|object|null $article
+     *
+     * @return void
      */
-    private function _updateHits($article)
+    private function _updateHits($article): void
     {
         if ($article) {
             try {

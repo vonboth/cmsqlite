@@ -12,7 +12,9 @@
     "ext-mbstring": "*",
     "ext-json": "*"
   },
-  "require-dev": {},
+  "require-dev": {
+    "vimeo/psalm": "^4.2"
+  },
   "autoload": {
     "psr-4": {
       "App\\": "app/",

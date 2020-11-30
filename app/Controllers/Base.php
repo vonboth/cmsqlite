@@ -9,8 +9,10 @@ use Admin\Models\MenusModel;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
+use CodeIgniter\Session\Session;
 use CodeIgniter\View\RendererInterface;
 use Config\Services;
+use phpDocumentor\Reflection\Types\Mixed_;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -38,8 +40,8 @@ class Base extends Controller
      */
     protected $helpers = ['html', 'form', 'format', 'Admin\Helpers\tree_helper'];
 
-    /** @var $session */
-    protected $session;
+    /** @var Session $session */
+    protected Session $session;
 
     /** @var ArticlesModel $Articles */
     protected $Articles;
@@ -53,16 +55,16 @@ class Base extends Controller
     /** @var SystemSettings|null $SystemSettings */
     protected ?SystemSettings $SystemSettings = null;
 
-    /** @var string $layout default layout from config*/
+    /** @var mixed|null|string $layout default layout from config*/
     protected $layout;
 
     /** @var RendererInterface $View */
-    protected $View;
+    protected RendererInterface $View;
 
     /**
      * @inheritdoc
      */
-    public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
+    public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger): void
     {
         parent::initController($request, $response, $logger);
 

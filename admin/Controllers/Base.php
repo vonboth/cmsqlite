@@ -26,14 +26,17 @@ class Base extends AppBase
     /** @var AuthService $AuthService */
     protected AuthService $AuthService;
 
-    /** @var string $layout layout from config table*/
+    /** @var string $layout layout from config table */
     protected $layout;
 
     /**
      * @inheritdoc
      */
-    public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
-    {
+    public function initController(
+        RequestInterface $request,
+        ResponseInterface $response,
+        LoggerInterface $logger
+    ): void {
         $this->validator = Services::validation(new Validation());
         $this->AuthService = service('auth');
         parent::initController($request, $response, $logger);
@@ -58,7 +61,7 @@ class Base extends AppBase
      * Initialize method to keep sub-controllers
      * signature cleaner
      */
-    public function initialize()
+    public function initialize(): void
     {
     }
 
@@ -66,7 +69,7 @@ class Base extends AppBase
      * parse controller name from request
      * @return string
      */
-    protected function parseControllerName()
+    protected function parseControllerName(): string
     {
         $router = Services::router();
         $namespace = '\\' . $router->getMatchedRouteOptions()['namespace'] . "\\";

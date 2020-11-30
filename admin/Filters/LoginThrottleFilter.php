@@ -20,6 +20,8 @@ class LoginThrottleFilter implements FilterInterface
 
     /**
      * @inheritdoc
+     *
+     * @return void
      */
     public function before(RequestInterface $request, $arguments = null)
     {
@@ -40,6 +42,8 @@ class LoginThrottleFilter implements FilterInterface
 
     /**
      * @inheritdoc
+     *
+     * @return void
      */
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {

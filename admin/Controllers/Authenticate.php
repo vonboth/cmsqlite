@@ -3,6 +3,8 @@
 
 namespace Admin\Controllers;
 
+use CodeIgniter\HTTP\RedirectResponse;
+
 /**
  * Class Authenticate
  * Controller to handle authentication
@@ -15,7 +17,7 @@ class Authenticate extends Base
      * shows the login form
      * @return string
      */
-    public function login()
+    public function login(): string
     {
         if ($this->request->getMethod() == 'post') {
             if ($this->validate(
@@ -44,9 +46,9 @@ class Authenticate extends Base
 
     /**
      * Logout user
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @return RedirectResponse
      */
-    public function logout()
+    public function logout(): RedirectResponse
     {
         $this->AuthService->logout();
         return redirect('/');

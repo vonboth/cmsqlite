@@ -12,7 +12,7 @@ use CodeIgniter\Entity;
  */
 class User extends Entity
 {
-    /** @inheritdoc  */
+    /** @inheritdoc */
     protected $attributes = [
         'id' => null,
         'username' => null,
@@ -27,6 +27,9 @@ class User extends Entity
         'updated' => null,
     ];
 
+    /**
+     * dates fields
+     */
     protected $dates = ['lastlogin'];
 
     /**
@@ -41,7 +44,11 @@ class User extends Entity
         return $this;
     }
 
-    protected function getFullname()
+    /**
+     * get fullname out of first and last name
+     * @return string
+     */
+    protected function getFullname(): string
     {
         return $this->attributes['firstname'] . ' ' . $this->attributes['lastname'];
     }

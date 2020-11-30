@@ -16,12 +16,12 @@ use Admin\Models\MenuitemsModel;
 class Menuitems extends Base
 {
     /** @var MenuitemsModel $Menuitems */
-    protected $Menuitems;
+    protected MenuitemsModel $Menuitems;
 
     /**
      * init controller
      */
-    public function initialize()
+    public function initialize(): void
     {
         $this->Menuitems = new MenuitemsModel();
     }

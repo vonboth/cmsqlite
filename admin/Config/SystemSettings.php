@@ -46,8 +46,10 @@ class SystemSettings extends BaseConfig
     /**
      * set the settings configured
      * in the databse
+     *
+     * @return void
      */
-    private function _setSettings()
+    private function _setSettings(): void
     {
         $this->settings = $this->defaults;
         $settings = new SettingsModel();

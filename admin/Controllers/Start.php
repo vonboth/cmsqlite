@@ -26,7 +26,7 @@ class Start extends Base
     /**
      * Initialize controller
      */
-    public function initialize()
+    public function initialize(): void
     {
         $this->Articles = new ArticlesModel();
         $this->Users = new UsersModel();

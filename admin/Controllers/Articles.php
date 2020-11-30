@@ -5,15 +5,15 @@ namespace Admin\Controllers;
 
 
 use Admin\Models\ArticlesModel;
+use Admin\Models\CategoriesModel;
 use Admin\Models\Entities\Article;
+use CodeIgniter\HTTP\RedirectResponse;
 
 /**
  * Class Articles
  * @package Admin\Controllers
  * @property ArticlesModel $Articles
- *
- * TODO: save HITs
- * TODO: reset HITs
+ * @property CategoriesModel $Categories
  */
 class Articles extends Base
 {
@@ -23,16 +23,17 @@ class Articles extends Base
     /**
      * init controller
      */
-    public function initialize()
+    public function initialize(): void
     {
         $this->Articles = new ArticlesModel();
+        $this->Categories = new CategoriesModel();
     }
 
     /**
      * index action / entry point
      * @return string
      */
-    public function index()
+    public function index(): string
     {
         /** @var  $query */
         return view(
@@ -46,7 +47,7 @@ class Articles extends Base
      * @param null $id
      * @return string
      */
-    public function view($id = null)
+    public function view($id = null): string
     {
         return view(
             'Admin\Articles\view',
@@ -59,7 +60,7 @@ class Articles extends Base
      * @return \CodeIgniter\HTTP\RedirectResponse|string
      * @throws \ReflectionException
      */
-    public function add()
+    public function add(): string
     {
         $article = new Article(['published' => 1]);
         if ($this->request->getMethod() === 'post') {
@@ -97,7 +98,7 @@ class Articles extends Base
      * @return \CodeIgniter\HTTP\RedirectResponse|string
      * @throws \ReflectionException
      */
-    public function edit($id = null)
+    public function edit($id = null): string
     {
         $article = $this->Articles->find($id);
         if ($this->request->getMethod() === 'post') {
@@ -139,7 +140,7 @@ class Articles extends Base
      * @param $id
      * @return \CodeIgniter\HTTP\RedirectResponse
      */
-    public function delete($id)
+    public function delete($id): RedirectResponse
     {
         if ($this->Articles->delete($id)) {
             return redirect()

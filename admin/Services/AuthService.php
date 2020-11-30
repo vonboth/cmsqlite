@@ -84,11 +84,13 @@ class AuthService extends BaseService
 
     /**
      * Authenticate a user
+     *
      * @param $username
      * @param $password
-     * @return false
+     *
+     * @return bool
      */
-    public function authenticate($username, $password)
+    public function authenticate($username, $password): bool
     {
         if (!$username || !$password) {
             return false;
@@ -124,8 +126,10 @@ class AuthService extends BaseService
 
     /**
      * log user off the session
+     *
+     * @return void
      */
-    public function logout()
+    public function logout(): void
     {
         session()->set('Auth', null);
     }
@@ -168,10 +172,13 @@ class AuthService extends BaseService
 
     /**
      * reset tries after successfull login
+     *
      * @param array|object $user
      * @param $num
+     *
+     * @return void
      */
-    private function _setTries($user, int $num)
+    private function _setTries($user, int $num): void
     {
         $user['tries'] = $num;
         try {
@@ -183,17 +190,22 @@ class AuthService extends BaseService
     /**
      * After successful login: remove the
      * throttle check from the session
+     *
+     * @return void
      */
-    private function _resetLoginAttack()
+    private function _resetLoginAttack(): void
     {
         session()->remove('LOGIN_ATTACK');
     }
 
     /**
      * Update login time for the user
-     * @param $user
+     *
+     * @param array|object $user
+     *
+     * @return void
      */
-    private function _updateLogin($user)
+    private function _updateLogin($user): void
     {
         $user['lastlogin'] = date('Y-m-d H:i:s');
         try {

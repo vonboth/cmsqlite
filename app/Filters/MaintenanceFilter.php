@@ -35,6 +35,8 @@ class MaintenanceFilter implements FilterInterface
 
     /**
      * @inheritdoc
+     *
+     * @return void
      */
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {

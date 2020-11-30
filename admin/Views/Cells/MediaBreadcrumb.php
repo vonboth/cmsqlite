@@ -6,7 +6,7 @@ namespace Admin\Views\Cells;
 
 class MediaBreadcrumb
 {
-    public function render(array $params =[])
+    public function render(array $params =[]): string
     {
         $content = '<nav class="blue lighten-2">' .
             '<div class="nav-wrapper">' .

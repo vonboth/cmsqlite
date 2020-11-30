@@ -32,15 +32,19 @@ abstract class AppCell
     /**
      * renders a view cell
      * Implement this for any child class
+     *
      * @param array $options
-     * @return mixed
+     *
+     * @return string
      */
     abstract public function render(array $options = []): string;
 
     /**
      * init cell
+     *
+     * @return void
      */
-    protected function initialize()
+    protected function initialize(): void
     {
     }
 

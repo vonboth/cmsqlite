@@ -4,6 +4,7 @@
 namespace Admin\Controllers;
 
 use CodeIgniter\API\ResponseTrait;
+use CodeIgniter\HTTP\RedirectResponse;
 
 /**
  * Class Media
@@ -20,7 +21,7 @@ class Media extends Base
     /**
      * init controller
      */
-    public function initialize()
+    public function initialize(): void
     {
         /** @var \Admin\Config\Media mediaConfig */
         $this->mediaConfig = new \Admin\Config\Media();
@@ -30,7 +31,7 @@ class Media extends Base
      * Index / entry point for the controller
      * @return string
      */
-    public function index()
+    public function index(): string
     {
         $dir = $this->request->getGet('dir');
         if (is_null($dir)) {
@@ -54,9 +55,9 @@ class Media extends Base
 
     /**
      * Upload file action
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @return RedirectResponse
      */
-    public function upload()
+    public function upload(): RedirectResponse
     {
         $response = redirect();
 
@@ -130,7 +131,7 @@ class Media extends Base
     /**
      * unlink a file from the file system
      */
-    public function removeFile()
+    public function removeFile(): RedirectResponse
     {
         $response = redirect();
 
@@ -162,7 +163,7 @@ class Media extends Base
     /**
      * remove directory
      */
-    public function removeDir()
+    public function removeDir(): RedirectResponse
     {
         $response = redirect();
         if ($this->request->getMethod() == 'post') {
@@ -201,7 +202,7 @@ class Media extends Base
      * @param $path
      * @return array[]
      */
-    private function readDirectory($path)
+    private function readDirectory(string $path): array
     {
         $dirs = [];
         $files = [];
@@ -235,7 +236,7 @@ class Media extends Base
      * create a new folder in the
      * current directory
      */
-    public function createFolder()
+    public function createFolder(): RedirectResponse
     {
         $response = redirect();
         if ($this->request->getMethod() == 'post') {
@@ -264,7 +265,7 @@ class Media extends Base
      * "url": "/files/foo.jpg"
      * }
      */
-    public function ckupload()
+    public function ckupload(): string
     {
         if ($this->request->getMethod() == 'post') {
             $file = $this->request->getFile('upload');
@@ -289,6 +290,12 @@ class Media extends Base
         }
     }
 
+    /**
+     * Browse all files in the media folder
+     * to add them to the content where rquired
+     *
+     * @return string
+     */
     public function ckbrowse()
     {
         $directory = new \RecursiveDirectoryIterator($this->mediaPath);
@@ -315,8 +322,9 @@ class Media extends Base
 
     /**
      * returns a string of the current path
+     * @return string
      */
-    private function getCurrentPath()
+    private function getCurrentPath(): string
     {
         $currentPath = $this->session->get('currentPath');
         $this->currentPath = $currentPath;
@@ -329,7 +337,7 @@ class Media extends Base
      * folder
      * @param $dir
      */
-    private function setCurrentPath($dir)
+    private function setCurrentPath($dir): void
     {
         $currentPath = $this->session->get('currentPath');
 

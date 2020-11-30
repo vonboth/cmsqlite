@@ -6,6 +6,7 @@ namespace Admin\Controllers;
 
 use Admin\Models\CategoriesModel;
 use Admin\Models\Entities\Category;
+use CodeIgniter\HTTP\RedirectResponse;
 
 /**
  * Class Categories
@@ -20,7 +21,7 @@ class Categories extends Base
     /**
      * init controller
      */
-    public function initialize()
+    public function initialize(): void
     {
         $this->Categories = new CategoriesModel();
     }
@@ -29,7 +30,7 @@ class Categories extends Base
      * index action / entry point
      * @return string
      */
-    public function index()
+    public function index(): string
     {
         return view(
             'Admin\Categories\index',
@@ -42,7 +43,7 @@ class Categories extends Base
      * @param null $id
      * @return string
      */
-    public function view($id = null)
+    public function view($id = null): string
     {
         $category = $this->Categories->find($id);
         return view(
@@ -53,10 +54,12 @@ class Categories extends Base
 
     /**
      * add new item
-     * @return \CodeIgniter\HTTP\RedirectResponse|string
+     *
+     * @return string
+     *
      * @throws \ReflectionException
      */
-    public function add()
+    public function add(): string
     {
         $category = new Category();
 
@@ -91,11 +94,14 @@ class Categories extends Base
 
     /**
      * edit / update item
+     *
      * @param null $id
-     * @return \CodeIgniter\HTTP\RedirectResponse|string
+     *
+     * @return string
+     *
      * @throws \ReflectionException
      */
-    public function edit($id = null)
+    public function edit($id = null): string
     {
         $category = $this->Categories->find($id);
         if ($this->request->getMethod() === 'post') {
@@ -136,9 +142,9 @@ class Categories extends Base
     /**
      * delete item
      * @param $id
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @return RedirectResponse
      */
-    public function delete($id)
+    public function delete($id): RedirectResponse
     {
         if ($this->Categories->delete($id)) {
             return redirect()

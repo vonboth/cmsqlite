@@ -62,9 +62,12 @@ class MenusModel extends BaseModel
     /**
      * handle after deleting a menu
      * - delete all menuitems related to the menu
+     *
      * @param array $data
+     *
+     * @return void
      */
-    public function afterDelete(array $data)
+    public function afterDelete(array $data): void
     {
         if ($data['result']) {
             $Menuitems = new MenuitemsModel();
