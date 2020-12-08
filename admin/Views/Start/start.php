@@ -1,4 +1,10 @@
-<?= $this->extend('AdminThemes\default\layouts\default') ?>
+<?php
+/**
+ * @var string $theme
+ */
+
+?>
+<?= $this->extend("AdminThemes\\$theme\\layouts\\default") ?>
 
 <?= $this->section('main') ?>
 <div class="row">

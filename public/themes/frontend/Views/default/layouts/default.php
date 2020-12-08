@@ -1,37 +1,29 @@
 <?php
-/** @var $article */
+/** @var \Admin\Models\Entities\Article $article */
 
-/** @var $layout */
+/** @var string $theme the theme configured in admin-section */
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
   <meta name="description" content="<?= $article->description ?>">
   <meta name="author" content="<?= $article->user->fullname ?>">
   <title><?= $article->title ?></title>
 
-  <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <?= link_tag(
-        'themes/frontend/Views/default/css/default.css',
-        'stylesheet',
-        'text/css',
-        '',
-        'screen,projection'
-    ); ?>
+    <?= link_tag("themes/frontend/Views/$theme/css/default.css"); ?>
 
     <?= $this->renderSection('css') ?>
     <?= $this->renderSection('headerScripts') ?>
 </head>
 <body>
-<nav class="white" role="navigation">
+
+<nav class="light-blue lighten-1" role="navigation">
   <div class="nav-wrapper container">
     <a id="logo-container" href="#" class="brand-logo">Logo</a>
-
     <!-- The menu -->
       <?= view_cell('Views\Cells\Menu::render', ['id' => 1, 'ulClass' => 'ul_parent right hide-on-med-and-down']) ?>
 
@@ -45,69 +37,23 @@
   </div>
 </nav>
 
-<div id="index-banner" class="parallax-container">
-  <div class="section no-pad-bot">
-    <div class="container">
-        <?= $this->renderSection('main') ?>
-    </div>
-  </div>
-  <div class="parallax">
-    <img src="/themes/frontend/Views/default/img/background1.jpg" alt="Unsplashed background img 1">
-  </div>
-</div>
+<main role="main" class="section no-pad-bot" id="index-banner">
+  <section class="container">
+      <?= $this->renderSection('main') ?>
+  </section>
+</main><!-- /.container -->
 
-<div class="container">
-  <div class="section">
-      <?= view_cell('Views\Cells\Article::render', ['id' => 2, 'readon' => true]) ?>
-  </div>
-</div>
 
-<div class="parallax-container valign-wrapper">
-  <div class="section no-pad-bot">
-    <div class="container">
-      <div class="row center">
-          <?= view_cell('Views\Cells\Article::render', ['id' => 3]) ?>
-      </div>
-    </div>
-  </div>
-  <div class="parallax"><img src="/themes/frontend/Views/default/img/background2.jpg" alt="Unsplashed background img 2">
-  </div>
-</div>
-
-<div class="container">
-  <div class="section">
-
-    <div class="row">
-      <div class="col s12 center">
-          <?/*= view_cell('Views\Cells\Article::render', ['id' => 4]) */?>
-          <?= view_cell('Views\Cells\Category::render', ['id' => 2, 'readon' => true])
-          ?>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<div class="parallax-container valign-wrapper">
-  <div class="section no-pad-bot">
-    <div class="container">
-      <div class="row center">
-          <?= view_cell('Views\Cells\Article::render', ['id' => 5]) ?>
-      </div>
-    </div>
-  </div>
-  <div class="parallax"><img src="/themes/frontend/Views/default/img/background3.jpg" alt="Unsplashed background img 3">
-  </div>
-</div>
-
-<footer class="page-footer teal">
+<footer class="page-footer orange">
   <div class="container">
     <div class="row">
       <div class="col l6 s12">
         <h5 class="white-text">Company Bio</h5>
-        <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full
-          time job. Any amount would help support and continue development on this project and is greatly
-          appreciated.</p>
+        <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's
+          our full time job. Any amount would help support and continue development on this project and is
+          greatly appreciated.</p>
+
+
       </div>
       <div class="col l3 s12">
         <h5 class="white-text">Settings</h5>
@@ -129,21 +75,19 @@
       </div>
     </div>
   </div>
+
   <div class="footer-copyright">
     <div class="container">
-      Based on <a class="brown-text text-lighten-3" href="http://materializecss.com">Materialize</a> and CMSQlite
+      Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a> and CMSQlite
     </div>
   </div>
 </footer>
 
-<!--  Scripts-->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<?= script_tag("/themes/frontend/Views/$theme/js/init.js") ?>
 
-<?= script_tag('themes/frontend/Views/default/js/init.js') ?>
 <?= $this->renderSection('jsvars') ?>
 <?= $this->renderSection('scripts') ?>
 <?= $this->renderSection('js') ?>
-
 </body>
 </html>

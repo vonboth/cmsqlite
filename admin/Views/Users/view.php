@@ -1,7 +1,10 @@
 <?php
+/**
+ * @var string $theme
+ */
 
 $this->setData(['edit' => false]);
-$this->extend('AdminThemes\default\layouts\default'); ?>
+$this->extend("AdminThemes\\$theme\\layouts\\default"); ?>
 
 <?php
 $this->section('main') ?>

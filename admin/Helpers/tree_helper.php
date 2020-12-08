@@ -90,10 +90,11 @@ if (!function_exists('tree_list')) {
      */
     function admin_menu_tree($menus)
     {
+        $idx = 0;
         $ul = '<ul class="collapsible collapsible-accordion admin-menu">';
         foreach ($menus as $menu) {
             $ul .= '
-<li class="menu-administration">
+<li class="menu-administration' . (($idx == 0) ? ' active' : '') . '">
     <div class="flex space-between collapsible-header-wrapper">
         <div class="collapsible-header flex-center" 
              @click="onSelectMenu(' . $menu->id . ')"><div class="menu-name">' . $menu->name . '</div></div>
@@ -114,6 +115,7 @@ if (!function_exists('tree_list')) {
         <div class="clearfix">' . admin_menu_list($menu->tree) . '<div>
     </div>
 </li>';
+            $idx++;
         }
         return $ul .= '</ul>';
     }

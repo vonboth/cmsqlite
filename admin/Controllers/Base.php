@@ -26,8 +26,8 @@ class Base extends AppBase
     /** @var AuthService $AuthService */
     protected AuthService $AuthService;
 
-    /** @var string $layout layout from config table */
-    protected $layout;
+    /** @var string $theme layout from config table */
+    protected string $theme;
 
     /**
      * @inheritdoc
@@ -42,7 +42,7 @@ class Base extends AppBase
         parent::initController($request, $response, $logger);
 
         $request->setLocale($this->SystemSettings->language);
-        $this->layout = $this->SystemSettings->admin_layout;
+        $this->theme = $this->SystemSettings->admin_theme;
         $this->View = Services::renderer();
         $this->controllerName = $this->parseControllerName();
         $this->View->setData(
@@ -50,7 +50,7 @@ class Base extends AppBase
                 'controller' => ($this->controllerName),
                 'section' => lang("Tables.{$this->controllerName}.{$this->controllerName}"),
                 'title' => 'CMSQLite',
-                'layout' => $this->layout
+                'theme' => $this->theme
             ]
         );
 

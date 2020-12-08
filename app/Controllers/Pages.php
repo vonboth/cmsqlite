@@ -42,7 +42,7 @@ class Pages extends Base
         $this->_setViewVars();
 
         return view(
-            "Themes\\$this->layout\start",
+            "Themes\\$this->theme\\start",
             [
                 'article' => $article,
             ]
@@ -60,7 +60,7 @@ class Pages extends Base
 
         $this->_setViewVars();
         return view(
-            "Themes\\$this->layout\page",
+            "Themes\\$this->theme\\page",
             [
                 'article' => $article,
             ]
@@ -76,7 +76,7 @@ class Pages extends Base
     {
         $menus = $this->Menus->findAllMenusWithTrees();
         $this->View->setVar('menus', $menus);
-        $this->View->setVar('description', 'Descrption');
+        $this->View->setVar('theme', $this->theme);
     }
 
     /**

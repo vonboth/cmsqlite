@@ -15,9 +15,9 @@ class Authenticate extends Base
 {
     /**
      * shows the login form
-     * @return string
+     * @return string|RedirectResponse
      */
-    public function login(): string
+    public function login()
     {
         if ($this->request->getMethod() == 'post') {
             if ($this->validate(
@@ -37,8 +37,9 @@ class Authenticate extends Base
         }
 
         return view(
-            'AdminThemes\default\layouts\login',
+            "AdminThemes\\$this->theme\\layouts\\login",
             [
+                'theme' => $this->theme,
                 'validator' => $this->validator,
             ]
         );

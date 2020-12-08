@@ -5,18 +5,17 @@
  *
  */
 
-/** @var $article */
-/** @var $layout */
+/** @var \Admin\Models\Entities\Article $article */
+/** @var string $theme */
 ?>
 
-<?= $this->extend("Themes\\$layout\layouts\default") ?>
+<?= $this->extend("Themes\\$theme\\layouts\\default") ?>
 
 <?= $this->section('main') ?>
-<h1>Hallo Public</h1>
-<section>
-    <?= $article->title ?>
-  <p>
-      <?= $article->content ?>
-  </p>
-</section>
+  <section>
+    <h1><?= $article->title ?></h1>
+    <p>
+        <?= $article->content ?>
+    </p>
+  </section>
 <?= $this->endSection() ?>

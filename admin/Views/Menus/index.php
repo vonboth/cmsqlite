@@ -3,12 +3,15 @@
  * view to create menus
  */
 
-/** @var $menutrees */
-/** @var $menus */
-/** @var $menuitems */
-/** @var $articles */
+/**
+ * @var $menutrees
+ * @var $menus
+ * @var $menuitems
+ * @var $articles
+ * @var string $theme
+ */
 
-$this->extend('AdminThemes\default\layouts\default') ?>
+$this->extend("AdminThemes\\$theme\\layouts\\default") ?>
 
 <?php
 $this->section('main') ?>

@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'layout' => 'Layout',
-    'admin_layout' => 'Admin Layout',
+    'theme' => 'Theme',
+    'admin_theme' => 'Admin Theme',
     'language' => 'Language',
     'maintenance' => 'Maintenance'
 ];

@@ -1,6 +1,10 @@
 <?php
+/**
+ * @var \Admin\Models\Entities\Article $article
+ * @var string $theme
+ */
 
-$this->extend('AdminThemes\default\layouts\default');
+$this->extend("AdminThemes\\$theme\\layouts\\default");
 $this->section('main');
 ?>
 

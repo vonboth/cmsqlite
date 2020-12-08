@@ -56,7 +56,7 @@ class Slider extends AppCell
             // output if not empty
             if (!empty($images)) {
                 return view(
-                    "Themes\\$this->layout\cells\slider\slider",
+                    "Themes\\$this->theme\cells\slider\slider",
                     [
                         'images' => $images
                     ]

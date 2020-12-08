@@ -13,20 +13,23 @@ use CodeIgniter\Config\BaseConfig;
  * database by the admin of the system.
  * Typical settings are:
  * - language
- * - layout
+ * - theme
  * ...
  *
  * Usage: $systemSettings->get(KEY, DEFAULT);
- * of: $systemSettings->layout
+ * of: $systemSettings->theme
  *
  * @package Admin\Config
+ * @property string $theme
+ * @property string $admin_theme
+ * @property string $language
  */
 class SystemSettings extends BaseConfig
 {
     /** @var array|string[] $defaults default settings */
     protected array $defaults = [
-        'layout' => 'default',
-        'admin_layout' => 'default',
+        'theme' => 'default',
+        'admin_theme' => 'default',
         'language' => 'de',
         'maintenance' => 0
     ];

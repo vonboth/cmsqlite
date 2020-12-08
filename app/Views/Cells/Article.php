@@ -55,7 +55,7 @@ class Article extends AppCell
                 if ($pos !== false) {
                     $output = substr($output, 0,);
                     $output .= view(
-                        "Themes\\$this->layout\\cells\\readon\\readon",
+                        "Themes\\$this->theme\\cells\\readon\\readon",
                         ['article' => $article]
                     );
                 }

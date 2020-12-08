@@ -1,6 +1,9 @@
 <?php
+/**
+ * @var string $theme
+ */
 
-$this->extend('AdminThemes\default\layouts\default');
+$this->extend("AdminThemes\\$theme\\layouts\\default");
 $this->section('main'); ?>
 
 <?= $this->include('Admin\Partials\form_errors'); ?>

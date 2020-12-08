@@ -13,7 +13,7 @@ RUN install-php-extensions intl xdebug zip
 
 RUN a2enmod rewrite
 
-RUN curl -o composer https://getcomposer.org/download/1.10.6/composer.phar \
+RUN curl -o composer https://getcomposer.org/download/2.0.8/composer.phar \
   && mv composer /usr/local/bin \
   && chmod +x /usr/local/bin/composer
 

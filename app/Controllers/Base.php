@@ -55,8 +55,8 @@ class Base extends Controller
     /** @var SystemSettings|null $SystemSettings */
     protected ?SystemSettings $SystemSettings = null;
 
-    /** @var mixed|null|string $layout default layout from config*/
-    protected $layout;
+    /** @var mixed|null|string $theme default theme from config */
+    protected string $theme;
 
     /** @var RendererInterface $View */
     protected RendererInterface $View;
@@ -74,12 +74,12 @@ class Base extends Controller
         $this->Articles = new ArticlesModel();
         $this->Menuitems = new MenuitemsModel();
         $this->Menus = new MenusModel();
-        $this->layout = $this->SystemSettings->layout;
+        $this->theme = $this->SystemSettings->theme;
         $this->View = Services::renderer();
 
         $this->View->setData(
             [
-                'layout' => $this->layout
+                'layout' => $this->theme
             ]
         );
     }

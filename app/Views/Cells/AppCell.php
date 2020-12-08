@@ -3,6 +3,8 @@
 
 namespace App\Views\Cells;
 
+use Admin\Config\SystemSettings;
+
 /**
  * Class AppCell
  * @package App\Views\Cells
@@ -13,10 +15,10 @@ namespace App\Views\Cells;
 abstract class AppCell
 {
     /** @var mixed $SystemSettings system settings set in admin backend */
-    protected $SystemSettings;
+    protected SystemSettings $SystemSettings;
 
-    /** @var string $layout current layout from configuration */
-    protected $layout;
+    /** @var string $theme theme configured in configuration */
+    protected string $theme;
 
     /**
      * AppCell constructor.
@@ -24,7 +26,7 @@ abstract class AppCell
     public function __construct()
     {
         $this->SystemSettings = config('Admin\Config\SystemSettings');
-        $this->layout = $this->SystemSettings->layout;
+        $this->theme = $this->SystemSettings->theme;
 
         $this->initialize();
     }

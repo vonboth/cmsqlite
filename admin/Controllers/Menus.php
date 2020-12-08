@@ -37,7 +37,7 @@ class Menus extends Base
     /**
      * init controller
      */
-    public function initialize()
+    public function initialize(): void
     {
         $this->Menus = new MenusModel();
         $this->Menuitems = new MenuitemsModel();

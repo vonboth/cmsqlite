@@ -15,6 +15,6 @@ class Maintenance extends Base
      */
     public function index()
     {
-        return view("Themes\\$this->layout\maintenance");
+        return view("Themes\\$this->theme\\maintenance");
     }
 }

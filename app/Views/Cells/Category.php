@@ -52,7 +52,7 @@ class Category extends AppCell
             }
 
             return view(
-                "Themes\\$this->layout\\cells\\category\\category",
+                "Themes\\$this->theme\\cells\\category\\category",
                 [
                     'category' => $category,
                     'articles' => $articles
@@ -74,7 +74,7 @@ class Category extends AppCell
         if ($pos !== false) {
             $output = substr($output, 0, $pos);
             $output .= view(
-                "Themes\\$this->layout\\cells\\readon\\readon",
+                "Themes\\$this->theme\\cells\\readon\\readon",
                 ['article' => $article]
             );
         }
