@@ -17,8 +17,6 @@ use Admin\Models\MenusModel;
  * @property MenuitemsModel $Menuitems
  * @property ArticlesModel $Articles
  * @property CategoriesModel $Categories
- *
- * TODO: add css class "active" to active menu
  */
 class Menus extends Base
 {

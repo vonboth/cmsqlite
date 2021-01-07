@@ -6,6 +6,7 @@ namespace Views\Cells;
 use Admin\Models\MenuitemsModel;
 use Admin\Models\MenusModel;
 use App\Views\Cells\AppCell;
+use CodeIgniter\Services;
 
 /**
  * Class Menu
@@ -39,11 +40,12 @@ class Menu extends AppCell
     public function render(array $options = []): string
     {
         $output = '';
+        $current_path = service('request')->uri->getPath();
         $Menuitems = new MenuitemsModel();
 
         if (isset($options['id'])) {
             $items = $Menuitems->findTree($options['id']);
-            $output = menu_list($items, $options);
+            $output = menu_list($items, $options, $current_path);
         } elseif (isset($options['name'])) {
             $Menus = new MenusModel();
             $menu = $Menus->where('name', $options['name']);

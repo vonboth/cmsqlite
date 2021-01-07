@@ -6,9 +6,13 @@ if (!function_exists('tree_list')) {
      *
      * @param $menuitems
      * @param array $options
+     * @param string $current_path
+     *
      * @return mixed
+     *
+     * TODO: CHECK ACTIVE CLASS WHEN APPENDING ANY QUERY PARAMS!
      */
-    function menu_list($menuitems, array $options = [])
+    function menu_list($menuitems, array $options = [], string $current_path = ''): string
     {
         $ulClass = $options['ulClass'] ?? 'ul_parent';
         $ulId = isset($options['ulId']) ? ' id="' . $options['ulId'] . '"' : '';
@@ -17,11 +21,12 @@ if (!function_exists('tree_list')) {
         foreach ($menuitems as $menuitem) {
             $css = (count($menuitem['children']) > 0) ? 'li_parent' : 'li_child';
             $css .= ' level' . $menuitem['level'];
+            $css .= ($menuitem['url'] === $current_path) ? ' active' : '';
             $ul .= "<li class='{$css}'>" .
                 "<a href='{$menuitem['url']}'>{$menuitem['title']}</a>";
 
             if (count($menuitem['children']) > 0) {
-                $ul .= menu_list($menuitem['children'], ['ulClass' => 'ul_child']);
+                $ul .= menu_list($menuitem['children'], ['ulClass' => 'ul_child'], $current_path);
             }
 
             $ul .= '</li>';

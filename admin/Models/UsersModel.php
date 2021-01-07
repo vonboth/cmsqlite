@@ -6,10 +6,6 @@ namespace Admin\Models;
 /**
  * Class UsersModel
  * @package Admin\Models
- *
- * TODO: last login timestamp
- * TODO: last failed login
- * TODO: login tries
  */
 class UsersModel extends BaseModel
 {

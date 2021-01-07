@@ -21,7 +21,7 @@ class AuthorizeFilter implements FilterInterface
     {
         $Acl = new Acl();
         $AuthService = service('auth');
-        $role = $AuthService->getUserRole() ?? 'public';
+        $role = $AuthService->getUserRole() ?? 'guest';
         $access = $Acl->$role;
 
         // pass generally allowed URLs

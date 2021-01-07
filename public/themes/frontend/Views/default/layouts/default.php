@@ -21,9 +21,9 @@
 </head>
 <body>
 
-<nav class="light-blue lighten-1" role="navigation">
+<nav class="indigo darken-1" role="navigation">
   <div class="nav-wrapper container">
-    <a id="logo-container" href="#" class="brand-logo">Logo</a>
+    <a id="logo-container" href="/" class="brand-logo">CMSQlite CMS</a>
     <!-- The menu -->
       <?= view_cell('Views\Cells\Menu::render', ['id' => 1, 'ulClass' => 'ul_parent right hide-on-med-and-down']) ?>
 

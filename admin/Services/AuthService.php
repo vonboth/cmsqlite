@@ -7,6 +7,7 @@ namespace Admin\Services;
 use Admin\Filters\LoginThrottleFilter;
 use Admin\Models\UsersModel;
 use CodeIgniter\Config\BaseService;
+use CodeIgniter\Events\Events;
 
 /**
  * Class Auth
@@ -16,7 +17,7 @@ use CodeIgniter\Config\BaseService;
 class AuthService extends BaseService
 {
     /** @var string $redirectUrl */
-    public $redirectUrl = '/admin/authenticate/login';
+    public string $redirectUrl = '/admin/authenticate/login';
 
     /** @var UsersModel $Users */
     private UsersModel $Users;
@@ -25,7 +26,7 @@ class AuthService extends BaseService
      * allowed URLs without login
      * @var string[]
      */
-    private $allowedUrls = [
+    private array $allowedUrls = [
         'admin/authenticate/login',
         'admin/authenticate/logout',
     ];
@@ -62,7 +63,7 @@ class AuthService extends BaseService
      * @param array $user
      * @return bool
      */
-    public function updateUser(array $user)
+    public function updateUser(array $user): bool
     {
         if (!empty($this->getUser())) {
             unset($user['password']);
@@ -77,7 +78,7 @@ class AuthService extends BaseService
      * returns redirect URL
      * @return string
      */
-    public function getRedirectUrl()
+    public function getRedirectUrl(): string
     {
         return $this->redirectUrl;
     }
@@ -112,6 +113,10 @@ class AuthService extends BaseService
             $this->_updateLogin($user);
             unset($user['password']);
             session()->set('Auth', ['User' => serialize($user)]);
+
+            // trigger Event due to convention
+            Events::trigger('login', $user);
+
             return true;
         } else {
             $this->_setTries($user, $user['tries'] + 1);
@@ -132,13 +137,15 @@ class AuthService extends BaseService
     public function logout(): void
     {
         session()->set('Auth', null);
+        // trigger Event due to convention
+        Events::trigger('logout');
     }
 
     /**
      * check if current user is logged in
-     * @return mixed
+     * @return bool
      */
-    public function isLoggedIn()
+    public function isLoggedIn(): bool
     {
         return !empty(session('Auth')['User']);
     }
@@ -152,22 +159,9 @@ class AuthService extends BaseService
      * @param string $url
      * @return bool
      */
-    public function passTrough($url)
+    public function passTrough(string $url): bool
     {
         return in_array($url, $this->allowedUrls);
-    }
-
-    /**
-     * TODO: AUTHORIZE NEEDS IMPLEMENTATION
-     * @return false
-     */
-    public function authorize()
-    {
-        $user = $this->getUser();
-        if (!$user) {
-            return false;
-        }
-        return false;
     }
 
     /**

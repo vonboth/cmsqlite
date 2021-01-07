@@ -1,12 +1,12 @@
 version: '3'
 services:
   web:
-    build: ./docker
     ports:
       - "80:80"
-    image: cmsqlite/web
+    image: stoffel/web:7.4
     container_name: cmsqlite_web
     environment:
       XDEBUG_CONFIG: remote_host=172.17.0.1
     volumes:
       - .:/var/www/html
+      - ./docker/sites-available:/etc/apache2/sites-available

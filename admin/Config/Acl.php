@@ -9,7 +9,7 @@ use CodeIgniter\Config\BaseConfig;
 class Acl extends BaseConfig
 {
     protected $admin = [
-        'allow' => [],
+        'allow' => ['*'],
         'deny' => []
     ];
 
@@ -18,13 +18,12 @@ class Acl extends BaseConfig
         'deny' => []
     ];
 
+    /** @var array $guest allow / deny resources for guest */
     protected $guest = [
-        'allow' => [],
-        'deny' => []
-    ];
-
-    protected $public = [
-        'allow' => [],
+        'allow' => [
+            '/admin/authenticate/login',
+            'admin/authenticate/logout'
+        ],
         'deny' => []
     ];
 
