@@ -16,8 +16,7 @@ use CodeIgniter\Config\BaseConfig;
  * - theme
  * ...
  *
- * Usage: $systemSettings->get(KEY, DEFAULT);
- * of: $systemSettings->theme
+ * Usage: $systemSettings->theme
  *
  * @package Admin\Config
  * @property string $theme
@@ -26,41 +25,21 @@ use CodeIgniter\Config\BaseConfig;
  */
 class SystemSettings extends BaseConfig
 {
-    /** @var array|string[] $defaults default settings */
-    protected array $defaults = [
-        'theme' => 'default',
-        'admin_theme' => 'default',
-        'language' => 'de',
-        'maintenance' => 0
+    /** @var string $theme theme for the frontend */
+    public string $theme = 'default';
+
+    /** @var string $admin_theme theme for the admin section */
+    public string $admin_theme = 'default';
+
+    /** @var string $language default language */
+    public string $language = 'de';
+
+    /** @var int $maintenance page on maintenance mode */
+    public int $maintenance = 0;
+
+    public static $registrars = [
+        'Admin\Models\SettingsModel'
     ];
-
-    /** @var array|string[] $settings complete settings */
-    protected array $settings = [];
-
-    /**
-     * System constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->_setSettings();
-    }
-
-    /**
-     * set the settings configured
-     * in the databse
-     *
-     * @return void
-     */
-    private function _setSettings(): void
-    {
-        $this->settings = $this->defaults;
-        $settings = new SettingsModel();
-        $rows = $settings->findAll();
-        foreach ($rows as $row) {
-            $this->settings[$row->name] = $row->value;
-        }
-    }
 
     /**
      * magic get property from settings
@@ -69,8 +48,8 @@ class SystemSettings extends BaseConfig
      */
     public function __get($key)
     {
-        if (array_key_exists($key, $this->settings)) {
-            return $this->settings[$key];
+        if (property_exists($this, $key)) {
+            return $this->$key;
         }
         return null;
     }
@@ -83,26 +62,12 @@ class SystemSettings extends BaseConfig
      */
     public function get($key, $default)
     {
-        if (array_key_exists($key, $this->settings)) {
-            return $this->settings[$key];
+        if (property_exists($this, $key)) {
+            return $this->$key;
         } elseif ($default) {
             return $default;
         } else {
             return null;
         }
-    }
-
-    /**
-     * read a value from the database
-     *
-     * @param $key
-     * @param $default
-     * @return mixed
-     */
-    public static function read($key, $default)
-    {
-        $settings = new SettingsModel();
-        $value = $settings->where('name', $key)->first()->get();
-        return ($value) ? $value : $default;
     }
 }
