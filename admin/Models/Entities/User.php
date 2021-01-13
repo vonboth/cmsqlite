@@ -9,6 +9,17 @@ use CodeIgniter\Entity;
 /**
  * Class User
  * @package Admin\Models\Entities
+ * @property int $id
+ * @property string $username
+ * @property string $password
+ * @property string $firstname
+ * @property string $lastname
+ * @property string $email
+ * @property string $role
+ * @property int $tries
+ * @property string $lastlogin
+ * @property string $created
+ * @property string $updated
  */
 class User extends Entity
 {

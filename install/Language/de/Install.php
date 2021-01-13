@@ -1,0 +1,32 @@
+<?php
+
+return [
+    'installation_routine' => 'CMSQLite Installation',
+    'step' => 'Schritt',
+    'next' => 'Weiter',
+    'back' => 'Zurück',
+    'done' => 'Fertig',
+    'directory_check' => 'Verzeichnis Check',
+    'database_writable' => 'Datenbank ist beschreibbar',
+    'database_not_writable' => 'Datenbank ist nicht beschreibbar',
+    'directory_writable' => 'Verzeichnis "{0}" ist beschreibbar ({1})',
+    'directory_not_writable' => 'Verzeichnis "{0}" ist nicht beschreibbar ({1})',
+    'set_admin_user' => 'Zugangsdaten Administrator',
+    'username' => 'Benutzername',
+    'email' => 'E-Mail',
+    'password' => 'Passwort',
+    'password_confirm' => 'Passwort bestätigen',
+    'firstname' => 'Vorname',
+    'lastname' => 'Nachname',
+    'saved' => 'Daten gespeichert',
+    'save_error' => 'Beim Speichern trat ein Fehler auf',
+    'success' => 'Installation erfolgreich',
+    'website_settings' => 'Webseiten-Einstellungen',
+    'base_url' => 'Webseiten Adresse',
+    'base_url_placeholder' => 'https://www.my-domain.com',
+    'base_url_help' => 'Gib die Adresse Deiner Webseite im Format "https://www.meine-seite.de" ein',
+    'language' => 'Standard-Sprache',
+    'language_help' => 'Gib die Standardsprache Deiner Webseite an, z.B. "de" oder "en"',
+    'timezone' => 'Zeitzone',
+    'timezone_help' => 'Gib Deine Zeitzone ein, z.B. "Europe/Berlin"'
+];

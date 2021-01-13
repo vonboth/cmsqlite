@@ -13,9 +13,9 @@ require_once SYSTEMPATH . 'Config/AutoloadConfig.php';
  */
 class Autoload extends \CodeIgniter\Config\AutoloadConfig
 {
-    public $psr4 = [];
+    public array $psr4 = [];
 
-    public $classmap = [];
+    public array $classmap = [];
 
     //--------------------------------------------------------------------
 
@@ -58,7 +58,8 @@ class Autoload extends \CodeIgniter\Config\AutoloadConfig
             'Admin' => ROOTPATH . 'admin',
             'Themes' => ROOTPATH . 'public/themes/frontend',
             'AdminThemes' => ROOTPATH . 'public/themes/admin',
-            'Views' => APPPATH . 'Views'
+            'Views' => APPPATH . 'Views',
+            'Install' => ROOTPATH . 'install',
         ];
 
         /**

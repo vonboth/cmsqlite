@@ -12,12 +12,13 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.19.2",
-    "sweetalert2": "^9.17.1",
+    "axios": "^0.21.1",
+    "sweetalert2": "^9.17.2",
     "vue": "^2.6.12"
   },
   "devDependencies": {
-    "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12"
+    "webpack": "^4.46.0",
+    "webpack-cli": "^3.3.12",
+    "copy": "^0.3.2"
   }
 }

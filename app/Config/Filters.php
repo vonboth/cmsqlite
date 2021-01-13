@@ -15,6 +15,7 @@ class Filters extends BaseConfig
         'authenticate' => \Admin\Filters\AuthenticateFilter::class,
         'authorize' => \Admin\Filters\AuthorizeFilter::class,
         'loginThrottle' => \Admin\Filters\LoginThrottleFilter::class,
+        'install' => \Install\Filters\InstallationFilter::class,
         'maintenance' => \App\Filters\MaintenanceFilter::class
     ];
 
@@ -42,6 +43,7 @@ class Filters extends BaseConfig
         'maintenance' => ['before' => ['*']],
         'loginThrottle' => ['before' => ['admin/authenticate/login']],
         'authenticate' => ['before' => ['admin', 'admin/*']],
+        'install' => ['before' => ['/', 'install', 'install/*']],
         // TODO: AUTHORIZE FILTER IN ROUTES?
         //'authorize' => ['before' => ['*']]
     ];

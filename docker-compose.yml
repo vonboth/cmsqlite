@@ -10,3 +10,19 @@ services:
     volumes:
       - .:/var/www/html
       - ./docker/sites-available:/etc/apache2/sites-available
+
+# if you want to use docker use the Dockerfile in ./docker
+# to build your container and replace the web-section above with:
+# web:
+#   build: ./docker/web
+#   ports:
+#     - "80:80"
+#   image: cmsqlite/web
+#   container_name: cmsqlite_web
+#   environment:
+#     XDEBUG_CONFIG: remote_host=172.17.0.1
+#   volumes:
+#     - .:/var/www/html
+#     - ./docker/sites-available:/etc/apache2/sites-available
+#
+# add cmsqlite.local to your hosts file (/etc/hosts)

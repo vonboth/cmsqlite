@@ -23,7 +23,7 @@ class App extends BaseConfig
     | environments.
     |
     */
-    public $baseURL = 'http://cmsqlite.local/';
+    public $baseURL = 'http://www.cmsqlite.net';
 
     /*
     |--------------------------------------------------------------------------
@@ -65,7 +65,7 @@ class App extends BaseConfig
     | should run under for this request.
     |
     */
-    public $defaultLocale = 'de';
+    public $defaultLocale = '';
 
     /*
     |--------------------------------------------------------------------------
@@ -101,7 +101,7 @@ class App extends BaseConfig
     | dates with the date helper, and can be retrieved through app_timezone()
     |
     */
-    public $appTimezone = 'Europe/Berlin';
+    public $appTimezone = 'UTC';
 
     /*
     |--------------------------------------------------------------------------

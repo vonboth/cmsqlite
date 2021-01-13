@@ -15,6 +15,9 @@ cp -R admin/ $BUILD_DIR
 # App-Section
 cp -R app/ $BUILD_DIR
 
+# Install-Section
+cp -R install/ $BUILD_DIR
+
 # Database
 mkdir $BUILD_DIR/database
 cp database/cmsqlite.db $BUILD_DIR/database/
@@ -56,7 +59,7 @@ mkdir -p $BUILD_DIR/vendor/psr/
 cp -R vendor/psr $BUILD_DIR/vendor/psr/
 mkdir -p $BUILD_DIR/vendor/tatter/
 cp -R vendor/tatter $BUILD_DIR/vendor/tatter/
-cp -R vendor/autoload.php $BUILD_DIR/vendor/
+cp vendor/autoload.php $BUILD_DIR/vendor/
 
 # writable folder
 mkdir -p $BUILD_DIR/writable/cache/
@@ -70,9 +73,10 @@ cp writable/uploads/index.html $BUILD_DIR/writable/uploads/
 cp writable/.htaccess $BUILD_DIR/writable/
 
 # ROOT files
-cp env $BUILD_DIR
+#cp env $BUILD_DIR
 cp htaccess $BUILD_DIR
 cp index.php $BUILD_DIR
 cp LICENSE $BUILD_DIR
 cp license.txt $BUILD_DIR
 cp README.md $BUILD_DIR
+cp spark $BUILD_DIR
