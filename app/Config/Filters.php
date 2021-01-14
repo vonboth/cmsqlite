@@ -4,8 +4,26 @@ namespace Config;
 
 use CodeIgniter\Config\BaseConfig;
 
+/**
+ * Class Filters
+ * @package Config
+ */
 class Filters extends BaseConfig
 {
+    /**
+     * @inheritdoc
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        // If Install-Dir exists, we want to have some Filters to ensure Installation
+        if (is_dir(ROOTPATH . 'install')) {
+            $this->aliases += ['install' => \Install\Filters\InstallationFilter::class];
+            $this->filters += ['install' => ['before' => ['/', 'install', 'install/*']]];
+        }
+    }
+
     // Makes reading things below nicer,
     // and simpler to change out script that's used.
     public $aliases = [
@@ -15,7 +33,6 @@ class Filters extends BaseConfig
         'authenticate' => \Admin\Filters\AuthenticateFilter::class,
         'authorize' => \Admin\Filters\AuthorizeFilter::class,
         'loginThrottle' => \Admin\Filters\LoginThrottleFilter::class,
-        'install' => \Install\Filters\InstallationFilter::class,
         'maintenance' => \App\Filters\MaintenanceFilter::class
     ];
 
@@ -43,7 +60,6 @@ class Filters extends BaseConfig
         'maintenance' => ['before' => ['*']],
         'loginThrottle' => ['before' => ['admin/authenticate/login']],
         'authenticate' => ['before' => ['admin', 'admin/*']],
-        'install' => ['before' => ['/', 'install', 'install/*']],
         // TODO: AUTHORIZE FILTER IN ROUTES?
         //'authorize' => ['before' => ['*']]
     ];

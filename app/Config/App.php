@@ -23,7 +23,7 @@ class App extends BaseConfig
     | environments.
     |
     */
-    public $baseURL = 'http://www.cmsqlite.net';
+    public $baseURL = 'http://localhost';
 
     /*
     |--------------------------------------------------------------------------

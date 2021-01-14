@@ -7,6 +7,7 @@ namespace Install\Controllers;
 use Admin\Models\Entities\User;
 use Admin\Models\UsersModel;
 use App\Controllers\Base;
+use Config\Services;
 
 /**
  * Class Index
@@ -34,44 +35,84 @@ class Index extends Base
     public function index(): string
     {
         $db_writable = is_writable(ROOTPATH . '/database/cmsqlite.db');
+        $server = strtolower($_SERVER['HTTP_HOST']);
+        $scheme = $_SERVER['REQUEST_SCHEME'] ? strtolower($_SERVER['REQUEST_SCHEME']) : 'http';
+        $validator = Services::validation();
+        if ($_SESSION['_ci_validation_errors']) {
+            $errors = unserialize($_SESSION['_ci_validation_errors']);
+            foreach ($errors as $key => $error) {
+                $validator->setError($key, $error);
+            }
+        }
 
         $permissions = [
-            'root' => substr(sprintf('%o', fileperms(ROOTPATH)), -3),
-            'database' => substr(sprintf('%o', fileperms(ROOTPATH . '/database')), -3),
-            'writable' => substr(sprintf('%o', fileperms(ROOTPATH . '/writable')), -3),
-            'writable/cache' => substr(sprintf('%o', fileperms(ROOTPATH . '/writable/cache')), -3),
-            'writable/logs' => substr(sprintf('%o', fileperms(ROOTPATH . '/writable/logs')), -3),
-            'writable/session' => substr(sprintf('%o', fileperms(ROOTPATH . '/writable/session')), -3),
-            'writable/uploads' => substr(sprintf('%o', fileperms(ROOTPATH . '/writable/uploads')), -3),
-            'public/media' => substr(sprintf('%o', fileperms(ROOTPATH . '/public/media')), -3),
+            'database' => [
+                'writable' => is_writable(ROOTPATH . 'database'),
+                'permission' => substr(sprintf('%o', fileperms(ROOTPATH . 'database')), -3)
+            ],
+            'writable' => [
+                'writable' => is_writable(ROOTPATH . 'writable'),
+                'permission' => substr(sprintf('%o', fileperms(ROOTPATH . 'writable')), -3)
+            ],
+            'writable/cache' => [
+                'writable' => is_writable(ROOTPATH . 'writable/cache'),
+                'permission' => substr(sprintf('%o', fileperms(ROOTPATH . '/writable/cache')), -3)
+            ],
+            'writable/logs' => [
+                'writable' => is_writable(ROOTPATH . 'writable/logs'),
+                'permission' => substr(sprintf('%o', fileperms(ROOTPATH . '/writable/logs')), -3)
+            ],
+            'writable/session' => [
+                'writable' => is_writable(ROOTPATH . 'writable/session'),
+                'permission' => substr(sprintf('%o', fileperms(ROOTPATH . '/writable/session')), -3)
+            ],
+            'writable/uploads' => [
+                'writable' => is_writable(ROOTPATH . 'writable/uploads'),
+                'permission' => substr(sprintf('%o', fileperms(ROOTPATH . '/writable/uploads')), -3)
+            ],
+            'public/media' => [
+                'writable' => is_writable(ROOTPATH . 'public/media'),
+                'permission' => substr(sprintf('%o', fileperms(ROOTPATH . '/public/media')), -3)
+            ],
         ];
 
         return view(
             'Install\Index\index',
             compact(
                 'db_writable',
-                'permissions'
+                'permissions',
+                'server',
+                'scheme',
+                'validator'
             )
         );
     }
 
+    /**
+     * Install data to DB and filesystem
+     * to ensure propper work of CMSQlite
+     *
+     * @return \CodeIgniter\HTTP\RedirectResponse|string
+     * @throws \ReflectionException
+     */
     public function install()
     {
         if ($this->request->getMethod() == 'post') {
-            if (!$this->validate(
+            $valid = $this->validate(
                 [
+                    'base_url' => 'regex_match[/^http(s?):\/\/(\w{3}?\.)?[a-z]+\.[[a-z]{2,}$/]',
                     'username' => 'required',
                     'firstname' => 'required',
                     'password' => 'required|matches[password_confirm]|password_rule[8]',
                     'password_confirm' => 'required',
-                    'email' => 'required|valid_email',
-                    'base_url' => 'required'
+                    'email' => 'required|valid_email|is_unique[users.email]',
                 ]
-            )) {
+            );
+            if (!$valid) {
                 return redirect()
                     ->withInput()
                     ->with('flash', lang('Install.invalid_data'))
-                    ->back();
+                    ->redirect("//{$_SERVER['HTTP_HOST']}/install");
             }
 
             $user = new User();
@@ -82,15 +123,30 @@ class Index extends Base
             $user->email = $this->request->getPost('email');
             $user->role = 'admin';
 
+            // cannot create a user -> redirect
             if (!$this->Users->save($user)) {
-                return redirect()->back()
+                return redirect()
                     ->withInput()
-                    ->with('flash', lang('Install.save_error'));
+                    ->with('flash', lang('Install.save_error'))
+                    ->to("//{$_SERVER['HTTP_HOST']}/install");
+            }
+
+            $content = "app.baseURL='{$this->request->getPost('base_url')}'\r\n" .
+                "app.defaultLocale='{$this->request->getPost('language')}'\r\n" .
+                "app.appTimezone='{$this->request->getPost('timezone')}'";
+            if (!is_writable(ROOTPATH)) {
+                $this->session->setFlashdata('flash', lang('Install.success'));
+                return view(
+                    'Install\Index\env',
+                    [
+                        'content' => $content
+                    ]
+                );
+            } else {
+                file_put_contents(ROOTPATH . '.env', $content);
             }
 
             // SUCCESS ALL DONE!
-            touch(ROOTPATH . 'writable/installed');
-
             return redirect()->to('/admin')
                 ->with('flash', lang('Install.success'));
         }

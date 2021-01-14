@@ -28,5 +28,12 @@ return [
     'language' => 'Standard-Sprache',
     'language_help' => 'Gib die Standardsprache Deiner Webseite an, z.B. "de" oder "en"',
     'timezone' => 'Zeitzone',
-    'timezone_help' => 'Gib Deine Zeitzone ein, z.B. "Europe/Berlin"'
+    'timezone_help' => 'Gib Deine Zeitzone ein, z.B. "Europe/Berlin"',
+    'invalid_data' => 'Du hast ungültige Daten eingegeben',
+    'root_not_writable' => 'Wir konnten eine wichtige Installations-Datei nicht erstellen!',
+    'create_file' => '.env Datei erstellen!',
+    'create_file_text' => 'Erstelle auf Deinem PC eine Datei mit Namen ".env". Kopiere den nachfolgenden ' .
+        'Text hinein und lade die Datei dann mit Hilfe eines FTP-Programms in das Stammverzeichnis Deiner Installation.',
+    'env_file_note' => 'CMSQLite wird nicht funktionieren, bevor Du nicht diese Datei erstellt und hochgeladen hast',
+    'recommend_delete_install' => 'Wir empfehlen, den Ordner "install" aus Sicherheitsgründen zu löschen!'
 ];
