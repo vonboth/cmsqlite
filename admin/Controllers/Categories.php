@@ -106,22 +106,22 @@ class Categories extends Base
                 try {
                     if ($this->Categories->save($category)) {
                         return redirect()
-                            ->back()
+                            ->to('/admin/categories/edit/' . $id)
                             ->with('flash', lang('General.saved'));
                     } else {
                         return redirect()
-                            ->back()
+                            ->to('/admin/categories/edit/' . $id)
                             ->withInput()
                             ->with('flash', lang('General.save_error'));
                     }
                 } catch (\Exception $exception) {
                     return redirect()
-                        ->back()
+                        ->to('/admin/categories/edit/' . $id)
                         ->with('flash', $exception->getMessage());
                 }
             } else {
                 return redirect()
-                    ->back()
+                    ->to('/admin/categories/edit/' . $id)
                     ->withInput();
             }
         }

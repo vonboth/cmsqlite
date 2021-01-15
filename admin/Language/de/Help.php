@@ -2,6 +2,8 @@
 
 return [
     'menus' => [
+        'alias' => 'Ein Alias für diesen Menüeintrag (Slug), z.B. startseite',
+        'url' => 'FÜr den Typ Andere kannst Du hier eine (externe) URL eingeben',
         'title' => 'Der Title wird in der Webseite im Menü angezeigt',
         'parent_id' => 'Wähle ein übergeordneten Eintrag aus, um verschachtelte Menüs aufzubauen',
         'article_id' => 'Wähle einen Artikel aus, der angezeigt werden soll',

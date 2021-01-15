@@ -38,7 +38,13 @@ class Base extends Controller
      *
      * @var array
      */
-    protected $helpers = ['html', 'form', 'format', 'Admin\Helpers\tree_helper'];
+    protected $helpers = [
+        'html',
+        'form',
+        'format',
+        'Admin\Helpers\tree_helper',
+        'App\Helpers\content_helper'
+    ];
 
     /** @var Session $session */
     protected Session $session;
@@ -64,8 +70,11 @@ class Base extends Controller
     /**
      * @inheritdoc
      */
-    public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger): void
-    {
+    public function initController(
+        RequestInterface $request,
+        ResponseInterface $response,
+        LoggerInterface $logger
+    ): void {
         parent::initController($request, $response, $logger);
 
         $this->session = Services::session();

@@ -90,7 +90,7 @@ class Index extends Base
 
     /**
      * Install data to DB and filesystem
-     * to ensure propper work of CMSQlite
+     * to ensure propper work of CMSQLite
      *
      * @return \CodeIgniter\HTTP\RedirectResponse|string
      * @throws \ReflectionException

@@ -9,6 +9,9 @@ use CodeIgniter\Entity;
 /**
  * Class User
  * @package Admin\Models\Entities
+ *
+ * User Model
+ *
  * @property int $id
  * @property string $username
  * @property string $password

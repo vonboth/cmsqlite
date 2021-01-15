@@ -20,3 +20,9 @@ main {
 .icon-block .material-icons {
     font-size: inherit;
 }
+
+@media only screen and (max-width: 600px) {
+    h1, h2, h3, h4, h5 {
+        line-break: anywhere;
+    }
+}

@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use Admin\Models\UsersModel;
+use CodeIgniter\Exceptions\PageNotFoundException;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
@@ -27,20 +28,20 @@ class Pages extends Base
     }
 
     /**
-     * Entrypoint for the startpage
+     * Entrypoint of appliaction = the startpage
      */
     public function start()
     {
         $article = $this->Articles
             ->where('is_startpage', 1)
             ->first();
+        $article->content = remove_readon($article);
 
         $this->_updateHits($article);
 
         $article->user = $this->Users->findAuthor($article->user_id);
 
         $this->_setViewVars();
-
         return view(
             "Themes\\$this->theme\\start",
             [
@@ -55,10 +56,24 @@ class Pages extends Base
      */
     public function pages($var = null)
     {
-        $article = $this->Articles->find($var);
-        $this->_updateHits($article);
+        if (is_numeric($var)) {
+            $article = $this->Articles->find($var);
+        } else {
+            $article = $this->Articles
+                ->where('alias', $var)
+                ->first();
+        }
 
+        if (!$article) {
+            throw new PageNotFoundException();
+        }
+
+        $article->content = remove_readon($article);
+        $article->user = $this->Users->findAuthor($article->user_id);
+
+        $this->_updateHits($article);
         $this->_setViewVars();
+
         return view(
             "Themes\\$this->theme\\page",
             [

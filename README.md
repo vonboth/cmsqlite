@@ -22,14 +22,26 @@ PHP version 7.4 or higher is required, with the following extensions installed:
 - TODO: setup testing!
 
 ## Planned Features
-- General Parser for replacement of cells and content replacements
-### Content Replacements:
-- Read on link
+
+### General
+- Translations for Articles
+- Tour for Backend
+  - [uxTour](https://github.com/lyngbach/uxTour)
+  - [tiny-tour](https://github.com/callahanrts/tiny-tour)
+
 ### View Cells:
 - Breadcrumb
 - Contact form
 - Gallery
 - Latest news
 - Sitemap
+
 ### Other
 - switch to [jodit](https://xdsoft.net/jodit/) editor?
+
+# Developers
+CMSQLite is based on SQLite as database and [CodeIgniter 4](https://codeigniter.com/) (CI) as MVC-Framework.
+
+What ever is possible with CI is possible with CMSQLite.
+
+Feel free to Fork and send me your suggestions / pull requests.

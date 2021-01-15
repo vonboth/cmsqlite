@@ -72,6 +72,7 @@ main > .container {
 .mr1rem {
     margin-right: 1rem;
 }
+
 .ml1rem {
     margin-right: 1rem;
 }
@@ -235,6 +236,11 @@ li.menu-administration .collapsible-header {
     flex-grow: 2;
 }
 
+.menu-description {
+    opacity: .5;
+    font-size: .75rem;
+}
+
 .collapsible-header-wrapper {
     border-bottom: 1px solid #ddd;
     display: flex;
@@ -246,6 +252,7 @@ li.menu-administration .collapsible-header {
     height: 160px;
     overflow: hidden;
 }
+
 .file-card {
     max-width: 48%;
 }
@@ -256,9 +263,11 @@ li.menu-administration .collapsible-header {
     justify-content: center;
     align-items: center;
 }
+
 .folder-name {
     position: absolute;
 }
+
 .file-card img {
     max-height: 160px;
     width: auto !important;

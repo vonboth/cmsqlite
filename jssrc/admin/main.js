@@ -34,6 +34,7 @@ window.adminVue = new Vue({
   },
   // mounted hook
   mounted: function() {
+    M.Sidenav.init(document.querySelectorAll('.sidenav'));
     M.FormSelect.init(document.querySelectorAll('select:not(.no-material)'));
     M.Datepicker.init(document.querySelectorAll('input.datepicker'));
     M.Dropdown.init(document.querySelectorAll('.dropdown-trigger'), {

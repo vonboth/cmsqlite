@@ -13,7 +13,7 @@ use Psr\Log\LoggerInterface;
 /**
  * Class Base
  * @package Admin\Controllers
- * TODO: INSTALLATION ROUTINE WITH: ADMIN PASS, EMAIL SETTINGS, FOLDER CHECK, ...
+ * TODO: INSTALLATION ROUTINE: EMAIL SETTINGS ...
  */
 class Base extends AppBase
 {
@@ -28,6 +28,9 @@ class Base extends AppBase
 
     /** @var string $theme layout from config table */
     protected string $theme;
+
+    /** @var string $version current CMSQLite version */
+    protected string $version;
 
     /**
      * @inheritdoc
@@ -50,7 +53,9 @@ class Base extends AppBase
                 'controller' => ($this->controllerName),
                 'section' => lang("Tables.{$this->controllerName}.{$this->controllerName}"),
                 'title' => 'CMSQLite',
-                'theme' => $this->theme
+                'theme' => $this->theme,
+                'version' => $this->_getVersion(),
+                'editor_style' => $this->SystemSettings->editor_style
             ]
         );
 
@@ -76,5 +81,16 @@ class Base extends AppBase
         return strtolower(
             str_replace($namespace, '', $router->controllerName())
         );
+    }
+
+    /**
+     * Strip the current version from composer
+     * @return string
+     */
+    private function _getVersion(): string
+    {
+        $composer = json_decode(file_get_contents(ROOTPATH . 'composer.json'));
+        $this->version = $composer->version;
+        return $this->version;
     }
 }

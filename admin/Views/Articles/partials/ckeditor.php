@@ -1,4 +1,7 @@
-<script src="//cdn.ckeditor.com/4.15.1/standard/ckeditor.js"></script>
+<?php
+/** @var string $editor_style the style for the CKEDITOR. Set in backen in system settings */
+?>
+<script src="//cdn.ckeditor.com/4.15.1/<?= $editor_style ?>/ckeditor.js"></script>
 <script type="text/javascript">
   CKEDITOR.replace('content', {
     height: 500,
@@ -8,7 +11,7 @@
       'X-CSRF-TOKEN': adminVue.getCsrfToken()
     },
     extraPlugins: 'readon',
-    extraAllowedContent: ['hr(*)']
+    extraAllowedContent: ['hr(*); div(*)']
   });
 
   // CUSTOM PLUGINS
@@ -28,7 +31,7 @@
         label: 'Insert Readon',
         command: 'insertReadon',
         toolbar: 'insert,100'
-      })
+      });
     }
   });
 </script>

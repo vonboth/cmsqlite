@@ -7,7 +7,6 @@ namespace Admin\Controllers;
 use Admin\Models\ArticlesModel;
 use Admin\Models\CategoriesModel;
 use Admin\Models\Entities\Article;
-use CodeIgniter\HTTP\RedirectResponse;
 
 /**
  * Class Articles
@@ -111,17 +110,17 @@ class Articles extends Base
                 $article->fill($this->request->getPost());
                 if ($this->Articles->save($article)) {
                     return redirect()
-                        ->back()
+                        ->to('/admin/articles/edit/' . $id)
                         ->with('flash', lang('General.saved'));
                 } else {
                     return redirect()
-                        ->back()
+                        ->to('/admin/articles/edit/' . $id)
                         ->withInput()
                         ->with('flash', lang('General.save_error'));
                 }
             } else {
                 return redirect()
-                    ->back()
+                    ->to('/admin/articles/edit/' . $id)
                     ->withInput();
             }
         }

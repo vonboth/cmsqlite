@@ -5,7 +5,7 @@ return [
     'edit' => 'Bearbeiten',
     'view' => 'Anzeigen',
     'welcome' => [
-        'welcome_to_cmsqlite' => 'Willkommen zu CMSQlite',
+        'welcome_to_cmsqlite' => 'Willkommen zu CMSQLite',
         'next_steps' => 'Nächste Schritte',
         'edit_startpage' => 'Startseite bearbeiten',
         'create_page' => 'Neue Seite erstellen',

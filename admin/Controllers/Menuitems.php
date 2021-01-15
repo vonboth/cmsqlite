@@ -16,7 +16,7 @@ use Admin\Models\MenuitemsModel;
 class Menuitems extends Base
 {
     /** @var MenuitemsModel $Menuitems */
-    protected MenuitemsModel $Menuitems;
+    protected $Menuitems;
 
     /**
      * init controller

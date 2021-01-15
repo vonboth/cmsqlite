@@ -6,7 +6,7 @@
     <meta name="description" content="Admin Page">
     <meta name="author" content="Christoph von Both | creatingcode.de">
     <?= csrf_meta() ?>
-    <title><?= isset($title) ? $title : 'CMSQlite' ?></title>
+    <title><?= isset($title) ? $title : 'CMSQLite' ?></title>
 
     <link href="//fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -41,61 +41,22 @@
                         </ul>
                     </li>
                 </ul>
+                <a href="#" data-target="sidenav-left" class="sidenav-trigger left">
+                    <i class="material-icons">menu</i>
+                </a>
             </div>
         </nav>
     </div>
 
-    <!-- sidenav TODO: ADMIN SIDENAV NEU AUFBAUEN -->
-    <ul ref="sidenav-left" class="sidenav sidenav-fixed">
+    <!-- sidenav -->
+    <ul id="sidenav-left" class="sidenav sidenav-fixed">
         <li>
             <a href="/admin" class="logo-container"><?= lang('Menu.startpage') ?>
                 <i class="material-icons left">home</i>
             </a>
         </li>
         <li class="no-padding">
-            <ul class="collapsible collapsible-accordion">
-                <li>
-                    <a href="/admin/articles">
-                        <?= lang('Menu.articles') ?>
-                        <i class="material-icons left">description</i>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="/admin/media">
-                        <?= lang('Menu.media') ?>
-                        <i class="material-icons left">insert_photo</i>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="/admin/categories">
-                        <?= lang('Menu.categories') ?>
-                        <i class="material-icons left">label outline</i>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="/admin/menus">
-                        <?= lang('Menu.menus') ?>
-                        <i class="material-icons left">list</i>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="/admin/users">
-                        <?= lang('Menu.users') ?>
-                        <i class="material-icons left">people</i>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="/admin/settings">
-                        <?= lang('Menu.settings') ?>
-                        <i class="material-icons left">settings</i>
-                    </a>
-                </li>
-            </ul>
+            <?= $this->include('Admin\Partials\admin_menu') ?>
         </li>
     </ul>
 </header>
@@ -110,7 +71,7 @@
 
 <footer class="page-footer" id="footer">
     <div class="container">
-        <span>Hallo Welt</span>
+        <span>CMSQLite V <span><?= $version ?></span></span>
     </div>
 </footer>
 

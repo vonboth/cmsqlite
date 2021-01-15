@@ -45,10 +45,10 @@ class Category extends AppCell
 
         if ($articles) {
             // remove the readon if necessary
-            if ($options['readon'] === true) {
-                foreach ($articles as $article) {
-                    $article->content = $this->_stripReadon($article);
-                }
+            foreach ($articles as $article) {
+                $article->content = ($options['readon'] === true)
+                    ? strip_readon($article)
+                    : remove_readon($article);
             }
 
             return view(
@@ -61,24 +61,5 @@ class Category extends AppCell
         }
 
         return '';
-    }
-
-    /**
-     * @param $article
-     * @return string
-     */
-    private function _stripReadon($article)
-    {
-        $output = $article->content;
-        $pos = strpos($output, '<hr class="readon" />');
-        if ($pos !== false) {
-            $output = substr($output, 0, $pos);
-            $output .= view(
-                "Themes\\$this->theme\\cells\\readon\\readon",
-                ['article' => $article]
-            );
-        }
-
-        return $output;
     }
 }

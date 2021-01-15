@@ -37,6 +37,12 @@ class SystemSettings extends BaseConfig
     /** @var int $maintenance page on maintenance mode */
     public int $maintenance = 0;
 
+    /** @var bool $tour start backend tour  */
+    public bool $tour = false;
+
+    /** @var string $ckeditor the type of editor to be loaded from CDN: basic | standard | full */
+    public string $editor_style = 'standard';
+
     public static $registrars = [
         'Admin\Models\SettingsModel'
     ];

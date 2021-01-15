@@ -23,7 +23,7 @@
 
 <nav class="indigo darken-1" role="navigation">
   <div class="nav-wrapper container">
-    <a id="logo-container" href="/" class="brand-logo">CMSQlite CMS</a>
+    <a id="logo-container" href="/" class="brand-logo">CMSQLite</a>
     <!-- The menu -->
       <?= view_cell('Views\Cells\Menu::render', ['id' => 1, 'ulClass' => 'ul_parent right hide-on-med-and-down']) ?>
 
@@ -48,37 +48,32 @@
   <div class="container">
     <div class="row">
       <div class="col l6 s12">
-        <h5 class="white-text">Company Bio</h5>
-        <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's
-          our full time job. Any amount would help support and continue development on this project and is
-          greatly appreciated.</p>
-
-
+        <h5 class="white-text">CMSQLite</h5>
+        <p class="grey-text text-lighten-4">CMSQLite - created by CreatingCode.de</p>
+        <p class="grey-text text-lighten-4">Visit our webpage or GitHub repo.</p>
       </div>
       <div class="col l3 s12">
-        <h5 class="white-text">Settings</h5>
+        <h5 class="white-text">Links</h5>
         <ul>
-          <li><a class="white-text" href="#!">Link 1</a></li>
-          <li><a class="white-text" href="#!">Link 2</a></li>
-          <li><a class="white-text" href="#!">Link 3</a></li>
-          <li><a class="white-text" href="#!">Link 4</a></li>
+          <li style="margin-bottom: .5rem">
+              <a class="white-text" href="https://github.com/vonboth/cmsqlite" target="_blank">
+                  CMSQLite@GitHub<i class="material-icons left">launch</i>
+              </a>
+          </li>
+          <li>
+              <a class="white-text" href="https://www.creatingcode.de" target="_blank">
+                  CreatingCode.de<i class="material-icons left">star</i>
+              </a>
+          </li>
         </ul>
       </div>
-      <div class="col l3 s12">
-        <h5 class="white-text">Connect</h5>
-        <ul>
-          <li><a class="white-text" href="#!">Link 1</a></li>
-          <li><a class="white-text" href="#!">Link 2</a></li>
-          <li><a class="white-text" href="#!">Link 3</a></li>
-          <li><a class="white-text" href="#!">Link 4</a></li>
-        </ul>
-      </div>
+      <div class="col l3 s12"></div>
     </div>
   </div>
 
   <div class="footer-copyright">
     <div class="container">
-      Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a> and CMSQlite
+      Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
     </div>
   </div>
 </footer>

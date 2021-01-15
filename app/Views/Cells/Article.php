@@ -53,7 +53,7 @@ class Article extends AppCell
             if ($options['readon'] === true) {
                 $pos = strpos($output, '<hr class="readon" />');
                 if ($pos !== false) {
-                    $output = substr($output, 0,);
+                    $output = substr($output, 0, $pos);
                     $output .= view(
                         "Themes\\$this->theme\\cells\\readon\\readon",
                         ['article' => $article]
