@@ -8,6 +8,7 @@ return [
         'start' => 'Start'
     ],
     'articles' => [
+        'id' => 'Id',
         'articles' => 'Artikel',
         'article' => 'Artikel',
         'is_startpage' => 'Ist Startseite',

@@ -25,12 +25,13 @@ $this->section('main'); ?>
               <div class="input-field col s6">
                 <input type="text"
                        id="id-<?= $setting->name ?>"
+                       @keyup.enter="onSaveSetting(<?= $setting->id ?>, '<?= $setting->name ?>')"
                        class="settings-input"
                        disabled
                        v-bind:disabled="editSettingId !== <?= $setting->id ?>"
                        name="<?= $setting->name ?>"
                        value="<?= $setting->value ?>"/>
-                <label for="id-<?= $setting->name ?>"><?= $setting->name ?></span></label>
+                <label for="id-<?= $setting->name ?>"><?= lang( 'Settings.' . $setting->name) ?></span></label>
               </div>
               <div class="col s2 input-field pt1">
                 <div class="inline-block" v-bind:class="{hide: editSettingId === <?= $setting->id ?>}">

@@ -41,7 +41,9 @@ window.adminVue = new Vue({
       constrainWidth: false
     });
     M.Collapsible.init(document.querySelectorAll('.collapsible.simple'));
-    M.Collapsible.init(document.querySelectorAll('.collapsible.admin-menu'));
+    M.Collapsible.init(document.querySelectorAll('.collapsible.admin-menu'), {
+      accordion: false
+    });
     M.Tabs.init(document.querySelectorAll('.tabs'));
     M.Tooltip.init(document.querySelectorAll('.tooltipped'));
     M.FloatingActionButton.init(document.querySelectorAll('.action-btn-menu'));

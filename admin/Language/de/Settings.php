@@ -3,8 +3,8 @@
 return [
     'theme' => 'Theme',
     'admin_theme' => 'Admin Theme',
-    'language' => 'Language',
-    'maintenance' => 'Maintenance',
+    'language' => 'Sprache',
+    'maintenance' => 'Wartungsmodus',
     'tour' => 'Tour',
     'editor_style' => 'HTML Editor Style',
 ];

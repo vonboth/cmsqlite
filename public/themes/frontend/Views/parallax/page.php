@@ -7,6 +7,10 @@
 <?= $this->extend("Themes\\$theme\\layouts\\default") ?>
 
 <?= $this->section('main') ?>
-<section></section>
+<main role="main" class="section no-pad-bot">
+    <section class="container">
+        <?= $article->content ?>
+    </section>
+</main>
 <?= $this->endSection() ?>
 

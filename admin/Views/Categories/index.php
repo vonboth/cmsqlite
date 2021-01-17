@@ -39,7 +39,7 @@ $this->section('main') ?>
               <td>
                   <?= $this->include(
                       'Admin\Partials\table_action',
-                      ['controller' => 'categories', 'id' => $category->id]
+                      ['controller' => 'categories', 'id' => $category->id, 'is_system' => $category->is_system]
                   ) ?>
               </td>
             </tr>

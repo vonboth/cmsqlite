@@ -1,4 +1,5 @@
 <?php
+
 return [
     'created' => 'created',
     'updated' => 'updated',
@@ -7,6 +8,7 @@ return [
         'start' => 'Start'
     ],
     'articles' => [
+        'id' => 'Id',
         'articles' => 'Articles',
         'article' => 'Article',
         'is_startpage' => 'Is Startpage',
@@ -23,6 +25,7 @@ return [
         'stop_publish' => 'Publishing End Date',
     ],
     'categories' => [
+        'id' => 'Id',
         'categories' => 'Categories',
         'category' => 'Category',
         'name' => 'Name',
@@ -42,12 +45,14 @@ return [
         'parent_id' => 'Parent Item',
         'menu_id' => 'Menu',
         'article_id' => 'Article',
+        'categoriy_id' => 'Category',
         'type' => 'Type',
         'url' => 'Url',
         'alias' => 'Alias',
         'layout' => 'Layout',
         'target' => 'target',
         'article' => 'Article',
+        'category' => 'Category',
         'other' => 'Other',
     ],
     'users' => [

@@ -28,7 +28,7 @@
                 </a>
               </li>
               <li class="clearfix">
-                <a href="/">
+                <a href="/" target="_blank">
                   <i class="material-icons left">remove_red_eye</i> <?= lang('Admin.welcome.view_website') ?>
                 </a>
               </li>

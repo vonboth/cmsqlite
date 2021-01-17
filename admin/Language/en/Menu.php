@@ -16,4 +16,6 @@ return [
     'node_move_error' => 'Failed to move node',
     'move_item_down' => 'Move item down',
     'move_item_up' => 'Move item up',
+    'self' => 'Same Window',
+    'blank' => 'New Window',
 ];

@@ -56,7 +56,7 @@ class Article extends AppCell
                     $output = substr($output, 0, $pos);
                     $output .= view(
                         "Themes\\$this->theme\\cells\\readon\\readon",
-                        ['article' => $article]
+                        ['cellArticleId' => $article->id]
                     );
                 }
             }

@@ -18,7 +18,7 @@ return [
     'last_loggedin_users' => 'Zuletzt angemeldete Benutzer',
     'last_edited_articles' => 'Zuletzt akt. Artikel',
     'top_articles' => 'Top Artikel',
-    'reset_hits' => 'Reset Hits',
-    'success_reset_hits' => 'All hits reset',
-    'failed_reset_hits' => 'Hits could not be reset',
+    'reset_hits' => 'Hits zurücksetzen',
+    'success_reset_hits' => 'Alle Hits zurückgesetzt',
+    'failed_reset_hits' => 'Fehler beim Zurücksetzen der Hits',
 ];

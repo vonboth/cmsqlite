@@ -32,7 +32,7 @@ if (!function_exists('strip_readon')) {
             $output = substr($output, 0, $pos);
             $output .= view(
                 "Themes\\$theme\\cells\\readon\\readon",
-                ['article' => $article]
+                ['cellArticleId' => $article->id]
             );
         }
         return $output;

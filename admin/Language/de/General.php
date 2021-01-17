@@ -4,6 +4,7 @@ return [
     'yes' => 'ja',
     'no' => 'nein',
     'submit' => 'Senden',
+    'select' => 'Auswählen',
     'escape' => 'Abbrechen',
     'add' => 'Hinzufügen',
     'new' => 'Neu',
@@ -18,5 +19,5 @@ return [
     'save_error' => 'Die Daten wurden nicht gespeichert',
     'deleted' => 'Daten Gelöscht',
     'delete_error' => 'Die Daten wurden nicht gelöscht',
-    'readon' => 'Weiterlesen ...'
+    'readon' => 'Weiterlesen ...',
 ];
