@@ -117,7 +117,7 @@ if (!function_exists('tree_list')) {
         <div class="right">
             <a href="javascript:void(0)" 
                title="' . lang('Menu.add_menu_item') . '" 
-               @click="onAddMenuitem">
+               @click="onAddMenuitem(' . $menu->id . ')">
               <i class="material-icons">add_circle_outline</i></a>
         </div>
         <div class="clearfix">' . admin_menu_list($menu->tree) . '<div>

@@ -44,6 +44,7 @@ $this->section('js_vars') ?>
 <script>
   const menus = <?= json_encode(array_values($menus)) ?>;
   const menuitems = <?= json_encode(array_values($menuitems)) ?>;
+  const prevItem = <?= session('menuitem') ? session('menuitem') : 'false' ?>;
 </script>
 <?php
 $this->endSection('js') ?>

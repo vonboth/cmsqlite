@@ -24,10 +24,10 @@ PHP version 7.4 or higher is required, with the following extensions installed:
 ## Planned Features
 
 ### General
+- Sending E-Mails (contact form)
 - Translations for Articles
 - Tour for Backend
   - [uxTour](https://github.com/lyngbach/uxTour)
-  - [tiny-tour](https://github.com/callahanrts/tiny-tour)
 
 ### View Cells:
 - Breadcrumb

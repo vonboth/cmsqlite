@@ -10,8 +10,6 @@ use Admin\Models\MenuitemsModel;
  * Class Menuitems
  * @package Admin\Controllers
  * @property MenuitemsModel $Menuitems;
- *
- * TODO: Im Fehlerfall bei Items die Daten mit übergeben, Form befüllen und anzeigen
  */
 class Menuitems extends Base
 {
@@ -49,17 +47,18 @@ class Menuitems extends Base
                 if ($this->Menuitems->insert($item) !== false) {
                     return redirect()
                         ->to('/admin/menus/index')
+                        ->with('menuitem', json_encode($item))
                         ->with('flash', lang('General.saved'));
                 } else {
                     return redirect()
                         ->to('/admin/menus/index')
-                        ->withInput()
+                        ->with('menuitem', json_encode($this->request->getPost()))
                         ->with('flash', lang('General.save_error'));
                 }
             } else {
                 return redirect()
                     ->to('/admin/menus/index')
-                    ->withInput()
+                    ->with('menuitem', json_encode($this->request->getPost()))
                     ->with('flash', $this->validator->getErrors())
                     ->with('_ci_validation_errors', serialize($this->validator->getErrors()));
             }
@@ -94,20 +93,24 @@ class Menuitems extends Base
                     if ($this->Menuitems->save($item)) {
                         return redirect()
                             ->to('/admin/menus/index')
+                            ->with('menuitem', json_encode($item))
                             ->with('flash', lang('General.saved'));
                     } else {
                         return redirect()
                             ->to('/admin/menus/index')
+                            ->with('menuitem', json_encode($this->request->getPost()))
                             ->with('flash', lang('General. save_error'));
                     }
                 } catch (\Exception $exception) {
                     return redirect()
                         ->to('/admin/menus/index')
+                        ->with('menuitem', json_encode($this->request->getPost()))
                         ->with('flash', $exception->getMessage());
                 }
             } else {
                 return redirect()
                     ->to('/admin/menus/index')
+                    ->with('menuitem', json_encode($this->request->getPost()))
                     ->with('flash', $this->validator->getErrors())
                     ->with('_ci_validation_errors', serialize($this->validator->getErrors()));
             }
@@ -143,12 +146,12 @@ class Menuitems extends Base
      */
     public function moveup($id = null)
     {
-        $flash = ($this->Menuitems->moveUp($id)) ? lang('Menu.node_move_success')
+        $message = ($this->Menuitems->moveUp($id)) ? lang('Menu.node_move_success')
             : lang('Menus.node_move_error');
 
         return redirect()
             ->to('/admin/menus/index')
-            ->with('flash', $flash);
+            ->with('flash', $message);
     }
 
     /**
@@ -159,11 +162,11 @@ class Menuitems extends Base
      */
     public function movedown($id = null)
     {
-        $flash = ($this->Menuitems->moveDown($id)) ? lang('Menu.node_move_success')
+        $message = ($this->Menuitems->moveDown($id)) ? lang('Menu.node_move_success')
             : lang('Menus.node_move_error');
 
         return redirect()
             ->to('/admin/menus/index')
-            ->with('flash', $flash);
+            ->with('flash', $message);
     }
 }

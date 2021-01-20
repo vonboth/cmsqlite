@@ -1,5 +1,6 @@
 <?php
-// TODO: SELECT in MATERIAL DESIGN
+/** @var \Admin\Models\Entities\Article[] $articles a list of all articles */
+/** @var \Admin\Models\Entities\Category[] $categories a list of categories */
 ?>
 <div class="" :class="{hide: hideMenuitemForm}">
   <form ref="menuitem_form" method="post" :action="menuitemFormAction">

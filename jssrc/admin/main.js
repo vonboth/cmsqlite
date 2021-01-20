@@ -48,6 +48,8 @@ window.adminVue = new Vue({
     M.Tooltip.init(document.querySelectorAll('.tooltipped'));
     M.FloatingActionButton.init(document.querySelectorAll('.action-btn-menu'));
     M.FloatingActionButton.init(document.querySelectorAll('.fixed-action-btn'));
+
+    this.presetItem();
   },
   methods: {
     // general dialog when deleting an item
@@ -89,6 +91,7 @@ window.adminVue = new Vue({
 
     // Menu section: create a new menuitem
     onAddMenuitem: function(menuId) {
+      this.selectedMenuId = menuId;
       this.menuitemFormAction = '/admin/menuitems/add';
       this.parentMenus = menuitems
         .filter((item) => item.menu_id === this.selectedMenuId);
@@ -342,6 +345,29 @@ window.adminVue = new Vue({
             });
         }
       });
+    },
+
+    // check for an submited item and set it
+    presetItem: function() {
+      if (prevItem !== false) {
+        this.selectedMenuitem = {
+          id: prevItem.id,
+          title: prevItem.title,
+          parent_id: prevItem.parent_id,
+          menu_id: prevItem.menu_id,
+          article_id: prevItem.article_id,
+          category_id: prevItem.category_id,
+          type: prevItem.type,
+          url: prevItem.url,
+          alias: prevItem.alias,
+          target: prevItem.target,
+          layout: prevItem.layout,
+          lft: prevItem.lft,
+          rgt: prevItem.rgt
+        };
+
+        this.hideMenuitemForm = false;
+      }
     },
 
     // read the CSRF token from the meta header
