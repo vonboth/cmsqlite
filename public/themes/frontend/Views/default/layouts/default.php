@@ -9,7 +9,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
   <meta name="description" content="<?= $article->description ?>">
-  <meta name="author" content="<?= $article->user->fullname ?>">
+  <meta name="author" content="<?= ($article->user) ? $article->user->fullname : '' ?>">
   <title><?= $article->title ?></title>
 
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">

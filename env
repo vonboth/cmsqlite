@@ -20,9 +20,11 @@
 # APP
 #--------------------------------------------------------------------
 
-# app.baseURL = ''
-# app.forceGlobalSecureRequests = false
+# app.baseURL =
+# app.defaultLocale =
+# app.appTimezone = Europe/Berlin
 
+# app.forceGlobalSecureRequests = false
 # app.sessionDriver = 'CodeIgniter\Session\Handlers\FileHandler'
 # app.sessionCookieName = 'ci_session'
 # app.sessionSavePath = NULL
@@ -49,16 +51,17 @@
 # DATABASE
 #--------------------------------------------------------------------
 
+# ENABLE FOLLOWING SETTING FOR DEVELOPMENT
+# database.default.database = "../database/cmsqlite_dev.db"
 # database.default.hostname = localhost
-# database.default.database = ci4
-# database.default.username = root
-# database.default.password = root
+# database.default.username =
+# database.default.password =
 # database.default.DBDriver = MySQLi
 
 # database.tests.hostname = localhost
 # database.tests.database = ci4
-# database.tests.username = root
-# database.tests.password = root
+# database.tests.username =
+# database.tests.password =
 # database.tests.DBDriver = MySQLi
 
 #--------------------------------------------------------------------

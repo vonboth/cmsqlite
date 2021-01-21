@@ -103,7 +103,7 @@ if (!function_exists('tree_list')) {
     <div class="flex space-between collapsible-header-wrapper">
         <div class="collapsible-header flex-center" 
              @click="onSelectMenu(' . $menu->id . ')">
-             <div class="menu-name">' . $menu->name . '</div>
+             <div class="menu-name"><span>' . $menu->name . '</span> | <span>Id: ' . $menu->id . '</span></div>
              <div><span class="menu-description">' . $menu->description . '</span></div>
         </div>
         <div class="flex flex-center p1rem">

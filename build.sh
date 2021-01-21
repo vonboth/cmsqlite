@@ -1,7 +1,7 @@
 #!/bin/bash
 
 BUILD_DIR="build"
-VERSION=$(sed 's/.*"version": "\(.*\)".*/\1/;t;d' composer.json)
+#VERSION=$(sed 's/.*"version": "\(.*\)".*/\1/;t;d' composer.json)
 
 if [ ! -d $BUILD_DIR ]; then
   mkdir $BUILD_DIR
@@ -46,20 +46,27 @@ cp -R public/favicon.ico $BUILD_DIR/public/
 cp -R public/index.php $BUILD_DIR/public/
 cp -R public/robots.txt $BUILD_DIR/public/
 
-# vendor folder
-mkdir -p $BUILD_DIR/vendor/codeigniter4/
-cp -R vendor/codeigniter4 $BUILD_DIR/vendor/codeigniter4/
-mkdir -p $BUILD_DIR/vendor/composer/
-cp -R vendor/composer $BUILD_DIR/vendor/composer/
-mkdir -p $BUILD_DIR/vendor/kint-php/
-cp -R vendor/kint-php $BUILD_DIR/vendor/kint-php/
-mkdir -p $BUILD_DIR/vendor/laminas/
-cp -R vendor/laminas $BUILD_DIR/vendor/laminas/
-mkdir -p $BUILD_DIR/vendor/psr/
-cp -R vendor/psr $BUILD_DIR/vendor/psr/
-mkdir -p $BUILD_DIR/vendor/tatter/
-cp -R vendor/tatter $BUILD_DIR/vendor/tatter/
-cp vendor/autoload.php $BUILD_DIR/vendor/
+if [ -n "$1" -a "$1" == '--no_vendor' ]
+then
+  echo 'no vendor folder'
+else
+  # vendor folder
+  mkdir -p $BUILD_DIR/vendor/bin/
+  cp -R vendor/bin $BUILD_DIR/vendor/
+  mkdir -p $BUILD_DIR/vendor/codeigniter4/
+  cp -R vendor/codeigniter4 $BUILD_DIR/vendor/
+  mkdir -p $BUILD_DIR/vendor/composer/
+  cp -R vendor/composer $BUILD_DIR/vendor/
+  mkdir -p $BUILD_DIR/vendor/kint-php/
+  cp -R vendor/kint-php $BUILD_DIR/vendor/
+  mkdir -p $BUILD_DIR/vendor/laminas/
+  cp -R vendor/laminas $BUILD_DIR/vendor/
+  mkdir -p $BUILD_DIR/vendor/psr/
+  cp -R vendor/psr $BUILD_DIR/vendor/
+  mkdir -p $BUILD_DIR/vendor/tatter/
+  cp -R vendor/tatter $BUILD_DIR/vendor/
+  cp vendor/autoload.php $BUILD_DIR/vendor/
+fi
 
 # writable folder
 mkdir -p $BUILD_DIR/writable/cache/
@@ -73,7 +80,8 @@ cp writable/uploads/index.html $BUILD_DIR/writable/uploads/
 cp writable/.htaccess $BUILD_DIR/writable/
 
 # ROOT files
-#cp env $BUILD_DIR
+cp composer.json $BUILD_DIR
+cp env $BUILD_DIR
 cp htaccess $BUILD_DIR
 cp index.php $BUILD_DIR
 cp LICENSE $BUILD_DIR

@@ -19,7 +19,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="description" content="<?= $article->description ?>">
-    <meta name="author" content="<?= $article->user->fullname ?>">
+    <meta name="author" content="<?= ($article->user) ? $article->user->fullname : '' ?>">
     <title><?= $article->title ?></title>
 
     <!-- CSS  -->
@@ -42,12 +42,12 @@
         <a id="logo-container" href="#" class="brand-logo">CMSQLite Parallax Demo Page</a>
 
         <!-- The menu -->
-        <?= view_cell('Views\Cells\Menu::render', ['id' => 16, 'ulClass' => 'ul_parent right hide-on-med-and-down']) ?>
+        <?= view_cell('Views\Cells\Menu::render', ['id' => 3, 'ulClass' => 'ul_parent right hide-on-med-and-down']) ?>
 
         <!-- The mobile menu -->
         <?= view_cell(
             'Views\Cells\Menu::render',
-            ['id' => 17, 'ulClass' => 'sidenav ul_parent', 'ulId' => 'nav-mobile']
+            ['id' => 4, 'ulClass' => 'sidenav ul_parent', 'ulId' => 'nav-mobile']
         ) ?>
 
         <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
