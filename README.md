@@ -44,4 +44,14 @@ CMSQLite is based on SQLite as database and [CodeIgniter 4](https://codeigniter.
 
 What ever is possible with CI is possible with CMSQLite.
 
-Feel free to Fork and send me your suggestions / pull requests.
+Feel free to fork it and send me your suggestions / pull requests.
+
+## Environment .evn files
+Use your own .env file to customize your local settings. Do not check in your .env file!
+
+You can use the env-file as a blue print for your own .env-file.
+
+## Database
+- While developing use the cmsqlite_dev.db database
+- If you want to build the final release use the file "build.sh" which will create a CMSQLite-Build
+  - Check if your newly created files and folders are in the list of files to be copied
