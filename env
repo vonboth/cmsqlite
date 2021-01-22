@@ -22,7 +22,6 @@ CI_ENVIRONMENT = development
 app.baseURL = "http://cmsqlite.local"
 app.defaultLocale = de
 app.appTimezone = Europe/Berlin
-app.sessionDriver = CodeIgniter\Session\Handlers\FileHandler
 cache.handler = file
 
 # app.forceGlobalSecureRequests = false

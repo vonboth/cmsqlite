@@ -7,6 +7,7 @@ namespace Install\Controllers;
 use Admin\Models\Entities\User;
 use Admin\Models\UsersModel;
 use App\Controllers\Base;
+use Config\App;
 use Config\Services;
 
 /**
@@ -76,11 +77,14 @@ class Index extends Base
             ],
         ];
 
+        $insufficient = $this->_insufficientPermissions($db_writable, $permissions);
+
         return view(
             'Install\Index\index',
             compact(
                 'db_writable',
                 'permissions',
+                'insufficient',
                 'server',
                 'scheme',
                 'validator'
@@ -134,7 +138,6 @@ class Index extends Base
             $content = "app.baseURL = \"{$this->request->getPost('base_url')}\"\r\n" .
                 "app.defaultLocale = {$this->request->getPost('language')}\r\n" .
                 "app.appTimezone = {$this->request->getPost('timezone')}\r\n" .
-                "app.sessionDriver = CodeIgniter\Session\Handlers\FileHandler\r\n" .
                 "cache.handler = file";
             if (!is_writable(ROOTPATH)) {
                 $this->session->setFlashdata('flash', lang('Install.success'));
@@ -152,5 +155,25 @@ class Index extends Base
             return redirect()->to('/admin')
                 ->with('flash', lang('Install.success'));
         }
+    }
+
+    /**
+     * check permissions are sufficient to install the CMS
+     * @param bool $db_writable
+     * @param array $permissions
+     * @return bool
+     */
+    private function _insufficientPermissions(bool $db_writable, array $permissions)
+    {
+        if (!$db_writable) {
+            return true;
+        }
+        foreach ($permissions as $permission) {
+            if (!$permission['writable']) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

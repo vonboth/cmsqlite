@@ -34,10 +34,10 @@ $errors = $validator->getErrors();
                         <li class="tab col s4">
                             <a class="active" href="#step1"><?= lang('Install.step') ?> 1</a>
                         </li>
-                        <li class="tab col s4">
+                        <li class="tab col s4<?= $insufficient ? ' disabled' : '' ?>">
                             <a href="#step2"><?= lang('Install.step') ?> 2</a>
                         </li>
-                        <li class="tab col s4">
+                        <li class="tab col s4<?= $insufficient ? ' disabled' : '' ?>">
                             <a href="#step3"><?= lang('Install.step') ?> 3</a>
                         </li>
                     </ul>
@@ -47,10 +47,10 @@ $errors = $validator->getErrors();
                 <div id="step1" class="col s12">
                     <h3><?= lang('Install.directory_check') ?></h3>
                     <div class="card-panel <?= $db_writable ? 'green' : 'red' ?> lighten-2">
-                        <i class="material-icons left"><?= $db_writable ? 'check' : 'close' ?></i>
+                        <i class="material-icons left"><?= $db_writable ? 'check' : 'clear' ?></i>
                         <?= ($db_writable)
                             ? lang('Install.database_writable')
-                            : lang('Install.database_not_writable') ?>
+                            : lang('Install.database_not_writable') ?> (database/cmsqlite.db)
                     </div>
 
                     <?php
@@ -75,10 +75,10 @@ $errors = $validator->getErrors();
                     <!-- NAVIGATION BUTTON -->
                     <div class="row">
                         <div class="col right">
-                            <a class="btn" @click="moveStep('step2')">
+                            <button class="btn" @click="moveStep('step2')" <?= $insufficient ? ' disabled' : '' ?>>
                                 <i class="material-icons right">arrow_forward</i>
                                 <?= lang('Install.next') ?>
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -185,6 +185,7 @@ $errors = $validator->getErrors();
                                             <i class="material-icons prefix grey-text" id="password-icon">visibility</i>
                                         </a>
                                         <label for="password"><?= lang('Install.password') ?></label>
+                                        <span class="helper-text"><?= lang('Install.password_help') ?></span>
                                     </div>
                                 </div>
 

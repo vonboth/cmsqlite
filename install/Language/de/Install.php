@@ -37,5 +37,6 @@ return [
     'env_file_note' => 'CMSQLite wird nicht funktionieren, bevor Du nicht diese Datei erstellt und hochgeladen hast',
     'recommend_delete_install' => 'Wir empfehlen, den Ordner "install" aus Sicherheitsgründen zu löschen!',
     'permission_explanation' => 'Wenn nur ein Ordner nicht berechtigt ist, wird CMSQLite nicht funktionieren. ' .
-        'Setze die Rechte (chmod) auf 777 für alle oben aufgeführten Verzeichnisse, oder ändere die Gruppenrechte.'
+        'Setze die Rechte (chmod) auf 777 für alle oben aufgeführten Verzeichnisse, oder ändere die Gruppenrechte.',
+    'password_help' => 'Muss min. 8 Zeichen lang, Großbuchstaben, Zahlen und 1 spezielles Zeichen aus %$&!§ enthalten'
 ];

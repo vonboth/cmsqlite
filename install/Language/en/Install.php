@@ -37,5 +37,6 @@ return [
     'env_file_note' => 'CMSQLite will not work properly until you uploaded the required file',
     'recommend_delete_install' => 'We recommend to delete the directory "install" due to security reasons!',
     'permission_explanation' => 'If any of the above mentioned folders is not writable CMSQLite will not function. ' .
-        'Set the rights (chmod) to 777 for all of the above listed folders or change the group rights.'
+        'Set the rights (chmod) to 777 for all of the above listed folders or change the group rights.',
+    'password_help' => 'Must be at least 8 chars long must contain upper case chars, numbers and special chars one of: %$&!§'
 ];
