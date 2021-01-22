@@ -27,7 +27,7 @@
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <?= $this->renderSection('js') ?>
-<?= $this->include('Admin\Partials\flash') ?>
+<?= $this->include('Admin\Partials\flash', null, false) ?>
 </body>
 </html>
 

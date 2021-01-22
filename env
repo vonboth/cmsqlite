@@ -11,18 +11,19 @@
 #--------------------------------------------------------------------
 
 #--------------------------------------------------------------------
-# ENVIRONMENT
+# ENVIRONMENT production | development
 #--------------------------------------------------------------------
 
-# CI_ENVIRONMENT = production
+CI_ENVIRONMENT = development
 
 #--------------------------------------------------------------------
 # APP
 #--------------------------------------------------------------------
-
-# app.baseURL =
-# app.defaultLocale =
-# app.appTimezone = Europe/Berlin
+app.baseURL = "http://cmsqlite.local"
+app.defaultLocale = de
+app.appTimezone = Europe/Berlin
+app.sessionDriver = CodeIgniter\Session\Handlers\FileHandler
+cache.handler = file
 
 # app.forceGlobalSecureRequests = false
 # app.sessionDriver = 'CodeIgniter\Session\Handlers\FileHandler'

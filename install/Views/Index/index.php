@@ -64,6 +64,14 @@ $errors = $validator->getErrors();
                     <?php
                     endforeach; ?>
 
+                    <div class="row"></div>
+                    <div class="card-panel blue lighten-2">
+                        <p>
+                            <span class="material-icons left">info</span>&nbsp;
+                            <?= lang('Install.permission_explanation') ?>
+                        </p>
+                    </div>
+
                     <!-- NAVIGATION BUTTON -->
                     <div class="row">
                         <div class="col right">

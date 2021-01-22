@@ -131,9 +131,11 @@ class Index extends Base
                     ->to("//{$_SERVER['HTTP_HOST']}/install");
             }
 
-            $content = "app.baseURL='{$this->request->getPost('base_url')}'\r\n" .
-                "app.defaultLocale='{$this->request->getPost('language')}'\r\n" .
-                "app.appTimezone='{$this->request->getPost('timezone')}'";
+            $content = "app.baseURL = \"{$this->request->getPost('base_url')}\"\r\n" .
+                "app.defaultLocale = {$this->request->getPost('language')}\r\n" .
+                "app.appTimezone = {$this->request->getPost('timezone')}\r\n" .
+                "app.sessionDriver = CodeIgniter\Session\Handlers\FileHandler\r\n" .
+                "cache.handler = file";
             if (!is_writable(ROOTPATH)) {
                 $this->session->setFlashdata('flash', lang('Install.success'));
                 return view(
