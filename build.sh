@@ -5,6 +5,9 @@ BUILD_DIR="build"
 
 if [ ! -d $BUILD_DIR ]; then
   mkdir $BUILD_DIR
+else
+  rm -R $BUILD_DIR
+  mkdir $BUILD_DIR
 fi
 
 # npm run build

@@ -17,7 +17,7 @@ class Database extends Config
      *
      * @var string
      */
-    public $filesPath = APPPATH . 'Database/';
+    public $filesPath = APPPATH . 'Database' . DIRECTORY_SEPARATOR;
 
     /**
      * Lets you choose which connection group to
@@ -93,18 +93,6 @@ class Database extends Config
         // we don't overwrite live data on accident.
         if (ENVIRONMENT === 'testing') {
             $this->defaultGroup = 'tests';
-
-            // Under Travis-CI, we can set an ENV var named 'DB_GROUP'
-            // so that we can test against multiple databases.
-            if ($group = getenv('DB')) {
-                if (is_file(TESTPATH . 'travis/Database.php')) {
-                    require TESTPATH . 'travis/Database.php';
-
-                    if (!empty($dbconfig) && array_key_exists($group, $dbconfig)) {
-                        $this->tests = $dbconfig[$group];
-                    }
-                }
-            }
         }
     }
 

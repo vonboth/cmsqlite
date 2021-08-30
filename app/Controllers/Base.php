@@ -7,12 +7,13 @@ use Admin\Models\ArticlesModel;
 use Admin\Models\MenuitemsModel;
 use Admin\Models\MenusModel;
 use CodeIgniter\Controller;
+use CodeIgniter\HTTP\CLIRequest;
+use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\Session\Session;
 use CodeIgniter\View\RendererInterface;
 use Config\Services;
-use phpDocumentor\Reflection\Types\Mixed_;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -31,6 +32,13 @@ use Psr\Log\LoggerInterface;
  */
 class Base extends Controller
 {
+    /**
+     * Instance of the main Request object.
+     *
+     * @var IncomingRequest|CLIRequest
+     */
+    protected $request;
+
     /**
      * An array of helpers to be loaded automatically upon
      * class instantiation. These helpers will be available

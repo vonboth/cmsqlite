@@ -2,9 +2,7 @@
 
 namespace Config;
 
-use CodeIgniter\Config\Services as CoreServices;
-
-require_once SYSTEMPATH . 'Config/Services.php';
+use CodeIgniter\Config\BaseService;
 
 /**
  * Services Configuration file.
@@ -19,7 +17,7 @@ require_once SYSTEMPATH . 'Config/Services.php';
  * method format you should use for your service methods. For more examples,
  * see the core Services file at system/Config/Services.php.
  */
-class Services extends CoreServices
+class Services extends BaseService
 {
     /**
      * get an Instance from the AuthService::class

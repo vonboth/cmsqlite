@@ -36,7 +36,7 @@ return [
         'Text hinein und lade die Datei dann mit Hilfe eines FTP-Programms in das Stammverzeichnis Deiner Installation.',
     'env_file_note' => 'CMSQLite wird nicht funktionieren, bevor Du nicht diese Datei erstellt und hochgeladen hast',
     'recommend_delete_install' => 'Wir empfehlen, den Ordner "install" aus Sicherheitsgründen zu löschen!',
-    'permission_explanation' => 'Wenn nur ein Ordner nicht berechtigt ist, wird CMSQLite nicht funktionieren. ' .
-        'Setze die Rechte (chmod) auf 777 für alle oben aufgeführten Verzeichnisse, oder ändere die Gruppenrechte.',
+    'permission_explanation' => 'Wenn nur ein Ordner oder die Datenbank nicht schreibberechtigt ist, wird CMSQLite nicht funktionieren. ' .
+        'Setze die Rechte (chmod) auf 775 oder (falls das nicht geht) auf 777 für alle oben aufgeführten Dateien und Verzeichnisse, oder ändere die Gruppenrechte.',
     'password_help' => 'Muss min. 8 Zeichen lang, Großbuchstaben, Zahlen und 1 spezielles Zeichen aus %$&!§ enthalten'
 ];

@@ -35,7 +35,7 @@ class App extends BaseConfig
     | variable so that it is blank.
     |
     */
-    public $indexPage = '';
+    public $indexPage = 'index.php';
 
     /*
     |--------------------------------------------------------------------------
@@ -65,7 +65,7 @@ class App extends BaseConfig
     | should run under for this request.
     |
     */
-    public $defaultLocale = '';
+    public $defaultLocale = 'en';
 
     /*
     |--------------------------------------------------------------------------

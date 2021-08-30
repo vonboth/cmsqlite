@@ -18,5 +18,4 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT & ~E_USER_NOTICE &
   | the system. It's not widely used currently, and may not survive
   | release of the framework.
  */
-
-defined('CI_DEBUG') || define('CI_DEBUG', 0);
+defined('CI_DEBUG') || define('CI_DEBUG', false);
