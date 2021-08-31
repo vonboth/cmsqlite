@@ -11,108 +11,108 @@ $routes->group(
     'admin',
     ['namespace' => 'Admin\Controllers'],
     function (RouteCollection $routes) {
-        $routes->add('/', 'Start::index');
+        $routes->add('/', 'StartController::index');
         $routes->group(
             'start',
             function (RouteCollection $routes) {
-                $routes->add('index', 'Start::index');
-                $routes->add('reset-hits', 'Start::resetHits');
-                $routes->add('/', 'Start::index');
+                $routes->add('index', 'StartController::index');
+                $routes->add('reset-hits', 'StartController::resetHits');
+                $routes->add('/', 'StartController::index');
             }
         );
         $routes->group(
             'authenticate',
             function (RouteCollection $routes) {
-                $routes->add('login', 'Authenticate::login');
-                $routes->get('logout', 'Authenticate::logout');
+                $routes->add('login', 'AuthenticateController::login');
+                $routes->get('logout', 'AuthenticateController::logout');
             }
         );
         $routes->group(
             'articles',
             function (RouteCollection $routes) {
-                $routes->add('index', 'Articles::index');
-                $routes->add('add', 'Articles::add');
-                $routes->add('edit/(:num)', 'Articles::edit/$1');
-                $routes->add('view/(:num)', 'Articles::view/$1');
-                $routes->add('delete/(:num)', 'Articles::delete/$1');
-                $routes->add('/', 'Articles::index');
+                $routes->add('index', 'ArticlesController::index');
+                $routes->add('add', 'ArticlesController::add');
+                $routes->add('edit/(:num)', 'ArticlesController::edit/$1');
+                $routes->add('view/(:num)', 'ArticlesController::view/$1');
+                $routes->add('delete/(:num)', 'ArticlesController::delete/$1');
+                $routes->add('/', 'ArticlesController::index');
             }
         );
         $routes->group(
             'categories',
             function (RouteCollection $routes) {
-                $routes->add('index', 'Categories::index');
-                $routes->add('add', 'Categories::add');
-                $routes->add('edit/(:num)', 'Categories::edit/$1');
-                $routes->add('view/(:num)', 'Categories::view/$1');
-                $routes->add('delete/(:num)', 'Categories::delete/$1');
-                $routes->add('/', 'Categories::index');
+                $routes->add('index', 'CategoriesController::index');
+                $routes->add('add', 'CategoriesController::add');
+                $routes->add('edit/(:num)', 'CategoriesController::edit/$1');
+                $routes->add('view/(:num)', 'CategoriesController::view/$1');
+                $routes->add('delete/(:num)', 'CategoriesController::delete/$1');
+                $routes->add('/', 'CategoriesController::index');
             }
         );
         $routes->group(
             'menus',
             function (RouteCollection $routes) {
-                $routes->add('index', 'Menus::index');
-                $routes->add('add', 'Menus::add');
-                $routes->add('edit/(:num)', 'Menus::edit/$1');
-                $routes->add('view/(:num)', 'Menus::index');
-                $routes->add('delete/(:num)', 'Menus::delete/$1');
-                $routes->add('/', 'Menus::index');
+                $routes->add('index', 'MenusController::index');
+                $routes->add('add', 'MenusController::add');
+                $routes->add('edit/(:num)', 'MenusController::edit/$1');
+                $routes->add('view/(:num)', 'MenusController::index');
+                $routes->add('delete/(:num)', 'MenusController::delete/$1');
+                $routes->add('/', 'MenusController::index');
             }
         );
         $routes->group(
             'menuitems',
             function (RouteCollection $routes) {
-                $routes->add('index', 'Menus::index');
-                $routes->add('add', 'Menuitems::add');
-                $routes->add('edit/(:num)', 'Menuitems::edit/$1');
-                $routes->add('view/(:num)', 'Menus::index');
-                $routes->add('delete/(:num)', 'Menuitems::delete/$1');
-                $routes->add('moveup/(:num)', 'Menuitems::moveup/$1');
-                $routes->add('movedown/(:num)', 'Menuitems::movedown/$1');
-                $routes->add('/', 'Menus::index');
+                $routes->add('index', 'MenusController::index');
+                $routes->add('add', 'MenuitemsController::add');
+                $routes->add('edit/(:num)', 'MenuitemsController::edit/$1');
+                $routes->add('view/(:num)', 'MenusController::index');
+                $routes->add('delete/(:num)', 'MenuitemsController::delete/$1');
+                $routes->add('moveup/(:num)', 'MenuitemsController::moveup/$1');
+                $routes->add('movedown/(:num)', 'MenuitemsController::movedown/$1');
+                $routes->add('/', 'MenusController::index');
             }
         );
         $routes->group(
             'users',
             function (RouteCollection $routes) {
-                $routes->add('index', 'Users::index');
-                $routes->add('add', 'Users::add');
-                $routes->add('edit/(:num)', 'Users::edit/$1');
-                $routes->add('view/(:num)', 'Users::view/$1');
-                $routes->add('delete/(:num)', 'Users::delete/$1');
-                $routes->add('/', 'Users::index');
+                $routes->add('index', 'UsersController::index');
+                $routes->add('add', 'UsersController::add');
+                $routes->add('edit/(:num)', 'UsersController::edit/$1');
+                $routes->add('view/(:num)', 'UsersController::view/$1');
+                $routes->add('delete/(:num)', 'UsersController::delete/$1');
+                $routes->add('/', 'UsersController::index');
             }
         );
         $routes->group(
             'profile',
             function (RouteCollection $routes) {
-                $routes->get('index', 'Profile::edit');
-                $routes->add('edit', 'Profile::edit');
-                $routes->add('/', 'Profile::edit');
+                $routes->get('index', 'ProfileController::edit');
+                $routes->add('edit', 'ProfileController::edit');
+                $routes->add('/', 'ProfileController::edit');
             }
         );
         $routes->group(
             'media',
             function (RouteCollection $routes) {
-                $routes->add('index', 'Media::index');
-                $routes->post('upload', 'Media::upload');
-                $routes->post('remove-file', 'Media::removeFile');
-                $routes->post('remove-dir', 'Media::removeDir');
-                $routes->post('create-folder', 'Media::createFolder');
-                $routes->get('ckbrowse', 'Media::ckbrowse');
-                $routes->post('ckupload', 'Media::ckupload');
-                $routes->add('/', 'Media::index');
+                $routes->add('index', 'MediaController::index');
+                $routes->post('upload', 'MediaController::upload');
+                $routes->post('remove-file', 'MediaController::removeFile');
+                $routes->post('remove-dir', 'MediaController::removeDir');
+                $routes->post('create-folder', 'MediaController::createFolder');
+                $routes->get('ckbrowse', 'MediaController::ckbrowse');
+                $routes->post('ckupload', 'MediaController::ckupload');
+                $routes->add('/', 'MediaController::index');
             }
         );
         $routes->group(
             'settings',
             function (RouteCollection $routes) {
-                $routes->get('index', 'Settings::index');
-                $routes->post('save/(:num)', 'Settings::save/$1');
-                $routes->post('add', 'Settings::add');
-                $routes->post('delete/(:num)', 'Settings::delete/$1');
-                $routes->get('/', 'Settings::index');
+                $routes->get('index', 'SettingsController::index');
+                $routes->post('save/(:num)', 'SettingsController::save/$1');
+                $routes->post('add', 'SettingsController::add');
+                $routes->post('delete/(:num)', 'SettingsController::delete/$1');
+                $routes->get('/', 'SettingsController::index');
             }
         );
     }

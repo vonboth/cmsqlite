@@ -7,7 +7,7 @@ namespace App\Controllers;
  * Class Maintenance
  * @package App\Controllers
  */
-class Maintenance extends Base
+class MaintenanceController extends BaseController
 {
     /**
      * index page

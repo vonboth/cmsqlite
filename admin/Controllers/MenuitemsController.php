@@ -11,7 +11,7 @@ use Admin\Models\MenuitemsModel;
  * @package Admin\Controllers
  * @property MenuitemsModel $Menuitems;
  */
-class Menuitems extends Base
+class MenuitemsController extends BaseController
 {
     /** @var MenuitemsModel $Menuitems */
     protected $Menuitems;

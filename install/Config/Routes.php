@@ -9,7 +9,7 @@ $routes->group(
     'install',
     ['namespace' => 'Install\Controllers'],
     function(RouteCollection $routes) {
-        $routes->post('/', 'Index::install');
-        $routes->add('/', 'Index::index');
+        $routes->post('/', 'IndexController::install');
+        $routes->add('/', 'IndexController::index');
     }
 );

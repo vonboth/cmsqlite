@@ -11,7 +11,7 @@ use CodeIgniter\HTTP\RedirectResponse;
  *
  * @package Admin\Controllers
  */
-class Authenticate extends Base
+class AuthenticateController extends BaseController
 {
     /**
      * shows the login form

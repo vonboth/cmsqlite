@@ -6,7 +6,7 @@ namespace Install\Controllers;
 
 use Admin\Models\Entities\User;
 use Admin\Models\UsersModel;
-use App\Controllers\Base;
+use App\Controllers\BaseController;
 use Config\App;
 use Config\Services;
 
@@ -16,7 +16,7 @@ use Config\Services;
  *
  * Start controller for installation process
  */
-class Index extends Base
+class IndexController extends BaseController
 {
     /** @var UsersModel $Users */
     protected UsersModel $Users;

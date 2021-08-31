@@ -13,7 +13,7 @@ use CodeIgniter\HTTP\RedirectResponse;
  * @package Admin\Controllers
  * @property CategoriesModel $Categories
  */
-class Categories extends Base
+class CategoriesController extends BaseController
 {
     /** @var CategoriesModel $Categories */
     protected $Categories;

@@ -11,7 +11,7 @@ use Admin\Models\UsersModel;
  * @package Admin\Controllers
  * @property UsersModel $Users
  */
-class Users extends Base
+class UsersController extends BaseController
 {
     /** @var UsersModel $Users */
     protected $Users;

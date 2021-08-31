@@ -14,7 +14,7 @@ use Admin\Models\Entities\Article;
  * @property ArticlesModel $Articles
  * @property CategoriesModel $Categories
  */
-class Articles extends Base
+class ArticlesController extends BaseController
 {
     /** @var ArticlesModel $Articles */
     protected $Articles;

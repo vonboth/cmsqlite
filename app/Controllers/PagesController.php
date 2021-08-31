@@ -13,7 +13,7 @@ use Psr\Log\LoggerInterface;
  * @package App\Controllers
  * @property UsersModel $Users
  */
-class Pages extends Base
+class PagesController extends BaseController
 {
     /** @var UsersModel $Users */
     protected UsersModel $Users;

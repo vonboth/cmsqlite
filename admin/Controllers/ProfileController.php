@@ -10,7 +10,7 @@ use Admin\Models\UsersModel;
  * @package Admin\Controllers
  * @property UsersModel $Users;
  */
-class Profile extends Base
+class ProfileController extends BaseController
 {
     /** @var UsersModel $Users */
     private $Users;

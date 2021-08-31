@@ -10,7 +10,7 @@ use CodeIgniter\HTTP\RedirectResponse;
  * Class Media
  * @package Admin\Controllers
  */
-class Media extends Base
+class MediaController extends BaseController
 {
     use ResponseTrait;
 

@@ -4,7 +4,7 @@ namespace Admin\Controllers;
 
 use Admin\Config\Validation;
 use Admin\Services\AuthService;
-use App\Controllers\Base as AppBase;
+use App\Controllers\BaseController as AppBase;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Config\Services;
@@ -15,7 +15,7 @@ use Psr\Log\LoggerInterface;
  * @package Admin\Controllers
  * TODO: INSTALLATION ROUTINE: EMAIL SETTINGS ...
  */
-class Base extends AppBase
+class BaseController extends AppBase
 {
     /** @var array $helpers Helpers to load */
     protected $helpers = ['html', 'form', 'Admin\Helpers\tree_helper', 'inflector', 'filesystem', 'format'];

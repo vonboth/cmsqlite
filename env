@@ -24,6 +24,7 @@ app.baseURL = "http://cmsqlite.local"
 app.defaultLocale = de
 app.appTimezone = Europe/Berlin
 cache.handler = file
+
 # app.forceGlobalSecureRequests = false
 
 # app.sessionDriver = 'CodeIgniter\Session\Handlers\FileHandler'
@@ -40,17 +41,19 @@ cache.handler = file
 # DATABASE
 #--------------------------------------------------------------------
 
-# database.default.hostname = localhost
 database.default.database = "../database/cmsqlite.db"
-# database.default.username =
-# database.default.password =
+# database.default.hostname = localhost
+# database.default.username = root
+# database.default.password = root
 # database.default.DBDriver = MySQLi
+# database.default.DBPrefix =
 
+database.tests.database = "../database/cmsqlite_test.db"
 # database.tests.hostname = localhost
-# database.tests.database = "../database/cmsqlite_test.db"
-# database.tests.username =
-# database.tests.password =
+# database.tests.username = root
+# database.tests.password = root
 # database.tests.DBDriver = MySQLi
+# database.tests.DBPrefix =
 
 #--------------------------------------------------------------------
 # CONTENT SECURITY POLICY
@@ -67,6 +70,7 @@ database.default.database = "../database/cmsqlite.db"
 # contentsecuritypolicy.fontSrc = null
 # contentsecuritypolicy.formAction = null
 # contentsecuritypolicy.frameAncestors = null
+# contentsecuritypolicy.frameSrc = null
 # contentsecuritypolicy.mediaSrc = null
 # contentsecuritypolicy.objectSrc = null
 # contentsecuritypolicy.pluginTypes = null
@@ -100,10 +104,11 @@ database.default.database = "../database/cmsqlite.db"
 # HONEYPOT
 #--------------------------------------------------------------------
 
-#  honeypot.hidden = 'true'
-#  honeypot.label = 'Fill This Field'
-#  honeypot.name = 'honeypot'
-#  honeypot.template = '<label>{label}</label><input type="text" name="{name}" value=""/>'
+# honeypot.hidden = 'true'
+# honeypot.label = 'Fill This Field'
+# honeypot.name = 'honeypot'
+# honeypot.template = '<label>{label}</label><input type="text" name="{name}" value=""/>'
+# honeypot.container = '<div style="display:none">{template}</div>'
 
 #--------------------------------------------------------------------
 # SECURITY

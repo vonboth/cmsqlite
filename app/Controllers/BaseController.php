@@ -30,7 +30,7 @@ use Psr\Log\LoggerInterface;
  * @property MenusModel $Menus
  * @property MenuitemsModel $Menuitems
  */
-class Base extends Controller
+class BaseController extends Controller
 {
     /**
      * Instance of the main Request object.

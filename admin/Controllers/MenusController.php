@@ -18,7 +18,7 @@ use Admin\Models\MenusModel;
  * @property ArticlesModel $Articles
  * @property CategoriesModel $Categories
  */
-class Menus extends Base
+class MenusController extends BaseController
 {
     /** @var MenusModel $Menus */
     protected $Menus;

@@ -2,6 +2,7 @@
 
 namespace Config;
 
+use Admin\Services\AuthService;
 use CodeIgniter\Config\BaseService;
 
 /**
@@ -22,11 +23,11 @@ class Services extends BaseService
     /**
      * get an Instance from the AuthService::class
      *
-     * @return \Admin\Services\AuthService
+     * @return AuthService
      */
-    public static function auth(): \Admin\Services\AuthService
+    public static function auth(): AuthService
     {
-        return new \Admin\Services\AuthService();
+        return new AuthService();
     }
 
     //    public static function example($getShared = true)
@@ -36,6 +37,6 @@ class Services extends BaseService
     //            return static::getSharedInstance('example');
     //        }
     //
-    //        return new \CodeIgniter\Example();
-    //    }
+    //     return new \CodeIgniter\Example();
+    // }
 }

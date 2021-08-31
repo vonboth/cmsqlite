@@ -12,7 +12,7 @@ use CodeIgniter\API\ResponseTrait;
  * @package Admin\Controllers
  * @property SettingsModel $Settings
  */
-class Settings extends Base
+class SettingsController extends BaseController
 {
     use ResponseTrait;
 

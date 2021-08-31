@@ -13,7 +13,7 @@ use Admin\Models\UsersModel;
  * @property ArticlesModel $Articles
  * @property UsersModel $Users
  */
-class Start extends Base
+class StartController extends BaseController
 {
     protected string $controllerName = 'Start';
 
