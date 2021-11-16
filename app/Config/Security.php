@@ -8,6 +8,28 @@ class Security extends BaseConfig
 {
     /**
      * --------------------------------------------------------------------------
+     * CSRF Protection Method
+     * --------------------------------------------------------------------------
+     *
+     * Protection Method for Cross Site Request Forgery protection.
+     *
+     * @var string 'cookie' or 'session'
+     */
+    public $csrfProtection = 'cookie';
+
+    /**
+     * --------------------------------------------------------------------------
+     * CSRF Token Randomization
+     * --------------------------------------------------------------------------
+     *
+     * Randomize the CSRF Token for added security.
+     *
+     * @var bool
+     */
+    public $tokenRandomize = false;
+
+    /**
+     * --------------------------------------------------------------------------
      * CSRF Token Name
      * --------------------------------------------------------------------------
      *

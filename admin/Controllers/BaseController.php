@@ -79,7 +79,7 @@ class BaseController extends AppBase
         $router = Services::router();
         $namespace = '\\' . $router->getMatchedRouteOptions()['namespace'] . "\\";
         return strtolower(
-            str_replace($namespace, '', $router->controllerName())
+            str_replace([$namespace, 'Controller'], ['', ''], $router->controllerName())
         );
     }
 

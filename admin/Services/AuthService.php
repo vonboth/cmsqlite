@@ -107,7 +107,9 @@ class AuthService extends BaseService
             ->asArray()
             ->first();
 
-        if ($user && password_verify($password, $user['password'])) {
+        if (!$user) {
+            return false;
+        } elseif (password_verify($password, $user['password'])) {
             $this->_setTries($user, 0);
             $this->_resetLoginAttack();
             $this->_updateLogin($user);
