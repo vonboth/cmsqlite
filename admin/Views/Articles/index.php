@@ -34,7 +34,7 @@ $this->section('main') ?>
                         <tr>
                             <td><?= $article->is_startpage ?
                                     '<span><i class="material-icons">check</i></span>'
-                                    : '<span><i class="material-icons">clear</i></span>' ?>
+                                    : '' ?>
                             </td>
                             <td><?= $article->title ?></td>
                             <td><?= $article->description ?></td>
