@@ -1,4 +1,4 @@
-FROM php:7.4-apache
+FROM php:8.0-apache
 ARG DEBIAN_FRONTEND=noninteractive
 
 #COPY ./sites-available/000-default.conf /etc/apache2/sites-available
@@ -13,6 +13,6 @@ RUN install-php-extensions intl xdebug zip
 
 RUN a2enmod rewrite
 
-RUN curl -o composer https://getcomposer.org/download/2.0.8/composer.phar \
+RUN curl -o composer https://getcomposer.org/download/2.1.14/composer.phar \
   && mv composer /usr/local/bin \
   && chmod +x /usr/local/bin/composer

@@ -22,6 +22,7 @@ cp -R app/ $BUILD_DIR
 cp -R install/ $BUILD_DIR
 
 # Database
+# TODO: Update kopiert nicht die Datenbank
 mkdir $BUILD_DIR/database
 cp database/cmsqlite.db $BUILD_DIR/database
 cp database/index.html $BUILD_DIR/database
@@ -49,27 +50,27 @@ cp -R public/favicon.ico $BUILD_DIR/public
 cp -R public/index.php $BUILD_DIR/public
 cp -R public/robots.txt $BUILD_DIR/public
 
-if [ -n "$1" -a "$1" == '--no_vendor' ]
-then
-  echo 'no vendor folder'
-else
-  # vendor folder
-  mkdir -p $BUILD_DIR/vendor/bin/
-  cp -R vendor/bin $BUILD_DIR/vendor
-  mkdir -p $BUILD_DIR/vendor/codeigniter4/
-  cp -R vendor/codeigniter4 $BUILD_DIR/vendor
-  mkdir -p $BUILD_DIR/vendor/composer/
-  cp -R vendor/composer $BUILD_DIR/vendor
-  mkdir -p $BUILD_DIR/vendor/kint-php/
-  cp -R vendor/kint-php $BUILD_DIR/vendor
-  mkdir -p $BUILD_DIR/vendor/laminas/
-  cp -R vendor/laminas $BUILD_DIR/vendor
-  mkdir -p $BUILD_DIR/vendor/psr/
-  cp -R vendor/psr $BUILD_DIR/vendor
-  mkdir -p $BUILD_DIR/vendor/tatter/
-  cp -R vendor/tatter $BUILD_DIR/vendor
-  cp vendor/autoload.php $BUILD_DIR/vendor
-fi
+#if [ -n "$1" -a "$1" == '--no_vendor' ]
+#then
+#  echo 'no vendor folder'
+#else
+#  # vendor folder
+#  mkdir -p $BUILD_DIR/vendor/bin/
+#  cp -R vendor/bin $BUILD_DIR/vendor
+#  mkdir -p $BUILD_DIR/vendor/codeigniter4/
+#  cp -R vendor/codeigniter4 $BUILD_DIR/vendor
+#  mkdir -p $BUILD_DIR/vendor/composer/
+#  cp -R vendor/composer $BUILD_DIR/vendor
+#  mkdir -p $BUILD_DIR/vendor/kint-php/
+#  cp -R vendor/kint-php $BUILD_DIR/vendor
+#  mkdir -p $BUILD_DIR/vendor/laminas/
+#  cp -R vendor/laminas $BUILD_DIR/vendor
+#  mkdir -p $BUILD_DIR/vendor/psr/
+#  cp -R vendor/psr $BUILD_DIR/vendor
+#  mkdir -p $BUILD_DIR/vendor/tatter/
+#  cp -R vendor/tatter $BUILD_DIR/vendor
+#  cp vendor/autoload.php $BUILD_DIR/vendor
+#fi
 
 # writable folder
 mkdir -p $BUILD_DIR/writable/cache/
@@ -91,3 +92,6 @@ cp LICENSE $BUILD_DIR
 cp license.txt $BUILD_DIR
 cp README.md $BUILD_DIR
 cp spark $BUILD_DIR
+
+# Install dependencies
+cd $BUILD_DIR && composer install --no-dev
