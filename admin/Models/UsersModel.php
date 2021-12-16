@@ -32,8 +32,12 @@ class UsersModel extends BaseModel
     /**
      * @return array|null|object
      */
-    public function findAuthor($id)
+    public function findAuthor($id = null)
     {
+        if (is_null($id)) {
+            return null;
+        }
+
         $author = $this->find($id);
         unset($author->username);
         unset($author->password);

@@ -48,8 +48,6 @@ window.adminVue = new Vue({
     M.Tooltip.init(document.querySelectorAll('.tooltipped'));
     M.FloatingActionButton.init(document.querySelectorAll('.action-btn-menu'));
     M.FloatingActionButton.init(document.querySelectorAll('.fixed-action-btn'));
-
-    this.presetItem();
   },
   methods: {
     // general dialog when deleting an item
@@ -347,8 +345,8 @@ window.adminVue = new Vue({
       });
     },
 
-    // check for an submited item and set it
-    presetItem: function() {
+    // check for a submited item and set it
+    presetItem: function(prevItem) {
       if (prevItem !== false) {
         this.selectedMenuitem = {
           id: prevItem.id,
@@ -365,7 +363,6 @@ window.adminVue = new Vue({
           lft: prevItem.lft,
           rgt: prevItem.rgt
         };
-
         this.hideMenuitemForm = false;
       }
     },

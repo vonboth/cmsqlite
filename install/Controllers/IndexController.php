@@ -39,7 +39,7 @@ class IndexController extends BaseController
         $server = strtolower($_SERVER['HTTP_HOST']);
         $scheme = $_SERVER['REQUEST_SCHEME'] ? strtolower($_SERVER['REQUEST_SCHEME']) : 'http';
         $validator = Services::validation();
-        if ($_SESSION['_ci_validation_errors']) {
+        if (array_key_exists('_ci_validation_errors', $_SESSION) && !empty($_SESSION['_ci_validation_errors'])) {
             $errors = unserialize($_SESSION['_ci_validation_errors']);
             foreach ($errors as $key => $error) {
                 $validator->setError($key, $error);

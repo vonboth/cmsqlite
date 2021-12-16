@@ -112,7 +112,7 @@ $errors = $validator->getErrors();
                                                name="language"
                                                required="required"
                                                class="validate"
-                                               value="<?= esc(old('base_url', 'de')) ?>"
+                                               value="<?= esc(old('language', 'de')) ?>"
                                                id="language"/>
                                         <label for="language"><?= lang('Install.language') ?></label>
                                         <span class="helper-text"><?= lang('Install.language_help') ?></span>

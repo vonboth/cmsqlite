@@ -21,7 +21,7 @@ class InstallationFilter implements FilterInterface
         if (strpos($route, 'install') === false
             && is_dir(ROOTPATH . 'install')
             && !file_exists(ROOTPATH . '.env')) {
-            return redirect()->to("//{$_SERVER['HTTP_HOST']}/install");
+            return redirect()->to("/install");
         } elseif (strpos($route, 'install') !== false
             && file_exists(ROOTPATH . '.env')) {
             return redirect()->to('/admin/authenticate/login');
