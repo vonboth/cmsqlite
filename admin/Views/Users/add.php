@@ -4,6 +4,7 @@
  */
 
 $this->setData(['edit' => false]);
+$this->setData(['formDisabled' => false]);
 $this->extend("AdminThemes\\$theme\\layouts\\default");
 ?>
 
@@ -17,7 +18,7 @@ $this->section('main') ?>
     <div class="row">
       <h3><?= lang('Admin.add') ?></h3>
         <?= form_open('/admin/users/add', 'class="col s12"') ?>
-        <?= $this->include('Admin\Users\partials\user_form', ['disabled' => 0]) ?>
+        <?= $this->include('Admin\Users\partials\user_form') ?>
         <?= form_close() ?>
     </div>
   </div>

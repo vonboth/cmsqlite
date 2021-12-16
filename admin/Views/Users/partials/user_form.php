@@ -1,3 +1,6 @@
+<?php
+/** @var bool $formDisabled */
+?>
 <div class=row>
   <div class="col s12 <?= (is_null($user->id) ? 'hide' : '') ?>">
         <span class="right">
@@ -12,7 +15,7 @@
     <input id="username"
            name="username"
            value="<?= old('username', $user->username) ?>"
-        <?= ($options['disabled']) ? 'disabled' : '' ?>
+        <?= ($formDisabled) ? 'disabled' : '' ?>
            type="text"
            class="validate"
            required="required">
@@ -21,7 +24,7 @@
   <div class="input-field col s12 m6">
     <input id="email"
            name="email"
-        <?= ($options['disabled']) ? 'disabled' : '' ?>
+        <?= ($formDisabled) ? 'disabled' : '' ?>
            value="<?= old('email', $user->email) ?>"
            type="text"
            required="required"
@@ -30,11 +33,11 @@
   </div>
 </div>
 <?php
-if (!$options['disabled']): ?>
+if (!$formDisabled): ?>
   <div class="row">
     <div class="input-field col s12 m6">
       <input id="password"
-          <?= ($options['disabled']) ? 'disabled' : '' ?>
+          <?= ($formDisabled) ? 'disabled' : '' ?>
              name="password"
              type="password"
              class="validate"
@@ -44,7 +47,7 @@ if (!$options['disabled']): ?>
     </div>
     <div class="input-field col s12 m6">
       <input id="password-confirm"
-          <?= ($options['disabled']) ? 'disabled' : '' ?>
+          <?= ($formDisabled) ? 'disabled' : '' ?>
              name="password_confirm"
              type="password"
              class="validate"
@@ -60,7 +63,7 @@ endif; ?>
   <div class="input-field col s12 m6">
     <input id="firstname"
            name="firstname"
-        <?= ($options['disabled']) ? 'disabled' : '' ?>
+        <?= ($formDisabled) ? 'disabled' : '' ?>
            value="<?= old('firstname', $user->firstname) ?>"
            type="text"
            class="validate">
@@ -69,7 +72,7 @@ endif; ?>
   <div class="input-field col s12 m6">
     <input id="lastname"
            name="lastname"
-        <?= ($options['disabled']) ? 'disabled' : '' ?>
+        <?= ($formDisabled) ? 'disabled' : '' ?>
            value="<?= old('lastname', $user->lastname) ?>"
            type="text">
     <label for="lastname"><?= lang('Tables.users.lastname') ?></label>
@@ -86,7 +89,7 @@ endif; ?>
               'admin' => lang('Tables.users.roles.admin')
           ],
           $user->role,
-          ($options['disabled']) ? 'disabled' : ''
+          ($formDisabled) ? 'disabled' : ''
       ) ?>
     <label for="role"><?= lang('Tables.users.role') ?></label>
   </div>
@@ -98,7 +101,7 @@ endif; ?>
        class="btn waves-effect waves-light"><?= lang('General.back') ?>
       <i class="material-icons left">arrow_back</i></a>
       <?php
-      if (!$options['disabled']) : ?>
+      if (!$formDisabled) : ?>
         <button type="submit" class="btn waves-effect waves-light"><?= lang('General.submit') ?>
           <i class="material-icons right">send</i></button>
       <?php

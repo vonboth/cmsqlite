@@ -50,7 +50,9 @@ class ArticlesController extends BaseController
     {
         return view(
             'Admin\Articles\view',
-            ['article' => $this->Articles->find($id)]
+            [
+                'article' => $this->Articles->find($id),
+            ]
         );
     }
 
@@ -86,7 +88,7 @@ class ArticlesController extends BaseController
             'Admin\Articles\add',
             [
                 'article' => $article,
-                'validator' => $this->validator
+                'validator' => $this->validator,
             ]
         );
     }
@@ -129,7 +131,7 @@ class ArticlesController extends BaseController
             'Admin\Articles\edit',
             [
                 'article' => $article,
-                'validator' => $this->validator
+                'validator' => $this->validator,
             ]
         );
     }

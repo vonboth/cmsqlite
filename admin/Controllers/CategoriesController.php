@@ -45,10 +45,11 @@ class CategoriesController extends BaseController
      */
     public function view($id = null): string
     {
-        $category = $this->Categories->find($id);
         return view(
             'Admin\Categories\view',
-            compact('category')
+            [
+                'category' => $this->Categories->find($id),
+            ]
         );
     }
 
@@ -85,7 +86,7 @@ class CategoriesController extends BaseController
             'Admin\Categories\add',
             [
                 'validator' => $this->validator,
-                'category' => $category
+                'category' => $category,
             ]
         );
     }
@@ -130,7 +131,7 @@ class CategoriesController extends BaseController
             'Admin\Categories\edit',
             [
                 'category' => $category,
-                'validator' => $this->validator
+                'validator' => $this->validator,
             ]
         );
     }

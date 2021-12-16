@@ -4,7 +4,7 @@
 namespace Admin\Models\Entities;
 
 
-use CodeIgniter\Entity;
+use CodeIgniter\Entity\Entity;
 
 /**
  * Class Base

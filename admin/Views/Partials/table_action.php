@@ -10,14 +10,14 @@
         </a>
     </li>
     <?php
-    if (!isset($options['is_system'])): ?>
+    if (!isset($is_system)): ?>
         <li>
             <a href="javascript:void(0)" @click="onDeleteItem('<?= $controller ?>', <?= $data_id ?>)">
                 <i class="material-icons">delete</i>
             </a>
         </li>
     <?php
-    elseif (!$options['is_system']): ?>
+    elseif (!$is_system): ?>
         <li>
             <a href="javascript:void(0)" @click="onDeleteItem('<?= $controller ?>', <?= $data_id ?>)">
                 <i class="material-icons">delete</i>

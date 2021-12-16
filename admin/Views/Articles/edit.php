@@ -4,6 +4,7 @@
  * @var string $theme
  */
 
+$this->setData(['formDisabled' => false]);
 $this->extend("AdminThemes\\$theme\\layouts\\default");
 $this->section('main');
 ?>
@@ -15,7 +16,7 @@ $this->section('main');
     <div class="row">
       <h3><?= lang('Admin.edit') ?></h3>
         <?= form_open('/admin/articles/edit/' . $article->id, 'class="col s12"') ?>
-        <?= $this->include('Admin\Articles\partials\article_form', ['disabled' => false]) ?>
+        <?= $this->include('Admin\Articles\partials\article_form') ?>
         <?= form_close() ?>
     </div>
   </div>

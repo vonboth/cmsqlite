@@ -3,7 +3,10 @@
  * @var string $theme
  */
 
+/** @var \Admin\Models\Entities\User $user */
+
 $this->setData(['edit' => true]);
+$this->setData(['formDisabled' => false]);
 $this->extend("AdminThemes\\$theme\\layouts\\default");
 ?>
 
@@ -13,14 +16,14 @@ $this->section('main') ?>
 <?= $this->include('Admin\Partials\form_errors'); ?>
 
 <div class="card">
-  <div class="card-content">
-    <div class="row">
-      <h3><?= lang('Admin.edit') ?></h3>
-        <?= form_open('/admin/users/edit/' . $user->id, 'class="col s12"') ?>
-        <?= $this->include('Admin\Users\partials\user_form', ['disabled' => 0]) ?>
-        <?= form_close() ?>
+    <div class="card-content">
+        <div class="row">
+            <h3><?= lang('Admin.edit') ?></h3>
+            <?= form_open('/admin/users/edit/' . $user->id, 'class="col s12"') ?>
+            <?= $this->include('Admin\Users\partials\user_form') ?>
+            <?= form_close() ?>
+        </div>
     </div>
-  </div>
 </div>
 <?php
 $this->endSection() ?>

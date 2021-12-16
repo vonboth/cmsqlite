@@ -4,8 +4,6 @@
 namespace Admin\Models\Entities;
 
 
-use CodeIgniter\Entity;
-
 /**
  * Class Menu
  * @package Admin\Models\Entities

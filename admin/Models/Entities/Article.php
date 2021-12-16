@@ -3,10 +3,6 @@
 
 namespace Admin\Models\Entities;
 
-
-use Admin\Models\CategoriesModel;
-use CodeIgniter\Entity;
-
 /**
  * Class Article
  * @package Admin\Models\Entities
@@ -31,7 +27,7 @@ use CodeIgniter\Entity;
  * @property string $created
  * @property string $updated
  */
-class Article extends Entity
+class Article extends Base
 {
     protected $attributes = [
         'id' => null,

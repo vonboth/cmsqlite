@@ -1,5 +1,7 @@
 <?php
 /** @var Admin\Models\Entities\Article $article */
+/** @var bool $formDisabled */
+/** @var string $controller */
 
 ?>
 <!-- Some information related to the article -->
@@ -19,7 +21,7 @@
     <input name="title"
            required
            class="validate"
-        <?= ($options['disabled']) ? 'disabled' : '' ?>
+        <?= ($formDisabled) ? 'disabled' : '' ?>
            id="title"
            type="text"
            value="<?= esc(old('title', $article->title)) ?>"/>
@@ -28,7 +30,7 @@
   <div class="input-field col s12 m2">
     <label>
       <input name="is_startpage"
-          <?= ($options['disabled']) ? 'disabled' : '' ?>
+          <?= ($formDisabled) ? 'disabled' : '' ?>
              type="checkbox"
              value="1" <?= (old('is_startpage', $article->is_startpage)) ? 'checked' : '' ?>/>
       <span><?= lang('Tables.articles.is_startpage') ?></span>
@@ -37,7 +39,7 @@
   <div class="input-field col s12 m2">
     <label>
       <input name="published"
-          <?= ($options['disabled']) ? 'disabled' : '' ?>
+          <?= ($formDisabled) ? 'disabled' : '' ?>
              type="checkbox"
              value="1" <?= (old('published', $article->published)) ? 'checked' : '' ?> />
       <span><?= lang('Tables.articles.published') ?></span>
@@ -49,7 +51,7 @@
   <div class="col s12">
     <h5><?= lang('Tables.articles.content') ?></h5>
     <div>
-      <textarea name="content" <?= ($options['disabled']) ? 'disabled' : '' ?>
+      <textarea name="content" <?= ($formDisabled) ? 'disabled' : '' ?>
                 id="editor"><?= old('content', $article->content) ?></textarea>
     </div>
   </div>
@@ -64,7 +66,7 @@
       <div class="row">
         <div class="input-field col s12 m6">
           <input name="alias"
-              <?= ($options['disabled']) ? 'disabled' : '' ?>
+              <?= ($formDisabled) ? 'disabled' : '' ?>
                  id="alias"
                  type="text"
                  value="<?= esc(old('alias', $article->alias)) ?>"/>
@@ -73,7 +75,7 @@
 
         <div class="input-field col s12 m6">
           <input name="doc_key"
-              <?= ($options['disabled']) ? 'disabled' : '' ?>
+              <?= ($formDisabled) ? 'disabled' : '' ?>
                  id="doc_key"
                  type="text"
                  value="<?= esc(old('doc_key', $article->doc_key)) ?>"/>
@@ -85,7 +87,7 @@
         <div class="input-field col s12">
         <textarea id="description"
                   name="description"
-                  <?= ($options['disabled']) ? 'disabled' : '' ?>
+                  <?= ($formDisabled) ? 'disabled' : '' ?>
                   class="materialize-textarea"
                   placeholder="<?= lang('Tables.articles.description') ?>"><?= esc(old('description', $article->description)) ?></textarea>
           <label for="description"><?= lang('Tables.articles.description') ?></label>
@@ -96,7 +98,7 @@
         <div class="input-field col s12 m6">
           <input name="start_publish"
                  class="datepicker"
-              <?= ($options['disabled']) ? 'disabled' : '' ?>
+              <?= ($formDisabled) ? 'disabled' : '' ?>
                  id="start_publish"
                  type="text"
                  value="<?= old('start_publish', $article->start_publish) ?>"/>
@@ -105,7 +107,7 @@
         <div class="input-field col s12 m6">
           <input name="stop_publish"
                  class="datepicker"
-              <?= ($options['disabled']) ? 'disabled' : '' ?>
+              <?= ($formDisabled) ? 'disabled' : '' ?>
                  id="stop_publish"
                  type="text"
                  value="<?= old('stop_publish', $article->stop_publish) ?>"/>
@@ -125,7 +127,7 @@
        class="btn waves-effect waves-light"><?= lang('General.new') ?>
       <i class="material-icons left">add</i></a>
       <?php
-      if (!$options['disabled']) : ?>
+      if (!$formDisabled) : ?>
         <button type="submit" class="btn waves-effect waves-light"><?= lang('General.save') ?>
           <i class="material-icons right">send</i></button>
       <?php

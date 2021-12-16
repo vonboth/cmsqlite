@@ -17,14 +17,14 @@ $this->section('main') ?>
                 <table class="responsive-table">
                     <thead>
                     <tr>
-                        <th><?= lang('username') ?></th>
-                        <th><?= lang('role') ?></th>
-                        <th><?= lang('email') ?></th>
-                        <th><?= lang('firstname') ?></th>
-                        <th><?= lang('lastname') ?></th>
-                        <th><?= lang('created') ?></th>
-                        <th><?= lang('updated') ?></th>
-                        <th><?= lang('action') ?></th>
+                        <th><?= lang('Tables.users.username') ?></th>
+                        <th><?= lang('Tables.users.role') ?></th>
+                        <th><?= lang('Tables.users.email') ?></th>
+                        <th><?= lang('Tables.users.firstname') ?></th>
+                        <th><?= lang('Tables.users.lastname') ?></th>
+                        <th><?= lang('Tables.created') ?></th>
+                        <th><?= lang('Tables.updated') ?></th>
+                        <th><?= lang('Tables.actions') ?></th>
                     </tr>
                     </thead>
                     <tbody>

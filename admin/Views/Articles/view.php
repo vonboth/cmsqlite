@@ -3,6 +3,7 @@
  * @var $theme
  */
 
+$this->setData(['formDisabled' => true]);
 $this->extend("AdminThemes\\$theme\\layouts\\default") ?>
 
 <?php
@@ -11,7 +12,7 @@ $this->section('main') ?>
     <div class="card-content">
       <div class="row">
         <h3><?= lang('Admin.view') ?></h3>
-          <?= $this->include('Admin\Articles\partials\article_form', ['disabled' => 1]) ?>
+          <?= $this->include('Admin\Articles\partials\article_form') ?>
       </div>
     </div>
   </div>

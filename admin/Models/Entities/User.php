@@ -4,8 +4,6 @@
 namespace Admin\Models\Entities;
 
 
-use CodeIgniter\Entity;
-
 /**
  * Class User
  * @package Admin\Models\Entities
@@ -24,7 +22,7 @@ use CodeIgniter\Entity;
  * @property string $created
  * @property string $updated
  */
-class User extends Entity
+class User extends Base
 {
     /** @inheritdoc */
     protected $attributes = [
@@ -44,7 +42,7 @@ class User extends Entity
     /**
      * dates fields
      */
-    protected $dates = ['lastlogin'];
+    protected $dates = ['created', 'updated', 'lastlogin'];
 
     /**
      * Hash Password before handling
