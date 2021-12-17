@@ -1,6 +1,7 @@
 <?php
 /**
  * @var string $theme
+ * @var string $currentPath
  */
 
 $this->extend("AdminThemes\\$theme\\layouts\\default"); ?>

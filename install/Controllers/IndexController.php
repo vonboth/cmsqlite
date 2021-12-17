@@ -71,7 +71,7 @@ class IndexController extends BaseController
                 'writable' => is_writable(ROOTPATH . 'writable/uploads'),
                 'permission' => substr(sprintf('%o', fileperms(ROOTPATH . '/writable/uploads')), -3)
             ],
-            'public/media' => [
+            'writable/media' => [
                 'writable' => is_writable(ROOTPATH . 'writable/media'),
                 'permission' => substr(sprintf('%o', fileperms(ROOTPATH . '/writable/media')), -3)
             ],
