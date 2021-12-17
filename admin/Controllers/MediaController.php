@@ -3,6 +3,7 @@
 
 namespace Admin\Controllers;
 
+use Admin\Config\Media;
 use CodeIgniter\API\ResponseTrait;
 use CodeIgniter\HTTP\RedirectResponse;
 
@@ -14,7 +15,7 @@ class MediaController extends BaseController
 {
     use ResponseTrait;
 
-    protected $mediaPath = FCPATH . 'media/';
+    protected $mediaPath = WRITEPATH . 'media/';
     protected $currentPath = [];
     protected $mediaConfig;
 
@@ -23,8 +24,8 @@ class MediaController extends BaseController
      */
     public function initialize(): void
     {
-        /** @var \Admin\Config\Media mediaConfig */
-        $this->mediaConfig = new \Admin\Config\Media();
+        /** @var Media mediaConfig */
+        $this->mediaConfig = new Media();
     }
 
     /**
@@ -216,6 +217,10 @@ class MediaController extends BaseController
             if ($entry->isDir()) {
                 $dirs[] = $entry->getFilename();
             } else {
+                // exclude hidden files (e.g. .gitignore)
+                if (strpos($entry->getFilename(), '.') === 0) {
+                    continue;
+                }
                 $extension = $entry->getExtension();
                 if (in_array($extension, $this->mediaConfig->doNotDisplay)) {
                     continue;

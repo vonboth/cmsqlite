@@ -50,5 +50,5 @@ class Media extends BaseConfig
         'text/xml',
     ];
 
-    public $doNotDisplay = ['html', 'gitkeep'];
+    public $doNotDisplay = ['html', 'gitkeep', 'gitignore'];
 }
