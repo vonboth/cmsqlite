@@ -6,6 +6,8 @@ namespace Admin\Controllers;
 
 use Admin\Models\ArticlesModel;
 use Admin\Models\UsersModel;
+use CodeIgniter\API\ResponseTrait;
+use CodeIgniter\HTTP\RedirectResponse;
 
 /**
  * Class Index
@@ -15,13 +17,14 @@ use Admin\Models\UsersModel;
  */
 class StartController extends BaseController
 {
+    /** @var string $controllerName */
     protected string $controllerName = 'Start';
 
     /** @var ArticlesModel $Articles */
     protected $Articles;
 
     /** @var UsersModel $Users */
-    protected $Users;
+    protected UsersModel $Users;
 
     /**
      * Initialize controller
@@ -36,7 +39,7 @@ class StartController extends BaseController
      * Index action
      * @return string
      */
-    public function index()
+    public function index(): string
     {
         $startArticle = $this->Articles
             ->where(['is_startpage' => 1])
@@ -60,7 +63,7 @@ class StartController extends BaseController
     /**
      * reset hits for all articles
      */
-    public function resetHits()
+    public function resetHits(): RedirectResponse
     {
         $redirect = redirect();
         if ($this->Articles->resetHits()) {

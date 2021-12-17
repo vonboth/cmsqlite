@@ -112,6 +112,7 @@ $routes->group(
                 $routes->post('save/(:num)', 'SettingsController::save/$1');
                 $routes->post('add', 'SettingsController::add');
                 $routes->post('delete/(:num)', 'SettingsController::delete/$1');
+                $routes->get('disable-tour', 'SettingsController::disableTour');
                 $routes->get('/', 'SettingsController::index');
             }
         );

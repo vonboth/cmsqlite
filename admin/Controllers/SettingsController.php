@@ -108,4 +108,28 @@ class SettingsController extends BaseController
             return $this->fail(lang('General.delete_error'));
         }
     }
+
+    /**
+     * Disable the tour
+     * @return void
+     */
+    public function disableTour()
+    {
+        if ($this->request->isAJAX()) {
+            $setting = $this->Settings
+                ->where('name', 'tour')
+                ->first();
+            if ($setting) {
+                $setting->value = false;
+                try {
+                    $this->Settings->save($setting);
+                } catch (\Exception $exception) {
+                    $this->failServerError('Failed to save');
+                }
+            }
+            $this->respond('true', 200);
+        } else {
+            $this->fail('not allowed');
+        }
+    }
 }

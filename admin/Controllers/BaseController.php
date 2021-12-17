@@ -55,7 +55,8 @@ class BaseController extends AppBase
                 'title' => 'CMSQLite',
                 'theme' => $this->theme,
                 'version' => $this->_getVersion(),
-                'editor_style' => $this->SystemSettings->editor_style
+                'editor_style' => $this->SystemSettings->editor_style,
+                'tour' => $this->SystemSettings->tour
             ]
         );
 

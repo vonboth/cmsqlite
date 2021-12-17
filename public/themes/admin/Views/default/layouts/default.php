@@ -1,3 +1,13 @@
+<?php
+/**
+ * Admin section layout file
+ */
+
+/** @var bool $tour */
+/** @var string $controller */
+/** @var string $section */
+/** @var string $version */
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,12 +16,19 @@
     <meta name="description" content="Admin Page">
     <meta name="author" content="Christoph von Both | creatingcode.de">
     <?= csrf_meta() ?>
-    <title><?= isset($title) ? $title : 'CMSQLite' ?></title>
+    <title><?= $title ?? 'CMSQLite' ?></title>
 
-    <link href="//fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <?php
+    if ($tour): ?>
+        <link href="https://unpkg.com/intro.js/minified/introjs.min.css" rel="stylesheet">
+        <script src="https://unpkg.com/intro.js/minified/intro.min.js" crossorigin="anonymous"></script>
+    <?php
+    endif; ?>
 
     <script type="text/javascript">
       const translations = <?= json_encode(lang('Javascript.all')) ?>;
@@ -30,7 +47,7 @@
         <nav class="navbar blue">
             <div class="nav-wrapper">
                 <a href="/admin/<?= $controller ?>" class="brand-logo"><?= $section ?></a>
-                <ul class="right">
+                <ul class="right" id="profile-menu">
                     <li>
                         <a href="#!" class="dropdown-trigger" data-target="profile_menu">
                             <i class="material-icons">person</i>
