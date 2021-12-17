@@ -51,6 +51,7 @@ class StartController extends BaseController
             ->orderBy('updated', 'DESC')
             ->findAll(3);
         $topArticles = $this->Articles
+            ->where('hits >', 0)
             ->orderBy('hits', 'DESC')
             ->findAll(3);
 

@@ -129,17 +129,24 @@
                 <p></p>
                 <ul class="collection">
                     <?php
-                    foreach ($topArticles as $article): ?>
-                        <li class="collection-item">
-                            <span><?= $article->title ?></span>
-                            <span class="ml1rem">(<?= $article->hits ?>)</span>
-                            <span class="right"><?= lang(
-                                    '{updated, date} {updated, time}',
-                                    ['updated' => $article->updated]
-                                ) ?></span>
-                        </li>
+                        if (empty($topArticles)) : ?>
+                        <li><?= lang('Admin.no_data') ?></li>
                     <?php
-                    endforeach; ?>
+                    else: ?>
+                        <?php
+                        foreach ($topArticles as $article): ?>
+                            <li class="collection-item">
+                                <span><?= $article->title ?></span>
+                                <span class="ml1rem">(<?= $article->hits ?>)</span>
+                                <span class="right"><?= lang(
+                                        '{updated, date} {updated, time}',
+                                        ['updated' => $article->updated]
+                                    ) ?></span>
+                            </li>
+                        <?php
+                        endforeach; ?>
+                    <?php
+                    endif; ?>
                 </ul>
             </div>
         </div>

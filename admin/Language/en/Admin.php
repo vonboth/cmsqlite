@@ -21,4 +21,5 @@ return [
     'reset_hits' => 'Reset Hits',
     'success_reset_hits' => 'All Hits Reset',
     'failed_reset_hits' => 'Hits Could Not Be Reset',
+    'no_data' => 'No Data'
 ];
