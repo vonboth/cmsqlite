@@ -55,6 +55,10 @@ class StartController extends BaseController
             ->orderBy('hits', 'DESC')
             ->findAll(3);
 
+        if (is_dir(ROOTPATH . 'install') && file_exists(ROOTPATH . '.env')) {
+            $this->session->setFlashdata(['flash' => lang('Admin.remove_install_folder')]);
+        }
+
         return view(
             'Admin\Views\Start\start.php',
             compact('startArticle', 'users', 'lastEditedArticles', 'topArticles')

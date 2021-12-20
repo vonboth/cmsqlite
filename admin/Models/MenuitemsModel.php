@@ -262,7 +262,7 @@ class MenuitemsModel extends BaseModel
      */
     protected function beforeInsertTree(array $data)
     {
-        if (!$data['data']['parent_id']) {
+        if (!isset($data['data']['parent_id'])) {
             $max = $this->select('max(rgt) as maxRgt')
                 //->where('menu_id', $data['data']['menu_id'])
                 ->first();
@@ -273,7 +273,7 @@ class MenuitemsModel extends BaseModel
                 $this->db->query('UPDATE menuitems SET rgt=rgt+2 WHERE rgt > ' . $max->maxRgt);
                 $this->db->query('UPDATE menuitems SET lft=lft+2 WHERE lft > ' . $max->maxRgt);
             }
-        } elseif ($data['data']['parent_id']) {
+        } else {
             $parentItem = $this->where('id', $data['data']['parent_id'])->first();
             $rgt = $parentItem->rgt;
             $data['data']['lft'] = $rgt;

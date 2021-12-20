@@ -16,14 +16,17 @@ if (!function_exists('tree_list')) {
     {
         $ulClass = $options['ulClass'] ?? 'ul_parent';
         $ulId = isset($options['ulId']) ? ' id="' . $options['ulId'] . '"' : '';
+        $liClass = isset($options['liClass']) ? ' ' . $options['liClass'] : '';
+        $aClass = $options['aClass'] ?? '';
 
         $ul = "<ul{$ulId} class='$ulClass'>";
         foreach ($menuitems as $menuitem) {
             $css = (count($menuitem['children']) > 0) ? 'li_parent' : 'li_child';
             $css .= ' level' . $menuitem['level'];
             $css .= ($menuitem['url'] === $current_path) ? ' active' : '';
+            $css .= $liClass;
             $ul .= "<li class='{$css}'>" .
-                "<a href='{$menuitem['url']}'>{$menuitem['title']}</a>";
+                "<a class='{$aClass}' href='{$menuitem['url']}'>{$menuitem['title']}</a>";
 
             if (count($menuitem['children']) > 0) {
                 $ul .= menu_list($menuitem['children'], ['ulClass' => 'ul_child'], $current_path);

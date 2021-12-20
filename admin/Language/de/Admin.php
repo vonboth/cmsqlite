@@ -21,5 +21,6 @@ return [
     'reset_hits' => 'Hits zurücksetzen',
     'success_reset_hits' => 'Alle Hits zurückgesetzt',
     'failed_reset_hits' => 'Fehler beim Zurücksetzen der Hits',
-    'no_data' => 'Keine Daten'
+    'no_data' => 'Keine Daten',
+    'remove_install_folder' => 'Sicherheitswarnung: Entferne den Installationsorder!'
 ];

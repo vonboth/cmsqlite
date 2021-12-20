@@ -22,5 +22,6 @@ return [
     'create_dir_success' => 'Verzeichnise erfolgreich erstellt',
     'create_dir_error' => 'Neues Verzeichnis wurde nicht erstellt',
     'empty_dir' => 'Leeres Verzeichnis',
-    'browse_files' => 'Dateien ansehen'
+    'browse_files' => 'Dateien ansehen',
+    'upload_warning' => 'Vorsicht! Alle hochgeladenen Dateien sind öffentlich erreichbar!'
 ];

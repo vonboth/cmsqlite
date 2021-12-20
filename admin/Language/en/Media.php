@@ -22,5 +22,6 @@ return [
     'create_dir_success' => 'Folder created successfully',
     'create_dir_error' => 'Failed to create new folder',
     'empty_dir' => 'Empty Directory',
-    'browse_files' => 'browse files'
+    'browse_files' => 'browse files',
+    'upload_warning' => 'Heads up! All uploaded files are available to the public!'
 ];

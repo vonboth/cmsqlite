@@ -24,7 +24,12 @@ $this->section('main') ?>
   <div class="col xl6 l12 s12">
     <div class="card">
       <div class="card-content">
-        <p><?= lang('Media.upload_file') ?></p>
+          <?= lang('Media.upload_file') ?>
+          <span class="helper-text">
+              <i data-position="right"
+                 data-tooltip="<?= lang('Media.upload_warning') ?>"
+                 class="material-icons tooltipped">help_outline</i>
+          </span>
         <form method="post" enctype="multipart/form-data" action="/admin/media/upload">
             <?= csrf_field() ?>
           <div class="flex flex-center">
