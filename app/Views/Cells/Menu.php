@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Views\Cells;
+namespace App\Views\Cells;
 
 use Admin\Models\MenuitemsModel;
 use Admin\Models\MenusModel;
@@ -26,8 +26,8 @@ class Menu extends AppCell
      * renders an un-ordered list of the menu
      * You can pass either the ID or the name of a
      * menu but one of the two is required
-     * e.g. view_cell(Views\Cells\Menu::render(), ['id' => 1]);
-     * e.g. view_cell(Views\Cells\Menu::render(), ['name' => 'main']);
+     * e.g. view_cell(App\Views\Cells\Menu::render(), ['id' => 1]);
+     * e.g. view_cell(App\Views\Cells\Menu::render(), ['name' => 'main']);
      *
      * Possible options:
      * - id: Id of menu

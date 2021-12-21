@@ -5,7 +5,6 @@ namespace App\Views\Cells;
 
 use Admin\Models\ArticlesModel;
 use Admin\Models\CategoriesModel;
-use App\Views\Cells\AppCell;
 
 /**
  * Class Category Cell

@@ -25,11 +25,11 @@
   <div class="nav-wrapper container">
     <a id="logo-container" href="/" class="brand-logo">CMSQLite</a>
     <!-- The menu -->
-      <?= view_cell('Views\Cells\Menu::render', ['id' => 1, 'ulClass' => 'ul_parent right hide-on-med-and-down']) ?>
+      <?= view_cell('App\Views\Cells\Menu::render', ['id' => 1, 'ulClass' => 'ul_parent right hide-on-med-and-down']) ?>
 
     <!-- The mobile menu -->
       <?= view_cell(
-          'Views\Cells\Menu::render',
+          'App\Views\Cells\Menu::render',
           ['id' => 2, 'ulClass' => 'sidenav ul_parent', 'ulId' => 'nav-mobile']
       ) ?>
 

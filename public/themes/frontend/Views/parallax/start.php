@@ -15,7 +15,7 @@
     <div id="index-banner" class="parallax-container">
         <div class="section no-pad-bot">
             <div class="container">
-                <?= view_cell('Views\Cells\Article::render', ['id' => 2, 'readon' => true]) ?>
+                <?= view_cell('App\Views\Cells\Article::render', ['id' => 2, 'readon' => true]) ?>
             </div>
         </div>
         <div class="parallax">
@@ -29,7 +29,7 @@
 
     <div class="container">
         <div class="section">
-            <?= view_cell('Views\Cells\Article::render', ['id' => 1]) ?>
+            <?= view_cell('App\Views\Cells\Article::render', ['id' => 1]) ?>
         </div>
     </div>
 
@@ -37,7 +37,7 @@
         <div class="section no-pad-bot">
             <div class="container">
                 <div class="row center">
-                    <?= view_cell('Views\Cells\Article::render', ['id' => 3]) ?>
+                    <?= view_cell('App\Views\Cells\Article::render', ['id' => 3]) ?>
                 </div>
             </div>
         </div>
@@ -55,7 +55,7 @@
         <div class="section">
             <div class="row">
                 <div class="col s12 center">
-                    <?= view_cell('Views\Cells\Category::render', ['id' => 2, 'readon' => true]) ?>
+                    <?= view_cell('App\Views\Cells\Category::render', ['id' => 2, 'readon' => true]) ?>
                 </div>
             </div>
         </div>
@@ -65,7 +65,7 @@
         <div class="section no-pad-bot">
             <div class="container">
                 <div class="row center">
-                    <?= view_cell('Views\Cells\Article::render', ['id' => 5]) ?>
+                    <?= view_cell('App\Views\Cells\Article::render', ['id' => 5]) ?>
                 </div>
             </div>
         </div>

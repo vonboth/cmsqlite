@@ -1,9 +1,7 @@
 <?php
 
 
-namespace Views\Cells;
-
-use App\Views\Cells\AppCell;
+namespace App\Views\Cells;
 
 /**
  * Class Slider

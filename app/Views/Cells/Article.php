@@ -4,7 +4,6 @@
 namespace App\Views\Cells;
 
 use Admin\Models\ArticlesModel;
-use App\Views\Cells\AppCell;
 
 /**
  * Class Article

@@ -42,7 +42,7 @@
         <a id="logo-container" href="#" class="brand-logo">CMSQLite Parallax Demo Page</a>
 
         <!-- The menu -->
-        <?= view_cell('Views\Cells\Menu::render', ['id' => 3, 'ulClass' => 'ul_parent right hide-on-med-and-down']) ?>
+        <?= view_cell('App\Views\Cells\Menu::render', ['id' => 3, 'ulClass' => 'ul_parent right hide-on-med-and-down']) ?>
 
         <!-- The mobile menu -->
         <?= view_cell(

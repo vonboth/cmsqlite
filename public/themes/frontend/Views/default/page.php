@@ -12,15 +12,15 @@
 <h1>Hallo Public</h1>
 <section>
     <?= $article->title ?>
-    <?= view_cell('Views\Cells\Article::render', ['alias' => 'startseite']) ?>
+    <?= view_cell('App\Views\Cells\Article::render', ['alias' => 'startseite']) ?>
 </section>
 <section>
     Menus
-    <?= view_cell('Views\Cells\Menu::render', ['id' => 1]) ?>
+    <?= view_cell('App\Views\Cells\Menu::render', ['id' => 1]) ?>
 </section>
 <section>
     Slider
-    <?= view_cell('Views\Cells\Slider::render', ['path' => 'slider']) ?>
+    <?= view_cell('App\Views\Cells\Slider::render', ['path' => 'slider']) ?>
 </section>
 
 <?= $this->endSection() ?>
