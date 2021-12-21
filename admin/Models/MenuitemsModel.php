@@ -51,6 +51,7 @@ class MenuitemsModel extends BaseModel
                     'node.title',
                     'node.parent_id',
                     'node.menu_id',
+                    'node.article_id',
                     'node.type',
                     'node.url',
                     'node.lft',
