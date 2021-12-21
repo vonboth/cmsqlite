@@ -14,7 +14,7 @@
 # ENVIRONMENT
 #--------------------------------------------------------------------
 
-CI_ENVIRONMENT = development
+CI_ENVIRONMENT = production
 
 #--------------------------------------------------------------------
 # APP
@@ -48,7 +48,7 @@ database.default.database = "../database/cmsqlite.db"
 # database.default.DBDriver = MySQLi
 # database.default.DBPrefix =
 
-database.tests.database = "../database/cmsqlite_test.db"
+# database.tests.database = "../database/cmsqlite_test.db"
 # database.tests.hostname = localhost
 # database.tests.username = root
 # database.tests.password = root

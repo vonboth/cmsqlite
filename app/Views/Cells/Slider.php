@@ -10,12 +10,12 @@ use App\Views\Cells\AppCell;
  * @package App\Views\Cells
  *
  * Renders a slider.
- * The method accepts a "path" within the
- * media-Folder in the /public-Folder of the app.
+ * The method accepts a "path" to a folder within the
+ * /writable/media-Folder of the app.
  * All images in this folder will be displayed.
  *
  * e.g. view_cells('Views\Cells\Slider::render', ['path' => 'slider'])
- * will display all images in the folder /public/media/slider
+ * will display all images in the folder /writable/media/slider
  *
  * Don't forget to include the sliders css style-sheet in the head-Section
  * link_tag('themes/frontend/Views/default/cells/slider/slider.css');
@@ -34,8 +34,8 @@ class Slider extends AppCell
      */
     public function render(array $options = []): string
     {
-        if (isset($options['path']) && is_dir(FCPATH . 'media/' . $options['path'])) {
-            $path = FCPATH . 'media/' . $options['path'];
+        if (isset($options['path']) && is_dir(WRITEPATH . 'media/' . $options['path'])) {
+            $path = WRITEPATH . 'media/' . $options['path'];
             $iterator = new \DirectoryIterator($path);
             $images = [];
             // read images in directory

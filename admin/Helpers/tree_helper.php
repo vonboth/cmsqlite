@@ -21,12 +21,17 @@ if (!function_exists('tree_list')) {
 
         $ul = "<ul{$ulId} class='$ulClass'>";
         foreach ($menuitems as $menuitem) {
+            $url = $menuitem['url'];
+            if (empty($url) && $menuitem['type'] === 'article') {
+                $url = "/pages/{$menuitem['article_id']}";
+            }
+
             $css = (count($menuitem['children']) > 0) ? 'li_parent' : 'li_child';
             $css .= ' level' . $menuitem['level'];
-            $css .= ($menuitem['url'] === $current_path) ? ' active' : '';
+            $css .= ($url === $current_path) ? ' active' : '';
             $css .= $liClass;
             $ul .= "<li class='{$css}'>" .
-                "<a class='{$aClass}' href='{$menuitem['url']}'>{$menuitem['title']}</a>";
+                "<a class='{$aClass}' href='{$url}'>{$menuitem['title']}</a>";
 
             if (count($menuitem['children']) > 0) {
                 $ul .= menu_list($menuitem['children'], ['ulClass' => 'ul_child'], $current_path);

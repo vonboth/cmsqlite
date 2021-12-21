@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Views\Cells;
+namespace App\Views\Cells;
 
 use Admin\Models\ArticlesModel;
 use Admin\Models\CategoriesModel;

@@ -37,13 +37,19 @@ class MenuitemsController extends BaseController
                 [
                     'title' => 'required',
                     'menu_id' => 'required',
-                    'type' => 'in_list[article,other]',
+                    'type' => 'in_list[article,category,other]',
                     'article_id' => 'required_if[article_id]',
+                    'category_id' => 'required_if[category_id]',
                     'url' => 'required_if[url]',
                     'alias' => 'is_unique[menuitems.alias]'
                 ]
             )) {
-                $item->fill($this->request->getPost());
+                $post = $this->request->getPost();
+                if ($post['type'] == 'article') {
+                    $post['url'] = '/pages/' . $post['article_id'];
+                }
+                $item->fill($post);
+
                 if ($this->Menuitems->insert($item) !== false) {
                     return redirect()
                         ->to('/admin/menus/index')
@@ -84,11 +90,17 @@ class MenuitemsController extends BaseController
                     'menu_id' => 'required',
                     'type' => 'in_list[article,other]',
                     'article_id' => 'required_if[article_id]',
+                    'cateogory_id' => 'required_if[category_id]',
                     'url' => 'required_if[url]',
                     'alias' => 'required|is_unique[menuitems.alias,alias,' . $item->alias . ']'
                 ]
             )) {
-                $item->fill($this->request->getPost());
+                $post = $this->request->getPost();
+                if ($post['type'] == 'article') {
+                    $post['url'] = '/pages/' . $post['article_id'];
+                }
+                $item->fill($post);
+
                 try {
                     if ($this->Menuitems->save($item)) {
                         return redirect()

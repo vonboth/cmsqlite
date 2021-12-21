@@ -18,7 +18,7 @@ $this->section('main') ?>
                 <table class="responsive-table">
                     <thead>
                     <tr>
-                        <th><?= lang('Tables.articles.is_startpage') ?></th>
+                        <th>ID</th>
                         <th><?= lang('Tables.articles.title') ?></th>
                         <th><?= lang('Tables.articles.description') ?></th>
                         <th><?= lang('Tables.articles.category_id') ?></th>
@@ -32,11 +32,10 @@ $this->section('main') ?>
                     <?php
                     foreach ($articles as $article): ?>
                         <tr>
-                            <td><?= $article->is_startpage ?
-                                    '<span><i class="material-icons">check</i></span>'
-                                    : '' ?>
-                            </td>
-                            <td><?= $article->title ?></td>
+                            <td><?= $article->id ?></td>
+                            <td><?= $article->title ?> <?= $article->is_startpage ?
+                                    '(<span title="' . lang('Tables.articles.is_startpage') . '"><i class="material-icons tiny">check</i></span>)'
+                                    : '' ?></td>
                             <td><?= $article->description ?></td>
                             <td>
                                 <?= (is_null($article->category)) ? '' : $article->category->name ?>

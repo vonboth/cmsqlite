@@ -34,7 +34,6 @@ class ArticlesController extends BaseController
      */
     public function index(): string
     {
-        /** @var  $query */
         return view(
             'Admin\Articles\index',
             ['articles' => $this->Articles->with('categories')->findAll()]

@@ -24,6 +24,12 @@ class MenuitemRules
                 return false;
             }
             return true;
+        } elseif ($args == 'category_id') {
+            if ($data['type'] == 'category' && empty($data['category_id'])) {
+                $error = lang('Validation.category_required');
+                return false;
+            }
+            return true;
         } elseif ($args == 'url') {
             if ($data['type'] == 'other' && empty($data['url'])) {
                 $error = lang('Validation.url_required');

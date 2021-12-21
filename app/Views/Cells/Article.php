@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Views\Cells;
+namespace App\Views\Cells;
 
 use Admin\Models\ArticlesModel;
 use App\Views\Cells\AppCell;
@@ -48,7 +48,7 @@ class Article extends AppCell
                 ->first();
         }
         if ($article) {
-            $output = $article->content;
+            $output = $article->content ?? lang('Errors.no_content');
 
             if ($options['readon'] === true) {
                 $pos = strpos($output, '<hr class="readon" />');

@@ -46,7 +46,7 @@
                     v-model="selectedMenuitem.type"
                     name="type">
               <option value="article"><?= lang('Tables.menuitems.article') ?></option>
-              <option value="category"><?= lang('Tables.menuitems.category') ?></option>
+              <!--option value="category"><?= lang('Tables.menuitems.category') ?></option-->
               <option value="other"><?= lang('Tables.menuitems.other') ?></option>
             </select>
           </div>
@@ -171,7 +171,7 @@
         <button class="btn waves-light waves-effect"
                 v-bind:disabled="!(canSaveMenuitem)"
                 @click="onSaveMenuitem"
-                type="button"><?= lang('General.submit') ?>
+                type="button"><?= lang('General.save') ?>
           <i class="material-icons right">send</i></button>
       </div>
     </div>
