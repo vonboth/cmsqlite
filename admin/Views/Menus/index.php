@@ -53,7 +53,7 @@ $this->endSection('js_vars') ?>
 $this->section('js') ?>
 <script type="text/javascript">
   if (prevItem) {
-    adminVue.presetitem(prevItem);
+    adminVue.presetItem(prevItem);
   }
 </script>
 <?php

@@ -1,6 +1,6 @@
 <?php
 
-if (!function_exists('tree_list')) {
+if (!function_exists('menu_list')) {
     /**
      * generates an unordered list from a nested set
      *
@@ -43,7 +43,9 @@ if (!function_exists('tree_list')) {
 
         return $ul;
     }
+}
 
+if (!function_exists('admin_menu_list')) {
     /**
      * generates a tree for the
      * admin-section to change menus
@@ -93,7 +95,9 @@ if (!function_exists('tree_list')) {
 
         return $ul;
     }
+}
 
+if (!function_exists('admin_menu_tree')) {
     /**
      * generates a collapsible list
      * with menus as headlines and

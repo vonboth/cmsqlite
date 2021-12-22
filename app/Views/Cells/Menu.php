@@ -40,7 +40,7 @@ class Menu extends AppCell
     public function render(array $options = []): string
     {
         $output = '';
-        $current_path = service('request')->uri->getPath();
+        $current_path = '/' . service('request')->uri->getPath();
         $Menuitems = new MenuitemsModel();
 
         if (isset($options['id'])) {

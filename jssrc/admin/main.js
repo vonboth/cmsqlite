@@ -102,6 +102,10 @@ window.adminVue = new Vue({
         type: 'article',
         url: '',
         alias: '',
+        li_class: '',
+        li_attributes: '',
+        a_class: '',
+        a_attributes: '',
         layout: 'default',
         target: '_self',
         lft: 0,
@@ -358,11 +362,16 @@ window.adminVue = new Vue({
           type: prevItem.type,
           url: prevItem.url,
           alias: prevItem.alias,
+          li_class: prevItem.li_class,
+          li_attributes: prevItem.li_attributes,
+          a_class: prevItem.a_class,
+          a_attributes: prevItem.a_attributes,
           target: prevItem.target,
           layout: prevItem.layout,
           lft: prevItem.lft,
           rgt: prevItem.rgt
         };
+        this.menuitemFormAction = `/admin/menuitems/edit/${this.selectedMenuitem.id}`
         this.hideMenuitemForm = false;
       }
     },

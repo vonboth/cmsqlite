@@ -23,6 +23,11 @@ class MenuitemsModel extends BaseModel
         'url',
         'alias',
         'target',
+        'layout',
+        'li_class',
+        'li_attributes',
+        'a_class',
+        'a_attributes',
         'lft',
         'rgt'
     ];
@@ -54,6 +59,10 @@ class MenuitemsModel extends BaseModel
                     'node.article_id',
                     'node.type',
                     'node.url',
+                    'node.li_class',
+                    'node.li_attributes',
+                    'node.a_class',
+                    'node.a_attributes',
                     'node.lft',
                     'node.rgt',
                     'COUNT(*)-1 AS level'

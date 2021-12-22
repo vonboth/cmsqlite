@@ -20,6 +20,10 @@ namespace Admin\Models\Entities;
  * @property string $alias
  * @property string $target
  * @property string $layout
+ * @property string $li_class
+ * @property string $li_attributes
+ * @property string $a_class
+ * @property string $a_attributes
  * @property int $lft
  * @property int $rgt
  * @property string $created
@@ -39,6 +43,10 @@ class Menuitem extends Base
         'alias' => null,
         'target' => null,
         'layout' => null,
+        'li_class' => null,
+        'li_attributes' => null,
+        'a_class' => null,
+        'a_attributes' => null,
         'lft' => null,
         'rgt' => null,
         'created' => null,

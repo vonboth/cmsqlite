@@ -60,7 +60,8 @@
 <ul class="collapsible simple">
   <li>
     <div class="collapsible-header">
-      <i class="material-icons">add_circle_outline</i><?= lang('Tables.articles.additional_information') ?></div>
+      <i class="material-icons">add_circle_outline</i><?= lang('Tables.articles.additional_information') ?>
+    </div>
     <div class="collapsible-body">
 
       <div class="row">
