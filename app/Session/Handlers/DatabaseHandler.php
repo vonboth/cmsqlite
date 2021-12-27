@@ -61,9 +61,9 @@ class DatabaseHandler extends \CodeIgniter\Session\Handlers\DatabaseHandler
      */
     public function gc($max_lifetime)
     {
-        $separator = $this->platform === 'postgre' ? '\'' : ' ';
-        $interval  = implode($separator, ['', "{$max_lifetime} second", '']);
-
-        return $this->db->table($this->table)->where('timestamp <', "datetime('now') - INTERVAL {$interval}", false)->delete() ? 1 : $this->fail();
+        return $this->db
+          ->table($this->table)
+          ->where('timestamp <', "datetime('now', '-$max_lifetime second')", false)
+          ->delete() ? 1 : $this->fail();
     }
 }

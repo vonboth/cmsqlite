@@ -52,20 +52,24 @@ class MenuitemsModel extends BaseModel
         $builder
             ->select(
                 [
-                    'node.id',
-                    'node.title',
-                    'node.parent_id',
-                    'node.menu_id',
-                    'node.article_id',
-                    'node.type',
-                    'node.url',
-                    'node.li_class',
-                    'node.li_attributes',
-                    'node.a_class',
-                    'node.a_attributes',
-                    'node.lft',
-                    'node.rgt',
-                    'COUNT(*)-1 AS level'
+                  'node.id',
+                  'node.title',
+                  'node.parent_id',
+                  'node.menu_id',
+                  'node.article_id',
+                  'node.category_id',
+                  'node.type',
+                  'node.url',
+                  'node.alias',
+                  'node.target',
+                  'node.layout',
+                  'node.li_class',
+                  'node.li_attributes',
+                  'node.a_class',
+                  'node.a_attributes',
+                  'node.lft',
+                  'node.rgt',
+                  'COUNT(*)-1 AS level'
                 ]
             )
             ->from('menuitems AS node', 1)
