@@ -30,8 +30,11 @@ if (!function_exists('menu_list')) {
             $css .= ' level' . $menuitem['level'];
             $css .= ($url === $current_path) ? ' active' : '';
             $css .= $liClass;
-            $ul .= "<li class='{$css}'>" .
-                "<a class='{$aClass}' href='{$url}'>{$menuitem['title']}</a>";
+            $css .= $menuitem['li_class'] ? ' ' . $menuitem['li_class'] : '';
+            $aClass .= $menuitem['a_class'] ? ' ' . $menuitem['a_class'] : '';
+
+            $ul .= "<li class=\"$css\" {$menuitem['li_attributes']}>" .
+                "<a class=\"$aClass\" href=\"$url\" {$menuitem['a_attributes']}>{$menuitem['title']}</a>";
 
             if (count($menuitem['children']) > 0) {
                 $ul .= menu_list($menuitem['children'], ['ulClass' => 'ul_child'], $current_path);

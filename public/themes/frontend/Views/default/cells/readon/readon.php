@@ -1,6 +1,5 @@
 <?php
 /** render a readon link */
-// TODO: DEFINE SOMEHOW LINK TARGET LAYOUT
 /** @var int $cellArticleId the ID of the article for the cell */
 ?>
 

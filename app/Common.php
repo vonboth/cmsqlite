@@ -13,3 +13,11 @@
  *
  * @link: https://codeigniter4.github.io/CodeIgniter4/
  */
+
+if (!defined('PUBLICPATH')) {
+  define('PUBLICPATH', ROOTPATH . '/public/');
+}
+
+if (!defined('THEMEPATH')) {
+  define('THEMEPATH', ROOTPATH . 'public/themes/frontend/Views/');
+}
