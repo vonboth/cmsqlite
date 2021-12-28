@@ -49,13 +49,14 @@
                 <a href="/admin/<?= $controller ?>" class="brand-logo"><?= $section ?></a>
                 <ul class="right" id="profile-menu">
                     <li>
-                        <a href="#!" class="dropdown-trigger" data-target="profile_menu">
-                            <i class="material-icons">person</i>
-                        </a>
-                        <ul id="profile_menu" class="dropdown-content">
-                            <li><a href="/admin/profile"><?= lang('User.my_profile') ?></a></li>
-                            <li><a href="/admin/authenticate/logout"><?= lang('User.logout') ?></a></li>
-                        </ul>
+                      <a href="/admin/profile" title="<?= lang('User.my_profile') ?>">
+                        <i class="material-icons">person</i>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="/admin/authenticate/logout" title="<?= lang('User.logout') ?>">
+                        <i class="material-icons">power_settings_new</i>
+                      </a>
                     </li>
                 </ul>
                 <a href="#" data-target="sidenav-left" class="sidenav-trigger left">

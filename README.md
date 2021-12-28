@@ -1,4 +1,4 @@
-# CMSQLite Simple CMS based on SQLite
+# Simple CMS based on SQLite
 
 ## What is this?
 
@@ -40,9 +40,9 @@ PHP version 7.4 or higher is required, with the following extensions installed:
 - switch to [jodit](https://xdsoft.net/jodit/) editor?
 
 # Developers
-CMSQLite is based on SQLite as database and [CodeIgniter 4](https://codeigniter.com/) (CI) as MVC-Framework.
+This CMS is based on SQLite as database and [CodeIgniter 4](https://codeigniter.com/) (CI) as MVC-Framework.
 
-What ever is possible with CI is possible with CMSQLite.
+What ever is possible with CI is possible with this CMS.
 
 Feel free to fork it and send me your suggestions / pull requests.
 
