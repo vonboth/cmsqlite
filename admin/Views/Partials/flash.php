@@ -1,4 +1,5 @@
 <?php
+
 $session = session();
 $message = null;
 if ($session->has('flash')) {
@@ -9,9 +10,9 @@ if ($session->has('flash')) {
 }
 ?>
 <script type="text/javascript">
-    <?php if ($message): ?>
-    (function() {
-      M.toast({html: '<?= $message ?>'})
-    })()
-    <? endif; ?>
+  <?php if ($message): ?>
+  (function() {
+    M.toast({html: '<?= $message ?>'});
+  })();
+  <?php endif; ?>
 </script>

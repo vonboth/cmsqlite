@@ -124,6 +124,7 @@
                     class="no-material"
                     id="parent_id"
                     v-model="selectedMenuitem.parent_id">
+              <option value="">-</option>
               <option v-for="item in parentMenus"
                       v-bind:value="item.id"
                       v-text="item.title"></option>
