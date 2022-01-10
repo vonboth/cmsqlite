@@ -1,6 +1,10 @@
 <?php
 /** @var bool $formDisabled */
+/** @var \Admin\Models\Entities\User $user */
 ?>
+<div class="hiddendiv">
+  <input type="hidden" name="id" value="<?= $user->id ?>">
+</div>
 <div class=row>
   <div class="col s12 <?= (is_null($user->id) ? 'hide' : '') ?>">
         <span class="right">

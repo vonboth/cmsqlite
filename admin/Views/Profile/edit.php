@@ -1,7 +1,6 @@
 <?php
-/**
- * @var string $theme
- */
+/** @var string $theme */
+/** @var \Admin\Models\Entities\User $user */
 
 $this->extend("AdminThemes\\$theme\\layouts\\default");
 $this->section('main'); ?>
@@ -11,9 +10,10 @@ $this->section('main'); ?>
 <div class="card">
   <div class="card-content">
     <div class="row">
-        <?= form_open('/admin/profile/edit', 'class="col s12"') ?>
+      <?= form_open('/admin/profile/edit', 'class="col s12"') ?>
       <div class="row">
         <div class="input-field col s12 m6">
+          <input type="hidden" name="id" value="<?= $user['id'] ?>">
           <input id="firstname"
                  name="firstname"
                  required="required"
@@ -71,7 +71,7 @@ $this->section('main'); ?>
         </div>
       </div>
 
-        <?= form_close() ?>
+      <?= form_close() ?>
     </div>
   </div>
 </div>
