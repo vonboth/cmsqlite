@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2cca4bd89eec16a74a77eeb78bfb1b14",
+    "content-hash": "7bb467c557b538206f480958932d6cc8",
     "packages": [
         {
             "name": "codeigniter4/framework",
-            "version": "v4.1.5",
+            "version": "v4.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/codeigniter4/framework.git",
-                "reference": "27eb447205ebcef68055b12f3bec9b945cc034e4"
+                "reference": "c4edeb3680da7b0f829a5ad597c1c159fe01b902"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codeigniter4/framework/zipball/27eb447205ebcef68055b12f3bec9b945cc034e4",
-                "reference": "27eb447205ebcef68055b12f3bec9b945cc034e4",
+                "url": "https://api.github.com/repos/codeigniter4/framework/zipball/c4edeb3680da7b0f829a5ad597c1c159fe01b902",
+                "reference": "c4edeb3680da7b0f829a5ad597c1c159fe01b902",
                 "shasum": ""
             },
             "require": {
@@ -25,7 +25,7 @@
                 "ext-intl": "*",
                 "ext-json": "*",
                 "ext-mbstring": "*",
-                "kint-php/kint": "^3.3",
+                "kint-php/kint": "^4.0",
                 "laminas/laminas-escaper": "^2.9",
                 "php": "^7.3 || ^8.0",
                 "psr/log": "^1.1"
@@ -62,41 +62,35 @@
                 "slack": "https://codeigniterchat.slack.com",
                 "source": "https://github.com/codeigniter4/CodeIgniter4"
             },
-            "time": "2021-11-08T15:09:23+00:00"
+            "time": "2022-01-10T01:40:27+00:00"
         },
         {
             "name": "kint-php/kint",
-            "version": "3.3",
+            "version": "4.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kint-php/kint.git",
-                "reference": "335ac1bcaf04d87df70d8aa51e8887ba2c6d203b"
+                "reference": "e64b939f9ceb9620abd982e2a66a3289fcf4e837"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kint-php/kint/zipball/335ac1bcaf04d87df70d8aa51e8887ba2c6d203b",
-                "reference": "335ac1bcaf04d87df70d8aa51e8887ba2c6d203b",
+                "url": "https://api.github.com/repos/kint-php/kint/zipball/e64b939f9ceb9620abd982e2a66a3289fcf4e837",
+                "reference": "e64b939f9ceb9620abd982e2a66a3289fcf4e837",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.6"
+                "php": ">=5.6"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.0",
-                "phpunit/phpunit": "^4.0",
+                "friendsofphp/php-cs-fixer": "^3.0",
+                "phpspec/prophecy-phpunit": "^2",
+                "phpunit/phpunit": "^9.0",
                 "seld/phar-utils": "^1.0",
-                "symfony/finder": "^2.0 || ^3.0 || ^4.0",
-                "vimeo/psalm": "^3.0"
+                "symfony/finder": "^3.0 || ^4.0 || ^5.0",
+                "vimeo/psalm": "^4.0"
             },
             "suggest": {
-                "ext-ctype": "Simple data type tests",
-                "ext-iconv": "Provides fallback detection for ambiguous legacy string encodings such as the Windows and ISO 8859 code pages",
-                "ext-mbstring": "Provides string encoding detection",
-                "kint-php/kint-js": "Provides a simplified dump to console.log()",
-                "kint-php/kint-twig": "Provides d() and s() functions in twig templates",
-                "symfony/polyfill-ctype": "Replacement for ext-ctype if missing",
-                "symfony/polyfill-iconv": "Replacement for ext-iconv if missing",
-                "symfony/polyfill-mbstring": "Replacement for ext-mbstring if missing"
+                "kint-php/kint-twig": "Provides d() and s() functions in twig templates"
             },
             "type": "library",
             "autoload": {
@@ -117,10 +111,6 @@
                     "homepage": "https://github.com/jnvsor"
                 },
                 {
-                    "name": "Rokas Šleinius",
-                    "homepage": "https://github.com/raveren"
-                },
-                {
                     "name": "Contributors",
                     "homepage": "https://github.com/kint-php/kint/graphs/contributors"
                 }
@@ -134,9 +124,9 @@
             ],
             "support": {
                 "issues": "https://github.com/kint-php/kint/issues",
-                "source": "https://github.com/kint-php/kint/tree/master"
+                "source": "https://github.com/kint-php/kint/tree/4.1.1"
             },
-            "time": "2019-10-17T18:05:24+00:00"
+            "time": "2022-01-02T10:30:48+00:00"
         },
         {
             "name": "laminas/laminas-escaper",
@@ -570,6 +560,9 @@
             "require": {
                 "php": "^7.1 || ^8.0"
             },
+            "replace": {
+                "myclabs/deep-copy": "self.version"
+            },
             "require-dev": {
                 "doctrine/collections": "^1.0",
                 "doctrine/common": "^2.6",
@@ -887,16 +880,16 @@
         },
         {
             "name": "phpdocumentor/type-resolver",
-            "version": "1.5.1",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/TypeResolver.git",
-                "reference": "a12f7e301eb7258bb68acd89d4aefa05c2906cae"
+                "reference": "93ebd0014cab80c4ea9f5e297ea48672f1b87706"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/a12f7e301eb7258bb68acd89d4aefa05c2906cae",
-                "reference": "a12f7e301eb7258bb68acd89d4aefa05c2906cae",
+                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/93ebd0014cab80c4ea9f5e297ea48672f1b87706",
+                "reference": "93ebd0014cab80c4ea9f5e297ea48672f1b87706",
                 "shasum": ""
             },
             "require": {
@@ -931,9 +924,9 @@
             "description": "A PSR-5 based resolver of Class names, Types and Structural Element Names",
             "support": {
                 "issues": "https://github.com/phpDocumentor/TypeResolver/issues",
-                "source": "https://github.com/phpDocumentor/TypeResolver/tree/1.5.1"
+                "source": "https://github.com/phpDocumentor/TypeResolver/tree/1.6.0"
             },
-            "time": "2021-10-02T14:08:47+00:00"
+            "time": "2022-01-04T19:58:01+00:00"
         },
         {
             "name": "phpspec/prophecy",
@@ -2442,25 +2435,25 @@
         },
         {
             "name": "symfony/deprecation-contracts",
-            "version": "v2.5.0",
+            "version": "v3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/deprecation-contracts.git",
-                "reference": "6f981ee24cf69ee7ce9736146d1c57c2780598a8"
+                "reference": "c726b64c1ccfe2896cb7df2e1331c357ad1c8ced"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/6f981ee24cf69ee7ce9736146d1c57c2780598a8",
-                "reference": "6f981ee24cf69ee7ce9736146d1c57c2780598a8",
+                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/c726b64c1ccfe2896cb7df2e1331c357ad1c8ced",
+                "reference": "c726b64c1ccfe2896cb7df2e1331c357ad1c8ced",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.1"
+                "php": ">=8.0.2"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "2.5-dev"
+                    "dev-main": "3.0-dev"
                 },
                 "thanks": {
                     "name": "symfony/contracts",
@@ -2489,7 +2482,7 @@
             "description": "A generic function and convention to trigger deprecation notices",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/deprecation-contracts/tree/v2.5.0"
+                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.0.0"
             },
             "funding": [
                 {
@@ -2505,24 +2498,27 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-07-12T14:48:14+00:00"
+            "time": "2021-11-01T23:48:49+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.23.0",
+            "version": "v1.24.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
-                "reference": "46cd95797e9df938fdd2b03693b5fca5e64b01ce"
+                "reference": "30885182c981ab175d4d034db0f6f469898070ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/46cd95797e9df938fdd2b03693b5fca5e64b01ce",
-                "reference": "46cd95797e9df938fdd2b03693b5fca5e64b01ce",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/30885182c981ab175d4d034db0f6f469898070ab",
+                "reference": "30885182c981ab175d4d034db0f6f469898070ab",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.1"
+            },
+            "provide": {
+                "ext-ctype": "*"
             },
             "suggest": {
                 "ext-ctype": "For best performance"
@@ -2568,7 +2564,7 @@
                 "portable"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.23.0"
+                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.24.0"
             },
             "funding": [
                 {
@@ -2584,7 +2580,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-02-19T12:13:01+00:00"
+            "time": "2021-10-20T20:35:02+00:00"
         },
         {
             "name": "theseer/tokenizer",
@@ -2706,5 +2702,5 @@
         "ext-json": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.1.0"
 }
