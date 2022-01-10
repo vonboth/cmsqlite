@@ -31,8 +31,8 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'PagesController::start');
-$routes->get('/([a-z_-]+[^admin][^install][^maintenance])', 'PagesController::pages/$1');
 $routes->get('/pages/([a-z0-9_-]+)', 'PagesController::pages/$1');
+//$routes->get('/([a-z_-]+[^admin][^install][^maintenance])', 'PagesController::pages/$1');
 $routes->get('/maintenance', 'MaintenanceController::index', ['as' => 'maintenance']);
 
 /**
