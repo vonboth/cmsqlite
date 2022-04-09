@@ -58,6 +58,7 @@ cp index.php $BUILD_DIR
 cp LICENSE $BUILD_DIR
 cp license.txt $BUILD_DIR
 cp README.md $BUILD_DIR
+cp robots.txt $BUILD_DIR
 cp spark $BUILD_DIR
 
 if [ $release -eq 1 ]
