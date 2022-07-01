@@ -49,6 +49,12 @@ mkdir -p $BUILD_DIR/public/js/
 cp -R public/js/ $BUILD_DIR/public
 mkdir -p $BUILD_DIR/public/themes/
 cp -R public/themes $BUILD_DIR/public
+# files in public
+cp -R public/media $BUILD_DIR/public
+cp -R public/.htaccess $BUILD_DIR/public
+cp -R public/favicon.ico $BUILD_DIR/public
+cp -R public/index.php $BUILD_DIR/public
+cp -R public/robots.txt $BUILD_DIR/public
 
 # ROOT files
 cp composer.json $BUILD_DIR
@@ -71,12 +77,6 @@ then
   cp database/cmsqlite.db $BUILD_DIR/database
   cp database/index.html $BUILD_DIR/database
   cp database/.htaccess $BUILD_DIR/database
-
-  cp -R public/media $BUILD_DIR/public
-  cp -R public/.htaccess $BUILD_DIR/public
-  cp -R public/favicon.ico $BUILD_DIR/public
-  cp -R public/index.php $BUILD_DIR/public
-  cp -R public/robots.txt $BUILD_DIR/public
 
   # writable folder
   mkdir -p $BUILD_DIR/writable/cache/
