@@ -4,6 +4,8 @@ namespace Config;
 
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Format\FormatterInterface;
+use CodeIgniter\Format\JSONFormatter;
+use CodeIgniter\Format\XMLFormatter;
 
 class Format extends BaseConfig
 {
@@ -40,9 +42,9 @@ class Format extends BaseConfig
      * @var array<string, string>
      */
     public $formatters = [
-        'application/json' => 'CodeIgniter\Format\JSONFormatter',
-        'application/xml' => 'CodeIgniter\Format\XMLFormatter',
-        'text/xml' => 'CodeIgniter\Format\XMLFormatter',
+        'application/json' => JSONFormatter::class,
+        'application/xml'  => XMLFormatter::class,
+        'text/xml'         => XMLFormatter::class,
     ];
 
     /**
@@ -57,8 +59,8 @@ class Format extends BaseConfig
      */
     public $formatterOptions = [
         'application/json' => JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES,
-        'application/xml' => 0,
-        'text/xml' => 0,
+        'application/xml'  => 0,
+        'text/xml'         => 0,
     ];
 
     //--------------------------------------------------------------------

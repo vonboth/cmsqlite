@@ -9,6 +9,7 @@ use App\Filters\MaintenanceFilter;
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Filters\CSRF;
 use CodeIgniter\Filters\DebugToolbar;
+use CodeIgniter\Filters\Honeypot;
 use CodeIgniter\Filters\InvalidChars;
 use CodeIgniter\Filters\SecureHeaders;
 
@@ -18,20 +19,6 @@ use CodeIgniter\Filters\SecureHeaders;
  */
 class Filters extends BaseConfig
 {
-  /**
-   * @inheritdoc
-   */
-  public function __construct()
-  {
-    parent::__construct();
-
-    // If Install-Dir exists, we want to have some Filters to ensure Installation
-    if (is_dir(ROOTPATH . 'install')) {
-      $this->aliases += ['install' => \Install\Filters\InstallationFilter::class];
-      $this->filters += ['install' => ['before' => ['/', 'install', 'install/*']]];
-    }
-  }
-
   /**
    * Configures aliases for Filter classes to
    * make reading things nicer and simpler.

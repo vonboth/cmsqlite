@@ -12,13 +12,13 @@
 </head>
 <body>
 
-<div class="container text-center">
+    <div class="container text-center">
 
-    <h1 class="headline">Whoops!</h1>
+        <h1 class="headline">Whoops!</h1>
 
-    <p class="lead">We seem to have hit a snag. Please try again later...</p>
+        <p class="lead">We seem to have hit a snag. Please try again later...</p>
 
-</div>
+    </div>
 
 </body>
 

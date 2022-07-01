@@ -20,9 +20,9 @@ if (defined('SHOW_DEBUG_BACKTRACE') && SHOW_DEBUG_BACKTRACE) {
     }
 
     foreach ($backtraces as $i => $error) {
-        $padFile = '    '; // 4 spaces
+        $padFile  = '    '; // 4 spaces
         $padClass = '       '; // 7 spaces
-        $c = str_pad($i + 1, 3, ' ', STR_PAD_LEFT);
+        $c        = str_pad($i + 1, 3, ' ', STR_PAD_LEFT);
 
         if (isset($error['file'])) {
             $filepath = clean_path($error['file']) . ':' . $error['line'];
@@ -37,25 +37,25 @@ if (defined('SHOW_DEBUG_BACKTRACE') && SHOW_DEBUG_BACKTRACE) {
         if (isset($error['class'])) {
             $type = ($error['type'] === '->') ? '()' . $error['type'] : $error['type'];
             $function .= $padClass . $error['class'] . $type . $error['function'];
-        } elseif (!isset($error['class']) && isset($error['function'])) {
+        } elseif (! isset($error['class']) && isset($error['function'])) {
             $function .= $padClass . $error['function'];
         }
 
-        $args = implode(
-            ', ',
-            array_map(function ($value) {
-                switch (true) {
-                    case is_object($value):
-                        return 'Object(' . get_class($value) . ')';
-                    case is_array($value):
-                        return count($value) ? '[...]' : '[]';
-                    case is_null($value):
-                        return 'null'; // return the lowercased version
-                    default:
-                        return var_export($value, true);
-                }
-            }, array_values($error['args'] ?? []))
-        );
+        $args = implode(', ', array_map(static function ($value) {
+            switch (true) {
+                case is_object($value):
+                    return 'Object(' . get_class($value) . ')';
+
+                case is_array($value):
+                    return count($value) ? '[...]' : '[]';
+
+                case $value === null:
+                    return 'null'; // return the lowercased version
+
+                default:
+                    return var_export($value, true);
+            }
+        }, array_values($error['args'] ?? [])));
 
         $function .= '(' . $args . ')';
 

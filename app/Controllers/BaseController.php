@@ -30,12 +30,12 @@ use Psr\Log\LoggerInterface;
  * @property MenusModel $Menus
  * @property MenuitemsModel $Menuitems
  */
-class BaseController extends Controller
+abstract class BaseController extends Controller
 {
     /**
      * Instance of the main Request object.
      *
-     * @var IncomingRequest|CLIRequest
+     * @var CLIRequest|IncomingRequest
      */
     protected $request;
 

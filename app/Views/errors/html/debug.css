@@ -135,7 +135,7 @@ p.lead {
     text-decoration: none;
     color: var(--dark-text-color);
     background: var(--light-bg-color);
-    border: 1px solid rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(0,0,0,0.15);
     border-bottom: 0;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
@@ -144,7 +144,7 @@ p.lead {
 
 .tabs a:hover {
     background: var(--light-bg-color);
-    border-color: rgba(0, 0, 0, 0.15);
+    border-color: rgba(0,0,0,0.15);
 }
 
 .tabs a.active {
@@ -154,7 +154,7 @@ p.lead {
 
 .tab-content {
     background: var(--main-bg-color);
-    border: 1px solid rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(0,0,0,0.15);
 }
 
 .content {
