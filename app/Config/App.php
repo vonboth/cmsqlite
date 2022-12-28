@@ -2,8 +2,8 @@
 
 namespace Config;
 
+use App\Session\Handlers\DatabaseHandler;
 use CodeIgniter\Config\BaseConfig;
-use CodeIgniter\Session\Handlers\FileHandler;
 
 class App extends BaseConfig
 {
@@ -152,7 +152,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $sessionDriver = 'App\Session\Handlers\DatabaseHandler';
+    public $sessionDriver = DatabaseHandler::class;
 
     /**
      * --------------------------------------------------------------------------
@@ -341,9 +341,9 @@ class App extends BaseConfig
      * Comma-separated:	'10.0.1.200,192.168.5.0/24'
      * Array: ['10.0.1.200', '192.168.5.0/24']
      *
-     * @var string|string[]
+     * @var array<string, string>
      */
-    public $proxyIPs = '';
+    public $proxyIPs = [];
 
     /**
      * --------------------------------------------------------------------------
