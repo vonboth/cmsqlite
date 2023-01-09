@@ -46,7 +46,7 @@
 
         <!-- The mobile menu -->
         <?= view_cell(
-            'Views\Cells\Menu::render',
+            'App\Views\Cells\Menu::render',
             ['id' => 4, 'ulClass' => 'sidenav ul_parent', 'ulId' => 'nav-mobile']
         ) ?>
 
