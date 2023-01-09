@@ -20,6 +20,12 @@ while [[ $# -gt 0 ]]; do
 done
 
 clear
+if [ $release -eq 1 ]
+then
+  echo 'Build release'
+else
+    echo 'Build update'
+fi
 echo $VERSION
 
 if [ ! -d $BUILD_DIR ]; then
