@@ -58,7 +58,7 @@ class Session extends BaseConfig
      *
      * IMPORTANT: You are REQUIRED to set a valid save path!
      */
-    public string $savePath = 'cmsql_session';
+    public string $savePath = 'cmsql_sessions';
 
     /**
      * --------------------------------------------------------------------------

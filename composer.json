@@ -1,6 +1,6 @@
 {
   "name": "creatingcode/cmsqlite",
-  "version": "2.0.12",
+  "version": "2.0.9",
   "type": "project",
   "description": "CMSQLite easy SQLite based CMS",
   "homepage": "https://creatingcode.de",
@@ -15,8 +15,7 @@
   "require-dev": {
     "fakerphp/faker": "^1.9",
     "mikey179/vfsstream": "^1.6",
-    "phpunit/phpunit": "^9.1",
-    "tatter/patches": "^2.0"
+    "phpunit/phpunit": "^9.1"
   },
   "autoload": {
     "psr-4": {

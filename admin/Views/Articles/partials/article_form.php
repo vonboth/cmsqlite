@@ -1,5 +1,7 @@
 <?php
 /** @var Admin\Models\Entities\Article $article */
+
+/** @var Admin\Models\Entities\Category[] $categories */
 /** @var bool $formDisabled */
 /** @var string $controller */
 
@@ -9,9 +11,17 @@
   <div class="col s12 <?= (is_null($article->id) ? 'hide' : '') ?>">
         <span class="right">
             <?= 'ID: ' . $article->id
-            . ' | ' . lang('Tables.articles.published') . ': ' . (($article->published) ? lang('General.yes') : lang('General.no'))
-            . ' | ' . lang('Tables.created') . ': ' . lang('{created, date} {created, time}', ['created' => $article->created])
-            . ' | ' . lang('Tables.updated') . ': ' . lang('{updated, date} {updated, time}', ['updated' => $article->updated]) ?>
+            . ' | ' . lang('Tables.articles.published') . ': ' . (($article->published) ? lang('General.yes') : lang(
+              'General.no'
+            ))
+            . ' | ' . lang('Tables.created') . ': ' . lang(
+              '{created, date} {created, time}',
+              ['created' => $article->created]
+            )
+            . ' | ' . lang('Tables.updated') . ': ' . lang(
+              '{updated, date} {updated, time}',
+              ['updated' => $article->updated]
+            ) ?>
         </span>
   </div>
 </div>
@@ -21,7 +31,7 @@
     <input name="title"
            required
            class="validate"
-        <?= ($formDisabled) ? 'disabled' : '' ?>
+      <?= ($formDisabled) ? 'disabled' : '' ?>
            id="title"
            type="text"
            value="<?= esc(old('title', $article->title)) ?>"/>
@@ -30,7 +40,7 @@
   <div class="input-field col s12 m2">
     <label>
       <input name="is_startpage"
-          <?= ($formDisabled) ? 'disabled' : '' ?>
+        <?= ($formDisabled) ? 'disabled' : '' ?>
              type="checkbox"
              value="1" <?= (old('is_startpage', $article->is_startpage)) ? 'checked' : '' ?>/>
       <span><?= lang('Tables.articles.is_startpage') ?></span>
@@ -39,7 +49,7 @@
   <div class="input-field col s12 m2">
     <label>
       <input name="published"
-          <?= ($formDisabled) ? 'disabled' : '' ?>
+        <?= ($formDisabled) ? 'disabled' : '' ?>
              type="checkbox"
              value="1" <?= (old('published', $article->published)) ? 'checked' : '' ?> />
       <span><?= lang('Tables.articles.published') ?></span>
@@ -57,6 +67,18 @@
   </div>
 </div>
 
+<div class="row">
+  <div class="input-field col s4">
+    <?= form_dropdown(
+      'category_id',
+      ['' => '-'] + $categories,
+      $article->category_id,
+      ($formDisabled) ? 'disabeld' : ''
+    ) ?>
+    <label><?= lang('Tables.categories.category') ?></label>
+  </div>
+</div>
+
 <ul class="collapsible simple">
   <li>
     <div class="collapsible-header">
@@ -67,7 +89,7 @@
       <div class="row">
         <div class="input-field col s12 m6">
           <input name="alias"
-              <?= ($formDisabled) ? 'disabled' : '' ?>
+            <?= ($formDisabled) ? 'disabled' : '' ?>
                  id="alias"
                  type="text"
                  value="<?= esc(old('alias', $article->alias)) ?>"/>
@@ -76,7 +98,7 @@
 
         <div class="input-field col s12 m6">
           <input name="doc_key"
-              <?= ($formDisabled) ? 'disabled' : '' ?>
+            <?= ($formDisabled) ? 'disabled' : '' ?>
                  id="doc_key"
                  type="text"
                  value="<?= esc(old('doc_key', $article->doc_key)) ?>"/>
@@ -90,7 +112,9 @@
                   name="description"
                   <?= ($formDisabled) ? 'disabled' : '' ?>
                   class="materialize-textarea"
-                  placeholder="<?= lang('Tables.articles.description') ?>"><?= esc(old('description', $article->description)) ?></textarea>
+                  placeholder="<?= lang('Tables.articles.description') ?>"><?= esc(
+            old('description', $article->description)
+          ) ?></textarea>
           <label for="description"><?= lang('Tables.articles.description') ?></label>
         </div>
       </div>
@@ -99,7 +123,7 @@
         <div class="input-field col s12 m6">
           <input name="start_publish"
                  class="datepicker"
-              <?= ($formDisabled) ? 'disabled' : '' ?>
+            <?= ($formDisabled) ? 'disabled' : '' ?>
                  id="start_publish"
                  type="text"
                  value="<?= old('start_publish', $article->start_publish) ?>"/>
@@ -108,7 +132,7 @@
         <div class="input-field col s12 m6">
           <input name="stop_publish"
                  class="datepicker"
-              <?= ($formDisabled) ? 'disabled' : '' ?>
+            <?= ($formDisabled) ? 'disabled' : '' ?>
                  id="stop_publish"
                  type="text"
                  value="<?= old('stop_publish', $article->stop_publish) ?>"/>
@@ -127,11 +151,11 @@
     <a href="/admin/articles/add"
        class="btn waves-effect waves-light"><?= lang('General.new') ?>
       <i class="material-icons left">add</i></a>
-      <?php
-      if (!$formDisabled) : ?>
-        <button type="submit" class="btn waves-effect waves-light"><?= lang('General.save') ?>
-          <i class="material-icons right">send</i></button>
-      <?php
-      endif; ?>
+    <?php
+    if (!$formDisabled) : ?>
+      <button type="submit" class="btn waves-effect waves-light"><?= lang('General.save') ?>
+        <i class="material-icons right">send</i></button>
+    <?php
+    endif; ?>
   </div>
 </div>

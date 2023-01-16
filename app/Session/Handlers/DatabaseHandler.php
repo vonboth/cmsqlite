@@ -47,7 +47,7 @@ class DatabaseHandler extends \CodeIgniter\Session\Handlers\DatabaseHandler
             $updateData['data'] = $this->prepareData($data);
         }
 
-        if (! $builder->set('timestamp', 'now()', false)->update($updateData)) {
+        if (! $builder->set('timestamp', 'datetime(\'now\')', false)->update($updateData)) {
             return $this->fail();
         }
 

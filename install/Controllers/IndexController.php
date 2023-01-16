@@ -7,7 +7,6 @@ namespace Install\Controllers;
 use Admin\Models\Entities\User;
 use Admin\Models\UsersModel;
 use App\Controllers\BaseController;
-use Config\App;
 use Config\Services;
 
 /**

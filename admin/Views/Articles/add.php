@@ -15,9 +15,9 @@ $this->section('main') ?>
   <div class="card-content">
     <div class="row">
       <h3><?= lang('Admin.add') ?></h3>
-        <?= form_open('/admin/articles/add', 'class="col s12"') ?>
-        <?= $this->include('Admin\Articles\partials\article_form') ?>
-        <?= form_close() ?>
+      <?= form_open('/admin/articles/add', 'class="col s12"') ?>
+      <?= $this->include('Admin\Articles\partials\article_form') ?>
+      <?= form_close() ?>
     </div>
   </div>
 </div>
