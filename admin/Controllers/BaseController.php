@@ -23,8 +23,8 @@ class BaseController extends AppBase
     /** @var string $controllerName */
     protected string $controllerName = '';
 
-    /** @var AuthService $AuthService */
-    protected AuthService $AuthService;
+    /** @var AuthService|object $AuthService */
+    protected $AuthService;
 
     /** @var string $theme layout from config table */
     protected string $theme;
