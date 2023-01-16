@@ -31,13 +31,13 @@ class Autoload extends AutoloadConfig
      * else you will need to modify all of those classes for this to work.
      *
      * Prototype:
-     *```
      *   $psr4 = [
      *       'CodeIgniter' => SYSTEMPATH,
-     *       'App'           => APPPATH
+     *       'App'         => APPPATH
      *   ];
-     *```
-     * @var array<string, string>
+     *
+     * @var array<string, array<int, string>|string>
+     * @phpstan-var array<string, string|list<string>>
      */
     public $psr4 = [
         APP_NAMESPACE => APPPATH,                // For custom namespace
@@ -60,11 +60,10 @@ class Autoload extends AutoloadConfig
      * were being autoloaded through a namespace.
      *
      * Prototype:
-     *```
      *   $classmap = [
      *       'MyClass'   => '/path/to/class/file.php'
      *   ];
-     *```
+     *
      * @var array<string, string>
      */
     public $classmap = [];
@@ -78,12 +77,26 @@ class Autoload extends AutoloadConfig
      * or for loading functions.
      *
      * Prototype:
-     * ```
-     *      $files = [
-     *           '/path/to/my/file.php',
-     *    ];
-     * ```
-     * @var array<int, string>
+     *   $files = [
+     *       '/path/to/my/file.php',
+     *   ];
+     *
+     * @var string[]
+     * @phpstan-var list<string>
      */
     public $files = [];
+
+    /**
+     * -------------------------------------------------------------------
+     * Helpers
+     * -------------------------------------------------------------------
+     * Prototype:
+     *   $helpers = [
+     *       'form',
+     *   ];
+     *
+     * @var string[]
+     * @phpstan-var list<string>
+     */
+    public $helpers = [];
 }

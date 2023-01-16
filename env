@@ -43,17 +43,21 @@ cache.handler = file
 
 database.default.database = "../database/cmsqlite.db"
 # database.default.hostname = localhost
+# database.default.database = ci4
 # database.default.username = root
 # database.default.password = root
 # database.default.DBDriver = MySQLi
 # database.default.DBPrefix =
+# database.default.port = 3306
 
 # database.tests.database = "../database/cmsqlite_test.db"
 # database.tests.hostname = localhost
+# database.tests.database = ci4_test
 # database.tests.username = root
 # database.tests.password = root
 # database.tests.DBDriver = MySQLi
 # database.tests.DBPrefix =
+# database.tests.port = 3306
 
 #--------------------------------------------------------------------
 # CONTENT SECURITY POLICY
@@ -124,8 +128,20 @@ database.default.database = "../database/cmsqlite.db"
 # security.cookieName = 'csrf_cookie_name'
 # security.expires = 7200
 # security.regenerate = true
-# security.redirect = true
+# security.redirect = false
 # security.samesite = 'Lax'
+
+#--------------------------------------------------------------------
+# SESSION
+#--------------------------------------------------------------------
+
+# session.driver = 'CodeIgniter\Session\Handlers\FileHandler'
+# session.cookieName = 'ci_session'
+# session.expiration = 7200
+# session.savePath = null
+# session.matchIP = false
+# session.timeToUpdate = 300
+# session.regenerateDestroy = false
 
 #--------------------------------------------------------------------
 # LOGGER

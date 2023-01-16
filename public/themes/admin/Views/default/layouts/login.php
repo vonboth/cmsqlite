@@ -19,7 +19,7 @@
 <main role="main" class="container">
   <div class="row center-align">
     <div class="col s12 m6 offset-m3">
-        <?= $validator->listErrors() ?>
+        <?= validation_list_errors() ?>
     </div>
   </div>
   <div class="row center-align">

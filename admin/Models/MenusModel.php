@@ -4,7 +4,6 @@
 namespace Admin\Models;
 
 
-use Admin\Controllers\MenuitemsController;
 use CodeIgniter\Database\ConnectionInterface;
 use CodeIgniter\Validation\ValidationInterface;
 use Tatter\Relations\Traits\ModelTrait;

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>401 Unauthorized</title>
+    <title><?= lang('Errors.unauthorized') ?></title>
     <style>
         div.logo {
             height: 200px;
@@ -25,7 +25,7 @@
 
         h1 {
             font-weight: lighter;
-            letter-spacing: 0.8;
+            letter-spacing: normal;
             font-size: 3rem;
             margin-top: 0;
             margin-bottom: 0;
@@ -76,18 +76,16 @@
     </style>
 </head>
 <body>
-<div class="wrap">
-    <h1>401 - Unauthorized</h1>
-    <p>
-        <?php
-        if (!empty($message) && $message !== '(null)') : ?>
-            <?= esc($message) ?>
-        <?php
-        else : ?>
-            Sorry! You are not authorized to request the resource.
-        <?php
-        endif ?>
-    </p>
-</div>
+    <div class="wrap">
+        <h1>401</h1>
+
+        <p>
+            <?php if (ENVIRONMENT !== 'production') : ?>
+                <?= nl2br(esc($message)) ?>
+            <?php else : ?>
+                <?= lang('Errors.unauthorized') ?>
+            <?php endif ?>
+        </p>
+    </div>
 </body>
 </html>
