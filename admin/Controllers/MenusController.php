@@ -9,6 +9,7 @@ use Admin\Models\CategoriesModel;
 use Admin\Models\Entities\Menu;
 use Admin\Models\MenuitemsModel;
 use Admin\Models\MenusModel;
+use CodeIgniter\HTTP\RedirectResponse;
 
 /**
  * Class Articles
@@ -89,7 +90,7 @@ class MenusController extends BaseController
                 return redirect()
                     ->to('/admin/menus/index')
                     ->with('flash', $this->validator->getErrors())
-                    ->with('_ci_validation_errors', serialize($this->validator->getErrors()));
+                    ->with('_ci_validation_errors', $this->validator->getErrors());
             }
         }
 
@@ -102,7 +103,7 @@ class MenusController extends BaseController
      * edit menu
      *
      * @param null $id
-     * @return string
+     * @return RedirectResponse|string
      * @throws \ReflectionException
      */
     public function edit($id = null)
@@ -130,7 +131,7 @@ class MenusController extends BaseController
                 return redirect()
                     ->to('/admin/menus/index')
                     ->with('flash', $this->validator->getErrors())
-                    ->with('_ci_validation_errors', serialize($this->validator->getErrors()));
+                    ->with('_ci_validation_errors', $this->validator->getErrors());
             }
         }
         return redirect()

@@ -88,7 +88,7 @@ class SettingsController extends BaseController
             return redirect()
                 ->to('/admin/settings/index')
                 ->with('flash', $this->validator->getErrors())
-                ->with('_ci_validation_errors', serialize($this->validator->getErrors()));
+                ->with('_ci_validation_errors', $this->validator->getErrors());
         }
     }
 

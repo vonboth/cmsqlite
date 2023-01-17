@@ -80,7 +80,7 @@ class MediaController extends BaseController
           $response
             ->with(
               '_ci_validation_errors',
-              serialize($this->validator->getErrors())
+              $this->validator->getErrors()
             )
             ->with('flash', lang('Media.invalid_file'));
         }
@@ -93,7 +93,7 @@ class MediaController extends BaseController
           $response
             ->with(
               '_ci_validation_errors',
-              serialize($this->validator->getErrors())
+              $this->validator->getErrors()
             )
             ->with('flash', lang('Media.invalid_file'));
         }
@@ -110,7 +110,7 @@ class MediaController extends BaseController
           $response
             ->with(
               '_ci_validation_errors',
-              serialize($this->validator->getErrors())
+              $this->validator->getErrors()
             )
             ->with('flash', lang('Media.upload_error'));
         }
@@ -120,7 +120,7 @@ class MediaController extends BaseController
         $response
           ->with(
             '_ci_validation_errors',
-            serialize($this->validator->getErrors())
+            $this->validator->getErrors()
           )
           ->with('flash', lang('Media.invalid_file'));
       }
@@ -143,14 +143,14 @@ class MediaController extends BaseController
       if (!$filename || !file_exists($path . '/' . $filename)) {
         $this->validator->setError('media_file', lang('Media.file_not_exist'));
         $response
-          ->with('_ci_validation_errors', serialize($this->validator->getErrors()))
+          ->with('_ci_validation_errors', $this->validator->getErrors())
           ->with('flash', lang('Media.file_not_exist'));
       }
 
       if (!unlink($path . '/' . $filename)) {
         $this->validator->setError('media_file', lang('Media.file_delete_error'));
         $response
-          ->with('_ci_validation_errors', serialize($this->validator->getErrors()))
+          ->with('_ci_validation_errors', $this->validator->getErrors())
           ->with('flash', lang('Media.file_delete_error'));
       }
 
@@ -174,7 +174,7 @@ class MediaController extends BaseController
       if (!$dir || !is_dir($path . '/' . $dir)) {
         $this->validator->setError('media_file', lang('Media.dir_not_exist'));
         $response
-          ->with('_ci_validation_errors', serialize($this->validator->getErrors()))
+          ->with('_ci_validation_errors', $this->validator->getErrors())
           ->with('flash', lang('Media.dir_not_exist'));
       }
 
@@ -182,14 +182,14 @@ class MediaController extends BaseController
         if (!rmdir($path . '/' . $dir)) {
           $this->validator->setError('media_file', lang('Media.dir_delete_error'));
           $response
-            ->with('_ci_validation_errors', serialize($this->validator->getErrors()))
+            ->with('_ci_validation_errors', $this->validator->getErrors())
             ->with('flash', lang('Media.dir_delete_error'));
         }
 
         $response->with('flash', lang('Media.dir_delete_success'));
       } catch (\Exception $exception) {
         $this->validator->setError('media_file', lang('Media.dir_not_empty'));
-        $response->with('_ci_validation_errors', serialize($this->validator->getErrors()))
+        $response->with('_ci_validation_errors', $this->validator->getErrors())
           ->with('flash', lang('Media.dir_not_empty'));
       }
     }
@@ -247,13 +247,18 @@ class MediaController extends BaseController
     if ($this->request->getMethod() == 'post') {
       $name = $this->request->getPost('dir_name');
       $path = $this->getCurrentPath();
-      if (mkdir($path . '/' . $name, 0755)) {
-        $response->with('flash', lang('Media.create_dir_success'));
-      } else {
-        $this->validator->setError('dir_name', lang('Media.create_dir_error'));
-        $response
-          ->with('_ci_validation_errors', serialize($this->validator->getErrors()))
-          ->with('flash', lang('Media.create_dir_error'));
+      try {
+        if (mkdir($path . '/' . $name, 0755)) {
+          $response->with('flash', lang('Media.create_dir_success'));
+        } else {
+          $this->validator->setError('dir_name', lang('Media.create_dir_error'));
+          $response
+            ->with('_ci_validation_errors', $this->validator->getErrors())
+            ->with('flash', lang('Media.create_dir_error'));
+        }
+      } catch (\Exception $exception) {
+        $response->with('flash', lang('Media.create_dir_error'))
+          ->with('_ci_validation_errors', ['message' => $exception->getMessage()]);
       }
     }
 

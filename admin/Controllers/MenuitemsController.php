@@ -66,7 +66,7 @@ class MenuitemsController extends BaseController
           ->to('/admin/menus/index')
           ->with('menuitem', json_encode($this->request->getPost()))
           ->with('flash', $this->validator->getErrors())
-          ->with('_ci_validation_errors', serialize($this->validator->getErrors()));
+          ->with('_ci_validation_errors', $this->validator->getErrors());
       }
     }
 
@@ -124,7 +124,7 @@ class MenuitemsController extends BaseController
           ->to('/admin/menus/index')
           ->with('menuitem', json_encode($this->request->getPost()))
           ->with('flash', $this->validator->getErrors())
-          ->with('_ci_validation_errors', serialize($this->validator->getErrors()));
+          ->with('_ci_validation_errors', $this->validator->getErrors());
       }
     }
     return redirect()

@@ -116,7 +116,7 @@ class MenuitemsModel extends BaseModel
     if (count($levels) == 0) {
       return [];
     }
-    return $levels[0];
+    return array_values($levels)[0];
   }
 
   /**
