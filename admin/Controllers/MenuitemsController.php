@@ -134,10 +134,10 @@ class MenuitemsController extends BaseController
 
   /**
    * delete menu item
-   * @param null $id
+   * @param int $id
    * @return \CodeIgniter\HTTP\RedirectResponse
    */
-  public function delete($id = null)
+  public function delete($id)
   {
     $removeFromTree = (bool)$this->request->getGet('remove_tree');
     if ($this->Menuitems->removeFromTree($id, $removeFromTree)) {

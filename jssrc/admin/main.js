@@ -371,7 +371,7 @@ window.adminVue = new Vue({
           lft: prevItem.lft,
           rgt: prevItem.rgt
         };
-        this.menuitemFormAction = `/admin/menuitems/edit/${this.selectedMenuitem.id}`
+        this.menuitemFormAction = this.selectedMenuitem.id ? `/admin/menuitems/edit/${this.selectedMenuitem.id}` : '/admin/menuitems/add';
         this.hideMenuitemForm = false;
       }
     },

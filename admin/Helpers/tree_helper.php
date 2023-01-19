@@ -12,7 +12,7 @@ if (!function_exists('menu_list')) {
      *
      * TODO: CHECK ACTIVE CLASS WHEN APPENDING ANY QUERY PARAMS!
      */
-    function menu_list($menuitems, array $options = [], string $current_path = ''): string
+    function menu_list($menuitems, array $options = [], string $current_path = '', $level = 1): string
     {
         $ulClass = $options['ulClass'] ?? 'ul_parent';
         $ulId = isset($options['ulId']) ? ' id="' . $options['ulId'] . '"' : '';
@@ -26,8 +26,8 @@ if (!function_exists('menu_list')) {
                 $url = "/pages/{$menuitem['article_id']}";
             }
 
-            $css = (count($menuitem['children']) > 0) ? 'li_parent' : 'li_child';
-            $css .= ' level' . $menuitem['level'];
+            $css = (isset($menuitem['children']) && count($menuitem['children']) > 0) ? 'li_parent' : 'li_child';
+            $css .= ' level' . $level;
             $css .= ($url === $current_path) ? ' active' : '';
             $css .= $liClass;
             $css .= $menuitem['li_class'] ? ' ' . $menuitem['li_class'] : '';
@@ -36,8 +36,8 @@ if (!function_exists('menu_list')) {
             $ul .= "<li class=\"$css\" {$menuitem['li_attributes']}>" .
                 "<a class=\"$aClass\" href=\"$url\" {$menuitem['a_attributes']}>{$menuitem['title']}</a>";
 
-            if (count($menuitem['children']) > 0) {
-                $ul .= menu_list($menuitem['children'], ['ulClass' => 'ul_child'], $current_path);
+            if (isset($menuitem['children']) && count($menuitem['children']) > 0) {
+                $ul .= menu_list($menuitem['children'], ['ulClass' => 'ul_child'], $current_path, $level++);
             }
 
             $ul .= '</li>';
@@ -57,12 +57,12 @@ if (!function_exists('admin_menu_list')) {
      * @param string $ulClass
      * @return string
      */
-    function admin_menu_list($menuitems, $ulClass = 'ul_parent')
+    function admin_menu_list($menuitems, $ulClass = 'ul_parent', $level = 1)
     {
         $ul = "<ul class='{$ulClass} admin-menu-list'>";
         foreach ($menuitems as $menuitem) {
-            $css = (count($menuitem['children']) > 0) ? 'li_parent' : 'li_child';
-            $css .= ' level' . $menuitem['level'];
+            $css = (isset($menuitem['children']) && count($menuitem['children']) > 0) ? 'li_parent' : 'li_child';
+            $css .= ' level' . $level;
             $ul .= "<li class='{$css}'>
 <div class='flex space-between'>
   <a href='javascript:void(0)' 
@@ -88,8 +88,8 @@ if (!function_exists('admin_menu_list')) {
   </div>
 </div>";
 
-            if (count($menuitem['children']) > 0) {
-                $ul .= admin_menu_list($menuitem['children'], 'ul_child');
+            if (isset($menuitem['children']) && count($menuitem['children']) > 0) {
+                $ul .= admin_menu_list($menuitem['children'], 'ul_child', $level += 1);
             }
 
             $ul .= '</li>';

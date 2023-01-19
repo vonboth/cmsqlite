@@ -33,55 +33,15 @@ class MenuitemsModel extends BaseModel
   ];
 
   /**
-   * get home menu item
-   * @return array|object|null
-   */
-  public function getStartpageItem()
-  {
-    return $this->where('url', '/')
-      ->first();
-  }
-
-  /**
    * @param null $menu_id
-   * @return array
    */
-  public function findLeveledNodes($menu_id = null)
+  public function findNodes($menu_id = null): array
   {
     $builder = $this->builder();
     $builder
-      ->select(
-        [
-          'node.id',
-          'node.title',
-          'node.parent_id',
-          'node.menu_id',
-          'node.article_id',
-          'node.category_id',
-          'node.type',
-          'node.url',
-          'node.alias',
-          'node.target',
-          'node.layout',
-          'node.li_class',
-          'node.li_attributes',
-          'node.a_class',
-          'node.a_attributes',
-          'node.lft',
-          'node.rgt',
-          'COUNT(*)-1 AS level'
-        ]
-      )
-      ->from('menuitems AS node', 1)
-      ->from('menuitems AS parent')
-      ->where('node.lft BETWEEN parent.lft AND parent.rgt')
-      ->groupBy('node.lft')
-      ->orderBy('node.lft');
-
-    if (!is_null($menu_id)) {
-      $builder->where(['node.menu_id' => $menu_id]);
-    }
-
+      ->where('menu_id', $menu_id)
+      ->groupBy('lft')
+      ->orderBy('lft');
     return $builder
       ->get()
       ->getResultArray();
@@ -90,33 +50,43 @@ class MenuitemsModel extends BaseModel
   /**
    * creates a nested tree from the menuitems
    *
-   * @param null $menu_id
+   * @param int $menu_id
    * @return mixed
    */
-  public function findTree($menu_id = null)
+  public function findTree(int $menu_id)
   {
-    $tree = $this->findLeveledNodes($menu_id);
-
-    $levels = [];
-    foreach ($tree as $item) {
-      $item['children'] = [];
-      $levels[$item['level']][$item['id']] = $item;
+    $menuItems = $this->findNodes($menu_id);
+    $nodes = [];
+    foreach ($menuItems as $menuItem) {
+      $nodes[$menuItem['id']] = $menuItem;
     }
-
-    for ($i = count($levels) - 1; $i >= 1; $i--) {
-      foreach ($levels[$i] as $level) {
-        foreach ($levels[$i - 1] as $parent_level) {
-          if ($level['parent_id'] == $parent_level['id']) {
-            $levels[$i - 1][$level['parent_id']]['children'][] = $level;
-          }
-        }
+    $nodes = array_reverse($nodes, true);
+    foreach ($nodes as &$node) {
+      $children = $this
+        ->where('parent_id', $node['id'])
+        ->groupBy('lft')
+        ->orderBy('lft')
+        ->findAll();
+      foreach ($children as $child) {
+        $nodes[$child->parent_id]['children'][$child->id] = $child->toArray();
       }
     }
 
-    if (count($levels) == 0) {
-      return [];
+    foreach ($nodes as &$item) {
+      if ($item['parent_id']) {
+        $nodes[$item['parent_id']]['children'][$item['id']] = $item;
+      }
     }
-    return array_values($levels)[0];
+
+    $tree = [];
+    $nodes = array_reverse($nodes, true);
+    foreach ($nodes as $parent) {
+      if (!$parent['parent_id']) {
+        $tree[] = $parent;
+      }
+    }
+
+    return array_values($tree);
   }
 
   /**
@@ -173,11 +143,13 @@ class MenuitemsModel extends BaseModel
 
     $nodesToMoveUp = $this
       ->where("lft BETWEEN $nodeToMove->lft AND $nodeToMove->rgt")
+      ->where('menu_id', $nodeToMove->menu_id)
       ->orderBy('lft')
       ->get()
       ->getResult();
     $nodesToMoveDown = $this
       ->where("lft BETWEEN $upperNode->lft AND $upperNode->rgt")
+      ->where('menu_id', $nodeToMove->menu_id)
       ->orderBy('lft')
       ->get()
       ->getResult();
@@ -233,38 +205,40 @@ class MenuitemsModel extends BaseModel
 
     $builder = $this->builder();
     $item = $this->find($id);
+
     if (!$item) {
       return false;
     }
 
+    $menuId = $item->menu_id;
     $rgt = $item->rgt;
     $lft = $item->lft;
 
     if ($rgt - $lft == 1) {
       // remove single
-      $builder->delete("id={$item->id}");
-      $this->db->query("UPDATE menuitems SET lft=lft-2 WHERE lft>{$rgt}");
-      $this->db->query("UPDATE menuitems SET rgt=rgt-2 WHERE rgt>{$rgt}");
+      $builder->delete("id={$item->id} AND menu_id = {$menuId}");
+      $this->db->query("UPDATE menuitems SET lft=lft-2 WHERE lft>{$rgt} AND menu_id = {$menuId}");
+      $this->db->query("UPDATE menuitems SET rgt=rgt-2 WHERE rgt>{$rgt} AND menu_id = {$menuId}");
       return true;
     } elseif (($rgt - $lft > 1) && $removeTree) {
       // remove tree
-      $builder->delete("lft BETWEEN $lft AND $rgt");
+      $builder->delete("(lft BETWEEN $lft AND $rgt) AND menu_id = {$menuId}");
       $this->db->query(
-        'UPDATE menuitems SET lft=lft-ROUND(' . ($rgt - $lft + 1) . ') WHERE lft>' . $rgt
+        'UPDATE menuitems SET lft=lft-ROUND(' . ($rgt - $lft + 1) . ') WHERE lft>' . $rgt . ' AND menu_id = ' . $menuId
       );
       $this->db->query(
-        'UPDATE menuitems SET rgt=rgt-ROUND(' . ($rgt - $lft + 1) . ') WHERE rgt>' . $rgt
+        'UPDATE menuitems SET rgt=rgt-ROUND(' . ($rgt - $lft + 1) . ') WHERE rgt>' . $rgt . ' AND menu_id = ' . $menuId
       );
       return true;
     } elseif (($rgt - $lft > 1) && !$removeTree) {
       // remove single but keep elements below the item
       $parentId = is_null($item->parent_id) ? 'NULL' : $item->parent_id;
-      $builder->delete("id=$item->id");
+      $builder->delete("id=$item->id AND menu_id = {$menuId}");
       $this->db->query(
-        "UPDATE menuitems SET lft=lft-1, rgt=rgt-1, parent_id=$parentId WHERE lft BETWEEN $lft AND $rgt"
+        "UPDATE menuitems SET lft=lft-1, rgt=rgt-1, parent_id=$parentId WHERE lft BETWEEN $lft AND $rgt AND menu_id = {$menuId}"
       );
-      $this->db->query("UPDATE menuitems SET lft=lft-2 WHERE lft>$rgt");
-      $this->db->query("UPDATE menuitems SET rgt=rgt-2 WHERE rgt>$rgt");
+      $this->db->query("UPDATE menuitems SET lft=lft-2 WHERE lft>$rgt AND menu_id = {$menuId}");
+      $this->db->query("UPDATE menuitems SET rgt=rgt-2 WHERE rgt>$rgt AND menu_id = {$menuId}");
     }
     return false;
   }
@@ -278,24 +252,26 @@ class MenuitemsModel extends BaseModel
   protected function beforeInsertTree(array $data)
   {
     if (!isset($data['data']['parent_id']) || $data['data']['parent_id'] == '') {
+      $menuId = $data['data']['menu_id'];
       $max = $this->select('max(rgt) as maxRgt')
-        ->where('menu_id', $data['data']['menu_id'])
+        ->where('menu_id', $menuId)
         ->first();
 
       $data['data']['lft'] = $max->maxRgt + 1;
       $data['data']['rgt'] = $max->maxRgt + 2;
       if (!is_null($max->maxRgt)) {
-        $this->db->query('UPDATE menuitems SET rgt=rgt+2 WHERE rgt > ' . $max->maxRgt);
-        $this->db->query('UPDATE menuitems SET lft=lft+2 WHERE lft > ' . $max->maxRgt);
+        $this->db->query('UPDATE menuitems SET rgt=rgt+2 WHERE rgt > ' . $max->maxRgt . ' AND menu_id = ' . $menuId);
+        $this->db->query('UPDATE menuitems SET lft=lft+2 WHERE lft > ' . $max->maxRgt . ' AND menu_id = ' . $menuId);
       }
     } else {
       $parentItem = $this->where('id', $data['data']['parent_id'])->first();
+      $menuId = $parentItem->menu_id;
       $rgt = $parentItem->rgt;
       $data['data']['lft'] = $rgt;
       $data['data']['rgt'] = $rgt + 1;
       if ($parentItem) {
-        $this->db->query('UPDATE menuitems SET rgt=rgt+2 WHERE rgt >= ' . $rgt);
-        $this->db->query('UPDATE menuitems SET lft=lft+2 WHERE lft > ' . $rgt);
+        $this->db->query('UPDATE menuitems SET rgt=rgt+2 WHERE rgt >= ' . $rgt . ' AND menu_id = ' . $menuId);
+        $this->db->query('UPDATE menuitems SET lft=lft+2 WHERE lft > ' . $rgt . ' AND menu_id = ' . $menuId);
       }
     }
 
