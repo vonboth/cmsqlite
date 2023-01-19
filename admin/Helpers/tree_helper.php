@@ -1,69 +1,71 @@
 <?php
 
 if (!function_exists('menu_list')) {
-    /**
-     * generates an unordered list from a nested set
-     *
-     * @param $menuitems
-     * @param array $options
-     * @param string $current_path
-     *
-     * @return mixed
-     *
-     * TODO: CHECK ACTIVE CLASS WHEN APPENDING ANY QUERY PARAMS!
-     */
-    function menu_list($menuitems, array $options = [], string $current_path = '', $level = 1): string
-    {
-        $ulClass = $options['ulClass'] ?? 'ul_parent';
-        $ulId = isset($options['ulId']) ? ' id="' . $options['ulId'] . '"' : '';
-        $liClass = isset($options['liClass']) ? ' ' . $options['liClass'] : '';
-        $aClass = $options['aClass'] ?? '';
+  /**
+   * generates an unordered list from a nested set
+   *
+   * @param $menuitems
+   * @param array $options
+   * @param string $current_path
+   *
+   * @return mixed
+   *
+   * TODO: CHECK ACTIVE CLASS WHEN APPENDING ANY QUERY PARAMS!
+   */
+  function menu_list($menuitems, array $options = [], string $current_path = '', $level = 1): string
+  {
+    $ulClass = $options['ulClass'] ?? 'ul_parent';
+    $ulId = isset($options['ulId']) ? ' id="' . $options['ulId'] . '"' : '';
+    $liClass = isset($options['liClass']) ? ' ' . $options['liClass'] : '';
+    $aClass = $options['aClass'] ?? '';
 
-        $ul = "<ul{$ulId} class='$ulClass'>";
-        foreach ($menuitems as $menuitem) {
-            $url = $menuitem['url'];
-            if (empty($url) && $menuitem['type'] === 'article') {
-                $url = "/pages/{$menuitem['article_id']}";
-            }
+    $ul = "<ul{$ulId} class='$ulClass'>";
+    foreach ($menuitems as $menuitem) {
+      $url = $menuitem['url'];
+      if (empty($url) && $menuitem['type'] === 'article') {
+        $url = "/pages/{$menuitem['article_id']}";
+      }
 
-            $css = (isset($menuitem['children']) && count($menuitem['children']) > 0) ? 'li_parent' : 'li_child';
-            $css .= ' level' . $level;
-            $css .= ($url === $current_path) ? ' active' : '';
-            $css .= $liClass;
-            $css .= $menuitem['li_class'] ? ' ' . $menuitem['li_class'] : '';
-            $aClass .= $menuitem['a_class'] ? ' ' . $menuitem['a_class'] : '';
+      $css = (isset($menuitem['children']) && count($menuitem['children']) > 0) ? 'li_parent' : 'li_child';
+      $css .= ' level' . $level;
+      $css .= ($url === $current_path) ? ' active' : '';
+      $css .= $liClass;
+      $css .= $menuitem['li_class'] ? ' ' . $menuitem['li_class'] : '';
+      $aClass .= $menuitem['a_class'] ? ' ' . $menuitem['a_class'] : '';
 
-            $ul .= "<li class=\"$css\" {$menuitem['li_attributes']}>" .
-                "<a class=\"$aClass\" href=\"$url\" {$menuitem['a_attributes']}>{$menuitem['title']}</a>";
+      $ul .= "<li class=\"$css\" {$menuitem['li_attributes']}>" .
+        "<a class=\"$aClass\" href=\"$url\" {$menuitem['a_attributes']}>{$menuitem['title']}</a>";
 
-            if (isset($menuitem['children']) && count($menuitem['children']) > 0) {
-                $ul .= menu_list($menuitem['children'], ['ulClass' => 'ul_child'], $current_path, $level++);
-            }
+      if (isset($menuitem['children']) && count($menuitem['children']) > 0) {
+        $ul .= menu_list($menuitem['children'], ['ulClass' => 'ul_child'], $current_path, $level += 1);
+      }
 
-            $ul .= '</li>';
-        }
-        $ul .= "</ul>\n";
+      $level = $level < 1 ? 1 : $level - 1;
 
-        return $ul;
+      $ul .= '</li>';
     }
+    $ul .= "</ul>\n";
+
+    return $ul;
+  }
 }
 
 if (!function_exists('admin_menu_list')) {
-    /**
-     * generates a tree for the
-     * admin-section to change menus
-     *
-     * @param $menuitems
-     * @param string $ulClass
-     * @return string
-     */
-    function admin_menu_list($menuitems, $ulClass = 'ul_parent', $level = 1)
-    {
-        $ul = "<ul class='{$ulClass} admin-menu-list'>";
-        foreach ($menuitems as $menuitem) {
-            $css = (isset($menuitem['children']) && count($menuitem['children']) > 0) ? 'li_parent' : 'li_child';
-            $css .= ' level' . $level;
-            $ul .= "<li class='{$css}'>
+  /**
+   * generates a tree for the
+   * admin-section to change menus
+   *
+   * @param $menuitems
+   * @param string $ulClass
+   * @return string
+   */
+  function admin_menu_list($menuitems, $ulClass = 'ul_parent', $level = 1)
+  {
+    $ul = "<ul class='{$ulClass} admin-menu-list'>";
+    foreach ($menuitems as $menuitem) {
+      $css = (isset($menuitem['children']) && count($menuitem['children']) > 0) ? 'li_parent' : 'li_child';
+      $css .= ' level' . $level;
+      $ul .= "<li class='{$css}'>
 <div class='flex space-between'>
   <a href='javascript:void(0)' 
      class='menuitem-title'
@@ -88,32 +90,34 @@ if (!function_exists('admin_menu_list')) {
   </div>
 </div>";
 
-            if (isset($menuitem['children']) && count($menuitem['children']) > 0) {
-                $ul .= admin_menu_list($menuitem['children'], 'ul_child', $level += 1);
-            }
+      if (isset($menuitem['children']) && count($menuitem['children']) > 0) {
+        $ul .= admin_menu_list($menuitem['children'], 'ul_child', $level += 1);
+      }
 
-            $ul .= '</li>';
-        }
-        $ul .= "</ul>\n";
+      $level = $level < 1 ? 1 : $level - 1;
 
-        return $ul;
+      $ul .= '</li>';
     }
+    $ul .= "</ul>\n";
+
+    return $ul;
+  }
 }
 
 if (!function_exists('admin_menu_tree')) {
-    /**
-     * generates a collapsible list
-     * with menus as headlines and
-     * the menus inside the collapsibles
-     * @param $menus
-     * @return string
-     */
-    function admin_menu_tree($menus)
-    {
-        $idx = 0;
-        $ul = '<ul class="collapsible expandable collapsible-accordion admin-menu">';
-        foreach ($menus as $menu) {
-            $ul .= '
+  /**
+   * generates a collapsible list
+   * with menus as headlines and
+   * the menus inside the collapsibles
+   * @param $menus
+   * @return string
+   */
+  function admin_menu_tree($menus)
+  {
+    $idx = 0;
+    $ul = '<ul class="collapsible expandable collapsible-accordion admin-menu">';
+    foreach ($menus as $menu) {
+      $ul .= '
 <li class="menu-administration active">
     <div class="flex space-between collapsible-header-wrapper">
         <div class="collapsible-header flex-center" 
@@ -138,8 +142,8 @@ if (!function_exists('admin_menu_tree')) {
         <div class="clearfix">' . admin_menu_list($menu->tree) . '<div>
     </div>
 </li>';
-            $idx++;
-        }
-        return $ul .= '</ul>';
+      $idx++;
     }
+    return $ul .= '</ul>';
+  }
 }
