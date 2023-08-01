@@ -22,43 +22,44 @@ use Admin\Models\CategoriesModel;
  */
 class Category extends AppCell
 {
-    /**
-     * render categories. see above for basic usage
-     * @param array $options
-     * @return string
-     */
-    public function render(array $options = []): string
-    {
-        $default = [
-            'readon' => false
-        ];
-        $options = $options + $default;
-        $Articles = new ArticlesModel();
-        $Categories = new CategoriesModel();
+  /**
+   * render categories. see above for basic usage
+   * @param array $options
+   * @return string
+   */
+  public function render(array $options = []): string
+  {
+    $default = [
+      'readon' => false
+    ];
+    $options = $options + $default;
+    $Articles = new ArticlesModel();
+    $Categories = new CategoriesModel();
 
-        $category = $Categories->find($options['id']);
-        $articles = $Articles
-            ->where('category_id', $options['id'])
-            ->get()
-            ->getResult();
+    $category = $Categories->find($options['id']);
+    $articles = $Articles
+      ->where('category_id', $options['id'])
+      ->where('published', true)
+      ->get()
+      ->getResult();
 
-        if ($articles) {
-            // remove the readon if necessary
-            foreach ($articles as $article) {
-                $article->content = ($options['readon'] === true)
-                    ? strip_readon($article)
-                    : remove_readon($article);
-            }
+    if ($articles) {
+      // remove the readon if necessary
+      foreach ($articles as $article) {
+        $article->content = ($options['readon'] === true)
+          ? strip_readon($article)
+          : remove_readon($article);
+      }
 
-            return view(
-                "Themes\\$this->theme\\cells\\category\\category",
-                [
-                    'category' => $category,
-                    'articles' => $articles
-                ]
-            );
-        }
-
-        return '';
+      return view(
+        "Themes\\$this->theme\\cells\\category\\category",
+        [
+          'category' => $category,
+          'articles' => $articles
+        ]
+      );
     }
+
+    return '';
+  }
 }

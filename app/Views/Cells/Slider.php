@@ -20,48 +20,48 @@ namespace App\Views\Cells;
  */
 class Slider extends AppCell
 {
-    /** @var string[] $imageExtensions list of allowed images extensions */
-    private array $imageExtensions = ['png', 'jpg', 'jpeg', 'webp'];
+  /** @var string[] $imageExtensions list of allowed images extensions */
+  private array $imageExtensions = ['png', 'jpg', 'jpeg', 'webp'];
 
-    /**
-     * renders a slider
-     *
-     * @param array $options
-     *
-     * @return string
-     */
-    public function render(array $options = []): string
-    {
-        if (isset($options['path']) && is_dir(WRITEPATH . 'media/' . $options['path'])) {
-            $path = WRITEPATH . 'media/' . $options['path'];
-            $iterator = new \DirectoryIterator($path);
-            $images = [];
-            // read images in directory
-            foreach ($iterator as $entry) {
-                if ($entry->isDot() || $entry->isDir()) {
-                    continue;
-                }
-
-                $extension = $entry->getExtension();
-                if (in_array($extension, $this->imageExtensions)) {
-                    $images[] = [
-                        'src' => '/media/' . $options['path'] . '/' . $entry->getFilename(),
-                        'name' => $entry->getFilename()
-                    ];
-                }
-            }
-
-            // output if not empty
-            if (!empty($images)) {
-                return view(
-                    "Themes\\$this->theme\cells\slider\slider",
-                    [
-                        'images' => $images
-                    ]
-                );
-            }
+  /**
+   * renders a slider
+   *
+   * @param array $options
+   *
+   * @return string
+   */
+  public function render(array $options = []): string
+  {
+    if (isset($options['path']) && is_dir(WRITEPATH . 'media/' . $options['path'])) {
+      $path = WRITEPATH . 'media/' . $options['path'];
+      $iterator = new \DirectoryIterator($path);
+      $images = [];
+      // read images in directory
+      foreach ($iterator as $entry) {
+        if ($entry->isDot() || $entry->isDir()) {
+          continue;
         }
 
-        return '';
+        $extension = $entry->getExtension();
+        if (in_array($extension, $this->imageExtensions)) {
+          $images[] = [
+            'src' => '/media/' . $options['path'] . '/' . $entry->getFilename(),
+            'name' => $entry->getFilename()
+          ];
+        }
+      }
+
+      // output if not empty
+      if (!empty($images)) {
+        return view(
+          "Themes\\$this->theme\cells\slider\slider",
+          [
+            'images' => $images
+          ]
+        );
+      }
     }
+
+    return '';
+  }
 }

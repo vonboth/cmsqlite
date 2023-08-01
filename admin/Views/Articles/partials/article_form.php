@@ -48,6 +48,7 @@
   </div>
   <div class="input-field col s12 m2">
     <label>
+      <input type="hidden" name="published" value="0" />
       <input name="published"
         <?= ($formDisabled) ? 'disabled' : '' ?>
              type="checkbox"

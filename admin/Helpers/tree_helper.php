@@ -59,7 +59,7 @@ if (!function_exists('admin_menu_list')) {
    * @param string $ulClass
    * @return string
    */
-  function admin_menu_list($menuitems, $ulClass = 'ul_parent', $level = 1)
+  function admin_menu_list($menuitems, $ulClass = 'ul_parent', $level = 0)
   {
     $ul = "<ul class='{$ulClass} admin-menu-list'>";
     foreach ($menuitems as $menuitem) {
@@ -94,7 +94,7 @@ if (!function_exists('admin_menu_list')) {
         $ul .= admin_menu_list($menuitem['children'], 'ul_child', $level += 1);
       }
 
-      $level = $level < 1 ? 1 : $level - 1;
+      $level = $level < 0 ? 0 : $level - 1;
 
       $ul .= '</li>';
     }

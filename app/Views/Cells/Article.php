@@ -25,49 +25,49 @@ use Admin\Models\ArticlesModel;
  */
 class Article extends AppCell
 {
-    /**
-     * render method to create the output
-     * @param array $options
-     * @return string
-     */
-    public function render(array $options = []): string
-    {
-        $default = ['readon' => false];
+  /**
+   * render method to create the output
+   * @param array $options
+   * @return string
+   */
+  public function render(array $options = []): string
+  {
+    $default = ['readon' => false];
 
-        $options = $options + $default;
-        $Articles = new ArticlesModel();
-        $output = '';
+    $options = $options + $default;
+    $Articles = new ArticlesModel();
+    $output = '';
 
-        $article = null;
-        if (isset($options['id'])) {
-            $article = $Articles->find($options['id']);
-        } elseif (isset($options['alias'])) {
-            $article = $Articles
-                ->where('alias', $options['alias'])
-                ->first();
-        }
-        if ($article) {
-            $output = $article->content ?? lang('Errors.no_content');
-
-            if ($options['readon'] === true) {
-                $pos = strpos($output, '<hr class="readon" />');
-                if ($pos !== false) {
-                    $output = substr($output, 0, $pos);
-                    $output .= view(
-                        "Themes\\$this->theme\\cells\\readon\\readon",
-                        ['cellArticleId' => $article->id]
-                    );
-                }
-            }
-
-            try {
-                if (!$article->is_startpage) {
-                    $Articles->setHit($article->id);
-                }
-            } catch (\Exception $exception) {
-            }
-        }
-
-        return $output;
+    $article = null;
+    if (isset($options['id'])) {
+      $article = $Articles->find($options['id']);
+    } elseif (isset($options['alias'])) {
+      $article = $Articles
+        ->where('alias', $options['alias'])
+        ->first();
     }
+    if ($article) {
+      $output = $article->content ?? lang('Errors.no_content');
+
+      if ($options['readon'] === true) {
+        $pos = strpos($output, '<hr class="readon" />');
+        if ($pos !== false) {
+          $output = substr($output, 0, $pos);
+          $output .= view(
+            "Themes\\$this->theme\\cells\\readon\\readon",
+            ['cellArticleId' => $article->id]
+          );
+        }
+      }
+
+      try {
+        if (!$article->is_startpage) {
+          $Articles->setHit($article->id);
+        }
+      } catch (\Exception $exception) {
+      }
+    }
+
+    return $output;
+  }
 }
