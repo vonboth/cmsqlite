@@ -91,13 +91,12 @@ if (!function_exists('admin_menu_list')) {
 </div>";
 
       if (isset($menuitem['children']) && count($menuitem['children']) > 0) {
-        $ul .= admin_menu_list($menuitem['children'], 'ul_child', $level += 1);
+        $ul .= admin_menu_list($menuitem['children'], 'ul_child', $level + 1);
       }
-
-      $level = $level < 0 ? 0 : $level - 1;
 
       $ul .= '</li>';
     }
+
     $ul .= "</ul>\n";
 
     return $ul;
