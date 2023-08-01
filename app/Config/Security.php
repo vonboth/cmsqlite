@@ -33,7 +33,7 @@ class Security extends BaseConfig
      *
      * Token name for Cross Site Request Forgery protection.
      */
-    public string $tokenName = 'cmsql_sec_token';
+    public string $tokenName = 'cmsql_csrf_token';
 
     /**
      * --------------------------------------------------------------------------
@@ -51,7 +51,7 @@ class Security extends BaseConfig
      *
      * Cookie name for Cross Site Request Forgery protection.
      */
-    public string $cookieName = 'csrf';
+    public string $cookieName = 'cmsql_csrf_cookie';
 
     /**
      * --------------------------------------------------------------------------

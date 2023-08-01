@@ -3,13 +3,13 @@
 // Check PHP version.
 $minPhpVersion = '7.4'; // If you update this, don't forget to update `spark`.
 if (version_compare(PHP_VERSION, $minPhpVersion, '<')) {
-    $message = sprintf(
-        'Your PHP version must be %s or higher to run CMSQlite. Current version: %s',
-        $minPhpVersion,
-        PHP_VERSION
-    );
+  $message = sprintf(
+    'Your PHP version must be %s or higher to run CMSQLite. Current version: %s',
+    $minPhpVersion,
+    PHP_VERSION
+  );
 
-    exit($message);
+  exit($message);
 }
 
 // Path to the front controller (this file)
@@ -47,7 +47,7 @@ require_once SYSTEMPATH . 'Config/DotEnv.php';
  * ---------------------------------------------------------------
  *
  * The CodeIgniter class contains the core functionality to make
- * the application run, and does all of the dirty work to get
+ * the application run, and does all the dirty work to get
  * the pieces all working together.
  */
 
@@ -60,7 +60,7 @@ $app->setContext($context);
  *---------------------------------------------------------------
  * LAUNCH THE APPLICATION
  *---------------------------------------------------------------
- * Now that everything is setup, it's time to actually fire
+ * Now that everything is set up, it's time to actually fire
  * up the engines and make this app do its thang.
  */
 

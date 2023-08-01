@@ -7,6 +7,7 @@ namespace Install\Controllers;
 use Admin\Models\Entities\User;
 use Admin\Models\UsersModel;
 use App\Controllers\BaseController;
+use CodeIgniter\Encryption\Encryption;
 use Config\Services;
 
 /**
@@ -134,10 +135,14 @@ class IndexController extends BaseController
                     ->to("//{$_SERVER['HTTP_HOST']}/install");
             }
 
-            $content = "app.baseURL = \"{$this->request->getPost('base_url')}\"\r\n" .
+            $key = 'hex2bin:' . bin2hex(Encryption::createKey());
+
+            $content = "CI_ENVIRONMENT = production\r\n" .
+                "app.baseURL = \"{$this->request->getPost('base_url')}\"\r\n" .
                 "app.defaultLocale = {$this->request->getPost('language')}\r\n" .
                 "app.appTimezone = {$this->request->getPost('timezone')}\r\n" .
-                "cache.handler = file";
+                "encryption.key = $key";
+
             if (!is_writable(ROOTPATH)) {
                 $this->session->setFlashdata('flash', lang('Install.success'));
                 return view(
@@ -162,7 +167,7 @@ class IndexController extends BaseController
      * @param array $permissions
      * @return bool
      */
-    private function _insufficientPermissions(bool $db_writable, array $permissions)
+    private function _insufficientPermissions(bool $db_writable, array $permissions): bool
     {
         if (!$db_writable) {
             return true;

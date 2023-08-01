@@ -5,6 +5,8 @@ update=0
 BUILD_DIR="build"
 VERSION=$(sed 's/.*"version": "\(.*\)".*/\1/;t;d' composer.json)
 
+export NODE_OPTIONS=--openssl-legacy-provider
+
 while [[ $# -gt 0 ]]; do
   key="$1"
 

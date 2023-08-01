@@ -1,13 +1,13 @@
 {
   "name": "creatingcode/cmsqlite",
-  "version": "2.0.9",
+  "version": "2.0.12",
   "type": "project",
   "description": "CMSQLite easy SQLite based CMS",
   "homepage": "https://creatingcode.de",
   "license": "MIT",
   "require": {
-    "php": ">=7.4||^8.0",
-    "codeigniter4/framework": "^4",
+    "php": "^7.4||^8.0",
+    "codeigniter4/framework": "^4.0",
     "tatter/relations": "^2.0",
     "ext-mbstring": "*",
     "ext-json": "*"
@@ -16,6 +16,11 @@
     "fakerphp/faker": "^1.9",
     "mikey179/vfsstream": "^1.6",
     "phpunit/phpunit": "^9.1"
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "preferred-install": "dist",
+    "sort-packages": true
   },
   "autoload": {
     "psr-4": {
