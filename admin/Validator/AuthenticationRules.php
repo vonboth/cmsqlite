@@ -12,14 +12,6 @@ use Admin\Services\AuthService;
  */
 class AuthenticationRules
 {
-    /** @var AuthService $AuthService */
-    protected $AuthService;
-
-    public function __construct()
-    {
-        $this->AuthService = service('auth');
-    }
-
     /**
      * @param string $str
      * @param string $args
@@ -29,7 +21,7 @@ class AuthenticationRules
      */
     public function authenticate(string $str, string $args, array $data, &$error = null)
     {
-        if ($this->AuthService->authenticate($data['username'], $data['password'])) {
+        if (service('auth')->authenticate($data['username'], $data['password'])) {
             return true;
         } else {
             $error = lang('Validation.auth_failed');

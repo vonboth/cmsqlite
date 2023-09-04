@@ -20,23 +20,23 @@ use CodeIgniter\Config\BaseService;
  */
 class Services extends BaseService
 {
-    /**
-     * get an Instance from the AuthService::class
-     *
-     * @return AuthService
-     */
-    public static function auth(): AuthService
-    {
-        return new AuthService();
-    }
+  /**
+   * get an Instance from the AuthService::class
+   *
+   * @return AuthService
+   */
+  public static function auth(): AuthService
+  {
+    return new AuthService();
+  }
 
-    //    public static function example($getShared = true)
-    //    {
-    //        if ($getShared)
-    //        {
-    //            return static::getSharedInstance('example');
-    //        }
-    //
-    //     return new \CodeIgniter\Example();
-    // }
+  //    public static function example($getShared = true)
+  //    {
+  //        if ($getShared)
+  //        {
+  //            return static::getSharedInstance('example');
+  //        }
+  //
+  //     return new \CodeIgniter\Example();
+  // }
 }

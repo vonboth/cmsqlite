@@ -36,6 +36,7 @@ PHP version 7.4 or higher is required, with the following extensions installed:
 
 ### Other
 - switch to [jodit](https://xdsoft.net/jodit/) editor?
+- switch to [editor.js](https://editorjs.io/)
 
 # Developers
 This CMS is based on SQLite as database and [CodeIgniter 4](https://codeigniter.com/) (CI) as MVC-Framework.

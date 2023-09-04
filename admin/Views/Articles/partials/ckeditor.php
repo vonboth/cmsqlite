@@ -1,12 +1,13 @@
 <?php
-/** @var string $editor_style the style for the CKEDITOR. Set in backen in system settings */
+/** @var string $editor_style the style for the CKEDITOR. Set in backend in system settings */
 ?>
-<script src="//cdn.ckeditor.com/4.15.1/<?= $editor_style ?>/ckeditor.js"></script>
+<script src="//cdn.ckeditor.com/4.22.1/<?= $editor_style ?>/ckeditor.js"></script>
 <script type="text/javascript">
   CKEDITOR.replace('content', {
     height: 500,
     filebrowserBrowseUrl: '/admin/media/ckbrowse',
     filebrowserUploadUrl: '/admin/media/ckupload',
+    uploadUrl: '/admin/media/ckupload?responseType=json',
     fileTools_requestHeaders: {
       'X-CSRF-TOKEN': adminVue.getCsrfToken()
     },
