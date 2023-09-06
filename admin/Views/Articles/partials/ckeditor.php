@@ -12,7 +12,8 @@
       'X-CSRF-TOKEN': adminVue.getCsrfToken()
     },
     extraPlugins: 'readon',
-    extraAllowedContent: ['hr(*); div(*)']
+    extraAllowedContent: ['hr(*); div(*)'],
+    clipboard_handleImages: false
   });
 
   // CUSTOM PLUGINS
