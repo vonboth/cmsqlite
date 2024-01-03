@@ -16,11 +16,11 @@
             ))
             . ' | ' . lang('Tables.created') . ': ' . lang(
               '{created, date} {created, time}',
-              ['created' => $article->created]
+              ['created' => $article->created ?? new DateTime()]
             )
             . ' | ' . lang('Tables.updated') . ': ' . lang(
               '{updated, date} {updated, time}',
-              ['updated' => $article->updated]
+              ['updated' => $article->updated ?? new \DateTime()]
             ) ?>
         </span>
   </div>
