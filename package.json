@@ -1,6 +1,6 @@
 {
   "name": "cmsqlite",
-  "version": "2.0.12",
+  "version": "2.0.16",
   "description": "CMSQLite easy SQLite based CMS",
   "main": "index.js",
   "scripts": {
