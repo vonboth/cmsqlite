@@ -75,81 +75,13 @@
 
 <div class="row">
     <div class="col s12 m4">
-        <div class="card">
-            <div class="card-content" id="start__loggedin_users">
-                <span class="card-title"><?= lang('Admin.last_loggedin_users') ?></span>
-                <p></p>
-                <ul class="collection">
-                    <?php
-                    foreach ($users as $user): ?>
-                        <li class="collection-item">
-                            <span><?= $user->fullname ?></span>
-                            <span class="right"><?= lang('{last, date} {last, time}', ['last' => $user->lastlogin]
-                                ) ?></span>
-                        </li>
-                    <?php
-                    endforeach; ?>
-                </ul>
-            </div>
-        </div>
+        <last-users :users="<?= esc(json_encode($users)) ?>"></last-users>
     </div>
     <div class="col s12 m4">
-        <div class="card">
-            <div class="card-content" id="start__last_edit_articles">
-                <span class="card-title"><?= lang('Admin.last_edited_articles') ?></span>
-                <p></p>
-                <ul class="collection">
-                    <?php
-                    foreach ($lastEditedArticles as $article): ?>
-                        <li class="collection-item">
-                            <a href="/admin/articles/edit/<?= $article->id ?>"><?= $article->title ?></a>
-                            <span class="right"><?= lang(
-                                    '{updated, date} {updated, time}',
-                                    ['updated' => $article->updated]
-                                ) ?></span>
-                        </li>
-                    <?php
-                    endforeach; ?>
-                </ul>
-            </div>
-        </div>
+      <page-statistics :articles="<?= esc(json_encode($lastEditedArticles)) ?>"></page-statistics>
     </div>
     <div class="col s12 m4">
-        <div class="card">
-            <div class="card-content" id="start__top_articles">
-                <div>
-                      <span class="card-title">
-                          <span><?= lang('Admin.top_articles') ?></span>
-                          <a class="right"
-                             href="javascript: void(0)"
-                             @click="onResetHits"
-                             title="<?= lang('Admin.reset_hits') ?>"><i class="material-icons">history</i></a>
-                      </span>
-                </div>
-                <p></p>
-                <ul class="collection">
-                    <?php
-                        if (empty($topArticles)) : ?>
-                        <li><?= lang('Admin.no_data') ?></li>
-                    <?php
-                    else: ?>
-                        <?php
-                        foreach ($topArticles as $article): ?>
-                            <li class="collection-item">
-                                <span><?= $article->title ?></span>
-                                <span class="ml1rem">(<?= $article->hits ?>)</span>
-                                <span class="right"><?= lang(
-                                        '{updated, date} {updated, time}',
-                                        ['updated' => $article->updated]
-                                    ) ?></span>
-                            </li>
-                        <?php
-                        endforeach; ?>
-                    <?php
-                    endif; ?>
-                </ul>
-            </div>
-        </div>
+        <top-articles :articles="<?= esc(json_encode($topArticles)) ?>"></top-articles>
     </div>
 </div>
 <?= $this->endSection() ?>

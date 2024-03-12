@@ -4,4 +4,4 @@ window.Axios = axios.create({
   headers: {
     'X-Requested-With': 'XMLHttpRequest'
   }
-})
+});

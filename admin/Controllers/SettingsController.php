@@ -33,7 +33,7 @@ class SettingsController extends BaseController
      */
     public function index()
     {
-        $settings = $this->Settings->findAll();
+        $settings = array_values($this->Settings->asArray()->findAll());
         return view('Admin\Settings\index', ['settings' => $settings]);
     }
 

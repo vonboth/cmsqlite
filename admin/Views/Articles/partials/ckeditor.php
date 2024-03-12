@@ -9,7 +9,7 @@
     filebrowserUploadUrl: '/admin/media/ckupload',
     uploadUrl: '/admin/media/ckupload?responseType=json',
     fileTools_requestHeaders: {
-      'X-CSRF-TOKEN': adminVue.getCsrfToken()
+      'X-CSRF-TOKEN': document.querySelectorAll('meta[name="X-CSRF-TOKEN"]')[0].content
     },
     extraPlugins: 'readon',
     extraAllowedContent: ['hr(*); div(*)'],
