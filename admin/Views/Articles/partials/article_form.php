@@ -20,7 +20,7 @@
             )
             . ' | ' . lang('Tables.updated') . ': ' . lang(
               '{updated, date} {updated, time}',
-              ['updated' => $article->updated ?? new \DateTime()]
+              ['updated' => $article->updated ?? new DateTime()]
             ) ?>
         </span>
   </div>
@@ -150,11 +150,11 @@
        class="btn waves-effect waves-light"><?= lang('General.back') ?>
       <i class="material-icons left">arrow_back</i></a>
     <a href="/admin/articles/add"
-       class="btn waves-effect waves-light"><?= lang('General.new') ?>
+       class="btn waves-effect waves-light ml1rem"><?= lang('General.new') ?>
       <i class="material-icons left">add</i></a>
     <?php
     if (!$formDisabled) : ?>
-      <button type="submit" class="btn waves-effect waves-light"><?= lang('General.save') ?>
+      <button type="submit" class="btn waves-effect waves-light ml1rem"><?= lang('General.save') ?>
         <i class="material-icons right">send</i></button>
     <?php
     endif; ?>

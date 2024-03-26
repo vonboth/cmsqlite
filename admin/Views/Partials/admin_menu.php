@@ -40,4 +40,11 @@
             <i class="material-icons left">settings</i>
         </a>
     </li>
+
+    <li id="admin-menu__system">
+        <a href="/admin/system" class="waves-effect">
+            <?= lang('Menu.system') ?>
+            <i class="material-icons left">build</i>
+        </a>
+    </li>
 </ul>

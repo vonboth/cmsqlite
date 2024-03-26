@@ -1,22 +1,15 @@
 <script>
 import Swal from 'sweetalert2';
-import moment from 'moment';
 
 export default {
-    computed: {
-        moment() {
-            return moment
-        }
-    },
-    inject: ['translations'],
-
+    name: 'TopArticles',
+    inject: ['translations', 'moment'],
     props: {
         articles: {
             type: Array,
             required: true
         }
     },
-
     methods: {
         onResetHits() {
             Swal.fire({

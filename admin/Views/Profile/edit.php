@@ -66,7 +66,7 @@ $this->section('main'); ?>
           <a href="/admin"
              class="btn waves-effect waves-light"><?= lang('General.back') ?>
             <i class="material-icons left">arrow_back</i></a>
-          <button type="submit" class="btn waves-effect waves-light"><?= lang('General.submit') ?>
+          <button type="submit" class="btn waves-effect waves-light ml1rem"><?= lang('General.submit') ?>
             <i class="material-icons right">send</i></button>
         </div>
       </div>

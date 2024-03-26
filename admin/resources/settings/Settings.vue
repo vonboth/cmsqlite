@@ -3,8 +3,8 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 
 export default {
+    name: 'Settings',
     inject: ['translations'],
-
     data() {
         return {
             addNewSetting: false,
@@ -12,7 +12,6 @@ export default {
             prevSettingsValue: ''
         };
     },
-
     props: {
         settings: {
             type: Array,
@@ -23,7 +22,6 @@ export default {
             required: true
         }
     },
-
     methods: {
         onSaveSetting(id, name) {
             let formData = new FormData(),
@@ -46,7 +44,6 @@ export default {
         },
 
         onEditSetting(id, name) {
-            console.log(id, name);
             const el = document.getElementById('id-' + name);
             this.prevSettingsValue = el.value;
             this.editSettingId = id;

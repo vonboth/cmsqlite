@@ -38,9 +38,8 @@ else
 fi
 
 # NPM create the JS bundle
-npm upgrade
-npm run copy
-npm run build
+bun update
+bun run copy
 
 # Admin-Section
 cp -R admin/ $BUILD_DIR
@@ -74,6 +73,9 @@ cp license.txt $BUILD_DIR
 cp README.md $BUILD_DIR
 cp robots.txt $BUILD_DIR
 cp spark $BUILD_DIR
+
+# Build npm
+bun run build
 
 if [ $release -eq 1 ]
 then

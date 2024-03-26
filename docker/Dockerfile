@@ -2,7 +2,7 @@ FROM php:8.0-apache
 ARG DEBIAN_FRONTEND=noninteractive
 
 #COPY ./sites-available/000-default.conf /etc/apache2/sites-available
-COPY php-ini-overrides.ini /usr/local/etc/php/conf.d
+#COPY php-ini-overrides.ini /usr/local/etc/php/conf.d
 
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 RUN chmod uga+x /usr/local/bin/install-php-extensions && sync

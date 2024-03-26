@@ -50,6 +50,7 @@ abstract class BaseController extends Controller
         'html',
         'form',
         'format',
+        'url',
         'Admin\Helpers\tree_helper',
         'App\Helpers\content_helper'
     ];
@@ -76,6 +77,11 @@ abstract class BaseController extends Controller
     protected RendererInterface $View;
 
     /**
+     * @var string $locale
+     */
+    protected $locale;
+
+    /**
      * @inheritdoc
      */
     public function initController(
@@ -86,6 +92,11 @@ abstract class BaseController extends Controller
         parent::initController($request, $response, $logger);
 
         $this->session = Services::session();
+        $lang = Services::language();
+        $this->locale = $lang->getLocale();
+        if ($this->session->lang) {
+            $lang->setLocale($this->session->lang);
+        }
 
         $this->SystemSettings = config('Admin\Config\SystemSettings');
         $this->Articles = new ArticlesModel();

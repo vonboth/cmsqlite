@@ -7,15 +7,14 @@ namespace Admin\Controllers;
 use Admin\Models\ArticlesModel;
 use Admin\Models\CategoriesModel;
 use Admin\Models\Entities\Menu;
-use Admin\Models\MenuitemsModel;
 use Admin\Models\MenusModel;
-use CodeIgniter\HTTP\RedirectResponse;
+use App\Exceptions\MethodNotAllowedException;
+use CodeIgniter\HTTP\ResponseInterface;
 
 /**
  * Class Articles
  * @package Admin\Controllers
  * @property MenusModel $Menus
- * @property MenuitemsModel $Menuitems
  * @property ArticlesModel $Articles
  * @property CategoriesModel $Categories
  */
@@ -23,9 +22,6 @@ class MenusController extends BaseController
 {
     /** @var MenusModel $Menus */
     protected $Menus;
-
-    /** @var MenuitemsModel $Menuitems */
-    protected $Menuitems;
 
     /** @var ArticlesModel $Articles */
     protected $Articles;
@@ -39,7 +35,6 @@ class MenusController extends BaseController
     public function initialize(): void
     {
         $this->Menus = new MenusModel();
-        $this->Menuitems = new MenuitemsModel();
         $this->Articles = new ArticlesModel();
         $this->Categories = new CategoriesModel();
     }
@@ -54,9 +49,7 @@ class MenusController extends BaseController
         return view(
             'Admin\Menus\index',
             [
-                'menutrees' => $this->Menus->findAllMenusWithTrees(),
-                'menus' => $this->Menus->findAll(),
-                'menuitems' => $this->Menuitems->findAll(),
+                'menus' => $this->Menus->findAllMenusWithTrees(),
                 'articles' => $this->Articles->findAll(),
                 'categories' => $this->Categories->findAll(),
                 'validator' => $this->validator
@@ -67,92 +60,101 @@ class MenusController extends BaseController
     /**
      * add menu
      *
-     * @return \CodeIgniter\HTTP\RedirectResponse|string
      * @throws \ReflectionException
      */
     public function add()
     {
-        $menu = new Menu();
-        if ($this->request->getMethod() === 'post') {
+        if ($this->request->isAJAX() && $this->request->getMethod() === 'post') {
+            $menu = new Menu();
             if ($this->validate(['name' => 'required'])) {
-                $menu->fill($this->request->getPost());
-                if ($this->Menus->insert($menu) !== false) {
-                    return redirect()
-                        ->to('/admin/menus/index')
-                        ->with('flash', lang('General.saved'));
+                $menu->fill($this->request->getJSON(true));
+                if (($id = $this->Menus->insert($menu)) !== false) {
+                    $menu = $this->Menus->find($id)->toArray();
+                    $menu['children'] = [];
+                    return response()->setJSON([
+                        'message' => lang('General.saved'),
+                        'data' => $menu
+                    ]);
                 } else {
-                    return redirect()
-                        ->to('/admin/menus/index')
-                        ->withInput()
-                        ->with('flash', lang('General.save_error'));
+                    return response()->setStatusCode(422)->setJSON([
+                        'errors' => ['any' => lang('General.save_error')],
+                        'data' => $menu->toArray()
+                    ]);
                 }
             } else {
-                return redirect()
-                    ->to('/admin/menus/index')
-                    ->with('flash', $this->validator->getErrors())
-                    ->with('_ci_validation_errors', $this->validator->getErrors());
+                return response()->setStatusCode(422)->setJSON([
+                    'errors' => $this->validator->getErrors()
+                ]);
             }
         }
 
-        return redirect()
-            ->to('/admin/menus/index')
-            ->with('flash', 'Not Implemented');
+        throw new MethodNotAllowedException();
     }
 
     /**
      * edit menu
      *
      * @param null $id
-     * @return RedirectResponse|string
+     * @return ResponseInterface|string
      * @throws \ReflectionException
      */
     public function edit($id = null)
     {
-        $menu = $this->Menus->find($id);
-        if ($this->request->getMethod() === 'post') {
+        if ($this->request->isAJAX() && $this->request->getMethod() === 'post') {
+            $menu = $this->Menus->find($id);
+            $post = $this->request->getJSON(true);
+
             if ($this->validate(['name' => 'required'])) {
-                $menu->fill($this->request->getPost());
+                $menu->fill($post);
                 try {
                     if ($this->Menus->save($menu)) {
-                        return redirect()
-                            ->to('/admin/menus/index')
-                            ->with('flash', lang('General.saved'));
+                        return response()->setJSON([
+                            'message' => lang('General.saved'),
+                            'data' => $menu->toArray()
+                        ]);
                     } else {
-                        return redirect()
-                            ->to('/admin/menus/index')
-                            ->with('flash', lang('General.save_error'));
+                        return response()->setStatusCode(422)->setJSON([
+                            'errors' => ['any' => lang('General.save_error')],
+                            'data' => $menu->toArray()
+                        ]);
                     }
                 } catch (\Exception $exception) {
-                    return redirect()
-                        ->to('/admin/menus/index')
-                        ->with('flash', $exception->getMessage());
+                    return response()->setStatusCode(500)->setJSON([
+                        'errors' => ['any' => $exception->getMessage()],
+                        'data' => $menu->toArray()
+                    ]);
                 }
             } else {
-                return redirect()
-                    ->to('/admin/menus/index')
-                    ->with('flash', $this->validator->getErrors())
-                    ->with('_ci_validation_errors', $this->validator->getErrors());
+                return response()->setStatusCode(422)->setJSON([
+                    'errors' => $this->validator->getErrors(),
+                    'data' => $post
+                ]);
             }
         }
-        return redirect()
-            ->to('/admin/menus/index');
+
+        throw new MethodNotAllowedException();
     }
 
     /**
      * delete menu
      * @param $id
-     * @return \CodeIgniter\HTTP\RedirectResponse
+     * @return ResponseInterface
      */
     public function delete($id)
     {
-        if ($this->Menus->delete($id)) {
-            return redirect()
-                ->to('/admin/menus/index')
-                ->with('flash', lang('General.deleted'));
-        } else {
-            return redirect()
-                ->to('/admin/menus/index')
-                ->with('flash', lang('General.delete_error'));
+        if ($this->request->isAJAX()) {
+            if ($this->Menus->delete($id)) {
+                return response()->setJSON([
+                    'message' => lang('General.deleted')
+                ]);
+            } else {
+                return response()->setStatusCode(500)
+                    ->setJSON([
+                        'message' => lang('General.delete_error')
+                    ]);
+            }
         }
+
+        throw new MethodNotAllowedException();
     }
 }

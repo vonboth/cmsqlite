@@ -68,8 +68,7 @@ $routes->group(
                 $routes->add('edit/(:num)', 'MenuitemsController::edit/$1');
                 $routes->add('view/(:num)', 'MenusController::index');
                 $routes->add('delete/(:num)', 'MenuitemsController::delete/$1');
-                $routes->add('moveup/(:num)', 'MenuitemsController::moveup/$1');
-                $routes->add('movedown/(:num)', 'MenuitemsController::movedown/$1');
+                $routes->add('move/(:num)', 'MenuitemsController::move/$1');
                 $routes->add('/', 'MenusController::index');
             }
         );
@@ -114,6 +113,16 @@ $routes->group(
                 $routes->post('delete/(:num)', 'SettingsController::delete/$1');
                 $routes->get('disable-tour', 'SettingsController::disableTour');
                 $routes->get('/', 'SettingsController::index');
+            }
+        );
+        $routes->group(
+            'system',
+            function (RouteCollection  $routes) {
+                $routes->get('index', 'SystemController::index');
+                $routes->post('clear-cache', 'SystemController::clearCache');
+                $routes->post('clear-logs', 'SystemController::clearLogs');
+                $routes->post('migrate', 'SystemController::migrate');
+                $routes->get('/', 'SystemController::index');
             }
         );
     }

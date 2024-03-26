@@ -44,25 +44,19 @@ class StartController extends BaseController
         $startArticle = $this->Articles
             ->where(['is_startpage' => 1])
             ->get();
-        $users = array_values(
-            $this->Users
+        $users = $this->Users
                 ->asArray()
                 ->orderBy('lastlogin', 'ASC')
-                ->findAll(3)
-        );
-        $lastEditedArticles = array_values(
-            $this->Articles
+                ->findAll(3);
+        $lastEditedArticles = $this->Articles
                 ->asArray()
                 ->orderBy('updated', 'DESC')
-                ->findAll(3)
-        );
-        $topArticles = array_values(
-            $this->Articles
+                ->findAll(3);
+        $topArticles = $this->Articles
                 ->asArray()
                 ->where('hits >', 0)
                 ->orderBy('hits', 'DESC')
-                ->findAll(3)
-        );
+                ->findAll(3);
 
         if (is_dir(ROOTPATH . 'install')
             && getenv('CI_ENVIRONMENT' === 'production')

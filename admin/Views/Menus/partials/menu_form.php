@@ -1,8 +1,6 @@
 <div class=""
      :class="{hide: hideMenuForm}">
-  <form ref="menu_form" method="post" :action="menuFormAction">
-      <?= csrf_field() ?>
-
+  <form ref="menu_form">
     <div class="card">
       <div class="progress" :class="{hide: !(isLoading)}">
         <div class="indeterminate"></div>
@@ -41,7 +39,7 @@
                 @click="onCancelEditMenu"
                 type="button"><?= lang('General.cancel') ?>
           <i class="material-icons right">cancel</i></button>
-        <button class="btn waves-light waves-effect"
+        <button class="btn waves-light waves-effect ml1rem"
                 v-bind:disabled="!(canSaveMenu)"
                 @click="onSaveMenu"
                 type="button"><?= lang('General.submit') ?>

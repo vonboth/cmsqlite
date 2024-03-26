@@ -8,6 +8,7 @@ return [
     'menus' => 'Menüs',
     'users' => 'Benutzer',
     'settings' => 'Einstellungen',
+    'system' => 'System',
     'add_menu' => 'Menü hinzufügen',
     'add_menu_item' => 'Element hinzufügen',
     'edit_menu_item' => 'Element bearbeiten',

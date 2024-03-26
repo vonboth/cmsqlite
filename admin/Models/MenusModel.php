@@ -51,7 +51,7 @@ class MenusModel extends BaseModel
         $menus = [];
 
         foreach ($entities as $entity) {
-            $entity->tree = $this->MenuItems->findTree($entity->id);
+            $entity->children = $this->MenuItems->findTree($entity->id);
             $menus[$entity->name] = $entity;
         }
 

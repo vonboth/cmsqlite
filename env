@@ -25,6 +25,9 @@
 # app_baseURL = ''
 # app.forceGlobalSecureRequests = false
 # app.CSPEnabled = false
+# app.appTimezone = Europe/Berlin
+# app.defaultLocale = de
+# app.supportedLocales="['de']"
 
 #--------------------------------------------------------------------
 # DATABASE

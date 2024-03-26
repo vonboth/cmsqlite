@@ -12,11 +12,11 @@
             <?= 'ID:' . $category->id
             . ' | ' . lang('Tables.created') . ': ' . lang(
                 '{created, date} {created, time}',
-                ['created' => $category->created]
+                ['created' => $category->created ?? new DateTime()]
             )
             . ' | ' . lang('Tables.updated') . ': ' . lang(
                 '{updated, date} {updated, time}',
-                ['updated' => $category->updated]
+                ['updated' => $category->updated ?? new DateTime()]
             ) ?>
         </span>
     </div>
@@ -61,7 +61,7 @@
             <i class="material-icons left">arrow_back</i></a>
         <?php
         if (!$formDisabled) : ?>
-            <button type="submit" class="btn waves-effect waves-light"><?= lang('General.submit') ?>
+            <button type="submit" class="btn waves-effect waves-light ml1rem"><?= lang('General.submit') ?>
                 <i class="material-icons right">send</i></button>
         <?php
         endif; ?>

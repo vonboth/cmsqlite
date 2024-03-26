@@ -4,12 +4,7 @@
 /** @var \Admin\Models\Entities\Category[] $categories a list of categories */
 ?>
 <div class="" :class="{hide: hideMenuitemForm}">
-  <form ref="menuitem_form" method="post" :action="menuitemFormAction">
-    <?= csrf_field() ?>
-    <input type="hidden" name="menu_id" v-model="selectedMenuitem.menu_id"/>
-    <input type="hidden" name="lft" v-model="selectedMenuitem.lft"/>
-    <input type="hidden" name="rgt" v-model="selectedMenuitem.rgt"/>
-
+  <form>
     <div class="card">
       <div class="progress" :class="{hide: !(isLoading)}">
         <div class="indeterminate"></div>
@@ -246,7 +241,7 @@
                 @click="onCancelEditMenuitem"
                 type="button"><?= lang('General.cancel') ?>
           <i class="material-icons right">cancel</i></button>
-        <button class="btn waves-light waves-effect"
+        <button class="btn waves-light waves-effect ml1rem"
                 v-bind:disabled="!(canSaveMenuitem)"
                 @click="onSaveMenuitem"
                 type="button"><?= lang('General.save') ?>

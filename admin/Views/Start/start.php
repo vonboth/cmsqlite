@@ -75,13 +75,13 @@
 
 <div class="row">
     <div class="col s12 m4">
-        <last-users :users="<?= esc(json_encode($users)) ?>"></last-users>
+        <last-users :users="<?= esc(json_encode(array_values($users))) ?>"></last-users>
     </div>
     <div class="col s12 m4">
-      <page-statistics :articles="<?= esc(json_encode($lastEditedArticles)) ?>"></page-statistics>
+      <page-statistics :articles="<?= esc(json_encode(array_values($lastEditedArticles))) ?>"></page-statistics>
     </div>
     <div class="col s12 m4">
-        <top-articles :articles="<?= esc(json_encode($topArticles)) ?>"></top-articles>
+        <top-articles :articles="<?= esc(json_encode(array_values($topArticles))) ?>"></top-articles>
     </div>
 </div>
 <?= $this->endSection() ?>

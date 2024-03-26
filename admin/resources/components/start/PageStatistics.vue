@@ -1,14 +1,7 @@
 <script>
-import moment from 'moment';
-
 export default {
-    computed: {
-        moment() {
-            return moment
-        }
-    },
-    inject: ['translations'],
-
+    name: 'PageStatistics',
+    inject: ['translations', 'moment'],
     props: {
         articles: {
             type: Array,

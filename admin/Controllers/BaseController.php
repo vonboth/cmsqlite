@@ -18,7 +18,15 @@ use Psr\Log\LoggerInterface;
 class BaseController extends AppBase
 {
     /** @var array $helpers Helpers to load */
-    protected $helpers = ['html', 'form', 'Admin\Helpers\tree_helper', 'inflector', 'filesystem', 'format'];
+    protected $helpers = [
+        'html',
+        'form',
+        'Admin\Helpers\tree_helper',
+        'Admin\Helpers\content_helper',
+        'inflector',
+        'filesystem',
+        'format'
+    ];
 
     /** @var string $controllerName */
     protected string $controllerName = '';

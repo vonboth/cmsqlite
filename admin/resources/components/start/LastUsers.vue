@@ -1,15 +1,7 @@
 <script>
-
-import moment from 'moment';
-
 export default {
-    computed: {
-        moment() {
-            return moment
-        }
-    },
-    inject: ['translations'],
-
+    name: 'LastUsers',
+    inject: ['translations', 'moment'],
     props: {
         users: {
             type: Array,
