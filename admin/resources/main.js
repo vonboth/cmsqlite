@@ -7,7 +7,7 @@ import Menus from './menus/Menus.vue';
 import moment from 'moment';
 import MenuList from './components/menus/MenuList.vue';
 import axios from 'axios';
-
+import Editor from '@/components/articles/Editor.vue';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
@@ -115,4 +115,5 @@ app.component('top-articles', TopArticles);
 app.component('settings', Settings);
 app.component('menus', Menus);
 app.component('menu-list', MenuList);
+app.component('editor', Editor);
 app.mount('#main');

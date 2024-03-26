@@ -1,10 +1,17 @@
 <?php
 /**
  * @var $theme
+ * @var $editor_style
  */
 
 $this->setData(['formDisabled' => true]);
 $this->extend("AdminThemes\\$theme\\layouts\\default") ?>
+
+<?php
+$this->section('headerScripts') ?>
+    <script src="//cdn.ckeditor.com/4.22.1/<?= $editor_style ?>/ckeditor.js"></script>
+<?php
+$this->endSection() ?>
 
 <?php
 $this->section('main') ?>
@@ -16,11 +23,5 @@ $this->section('main') ?>
       </div>
     </div>
   </div>
-<?php
-$this->endSection() ?>
-
-<?php
-$this->section('js') ?>
-<?= $this->include('Admin\Articles\partials\ckeditor') ?>
 <?php
 $this->endSection() ?>
