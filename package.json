@@ -3,7 +3,6 @@
   "version": "2.0.17",
   "description": "CMSQLite easy SQLite based CMS",
   "scripts": {
-    "copy": "node ./npmtasks/copy.js",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"

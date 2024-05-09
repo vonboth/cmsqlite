@@ -11,8 +11,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends curl zip unzip
 
 RUN install-php-extensions intl xdebug zip
 
+RUN curl -fsSL https://bun.sh/install | bash
+
 RUN a2enmod rewrite
 
-RUN curl -o composer https://getcomposer.org/download/2.1.14/composer.phar \
+RUN curl -o composer https://getcomposer.org/composer-stable.phar \
   && mv composer /usr/local/bin \
   && chmod +x /usr/local/bin/composer

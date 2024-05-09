@@ -39,7 +39,6 @@ fi
 
 # NPM create the JS bundle
 bun update
-bun run copy
 
 # Admin-Section
 cp -R admin/ $BUILD_DIR
