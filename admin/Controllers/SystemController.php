@@ -2,6 +2,8 @@
 
 namespace Admin\Controllers;
 
+use CodeIgniter\HTTP\RedirectResponse;
+
 class SystemController extends BaseController
 {
     public function index()
@@ -11,29 +13,35 @@ class SystemController extends BaseController
 
     /**
      * Run a migration
-     * @return void
+     * @return RedirectResponse
      */
-    public function migrate()
+    public function migrate(): RedirectResponse
     {
         $output = command('migrate');
+        return redirect()->to('/admin/system/index')
+            ->with('flash', preg_replace('~[[:cntrl:]]~', '', $output));
     }
 
     /**
      * clear cache
-     * @return void
+     * @return RedirectResponse
      */
-    public function clearCache()
+    public function clearCache(): RedirectResponse
     {
         $output = command('cache:clear');
+        return redirect()->to('/admin/system/index')
+            ->with('flash', preg_replace('~[[:cntrl:]]~', '', $output));
     }
 
     /**
      * clear cache
-     * @return void
+     * @return RedirectResponse
      */
-    public function clearLogs()
+    public function clearLogs(): RedirectResponse
     {
-        $output = command('cache:logs');
+        $output = command('logs:clear --force');
+        return redirect()->to('/admin/system/index')
+            ->with('flash', preg_replace('~[[:cntrl:]]~', '', $output));
     }
 
 

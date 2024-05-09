@@ -119,8 +119,8 @@ $routes->group(
             'system',
             function (RouteCollection  $routes) {
                 $routes->get('index', 'SystemController::index');
-                $routes->post('clear-cache', 'SystemController::clearCache');
-                $routes->post('clear-logs', 'SystemController::clearLogs');
+                $routes->post('clearcache', 'SystemController::clearCache');
+                $routes->post('clearlogs', 'SystemController::clearLogs');
                 $routes->post('migrate', 'SystemController::migrate');
                 $routes->get('/', 'SystemController::index');
             }
