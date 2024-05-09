@@ -6,6 +6,7 @@ namespace Admin\Controllers;
 use Admin\Config\Media;
 use CodeIgniter\API\ResponseTrait;
 use CodeIgniter\HTTP\RedirectResponse;
+use CodeIgniter\HTTP\ResponseInterface;
 
 /**
  * Class Media
@@ -13,355 +14,452 @@ use CodeIgniter\HTTP\RedirectResponse;
  */
 class MediaController extends BaseController
 {
-  use ResponseTrait;
+    use ResponseTrait;
 
-  protected $mediaPath = WRITEPATH . 'media/';
-  protected $currentPath = [];
-  protected $mediaConfig;
+    /** @var string $mediaPath path to media folder */
+    protected $mediaPath = WRITEPATH . 'media/';
 
-  /**
-   * init controller
-   */
-  public function initialize(): void
-  {
-    /** @var Media mediaConfig */
-    $this->mediaConfig = new Media();
-  }
+    /** @var array $currentPath an array to store children folders */
+    protected $currentPath = [];
 
-  /**
-   * Index / entry point for the controller
-   * @return string
-   */
-  public function index(): string
-  {
-    $dir = $this->request->getGet('dir');
-    if (is_null($dir)) {
-      $dir = 'root';
-    }
-    $this->setCurrentPath($dir);
-    $scanPath = $this->getCurrentPath();
-    $contents = $this->readDirectory($scanPath);
+    /** @var Media $mediaConfig config from Media config file */
+    protected $mediaConfig;
 
-    return view(
-      'Admin\Media\index',
-      [
-        'section' => lang('Menu.media'),
-        'currentPath' => $this->currentPath,
-        'dirs' => $contents['dirs'],
-        'files' => $contents['files'],
-        'validator' => $this->validator
-      ]
-    );
-  }
-
-  /**
-   * Upload file action
-   * @return RedirectResponse
-   */
-  public function upload(): RedirectResponse
-  {
-    $response = redirect();
-
-    // method is post
-    if ($this->request->getMethod() == 'post') {
-      // get file
-      $file = $this->request->getFile('media_file');
-
-      // is file valid
-      if ($file->isValid()) {
-        $ext = $file->getExtension();
-        $mime = $file->getMimeType();
-
-        // allowed file extensions
-        if (!in_array($ext, $this->mediaConfig->allowedExtensions)) {
-          $this->validator
-            ->setError('media_file', lang('Media.filetype_not_allowed'));
-
-          $response
-            ->with(
-              '_ci_validation_errors',
-              $this->validator->getErrors()
-            )
-            ->with('flash', lang('Media.invalid_file'));
-        }
-
-        // allowed mime-types
-        if (!in_array($mime, $this->mediaConfig->allowedMimeTypes)) {
-          $this->validator
-            ->setError('media_file', lang('Media.mimetype_not_allowed'));
-
-          $response
-            ->with(
-              '_ci_validation_errors',
-              $this->validator->getErrors()
-            )
-            ->with('flash', lang('Media.invalid_file'));
-        }
-
-        // try to move the uploaded file to it's location
-        try {
-          $path = $this->getCurrentPath();
-          $file->move($path);
-          $response
-            ->with('flash', lang('Media.upload_success'));
-        } catch (\Exception $exception) {
-          $this->validator->setError('media_file', $exception->getMessage());
-
-          $response
-            ->with(
-              '_ci_validation_errors',
-              $this->validator->getErrors()
-            )
-            ->with('flash', lang('Media.upload_error'));
-        }
-      } else {
-        $this->validator
-          ->setError('media_file', $file->getErrorString() . '(' . $file->getError() . ')');
-        $response
-          ->with(
-            '_ci_validation_errors',
-            $this->validator->getErrors()
-          )
-          ->with('flash', lang('Media.invalid_file'));
-      }
-    }
-    return $response
-      ->back();
-  }
-
-  /**
-   * unlink a file from the file system
-   */
-  public function removeFile(): RedirectResponse
-  {
-    $response = redirect();
-
-    if ($this->request->getMethod() == 'post') {
-      $path = $this->getCurrentPath();
-      $filename = $this->request->getPost('remove_file');
-
-      if (!$filename || !file_exists($path . '/' . $filename)) {
-        $this->validator->setError('media_file', lang('Media.file_not_exist'));
-        $response
-          ->with('_ci_validation_errors', $this->validator->getErrors())
-          ->with('flash', lang('Media.file_not_exist'));
-      }
-
-      if (!unlink($path . '/' . $filename)) {
-        $this->validator->setError('media_file', lang('Media.file_delete_error'));
-        $response
-          ->with('_ci_validation_errors', $this->validator->getErrors())
-          ->with('flash', lang('Media.file_delete_error'));
-      }
-
-      $response->with('flash', lang('Media.file_delete_success'));
+    /**
+     * init controller
+     */
+    public function initialize(): void
+    {
+        /** @var Media mediaConfig */
+        $this->mediaConfig = new Media();
     }
 
-    return $response
-      ->back();
-  }
-
-  /**
-   * remove directory
-   */
-  public function removeDir(): RedirectResponse
-  {
-    $response = redirect();
-    if ($this->request->getMethod() == 'post') {
-      $path = $this->getCurrentPath();
-      $dir = $this->request->getPost('remove_dir');
-
-      if (!$dir || !is_dir($path . '/' . $dir)) {
-        $this->validator->setError('media_file', lang('Media.dir_not_exist'));
-        $response
-          ->with('_ci_validation_errors', $this->validator->getErrors())
-          ->with('flash', lang('Media.dir_not_exist'));
-      }
-
-      try {
-        if (!rmdir($path . '/' . $dir)) {
-          $this->validator->setError('media_file', lang('Media.dir_delete_error'));
-          $response
-            ->with('_ci_validation_errors', $this->validator->getErrors())
-            ->with('flash', lang('Media.dir_delete_error'));
+    /**
+     * Index / entry point for the controller
+     * @return string
+     */
+    public function index(): string
+    {
+        $dir = $this->request->getGet('dir');
+        if (is_null($dir)) {
+            $dir = 'root';
         }
+        $this->setCurrentPath($dir);
+        $scanPath = $this->getCurrentPath();
+        $contents = $this->readDirectory($scanPath);
 
-        $response->with('flash', lang('Media.dir_delete_success'));
-      } catch (\Exception $exception) {
-        $this->validator->setError('media_file', lang('Media.dir_not_empty'));
-        $response->with('_ci_validation_errors', $this->validator->getErrors())
-          ->with('flash', lang('Media.dir_not_empty'));
-      }
-    }
-    return $response->back();
-  }
+        $directoryContent = $this->_makeDirectoryStructure(directory_map($this->mediaPath), '/');
 
-  /**
-   * reads the directory for the
-   * given path
-   *
-   * @param $path
-   * @return array[]
-   */
-  private function readDirectory(string $path): array
-  {
-    $dirs = [];
-    $files = [];
-
-    $iterator = new \DirectoryIterator($path);
-    foreach ($iterator as $entry) {
-      if ($entry->isDot()) {
-        continue;
-      }
-
-      if ($entry->isDir()) {
-        $dirs[] = $entry->getFilename();
-      } else {
-        // exclude hidden files (e.g. .gitignore)
-        if (strpos($entry->getFilename(), '.') === 0) {
-          continue;
-        }
-        $extension = $entry->getExtension();
-        if (in_array($extension, $this->mediaConfig->doNotDisplay)) {
-          continue;
-        }
-        $files[] = [
-          'src' => '/media/' . implode('/', $this->currentPath) . '/' . $entry->getFilename(),
-          'name' => $entry->getFilename(),
-          'ext' => $extension,
-          'size' => $entry->getSize()
-        ];
-      }
-    }
-
-    return ['dirs' => $dirs, 'files' => $files];
-  }
-
-  /**
-   * create a new folder in the
-   * current directory
-   */
-  public function createFolder(): RedirectResponse
-  {
-    $response = redirect();
-    if ($this->request->getMethod() == 'post') {
-      $name = $this->request->getPost('dir_name');
-      $path = $this->getCurrentPath();
-      try {
-        if (mkdir($path . '/' . $name, 0755)) {
-          $response->with('flash', lang('Media.create_dir_success'));
-        } else {
-          $this->validator->setError('dir_name', lang('Media.create_dir_error'));
-          $response
-            ->with('_ci_validation_errors', $this->validator->getErrors())
-            ->with('flash', lang('Media.create_dir_error'));
-        }
-      } catch (\Exception $exception) {
-        $response->with('flash', lang('Media.create_dir_error'))
-          ->with('_ci_validation_errors', ['message' => $exception->getMessage()]);
-      }
-    }
-
-    return $response->to('/admin/media/index');
-  }
-
-  /**
-   * Endpoint to upload images
-   * via CKEditor
-   *
-   * {
-   * "uploaded": 1,
-   * "fileName": "foo.jpg",
-   * "url": "/files/foo.jpg"
-   * }
-   */
-  public function ckupload()
-  {
-    if ($this->request->getMethod() == 'post') {
-      $file = $this->request->getFile('upload');
-      $ext = $file->getExtension();
-
-      if (!$file->isValid() || !in_array($ext, $this->mediaConfig->allowedExtensions)) {
-        return $this->fail('Invalid file', 500);
-      }
-
-      try {
-        $file->move($this->mediaPath);
-        return $this->respondCreated(
-          [
-            'uploaded' => 1,
-            'fileName' => $file->getName(),
-            'url' => '/media/' . $file->getName()
-          ]
+        return view(
+            'Admin\Media\index',
+            [
+                'section' => lang('Menu.media'),
+                'currentPath' => $this->currentPath,
+                'dirs' => $contents['dirs'],
+                'files' => $contents['files'],
+                'directoryContent' => $directoryContent,
+                'validator' => $this->validator
+            ]
         );
-      } catch (\Exception $exception) {
-        return $this->fail($exception->getMessage(), 500);
-      }
     }
-  }
 
-  /**
-   * Browse all files in the media folder
-   * to add them to the content where rquired
-   *
-   * @return string
-   */
-  public function ckbrowse()
-  {
-    $directory = new \RecursiveDirectoryIterator($this->mediaPath);
-    $iterator = new \RecursiveIteratorIterator($directory);
+    /**
+     * Upload file action
+     * @return ResponseInterface
+     */
+    public function upload(): ResponseInterface
+    {
+        // method is post
+        if ($this->request->getMethod() == 'post') {
+            // get file
+            $file = $this->request->getFile('file');
 
-    $files = [];
-    /** @var \SplFileInfo $item */
-    foreach ($iterator as $item) {
-      if (in_array($item->getExtension(), $this->mediaConfig->allowedImages)) {
-        $files[] = [
-          'name' => $item->getFilename(),
-          'path' => substr($item->getRealPath(), strpos($item->getRealPath(), '/media'))
+            // is file valid
+            if ($file->isValid()) {
+                $ext = $file->getExtension();
+                $mime = $file->getMimeType();
+
+                // allowed file extensions
+                if (!in_array($ext, $this->mediaConfig->allowedExtensions)) {
+                    return response()
+                        ->setStatusCode(422)
+                        ->setJSON([
+                            'errors' => [lang('Media.filetype_not_allowed')]
+                        ]);
+                }
+
+                // allowed mime-types
+                if (!in_array($mime, $this->mediaConfig->allowedMimeTypes)) {
+                    return response()
+                        ->setStatusCode(422)
+                        ->setJSON([
+                            'errors' => [lang('Media.mimetype_not_allowed')]
+                        ]);
+                }
+
+                // try to move the uploaded file to it's location
+                try {
+                    $path = $this->request->getPost('path');
+                    if (empty($path)) {
+                        $path = '';
+                    }
+                    $file->move(WRITEPATH . 'media' . $path);
+                    return response()->setJSON([
+                        'message' => lang('Media.upload_success'),
+                        'name' => $file->getName()
+                    ]);
+                } catch (\Exception $exception) {
+                    return response()
+                        ->setStatusCode(500)
+                        ->setJSON([
+                            'errors' => [$exception->getMessage()]
+                        ]);
+                }
+            } else {
+                return response()
+                    ->setStatusCode(500)
+                    ->setJSON([
+                        'errors' => [$file->getErrorString()]
+                    ]);
+            }
+        }
+
+        return response()
+            ->setStatusCode(405);
+    }
+
+    /**
+     * unlink a file from the file system
+     */
+    public function removeFile(): ResponseInterface
+    {
+        if ($this->request->getMethod() == 'post') {
+            $data = $this->request->getJSON();
+            $path = $data->path;
+            $filename = $data->delete_file;
+
+            if (substr($path, -1) !== '/') {
+                $path .= '/';
+            }
+
+            if (!$filename || !file_exists(WRITEPATH . 'media/' . $path . $filename)) {
+                return response()->setStatusCode(404)
+                    ->setJSON([
+                        'errors' => ['not found' => lang('Media.file_not_exist')]
+                    ]);
+            }
+
+
+            if (!unlink(WRITEPATH . 'media/' . $path . $filename)) {
+                return $this->response->setStatusCode(500)
+                    ->setJSON([
+                        'errors' => ['delete' => lang('Media.file_delete_error')]
+                    ]);
+            }
+
+            return response()->setJSON([
+                'message' => lang('Media.file_delete_success')
+            ]);
+        }
+
+        return response()->setStatusCode(405);
+    }
+
+    /**
+     * remove directory
+     */
+    public function removeDir(): ResponseInterface
+    {
+        if ($this->request->getMethod() == 'post') {
+            $data = $this->request->getJSON();
+            $path = $data->path;
+            $dir = $data->dir_name;
+
+            if (!empty($path) && substr($path, -1) !== '/') {
+                $path .= '/';
+            }
+
+            $t = WRITEPATH . 'media/'. $path . $dir;
+
+            if (!$dir || !is_dir(WRITEPATH . 'media/'. $path . $dir)) {
+                return response()->setStatusCode(404)
+                    ->setJSON([
+                        'errors' => ['not found' => lang('Media.dir_not_exist')]
+                    ]);
+            }
+
+            try {
+                if (!rmdir(WRITEPATH . 'media/' . $path . $dir)) {
+                    return response()->setStatusCode(500)
+                        ->setJSON([
+                            'errors' => ['media_file' => lang('Media.dir_delete_error')]
+                        ]);
+                }
+
+                return response()->setJSON([
+                    'message' => lang('Media.dir_delete_success')
+                ]);
+            } catch (\Exception $exception) {
+                return response()
+                    ->setStatusCode(500)
+                    ->setJSON([
+                        'errors' => ['media_file' => lang('Media.dir_not_empty')]
+                    ]);
+            }
+        }
+
+        return response()->setStatusCode(405);
+    }
+
+    /**
+     * reads the directory for the
+     * given path
+     *
+     * @param $path
+     * @return array[]
+     */
+    private function readDirectory(string $path): array
+    {
+        $dirs = [];
+        $files = [];
+
+        $iterator = new \DirectoryIterator($path);
+        foreach ($iterator as $entry) {
+            if ($entry->isDot()) {
+                continue;
+            }
+
+            if ($entry->isDir()) {
+                $dirs[] = $entry->getFilename();
+            } else {
+                // exclude hidden files (e.g. .gitignore)
+                if (strpos($entry->getFilename(), '.') === 0) {
+                    continue;
+                }
+                $extension = $entry->getExtension();
+                if (in_array($extension, $this->mediaConfig->doNotDisplay)) {
+                    continue;
+                }
+                $files[] = [
+                    'src' => '/media/' . implode('/', $this->currentPath) . '/' . $entry->getFilename(),
+                    'name' => $entry->getFilename(),
+                    'ext' => $extension,
+                    'size' => $entry->getSize()
+                ];
+            }
+        }
+
+        return ['dirs' => $dirs, 'files' => $files];
+    }
+
+    /**
+     * create a new folder in the
+     * current directory
+     */
+    public function createFolder(): ResponseInterface
+    {
+        if ($this->request->getMethod() == 'post') {
+            $data = $this->request->getJSON();
+            $name = $data->dir_name;
+            $path = $data->path;
+
+            if (empty($name)) {
+                return response()
+                    ->setStatusCode(422)
+                    ->setJSON([
+                        'errors' => [lang('Media.create_dir_error')]
+                    ]);
+            }
+
+            if (empty($path)) {
+                $path = '';
+            }
+
+            if (substr($path, -1) !== '/') {
+                $path .= '/';
+            }
+
+            try {
+                if (mkdir(WRITEPATH . 'media/' . $path . $name, 0755)) {
+                    return response()->setJSON([
+                        'message' => lang('Media.create_dir_success')
+                    ]);
+                } else {
+                    return response()
+                        ->setStatusCode(500)
+                        ->setJSON([
+                            'errors' => [lang('Media.create_dir_error')]
+                        ]);
+                }
+            } catch (\Exception $exception) {
+                return response()
+                    ->setStatusCode(500)
+                    ->setJSON([
+                        'errors' => [$exception->getMessage()]
+                    ]);
+            }
+        }
+
+        return response()
+            ->setStatusCode(405);
+    }
+
+    /**
+     * Endpoint to upload images
+     * via CKEditor
+     *
+     * {
+     * "uploaded": 1,
+     * "fileName": "foo.jpg",
+     * "url": "/files/foo.jpg"
+     * }
+     */
+    public function ckupload()
+    {
+        if ($this->request->getMethod() == 'post') {
+            $file = $this->request->getFile('upload');
+            $ext = $file->getExtension();
+
+            if (!$file->isValid() || !in_array($ext, $this->mediaConfig->allowedExtensions)) {
+                return $this->fail('Invalid file', 500);
+            }
+
+            try {
+                $file->move($this->mediaPath);
+                return $this->respondCreated(
+                    [
+                        'uploaded' => 1,
+                        'fileName' => $file->getName(),
+                        'url' => '/media/' . $file->getName()
+                    ]
+                );
+            } catch (\Exception $exception) {
+                return $this->fail($exception->getMessage(), 500);
+            }
+        }
+    }
+
+    /**
+     * Browse all files in the media folder
+     * to add them to the content where rquired
+     *
+     * @return string
+     */
+    public function ckbrowse()
+    {
+        $directory = new \RecursiveDirectoryIterator($this->mediaPath);
+        $iterator = new \RecursiveIteratorIterator($directory);
+
+        $files = [];
+        /** @var \SplFileInfo $item */
+        foreach ($iterator as $item) {
+            if (in_array($item->getExtension(), $this->mediaConfig->allowedImages)) {
+                $files[] = [
+                    'name' => $item->getFilename(),
+                    'path' => substr($item->getRealPath(), strpos($item->getRealPath(), '/media'))
+                ];
+            }
+        }
+        return view(
+            'Admin\Media\ckbrowse',
+            [
+                'files' => $files,
+                'section' => lang('Media.browse_files')
+            ]
+        );
+    }
+
+    /**
+     * returns a string of the current path
+     * @return string
+     */
+    private function getCurrentPath(): string
+    {
+        $currentPath = $this->session->get('currentPath');
+        $this->currentPath = $currentPath;
+        return $this->mediaPath . implode('/', $currentPath);
+    }
+
+    /**
+     * set the current path into the
+     * session to keep track of current
+     * folder
+     * @param $dir
+     */
+    private function setCurrentPath($dir): void
+    {
+        $currentPath = $this->session->get('currentPath');
+
+        if ($dir == 'root') {
+            $currentPath = [];
+        } elseif ($dir == 'up') {
+            array_pop($currentPath);
+        } elseif (in_array($dir, $currentPath)) {
+            $idx = array_search($dir, $currentPath);
+            $currentPath = array_slice($currentPath, 0, $idx + 1);
+        } elseif (!in_array($dir, $currentPath)) {
+            array_push($currentPath, $dir);
+        }
+
+        $this->session->set('currentPath', $currentPath);
+    }
+
+    /**
+     * Builds a directory structure which works
+     * better as JSON and for JS
+     *
+     * @param array $directory_map the current array of the directory
+     * @param string $name name of the node/directory
+     * @param array $result the final array
+     * @param string $path
+     * @return array
+     */
+    private function _makeDirectoryStructure(
+        array $directory_map,
+        string $name = '/',
+        array &$result = [],
+        string $path = '/media/'
+    ): array {
+        $tmp = [
+            'name' => $name,
+            'type' => 'dir',
+            'children' => []
         ];
-      }
+        foreach ($directory_map as $key => $file) {
+            if ($file === 'index.html') {
+                continue;
+            }
+            if (is_string($key) && is_array($file)) {
+                $this->_makeDirectoryStructure(
+                    $file,
+                    str_replace('/', '', $key),
+                    $tmp['children'],
+                    $path . $key
+                );
+            } else {
+                $tmp['children'][] = [
+                    'name' => $file,
+                    'path' => $path,
+                    'type' => substr($file, strrpos($file, '.') + 1),
+                ];
+            }
+        }
+
+        usort($tmp['children'], function ($a, $b) {
+            if ($a['type'] === 'dir' && $b['type'] === 'dir') {
+                return $a['name'] <=> $b['name'];
+            } elseif ($a['type'] === 'dir' && $b['type'] !== 'dir') {
+                return -1;
+            } elseif ($a['type'] !== 'dir' && $b['type'] === 'dir') {
+                return 1;
+            } elseif ($a['type'] !== 'dir' && $b['type'] !== 'dir') {
+                return $a['name'] <=> $b['name'];
+            }
+            return 0;
+        });
+
+        $result[] = $tmp;
+
+        return $result;
     }
-    return view(
-      'Admin\Media\ckbrowse',
-      [
-        'files' => $files,
-        'section' => lang('Media.browse_files')
-      ]
-    );
-  }
-
-  /**
-   * returns a string of the current path
-   * @return string
-   */
-  private function getCurrentPath(): string
-  {
-    $currentPath = $this->session->get('currentPath');
-    $this->currentPath = $currentPath;
-    return $this->mediaPath . implode('/', $currentPath);
-  }
-
-  /**
-   * set the current path into the
-   * session to keep track of current
-   * folder
-   * @param $dir
-   */
-  private function setCurrentPath($dir): void
-  {
-    $currentPath = $this->session->get('currentPath');
-
-    if ($dir == 'root') {
-      $currentPath = [];
-    } elseif ($dir == 'up') {
-      array_pop($currentPath);
-    } elseif (in_array($dir, $currentPath)) {
-      $idx = array_search($dir, $currentPath);
-      $currentPath = array_slice($currentPath, 0, $idx + 1);
-    } elseif (!in_array($dir, $currentPath)) {
-      array_push($currentPath, $dir);
-    }
-
-    $this->session->set('currentPath', $currentPath);
-  }
 }

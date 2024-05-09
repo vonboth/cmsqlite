@@ -71,11 +71,15 @@ main > .container {
 }
 
 .mr1rem {
-  margin-right: 1rem;
+  margin-right: 1rem !important;
 }
 
 .ml1rem {
-  margin-left: 1rem;
+  margin-left: 1rem !important;
+}
+
+.mb1rem {
+    margin-bottom: 1rem;
 }
 
 .navbar-fixed {
