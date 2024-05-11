@@ -46,7 +46,7 @@ class SettingsController extends BaseController
     {
         $setting = $this->Settings->find($id);
         if ($this->validate(['value' => 'required'])) {
-            $setting->fill($this->request->getPost());
+            $setting->fill($this->request->getJSON(true));
             try {
                 if ($this->Settings->save($setting)) {
                     session()->setFlashdata('flash', lang('General.saved'));
