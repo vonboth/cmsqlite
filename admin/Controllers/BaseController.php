@@ -13,7 +13,6 @@ use Psr\Log\LoggerInterface;
 /**
  * Class Base
  * @package Admin\Controllers
- * TODO: INSTALLATION ROUTINE: EMAIL SETTINGS ...
  */
 class BaseController extends AppBase
 {

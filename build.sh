@@ -41,7 +41,7 @@ fi
 bun update
 
 # Admin-Section
-cp -R admin/ $BUILD_DIR
+rsync -a ./admin $BUILD_DIR --exclude resources
 
 # App-Section
 cp -R app/ $BUILD_DIR

@@ -1,4 +1,6 @@
-- Layouts für einzelne Menüpunkte / Artikel festlegen
-- LogFiles anzeigen
-- Cache / Logs etc... leeren
-- automatische sitemap generieren
+TODO: Layouts für einzelne Menüpunkte / Artikel festlegen
+TODO: LogFiles anzeigen
+TODO: automatische sitemap generieren
+TODO: upgrade auf PHP 8.2 und CI 4.5
+TODO: INSTALLATION ROUTINE: EMAIL SETTINGS ...
+

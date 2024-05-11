@@ -8,6 +8,7 @@ use CodeIgniter\Exceptions\PageNotFoundException;
 use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
+use CodeIgniter\HTTP\SiteURIFactory;
 
 class InstallationFilter implements FilterInterface
 {
@@ -17,7 +18,8 @@ class InstallationFilter implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        $route = $request->detectPath();
+        $factory = new SiteURIFactory(new \Config\App(), new \CodeIgniter\Superglobals());
+        $route = $factory->detectRoutePath();
         if (strpos($route, 'install') === false
             && is_dir(ROOTPATH . 'install')
             && !file_exists(ROOTPATH . '.env')) {

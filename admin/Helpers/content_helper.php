@@ -13,8 +13,8 @@ if (!function_exists('vite')) {
 
         if (strtolower(env('CI_ENVIRONMENT')) == 'development') {
             return <<<SCRIPT
-<script type="module" src="$url/@vite/client"></script>
-<script type="module" src="$url/$script"></script>
+<script src="$url/@vite/client" type="module"></script>
+<script src="$url/$script" type="module"></script>
 SCRIPT;
         } else {
             if (file_exists(ROOTPATH . ".vite/manifest.json")) {
@@ -23,12 +23,14 @@ SCRIPT;
                 $entries = $manifests[$script];
                 foreach ($entries as $key => $entry) {
                     if ($key === 'file') {
-                        $out .= "<script type\"module\" src=\"/$entry\"></script>\r\n";
+                        $entry = str_replace('public', '', $entry);
+                        $out .= "<script src=\"$entry\" type=\"module\"></script>\r\n";
                     }
 
                     if ($key === 'css') {
                         foreach ($entry as $cssFile) {
-                            $out .= "<link rel=\"stylesheet\" href=\"/$cssFile\">\r\n";
+                            $cssFile = str_replace('public', '', $cssFile);
+                            $out .= "<link rel=\"stylesheet\" href=\"$cssFile\">\r\n";
                         }
                     }
                 }

@@ -137,11 +137,14 @@ class IndexController extends BaseController
 
             $key = 'hex2bin:' . bin2hex(Encryption::createKey());
 
-            $content = "CI_ENVIRONMENT = production\r\n" .
-                "app.baseURL = \"{$this->request->getPost('base_url')}\"\r\n" .
-                "app.defaultLocale = {$this->request->getPost('language')}\r\n" .
-                "app.appTimezone = {$this->request->getPost('timezone')}\r\n" .
-                "encryption.key = $key";
+            $content = <<<END
+CI_ENVIRONMENT=production
+app.baseURL={$this->request->getPost('base_url')}
+app.defaultLocale={$this->request->getPost('language')}
+app.appTimezone={$this->request->getPost('timezone')}
+encryption.key=$key
+cache.handler=file
+END;
 
             if (!is_writable(ROOTPATH)) {
                 $this->session->setFlashdata('flash', lang('Install.success'));

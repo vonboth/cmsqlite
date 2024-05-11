@@ -41,6 +41,6 @@ export default defineConfig({
         }
     },
     optimizeDeps: {
-        include: ['vue']
+        include: ['axios', 'moment', 'sweetalert2', 'vue']
     }
 });

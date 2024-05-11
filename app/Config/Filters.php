@@ -19,38 +19,55 @@ use CodeIgniter\Filters\SecureHeaders;
  */
 class Filters extends BaseConfig
 {
-  /**
-   * Configures aliases for Filter classes to
-   * make reading things nicer and simpler.
-   */
-  public array $aliases = [
-    'csrf' => CSRF::class,
-    'toolbar' => DebugToolbar::class,
-    'honeypot' => Honeypot::class,
-    'authenticate' => AuthenticateFilter::class,
-    'authorize' => AuthorizeFilter::class,
-    'loginThrottle' => LoginThrottleFilter::class,
-    'maintenance' => MaintenanceFilter::class,
-    'invalidchars' => InvalidChars::class,
-    'secureheaders' => SecureHeaders::class,
-  ];
+    /**
+     * @inheritdoc
+     */
+    public function __construct()
+    {
+        parent::__construct();
 
-  /**
-   * List of filter aliases that are always
-   * applied before and after every request.
-   */
-  public array $globals = [
-    'before' => [
-      // 'honeypot'
-      'csrf',
-      // 'invalidchars',
-    ],
-    'after' => [
-      'toolbar',
-      // 'honeypot'
-      // 'secureheaders'
-    ],
-  ];
+        /**
+         * CMSQLITE NEEDS THIS TO ENSURE INSTALLATION
+         */
+        // If Install-Dir exists, we want to have some Filters to ensure Installation
+        if (is_dir(ROOTPATH . 'install')) {
+            $this->aliases += ['install' => \Install\Filters\InstallationFilter::class];
+            $this->filters += ['install' => ['before' => ['/', 'install', 'install/*']]];
+        }
+    }
+
+    /**
+     * Configures aliases for Filter classes to
+     * make reading things nicer and simpler.
+     */
+    public array $aliases = [
+        'csrf' => CSRF::class,
+        'toolbar' => DebugToolbar::class,
+        'honeypot' => Honeypot::class,
+        'authenticate' => AuthenticateFilter::class,
+        'authorize' => AuthorizeFilter::class,
+        'loginThrottle' => LoginThrottleFilter::class,
+        'maintenance' => MaintenanceFilter::class,
+        'invalidchars' => InvalidChars::class,
+        'secureheaders' => SecureHeaders::class,
+    ];
+
+    /**
+     * List of filter aliases that are always
+     * applied before and after every request.
+     */
+    public array $globals = [
+        'before' => [
+            // 'honeypot'
+            'csrf',
+            // 'invalidchars',
+        ],
+        'after' => [
+            'toolbar',
+            // 'honeypot'
+            // 'secureheaders'
+        ],
+    ];
 
     /**
      * List of filter aliases that works on a
@@ -65,18 +82,18 @@ class Filters extends BaseConfig
      */
     public array $methods = [];
 
-  /**
-   * List of filter aliases that should run on any
-   * before or after URI patterns.
-   *
-   * Example:
-   * 'isLoggedIn' => ['before' => ['account/*', 'profiles/*']]
-   */
-  public $filters = [
-    'maintenance' => ['before' => ['*']],
-    'loginThrottle' => ['before' => ['admin/authenticate/login']],
-    'authenticate' => ['before' => ['admin', 'admin/*']],
-    // TODO: AUTHORIZE FILTER IN ROUTES?
-    //'authorize' => ['before' => ['*']]
-  ];
+    /**
+     * List of filter aliases that should run on any
+     * before or after URI patterns.
+     *
+     * Example:
+     * 'isLoggedIn' => ['before' => ['account/*', 'profiles/*']]
+     */
+    public $filters = [
+        'maintenance' => ['before' => ['*']],
+        'loginThrottle' => ['before' => ['admin/authenticate/login']],
+        'authenticate' => ['before' => ['admin', 'admin/*']],
+        // TODO: AUTHORIZE FILTER IN ROUTES?
+        //'authorize' => ['before' => ['*']]
+    ];
 }
