@@ -96,7 +96,7 @@ class Routing extends BaseRouting
      *
      * Default: false
      */
-    public bool $prioritize = false;
+    public bool $prioritize = true;
 
     /**
      * Map of URI segments and namespaces. For Auto Routing (Improved).

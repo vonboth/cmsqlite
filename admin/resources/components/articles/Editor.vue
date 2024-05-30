@@ -1,15 +1,25 @@
 <script>
+import {popScopeId} from 'vue';
+
 export default {
     name: 'Editor',
     props: {
+        id: {
+            type: String,
+            required: true
+        },
         theme: {
             type: String,
             default: 'default'
         },
-        disabled: Boolean
+        disabled: Boolean,
+        name: {
+            type: String,
+            default: 'content'
+        }
     },
     mounted() {
-        CKEDITOR.replace('content', {
+        CKEDITOR.replace(this.id, {
             height: 500,
             filebrowserBrowseUrl: '/admin/media/ckbrowse',
             filebrowserUploadUrl: '/admin/media/ckupload',
@@ -23,33 +33,37 @@ export default {
         });
 
         // CUSTOM PLUGINS
-        CKEDITOR.plugins.add('readon', {
-            init: function(editor) {
-                editor.addContentsCss(`/themes/admin/Views/${this.theme}/css/ckeditor.styles.css`);
-                editor.addCommand('insertReadon', {
-                    exec: function(editor) {
-                        if (editor.getData().indexOf('<hr class="readon" />') < 0) {
-                            editor.insertHtml('<hr class="readon" />', 'unfiltered_html');
+        if (!CKEDITOR.plugins.registered['readon']) {
+            CKEDITOR.plugins.add('readon', {
+                init: function(editor) {
+                    editor.addContentsCss(`/themes/admin/Views/${this.theme}/css/ckeditor.styles.css`);
+                    editor.addCommand('insertReadon', {
+                        exec: function(editor) {
+                            if (editor.getData().indexOf('<hr class="readon" />') < 0) {
+                                editor.insertHtml('<hr class="readon" />', 'unfiltered_html');
+                            }
                         }
-                    }
-                });
+                    });
 
-                editor.ui.addButton('Readon', {
-                    icon: '/themes/admin/Views/default/img/readon.png',
-                    label: 'Insert Readon',
-                    command: 'insertReadon',
-                    toolbar: 'insert,100'
-                });
-            }.bind(this)
-        });
+                    if (!editor.ui.items.Readon) {
+                        editor.ui.addButton('Readon', {
+                            icon: '/themes/admin/Views/default/img/readon.png',
+                            label: 'Insert Readon',
+                            command: 'insertReadon',
+                            toolbar: 'insert,100'
+                        });
+                    }
+                }.bind(this)
+            });
+        }
     }
 };
 </script>
 
 <template>
-    <textarea name="content"
+    <textarea :name="name"
               :disabled="disabled"
-              id="content">{{ $slots.default ? $slots.default()[0].children : '' }}</textarea>
+              :id="id">{{ $slots.default ? $slots.default()[0].children : '' }}</textarea>
 </template>
 
 <style scoped>

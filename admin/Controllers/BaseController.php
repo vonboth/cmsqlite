@@ -63,7 +63,9 @@ class BaseController extends AppBase
                 'theme' => $this->theme,
                 'version' => $this->_getVersion(),
                 'editor_style' => $this->SystemSettings->editor_style,
-                'tour' => $this->SystemSettings->tour
+                'tour' => $this->SystemSettings->tour, // tour is enabaleld
+                'language' => $this->SystemSettings->language, // default page language
+                'translations' => $this->SystemSettings->translations // translations is enabled
             ]
         );
 

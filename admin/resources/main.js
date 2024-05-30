@@ -11,6 +11,7 @@ import Editor from '@/components/articles/Editor.vue';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import Swal from 'sweetalert2';
 import FileBrowser from '@/components/media/FileBrowser.vue';
+import ListActions from '@/components/ListActions.vue';
 
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
@@ -55,6 +56,7 @@ app.component('menus', Menus);
 app.component('menu-list', MenuList);
 app.component('editor', Editor);
 app.component('file-browser', FileBrowser);
+app.component('list-actions', ListActions)
 app.directive('click-outside', {
     beforeMount(el, binding, vnode, prevVnode) {
         el.clickOutsideEvent = (event) => {

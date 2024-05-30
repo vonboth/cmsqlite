@@ -9,11 +9,11 @@
  */
 
 /** @var \Admin\Models\Entities\Article $article */
-
+/** @var string $locale the curren locale */
 /** @var string $theme */
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?= $locale ?>">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>

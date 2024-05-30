@@ -11,7 +11,7 @@ $routes->group(
     'admin',
     ['namespace' => 'Admin\Controllers'],
     function (RouteCollection $routes) {
-        $routes->add('/', 'StartController::index');
+        $routes->add('/', 'StartController::index', ['priority' => 0]);
         $routes->group(
             'start',
             function (RouteCollection $routes) {

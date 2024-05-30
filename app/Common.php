@@ -13,6 +13,9 @@
  *
  * @link: https://codeigniter4.github.io/CodeIgniter4/
  */
+if (!defined('ADMINPATH')) {
+  define('ADMINPATH', ROOTPATH . 'admin/');
+}
 
 if (!defined('PUBLICPATH')) {
   define('PUBLICPATH', ROOTPATH . '/public/');

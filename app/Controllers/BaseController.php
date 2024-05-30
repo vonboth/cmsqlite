@@ -76,9 +76,7 @@ abstract class BaseController extends Controller
     /** @var RendererInterface $View */
     protected RendererInterface $View;
 
-    /**
-     * @var string $locale
-     */
+    /** @var string $locale */
     protected $locale;
 
     /**
@@ -96,6 +94,8 @@ abstract class BaseController extends Controller
         $this->locale = $lang->getLocale();
         if ($this->session->lang) {
             $lang->setLocale($this->session->lang);
+        } else {
+            $this->session->lang = $lang->getLocale();
         }
 
         $this->SystemSettings = config('Admin\Config\SystemSettings');
@@ -107,6 +107,7 @@ abstract class BaseController extends Controller
 
         $this->View->setData(
             [
+                'locale' => $lang->getLocale(),
                 'layout' => $this->theme
             ]
         );

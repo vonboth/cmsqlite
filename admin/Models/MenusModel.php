@@ -45,7 +45,7 @@ class MenusModel extends BaseModel
      * the menu as tree property
      * @return array
      */
-    public function findAllMenusWithTrees() : array
+    public function findAllMenusWithTrees(): array
     {
         $entities = $this->findAll();
         $menus = [];

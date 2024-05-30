@@ -63,6 +63,7 @@ return [
             'maintenance' => 'Wartungsmodus',
             'tour' => 'Tour',
             'editor_style' => 'HTML Editor Style',
+            'translations' => 'Übersetzungen'
         ],
         'menus' => [
             'menus' => 'Menüs',

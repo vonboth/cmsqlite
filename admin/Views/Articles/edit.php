@@ -21,7 +21,7 @@ $this->endSection() ?>
   <div class="card-content">
     <div class="row">
       <h3><?= lang('Admin.edit') ?></h3>
-        <?= form_open('/admin/articles/edit/' . $article->id, 'class="col s12"') ?>
+        <?= form_open('/admin/articles/edit/' . $article['id'], 'class="col s12"') ?>
         <?= $this->include('Admin\Articles\partials\article_form') ?>
         <?= form_close() ?>
     </div>

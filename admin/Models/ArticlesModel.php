@@ -2,6 +2,7 @@
 
 namespace Admin\Models;
 
+use Admin\Models\Entities\Translation;
 use Admin\Services\AuthService;
 use Tatter\Relations\Traits\ModelTrait;
 
@@ -67,7 +68,7 @@ class ArticlesModel extends BaseModel
      * @param array $data
      * @return array
      */
-    protected function setStartpageFlagToNull(array $data)
+    protected function setStartpageFlagToNull(array $data): array
     {
         if (isset($data['data']['is_startpage'])) {
             $this->db->simpleQuery('UPDATE articles SET is_startpage=NULL');
@@ -81,7 +82,7 @@ class ArticlesModel extends BaseModel
      * @param array $data
      * @return array
      */
-    protected function setUser(array $data)
+    protected function setUser(array $data): array
     {
         /** @var AuthService $authService */
         $authService = service('auth');
@@ -95,7 +96,7 @@ class ArticlesModel extends BaseModel
      * @param array $data
      * @return array
      */
-    protected function setAlias(array $data)
+    protected function setAlias(array $data): array
     {
         if (empty($data['data']['alias'])) {
             $search = [' ', '-', '_'];
@@ -107,5 +108,39 @@ class ArticlesModel extends BaseModel
             );
         }
         return $data;
+    }
+
+    /**
+     * find an article with translations as an assoc array
+     * @param $id
+     * @return array
+     */
+    public function findWithTranslations($id): array
+    {
+        $article = $this->with('translations')->find($id);
+        $articleAsArray = $article->toArray();
+        $articleAsArray['translations'] = [];
+        $supportedTranslations = config('Admin\SystemSettings')->supportedTranslations;
+        $defaultLanguage = config('Admin\SystemSettings')->language;
+        $languages = array_diff($supportedTranslations, [$defaultLanguage]);
+
+        // add existing translations
+        foreach ($article->translations as $translation) {
+            $articleAsArray['translations'][$translation->language] = $translation->toArray();
+        }
+
+        // add missing translations
+        foreach ($languages as $language) {
+            if (!isset($articleAsArray['translations'][$language])) {
+                $articleAsArray['translations'][$language] = (new Translation([
+                    'article_id' => $article->id,
+                    'language' => $language,
+                    'title' => $article->title,
+                    'content' => $article->content
+                ]))->toArray();
+            }
+        }
+
+        return $articleAsArray;
     }
 }

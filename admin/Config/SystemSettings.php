@@ -43,6 +43,12 @@ class SystemSettings extends BaseConfig
     /** @var string $ckeditor the type of editor to be loaded from CDN: basic | standard | full */
     public string $editor_style = 'standard';
 
+    /** @var string|int translations enabled */
+    public int $translations = 0;
+
+    /** @var string[] supported translations */
+    public array $supportedTranslations = ['de', 'en'];
+
     /** @var string[] additional settings from the database */
     public static $registrars = [
         'Admin\Models\SettingsModel'

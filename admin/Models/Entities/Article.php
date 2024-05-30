@@ -3,6 +3,8 @@
 
 namespace Admin\Models\Entities;
 
+use Tatter\Relations\Traits\ModelTrait;
+
 /**
  * Class Article
  * @package Admin\Models\Entities
@@ -29,6 +31,8 @@ namespace Admin\Models\Entities;
  */
 class Article extends Base
 {
+    use ModelTrait;
+
     protected $attributes = [
         'id' => null,
         'is_startpage' => null,
@@ -50,4 +54,6 @@ class Article extends Base
     ];
 
     protected $dates = ['created', 'updated'];
+
+    protected $with = ['translations'];
 }

@@ -27,7 +27,11 @@
 # app.CSPEnabled = false
 # app.appTimezone = Europe/Berlin
 # app.defaultLocale = de
-# app.supportedLocales="['de']"
+
+#----
+# If you want to diable the cache
+#--
+# cache.handler = dummy
 
 #--------------------------------------------------------------------
 # DATABASE
