@@ -3,6 +3,7 @@
 
 namespace Admin\Models\Entities;
 
+use Tatter\Relations\Traits\EntityTrait;
 use Tatter\Relations\Traits\ModelTrait;
 
 /**
@@ -31,7 +32,7 @@ use Tatter\Relations\Traits\ModelTrait;
  */
 class Article extends Base
 {
-    use ModelTrait;
+    use EntityTrait;
 
     protected $attributes = [
         'id' => null,
@@ -56,4 +57,20 @@ class Article extends Base
     protected $dates = ['created', 'updated'];
 
     protected $with = ['translations'];
+
+    /**
+     * get the content of the article
+     * @return string
+     */
+    public function getContent(): string
+    {
+        if ($this->translationEnabeled && isset($this->attributes['translations']) && !empty($this->attributes['translations'])) {
+            foreach ($this->attributes['translations'] as $translation) {
+                if ($translation->language === $this->locale) {
+                    return $translation->content ?: $this->attributes['content'];
+                }
+            }
+        }
+        return $this->attributes['content'];
+    }
 }

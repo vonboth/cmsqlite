@@ -14,16 +14,28 @@ class ArticlesModel extends BaseModel
 {
     use ModelTrait;
 
+    /** @inheritdoc  */
     protected $table = 'articles';
+
+    /** @inheritdoc  */
     protected $returnType = 'Admin\Models\Entities\Article';
 
+    /** @inheritdoc  */
     protected $useTimestamps = true;
+
+    /** @inheritdoc  */
     protected $updatedField = 'updated';
+
+    /** @inheritdoc  */
     protected $createdField = 'created';
 
+    /** @inheritdoc  */
     protected $beforeUpdate = ['setStartpageFlagToNull'];
+
+    /** @inheritdoc  */
     protected $beforeInsert = ['setUser', 'setAlias'];
 
+    /** @inheritdoc  */
     protected $allowedFields = [
         'is_startpage',
         'title',
@@ -40,6 +52,9 @@ class ArticlesModel extends BaseModel
         'stop_publish',
         'hits'
     ];
+
+    /** @var string[] $with relations */
+    protected $with = ['translations', 'users', 'categories'];
 
     /**
      * Reset hits for all articles
@@ -120,8 +135,8 @@ class ArticlesModel extends BaseModel
         $article = $this->with('translations')->find($id);
         $articleAsArray = $article->toArray();
         $articleAsArray['translations'] = [];
-        $supportedTranslations = config('Admin\SystemSettings')->supportedTranslations;
-        $defaultLanguage = config('Admin\SystemSettings')->language;
+        $supportedTranslations = config('Admin\Config\SystemSettings')->supportedTranslations;
+        $defaultLanguage = config('Admin\Config\SystemSettings')->language;
         $languages = array_diff($supportedTranslations, [$defaultLanguage]);
 
         // add existing translations

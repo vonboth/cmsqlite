@@ -8,7 +8,7 @@
 /** @var string $language default language set in DB-Settings */
 /** @var int $translations translations enabled set in DB-Settings */
 /** @var array<string> $supportedTranslations */
-$supportedTranslations = array_diff(config('Admin\SystemSettings')->supportedTranslations, [$language]);
+$supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->supportedTranslations, [$language]);
 ?>
 <div class="row">
     <?php

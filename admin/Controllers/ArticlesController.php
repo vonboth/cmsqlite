@@ -117,8 +117,8 @@ class ArticlesController extends BaseController
         $article = (new Article(['published' => 1]))->toArray();
         if ($this->SystemSettings->translations) {
             $translationLanguages = array_diff(
-                config('Admin\SystemSettings')->supportedTranslations,
-                [config('Admin\SystemSettings')->language]
+                config('Admin\Config\SystemSettings')->supportedTranslations,
+                [config('Admin\Config\SystemSettings')->language]
             );
             foreach ($translationLanguages as $language) {
                 $article['translations'][$language] = (new Translation(['language' => $language]))->toArray();

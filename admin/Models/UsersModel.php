@@ -3,14 +3,23 @@
 
 namespace Admin\Models;
 
+use Tatter\Relations\Traits\ModelTrait;
+
 /**
  * Class UsersModel
  * @package Admin\Models
  */
 class UsersModel extends BaseModel
 {
+    use ModelTrait;
+
+    /** @inheritdoc  */
     protected $table = 'users';
+
+    /** @inheritdoc  */
     protected $returnType = 'Admin\Models\Entities\User';
+
+    /** @inheritdoc  */
     protected $allowedFields = [
         'username',
         'password',

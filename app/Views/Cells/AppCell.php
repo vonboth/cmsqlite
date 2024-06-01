@@ -14,52 +14,60 @@ use Admin\Config\SystemSettings;
  */
 abstract class AppCell
 {
-  /** @var mixed $SystemSettings system settings set in admin backend */
-  protected SystemSettings $SystemSettings;
+    /** @var mixed $SystemSettings system settings set in admin backend */
+    protected SystemSettings $SystemSettings;
 
-  /** @var string $theme theme configured in configuration */
-  protected string $theme;
+    /** @var string $theme theme configured in configuration */
+    protected string $theme;
 
-  /**
-   * AppCell constructor.
-   */
-  public function __construct()
-  {
-    $this->SystemSettings = config('Admin\Config\SystemSettings');
-    $this->theme = $this->SystemSettings->theme;
+    /** @var bool $translationEnabled is translation enabled */
+    protected $translationEnabled = false;
 
-    $this->initialize();
-  }
+    /** @var string $locale current locale */
+    protected $locale;
 
-  /**
-   * renders a view cell
-   * Implement this for any child class
-   *
-   * @param array $options
-   *
-   * @return string
-   */
-  abstract public function render(array $options = []): string;
+    /**
+     * AppCell constructor.
+     */
+    public function __construct()
+    {
+        $this->SystemSettings = config('Admin\Config\SystemSettings');
+        $this->theme = $this->SystemSettings->theme;
+        $this->translationEnabled = (bool)$this->SystemSettings->translations;
+        $this->locale = service('language')->getLocale();
 
-  /**
-   * init cell
-   *
-   * @return void
-   */
-  protected function initialize(): void
-  {
-  }
+        $this->initialize();
+    }
 
-  /**
-   * __call to catch any class function call
-   * or miss-spelling in the template
-   * to redirect it to the render method
-   * @param $name
-   * @param $arguments
-   * @return string
-   */
-  public function __call($name, $arguments)
-  {
-    return $this->render($arguments);
-  }
+    /**
+     * renders a view cell
+     * Implement this for any child class
+     *
+     * @param array $options
+     *
+     * @return string
+     */
+    abstract public function render(array $options = []): string;
+
+    /**
+     * init cell
+     *
+     * @return void
+     */
+    protected function initialize(): void
+    {
+    }
+
+    /**
+     * __call to catch any class function call
+     * or miss-spelling in the template
+     * to redirect it to the render method
+     * @param $name
+     * @param $arguments
+     * @return string
+     */
+    public function __call($name, $arguments)
+    {
+        return $this->render($arguments);
+    }
 }

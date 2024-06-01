@@ -2,6 +2,8 @@
 
 namespace Admin\Models\Entities;
 
+use Tatter\Relations\Traits\EntityTrait;
+
 /**
  * @property int $id
  * @property int $article_id
@@ -17,6 +19,9 @@ namespace Admin\Models\Entities;
  */
 class Translation extends Base
 {
+    use EntityTrait;
+
+    /** @inheritdoc  */
     protected $attributes = [
         'id' => null,
         'article_id' => null,
@@ -31,8 +36,6 @@ class Translation extends Base
         'updated' => null,
     ];
 
-    /**
-     * @inheritdoc
-     */
+    /** @inheritdoc */
     protected $dates = ['created', 'updated'];
 }

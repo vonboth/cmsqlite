@@ -2,17 +2,32 @@
 
 namespace Admin\Models;
 
-use Admin\Models\BaseModel;
 use Admin\Services\AuthService;
+use Tatter\Relations\Traits\ModelTrait;
 
 class TranslationsModel extends BaseModel
 {
+    use ModelTrait;
+
+    /** @inheritdoc  */
     protected $table = 'translations';
+
+    /** @inheritdoc  */
     protected $returnType = 'Admin\Models\Entities\Translation';
+
+    /** @inheritdoc  */
     protected $useTimestamps = true;
+
+    /** @inheritdoc  */
     protected $createdField = 'created';
+
+    /** @inheritdoc  */
     protected $updatedField = 'updated';
+
+    /** @inheritdoc  */
     protected $beforeInsert = ['setUser', 'setAlias'];
+
+    /** @inheritdoc  */
     protected $allowedFields = [
         'article_id',
         'language',

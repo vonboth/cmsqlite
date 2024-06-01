@@ -18,6 +18,7 @@ class PagesController extends BaseController
     /** @var UsersModel $Users */
     protected UsersModel $Users;
 
+    /** @inheritdoc */
     public function initController(
         RequestInterface $request,
         ResponseInterface $response,
@@ -33,8 +34,10 @@ class PagesController extends BaseController
     public function start()
     {
         $article = $this->Articles
+            ->with('translations')
             ->where('is_startpage', 1)
             ->first();
+
         $article->content = remove_readon($article);
 
         $this->_updateHits($article);

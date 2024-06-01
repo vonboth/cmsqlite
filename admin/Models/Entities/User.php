@@ -4,6 +4,8 @@
 namespace Admin\Models\Entities;
 
 
+use Tatter\Relations\Traits\EntityTrait;
+
 /**
  * Class User
  * @package Admin\Models\Entities
@@ -24,6 +26,8 @@ namespace Admin\Models\Entities;
  */
 class User extends Base
 {
+    use EntityTrait;
+
     /** @inheritdoc */
     protected $attributes = [
         'id' => null,

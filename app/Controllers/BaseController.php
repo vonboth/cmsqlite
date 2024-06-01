@@ -90,13 +90,12 @@ abstract class BaseController extends Controller
         parent::initController($request, $response, $logger);
 
         $this->session = Services::session();
-        $lang = Services::language();
-        $this->locale = $lang->getLocale();
-        if ($this->session->lang) {
+        $this->locale = Services::language()->getLocale();
+        /*if ($this->session->lang) {
             $lang->setLocale($this->session->lang);
         } else {
             $this->session->lang = $lang->getLocale();
-        }
+        }*/
 
         $this->SystemSettings = config('Admin\Config\SystemSettings');
         $this->Articles = new ArticlesModel();
@@ -107,7 +106,7 @@ abstract class BaseController extends Controller
 
         $this->View->setData(
             [
-                'locale' => $lang->getLocale(),
+                'locale' => $this->locale,
                 'layout' => $this->theme
             ]
         );
