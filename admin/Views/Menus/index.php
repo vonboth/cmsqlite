@@ -6,10 +6,14 @@
 /**
  * @var $menus
  * @var $menuitems
+ * @var $language
+ * @var $translations
  * @var \Admin\Models\Entities\Article[] $articles
  * @var string $theme
  * @var \Admin\Models\Entities\Category[] $categories a list of categories
  */
+
+$supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->supportedTranslations, [$language]);
 
 $this->extend("AdminThemes\\$theme\\layouts\\default")
 ?>
@@ -25,3 +29,13 @@ $this->section('main') ?>
 
 <?php
 $this->endSection() ?>
+
+<?php $this->section('js') ?>
+<script type="text/javascript">
+    const config = {
+        translationEnabled: <?= $translations ? 'true' : 'false' ?>,
+        language: '<?= $language ?>',
+        supportedTranslations: <?= json_encode(array_values($supportedTranslations)) ?>
+    };
+</script>
+<?php $this->endSection() ?>

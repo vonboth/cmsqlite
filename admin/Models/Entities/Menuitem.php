@@ -3,6 +3,8 @@
 
 namespace Admin\Models\Entities;
 
+use Tatter\Relations\Traits\EntityTrait;
+
 /**
  * Class Menuitem
  * @package Admin\Models\Entities
@@ -31,6 +33,9 @@ namespace Admin\Models\Entities;
  */
 class Menuitem extends Base
 {
+    use EntityTrait;
+
+    /** @inheritdoc */
     protected $attributes = [
         'id' => null,
         'title' => null,
@@ -53,5 +58,6 @@ class Menuitem extends Base
         'updated' => null,
     ];
 
+    /** @inheritdoc */
     protected $dates = ['created', 'updated'];
 }

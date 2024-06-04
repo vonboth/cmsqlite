@@ -78,15 +78,27 @@ class ArticlesController extends BaseController
 
             if ($translationsEnabeld) {
                 $validation += [
+                    'translations.*.title' => 'required',
                     'translations.*.content' => 'required',
-                    'translations.*.title' => 'required'
                 ];
             }
 
             if ($this->validate($validation)) {
                 $postData = $this->request->getPost();
                 $article = new Article();
-                $article->fill($postData);
+                $article->is_startpage = empty($postData['is_startpage']) ? null : $postData['is_startpage'];
+                $article->title = $postData['title'];
+                $article->alias = $postData['alias'] ?: null;
+                $article->doc_key = $postData['doc_key'] ?: null;
+                $article->content = $postData['content'];
+                $article->description = $postData['description'] ?: null;
+                $article->class = empty($postData['class']) ? null : $postData['class'];
+                $article->category_id = $postData['category_id'] ?: null;
+                $article->layout = empty($postData['layout']) ? null : $postData['layout'];
+                $article->published = $postData['published'] ?: null;
+                $article->start_publish = $postData['start_publish'] ?: null;
+                $article->stop_publish = $postData['stop_publish'] ?: null;
+
                 if ($this->Articles->insert($article) !== false) {
                     $id = $this->Articles->getInsertID();
                     if ($translationsEnabeld) {

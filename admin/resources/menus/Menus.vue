@@ -14,9 +14,10 @@ export default {
             selectedMenu: {},
             selectedMenuId: null,
             hideMenuitemForm: true,
-            selectedMenuitem: {},
+            selectedMenuitem: null,
             parentMenus: [],
-            currentMenus: this.menus || []
+            currentMenus: this.menus || [],
+            tabsInstance: null
         };
     },
     computed: {
@@ -24,8 +25,11 @@ export default {
             return this.selectedMenu?.name !== '';
         },
         canSaveMenuitem() {
-            return this.selectedMenuitem.title !== ''
-                && (this.selectedMenuitem.article_id || this.selectedMenuitem.url || this.selectedMenuitem.category_id);
+            return this.selectedMenuitem?.title !== ''
+                && (this.selectedMenuitem?.article_id || this.selectedMenuitem?.url || this.selectedMenuitem?.category_id);
+        },
+        config() {
+            return config;
         }
     },
     props: {
@@ -45,6 +49,8 @@ export default {
         }
     },
     mounted() {
+        console.log(this.menus);
+        this.tabsInstance = M.Tabs.init(document.querySelectorAll('.tabs'));
     },
     methods: {
         // Menu section: add a new menu
@@ -53,12 +59,14 @@ export default {
                 name: '',
                 description: ''
             };
+            this.hideMenuitemForm = true;
             this.hideMenuForm = false;
         },
 
         // Menu section: edit a new menu
         onEditMenu(id) {
             this.selectedMenu = Object.assign({}, this.currentMenus.find((menu) => menu.id === id));
+            this.hideMenuitemForm = true;
             this.hideMenuForm = false;
         },
 
@@ -147,13 +155,14 @@ export default {
         onSelectMenu(id) {
             this.hideMenuitemForm = true;
             this.hideMenuForm = true;
-            this.selectedMenuitem = {};
+            this.selectedMenuitem = null;
             this.selectedMenu = {};
             this.selectedMenuId = id;
         },
 
         // add a menu item
         onAddMenuitem(menuId) {
+            this.hideMenuForm = true;
             this.selectedMenuId = menuId;
             this.parentMenus = findMenuItems([], this.currentMenus.find(it => it.id === menuId).children);
             this.selectedMenuitem = {
@@ -174,15 +183,29 @@ export default {
                 lft: 0,
                 rgt: 0
             };
+
+            if (config.translationEnabled) {
+                this.selectedMenuitem.translations = {};
+                config.supportedTranslations.forEach(lang => {
+                    this.selectedMenuitem.translations[lang] = {
+                        language: lang,
+                        title: ''
+                    };
+                });
+            }
+
             this.hideMenuitemForm = false;
+            this.tabsInstance[0].select(`tab_${config.language}`);
         },
 
         // edit menu item
         onEditMenuitem(id, menuId) {
+            this.hideMenuForm = true;
             this.selectedMenuId = menuId;
             const menu = this.currentMenus.find(it => it.id === menuId);
-            this.selectedMenuitem = findItemInMenu(menu.children, id);
+            this.selectedMenuitem = Object.assign({}, findItemInMenu(menu.children, id));
             this.hideMenuitemForm = false;
+            this.tabsInstance[0].select(`tab_${config.language}`);
         },
 
         // Menu section: auto prepare the alias
@@ -206,7 +229,7 @@ export default {
 
         // Menu section: cancel edit a menuitem
         onResetMenuitem() {
-            this.selectedMenuitem = {};
+            this.selectedMenuitem = null;
             this.hideMenuitemForm = true;
         },
 
@@ -214,8 +237,8 @@ export default {
         async onSaveMenuitem() {
             this.isLoading = true;
             try {
-                const url = this.selectedMenuitem.id
-                    ? `/admin/menuitems/edit/${this.selectedMenuitem.id}` : '/admin/menuitems/add';
+                const url = this.selectedMenuitem?.id
+                    ? `/admin/menuitems/edit/${this.selectedMenuitem?.id}` : '/admin/menuitems/add';
 
                 const response = await axios.post(url, this.selectedMenuitem, {
                     headers: {'X-CSRF-TOKEN': this.csrfToken}
@@ -244,7 +267,7 @@ export default {
         // Menu section: remove a menuitem
         onDeleteMenuitem(id, menuId) {
             this.onResetMenuitem();
-            const menu = this.currentMenus.find(it => it.id  === menuId);
+            const menu = this.currentMenus.find(it => it.id === menuId);
             const menuitem = findItemInMenu(menu.children, id);
 
             let withInput = false,
@@ -480,282 +503,338 @@ function findItemInMenu(children, id) {
                 </div>
 
                 <!-- MENUITEM FORM -->
-                <div :class="{hide: hideMenuitemForm}">
-                    <form ref="menuitem_form">
-                        <input type="hidden" name="menu_id" :value="selectedMenuitem.menu_id"/>
-                        <input type="hidden" name="lft" :value="selectedMenuitem.lft"/>
-                        <input type="hidden" name="rgt" :value="selectedMenuitem.rgt"/>
+                <div :class="{hide: hideMenuitemForm}" class="z-depth-2 menuitem-container row">
+                    <div class="progress" :class="{hide: !(isLoading)}">
+                        <div class="indeterminate"></div>
+                    </div>
+                    <div class="col s12">
+                        <div class="row menuitem-form-container">
+                            <form ref="menuitem_form">
+                                <input type="hidden" name="menu_id" :value="selectedMenuitem?.menu_id"/>
+                                <input type="hidden" name="lft" :value="selectedMenuitem?.lft"/>
+                                <input type="hidden" name="rgt" :value="selectedMenuitem?.rgt"/>
+                                <div v-if="config.translationEnabled" class="col s12">
+                                    <ul class="tabs">
+                                        <li class="tab col s2">
+                                            <a class="active" :href="`#tab_${config.language}`">
+                                                {{ config.language }}
+                                            </a>
+                                        </li>
+                                        <li v-for="lang in config.supportedTranslations"
+                                            class="tab col s2">
+                                            <a :href="`#tab_${lang}`">{{ lang }}</a>
+                                        </li>
+                                    </ul>
+                                </div>
 
-                        <div class="card">
-                            <div class="progress" :class="{hide: !(isLoading)}">
-                                <div class="indeterminate"></div>
-                            </div>
-                            <div class="card-content">
-                                <!-- TITLE -->
-                                <div class="row">
-                                    <div class="col s12">
-                                        <label for="title">{{ translations.menuitems.title }}
-                                            <span class="helper-text">
+                                <div :id="`tab_${config.language}`" class="col s12">
+                                    <div class="px1rem py2rem">
+                                        <!-- TITLE -->
+                                        <div class="row">
+                                            <div class="col s12">
+                                                <label for="title">{{ translations.menuitems.title }}
+                                                    <span class="helper-text">
                                                 <i class="material-icons tooltipped"
                                                    data-position="right"
                                                    :data-tooltip="translations.help.menus.title">help_outline</i>
                                             </span>
-                                        </label>
-                                        <input name="title"
-                                               required
-                                               @keyup="onChangeMenuitemTitle"
-                                               id="title"
-                                               type="text"
-                                               :value="selectedMenuitem.title"
-                                               @input="event => selectedMenuitem.title = event.target.value"/>
-                                    </div>
-                                </div>
+                                                </label>
+                                                <input name="title"
+                                                       required
+                                                       @keyup="onChangeMenuitemTitle"
+                                                       id="title"
+                                                       type="text"
+                                                       :value="selectedMenuitem?.title"
+                                                       @input="event => selectedMenuitem.title = event.target.value"/>
+                                            </div>
+                                        </div>
 
-                                <div class="row">
-                                    <div class="col s12">
-                                        <label for="type">{{ translations.menuitems.type }}
-                                            <span class="helper-text">
+                                        <div class="row">
+                                            <div class="col s12">
+                                                <label for="type">{{ translations.menuitems.type }}
+                                                    <span class="helper-text">
                                                 <i class="material-icons tooltipped"
                                                    data-position="right"
                                                    :data-tooltip="translations.help.menus.type">help_outline</i>
                                             </span>
-                                        </label>
-                                        <select id="type"
-                                                class="no-material"
-                                                @change="onChangeMenuitemType"
-                                                :value="selectedMenuitem.type"
-                                                name="type">
-                                            <option value="article">{{ translations.menuitems.article }}</option>
-                                            <option value="category">{{ translations.menuitems.category }}</option>
-                                            <option value="other">{{ translations.menuitems.other }}</option>
-                                        </select>
-                                    </div>
-                                </div>
+                                                </label>
+                                                <select id="type"
+                                                        class="no-material"
+                                                        @change="onChangeMenuitemType"
+                                                        :value="selectedMenuitem?.type"
+                                                        name="type">
+                                                    <option value="article">{{
+                                                            translations.menuitems.article
+                                                        }}
+                                                    </option>
+                                                    <option value="category">{{
+                                                            translations.menuitems.category
+                                                        }}
+                                                    </option>
+                                                    <option value="other">{{ translations.menuitems.other }}</option>
+                                                </select>
+                                            </div>
+                                        </div>
 
-                                <!-- article selector -->
-                                <div class="row" :class="{hide: selectedMenuitem.type !== 'article'}">
-                                    <div class="col s12">
-                                        <label for="article_id">{{ translations.menuitems.article_id }}
-                                            <span class="helper-text">
+                                        <!-- article selector -->
+                                        <div :class="{hide: selectedMenuitem?.type !== 'article'}" class="row">
+                                            <div class="col s12">
+                                                <label for="article_id">{{ translations.menuitems.article_id }}
+                                                    <span class="helper-text">
                                                 <i class="material-icons tooltipped"
                                                    data-position="right"
                                                    :data-tooltip="translations.help.menus.article_id">help_outline</i>
                                             </span>
-                                        </label>
-                                        <select id="article_id"
-                                                class="no-material"
-                                                :value="selectedMenuitem.article_id"
-                                                @change="event => selectedMenuitem.article_id = event.target.value"
-                                                name="article_id">
-                                            <option v-for="article in articles" :value="article.id">{{
-                                                    article.title
-                                                }}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
+                                                </label>
+                                                <select id="article_id"
+                                                        class="no-material"
+                                                        :value="selectedMenuitem?.article_id"
+                                                        @change="event => selectedMenuitem.article_id = event.target.value"
+                                                        name="article_id">
+                                                    <option v-for="article in articles" :value="article.id">{{
+                                                            article.title
+                                                        }}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
 
-                                <!-- category selector -->
-                                <div class="row" :class="{hide: selectedMenuitem.type !== 'category'}">
-                                    <div class="col s12">
-                                        <label for="category_id">{{ translations.menuitems.category_id }}
-                                            <span class="helper-text">
+                                        <!-- category selector -->
+                                        <div :class="{hide: selectedMenuitem?.type !== 'category'}" class="row">
+                                            <div class="col s12">
+                                                <label for="category_id">{{ translations.menuitems.category_id }}
+                                                    <span class="helper-text">
                                                 <i class="material-icons tooltipped"
                                                    data-position="right"
                                                    :data-tooltip="translations.help.menus.category_id">help_outline</i>
                                             </span>
-                                        </label>
-                                        <select id="category_id"
-                                                class="no-material"
-                                                :value="selectedMenuitem.category_id"
-                                                @change="event => selectedMenuitem.category_id = event.target.value"
-                                                :required="selectedMenuitem.type === 'category'"
-                                                name="category_id">
-                                            <option value="">-</option>
-                                            <option v-for="category in categories" :value="category.id">{{
-                                                    category.name
-                                                }}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
+                                                </label>
+                                                <select id="category_id"
+                                                        class="no-material"
+                                                        :value="selectedMenuitem?.category_id"
+                                                        @change="event => selectedMenuitem.category_id = event.target.value"
+                                                        :required="selectedMenuitem?.type === 'category'"
+                                                        name="category_id">
+                                                    <option value="">-</option>
+                                                    <option v-for="category in categories" :value="category.id">{{
+                                                            category.name
+                                                        }}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
 
-                                <!-- URL -->
-                                <div class="row" :class="{hide: selectedMenuitem.type !== 'other'}">
-                                    <div class="col s12">
-                                        <label for="url">{{ translations.menuitems.url }}
-                                            <span class="helper-text">
+                                        <!-- URL -->
+                                        <div :class="{hide: selectedMenuitem?.type !== 'other'}" class="row">
+                                            <div class="col s12">
+                                                <label for="url">{{ translations.menuitems.url }}
+                                                    <span class="helper-text">
                                                 <i class="material-icons tooltipped"
                                                    data-position="right"
                                                    :data-tooltip="translations.help.menus.url">help_outline</i>
                                             </span>
-                                        </label>
-                                        <input name="url"
-                                               id="url"
-                                               type="text"
-                                               :value="selectedMenuitem.url"
-                                               @input="event => selectedMenuitem.url = event.target.value"/>
-                                    </div>
-                                </div>
+                                                </label>
+                                                <input name="url"
+                                                       id="url"
+                                                       type="text"
+                                                       :value="selectedMenuitem?.url"
+                                                       @input="event => selectedMenuitem.url = event.target.value"/>
+                                            </div>
+                                        </div>
 
-                                <div class="row" :class="{hide: selectedMenuitem.id}">
-                                    <div class="col s12">
-                                        <label for="parent_id">{{ translations.menuitems.parent_id }}
-                                            <span class="helper-text">
+                                        <div :class="{hide: selectedMenuitem?.id}" class="row">
+                                            <div class="col s12">
+                                                <label for="parent_id">{{ translations.menuitems.parent_id }}
+                                                    <span class="helper-text">
                                                 <i class="material-icons tooltipped"
                                                    data-position="right"
                                                    :data-tooltip="translations.help.menus.parent_id">help_outline</i>
                                             </span>
-                                        </label>
-                                        <select name="parent_id"
-                                                class="no-material"
-                                                id="parent_id"
-                                                :value="selectedMenuitem.parent_id"
-                                                @change="event => selectedMenuitem.parent_id = event.target.value">
-                                            <option value="">-</option>
-                                            <option v-for="item in parentMenus"
-                                                    :value="item.id"
-                                                    v-text="item.title"></option>
-                                        </select>
-                                    </div>
-                                </div>
+                                                </label>
+                                                <select name="parent_id"
+                                                        class="no-material"
+                                                        id="parent_id"
+                                                        :value="selectedMenuitem?.parent_id"
+                                                        @change="event => selectedMenuitem.parent_id = event.target.value">
+                                                    <option value="">-</option>
+                                                    <option v-for="item in parentMenus"
+                                                            :value="item.id"
+                                                            v-text="item.title"></option>
+                                                </select>
+                                            </div>
+                                        </div>
 
-                                <div class="row">
-                                    <div class="col s12">
-                                        <label for="alias">{{ translations.menuitems.alias }}
-                                            <span class="helper-text">
+                                        <div class="row">
+                                            <div class="col s12">
+                                                <label for="alias">{{ translations.menuitems.alias }}
+                                                    <span class="helper-text">
                                                 <i class="material-icons tooltipped"
                                                    data-position="right"
                                                    :data-tooltip="translations.help.menus.alias">help_outline</i>
                                             </span>
-                                        </label>
-                                        <input type="text"
-                                               :value="selectedMenuitem.alias"
-                                               @input="event => selectedMenuitem.alias = event.target.value"
-                                               name="alias"
-                                               id="alias"/>
-                                    </div>
-                                </div>
+                                                </label>
+                                                <input type="text"
+                                                       :value="selectedMenuitem?.alias"
+                                                       @input="event => selectedMenuitem.alias = event.target.value"
+                                                       name="alias"
+                                                       id="alias"/>
+                                            </div>
+                                        </div>
 
-                                <div class="row">
-                                    <div class="col s12">
-                                        <label for="target">{{ translations.menuitems.target }}
-                                            <span class="helper-text">
+                                        <div class="row">
+                                            <div class="col s12">
+                                                <label for="target">{{ translations.menuitems.target }}
+                                                    <span class="helper-text">
                                                 <i class="material-icons tooltipped"
                                                    data-position="right"
                                                    :data-tooltip="translations.help.menus.target">help_outline</i>
                                             </span>
-                                        </label>
-                                        <select name="target"
-                                                class="no-material"
-                                                id="target"
-                                                :value="selectedMenuitem.target"
-                                                @change="event => selectedMenuitem.target = event.target.value">
-                                            <option value="_self">{{ translations.menus.self }}</option>
-                                            <option value="_blank">{{ translations.menus.blank }}</option>
-                                            <!--option value="_parent">_parent</option-->
-                                            <!--option value="_top">_top</option-->
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <ul class="collapsible simple">
-                                    <li>
-                                        <div class="collapsible-header">
-                                            <i class="material-icons">add_circle_outline</i>{{
-                                                translations.menuitems.additional_settings
-                                            }}
+                                                </label>
+                                                <select name="target"
+                                                        class="no-material"
+                                                        id="target"
+                                                        :value="selectedMenuitem?.target"
+                                                        @change="event => selectedMenuitem.target = event.target.value">
+                                                    <option value="_self">{{ translations.menus.self }}</option>
+                                                    <option value="_blank">{{ translations.menus.blank }}</option>
+                                                    <!--option value="_parent">_parent</option-->
+                                                    <!--option value="_top">_top</option-->
+                                                </select>
+                                            </div>
                                         </div>
-                                        <div class="collapsible-body">
-                                            <div class="row">
-                                                <div class="col s12">
-                                                    <label for="li_class">{{ translations.menuitems.li_class }}
-                                                        <span class="helper-text">
+
+                                        <ul class="collapsible simple">
+                                            <li>
+                                                <div class="collapsible-header">
+                                                    <i class="material-icons">add_circle_outline</i>{{
+                                                        translations.menuitems.additional_settings
+                                                    }}
+                                                </div>
+                                                <div class="collapsible-body">
+                                                    <div class="row">
+                                                        <div class="col s12">
+                                                            <label for="li_class">{{
+                                                                    translations.menuitems.li_class
+                                                                }}
+                                                                <span class="helper-text">
                                                             <i class="material-icons tooltipped"
                                                                data-position="right"
                                                                :data-tooltip="translations.help.menus.li_class">help_outline</i>
                                                         </span>
-                                                    </label>
-                                                    <input id="li_class"
-                                                           :value="selectedMenuitem.li_class"
-                                                           @input="event => selectedMenuitem.li_class = event.target.value"
-                                                           type="text"
-                                                           name="li_class"/>
-                                                </div>
-                                            </div>
+                                                            </label>
+                                                            <input id="li_class"
+                                                                   :value="selectedMenuitem?.li_class"
+                                                                   @input="event => selectedMenuitem.li_class = event.target.value"
+                                                                   type="text"
+                                                                   name="li_class"/>
+                                                        </div>
+                                                    </div>
 
-                                            <div class="row">
-                                                <div class="col s12">
-                                                    <label for="li_attributes">{{
-                                                            translations.menuitems.li_attributes
-                                                        }}
-                                                        <span class="helper-text">
+                                                    <div class="row">
+                                                        <div class="col s12">
+                                                            <label for="li_attributes">{{
+                                                                    translations.menuitems.li_attributes
+                                                                }}
+                                                                <span class="helper-text">
                                                             <i class="material-icons tooltipped"
                                                                data-position="right"
                                                                :data-tooltip="translations.help.menus.li_attributes">help_outline</i>
                                                         </span>
-                                                    </label>
-                                                    <input id="li_attributes"
-                                                           :value="selectedMenuitem.li_attributes"
-                                                           @input="event => selectedMenuitem.li_attributes = event.target.value"
-                                                           type="text"
-                                                           name="li_attributes"/>
-                                                </div>
-                                            </div>
+                                                            </label>
+                                                            <input id="li_attributes"
+                                                                   :value="selectedMenuitem?.li_attributes"
+                                                                   @input="event => selectedMenuitem.li_attributes = event.target.value"
+                                                                   type="text"
+                                                                   name="li_attributes"/>
+                                                        </div>
+                                                    </div>
 
-                                            <div class="row">
-                                                <div class="col s12">
-                                                    <label for="a_class">{{ translations.menuitems.a_class }}
-                                                        <span class="helper-text">
+                                                    <div class="row">
+                                                        <div class="col s12">
+                                                            <label for="a_class">{{
+                                                                    translations.menuitems.a_class
+                                                                }}
+                                                                <span class="helper-text">
                                                             <i class="material-icons tooltipped"
                                                                data-position="right"
                                                                :data-tooltip="translations.help.menus.a_class">help_outline</i>
                                                         </span>
-                                                    </label>
-                                                    <input id="a_class"
-                                                           :value="selectedMenuitem.a_class"
-                                                           @input="event => selectedMenuitem.a_class = event.target.value"
-                                                           type="text"
-                                                           name="a_class"/>
-                                                </div>
-                                            </div>
+                                                            </label>
+                                                            <input id="a_class"
+                                                                   :value="selectedMenuitem?.a_class"
+                                                                   @input="event => selectedMenuitem.a_class = event.target.value"
+                                                                   type="text"
+                                                                   name="a_class"/>
+                                                        </div>
+                                                    </div>
 
-                                            <div class="row">
-                                                <div class="col s12">
-                                                    <label
-                                                        for="a_attributes">{{ translations.menuitems.a_attributes }}
-                                                        <span class="helper-text">
+                                                    <div class="row">
+                                                        <div class="col s12">
+                                                            <label
+                                                                for="a_attributes">{{
+                                                                    translations.menuitems.a_attributes
+                                                                }}
+                                                                <span class="helper-text">
                                                             <i class="material-icons tooltipped"
                                                                data-position="right"
                                                                :data-tooltip="translations.help.menus.a_attributes">help_outline</i>
                                                         </span>
-                                                    </label>
-                                                    <input id="a_attributes"
-                                                           :value="selectedMenuitem.a_attributes"
-                                                           @input="event => selectedMenuitem.a_attributes = event.target.value"
-                                                           type="text"
-                                                           name="a_attributes"/>
+                                                            </label>
+                                                            <input id="a_attributes"
+                                                                   :value="selectedMenuitem?.a_attributes"
+                                                                   @input="event => selectedMenuitem.a_attributes = event.target.value"
+                                                                   type="text"
+                                                                   name="a_attributes"/>
+                                                        </div>
+                                                    </div>
                                                 </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div v-if="config.translationEnabled"
+                                     v-for="(lang, idx) in config.supportedTranslations"
+                                     :id="`tab_${lang}`" class="col s12">
+                                    <div class="px1rem py2rem">
+                                        <!-- TITLE -->
+                                        <div class="row">
+                                            <div class="col s12">
+                                                <label for="title">{{ translations.menuitems.title }}
+                                                    <span class="helper-text">
+                                                <i class="material-icons tooltipped"
+                                                   data-position="right"
+                                                   :data-tooltip="translations.help.menus.title">help_outline</i>
+                                            </span>
+                                                </label>
+                                                <input name="title"
+                                                       required
+                                                       :id="`title_${lang}`"
+                                                       type="text"
+                                                       :value="selectedMenuitem?.translations[lang]?.title"
+                                                       @input="event => selectedMenuitem.translations[lang].title = event.target.value"/>
                                             </div>
                                         </div>
-                                    </li>
-                                </ul>
+                                    </div>
+                                </div>
 
-                            </div>
+                                <div class="menu-action-footer col s12">
+                                    <button class="btn waves-effect waves-light"
+                                            @click="onResetMenuitem"
+                                            type="button">{{ translations.cancel }} <i
+                                        class="material-icons right">cancel</i>
+                                    </button>
 
-                            <div class="card-action">
-                                <button class="btn waves-effect waves-light"
-                                        @click="onResetMenuitem"
-                                        type="button">{{ translations.cancel }}
-                                    <i class="material-icons right">cancel</i></button>
-                                <button class="btn waves-light waves-effect ml1rem"
-                                        v-bind:disabled="!(canSaveMenuitem)"
-                                        @click="onSaveMenuitem"
-                                        type="button">{{ translations.save }}
-                                    <i class="material-icons right">send</i></button>
-                            </div>
+                                    <button class="btn waves-light waves-effect ml1rem"
+                                            v-bind:disabled="!(canSaveMenuitem)"
+                                            @click="onSaveMenuitem"
+                                            type="button">{{ translations.save }} <i
+                                        class="material-icons right">send</i>
+                                    </button>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -763,5 +842,18 @@ function findItemInMenu(children, id) {
 </template>
 
 <style scoped>
+.menuitem-container {
+    background-color: #fff;
+    margin: .5rem 0 1rem 0;
+}
 
+.menuitem-form-container.row {
+    margin-bottom: 0;
+}
+
+.menu-action-footer {
+    border-top: 1px solid #e0e0e0;
+    padding: 16px 26px;
+    background-color: #fff;
+}
 </style>

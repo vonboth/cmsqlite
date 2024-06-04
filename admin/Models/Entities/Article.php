@@ -4,7 +4,6 @@
 namespace Admin\Models\Entities;
 
 use Tatter\Relations\Traits\EntityTrait;
-use Tatter\Relations\Traits\ModelTrait;
 
 /**
  * Class Article
@@ -34,6 +33,7 @@ class Article extends Base
 {
     use EntityTrait;
 
+    /** @inheritdoc */
     protected $attributes = [
         'id' => null,
         'is_startpage' => null,
@@ -54,9 +54,8 @@ class Article extends Base
         'updated' => null
     ];
 
+    /** @inheritdoc */
     protected $dates = ['created', 'updated'];
-
-    protected $with = ['translations'];
 
     /**
      * get the content of the article
@@ -71,6 +70,6 @@ class Article extends Base
                 }
             }
         }
-        return $this->attributes['content'];
+        return $this->attributes['content'] ?? '';
     }
 }

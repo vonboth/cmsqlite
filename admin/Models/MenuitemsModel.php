@@ -3,15 +3,26 @@
 
 namespace Admin\Models;
 
+use Tatter\Relations\Traits\ModelTrait;
+
 /**
  * Class MenuitemsModel
  * @package Admin\Models
  */
 class MenuitemsModel extends BaseModel
 {
+    use ModelTrait;
+
+    /** @inheritdoc */
     protected $table = 'menuitems';
+
+    /** @inheritdoc */
     protected $returnType = 'Admin\Models\Entities\Menuitem';
+
+    /** @inheritdoc */
     protected $beforeInsert = ['beforeInsertTree'];
+
+    /** @inheritdoc */
     protected $allowedFields = [
         'id',
         'title',
@@ -32,6 +43,9 @@ class MenuitemsModel extends BaseModel
         'rgt'
     ];
 
+    /** @inheritdoc */
+    protected $with = 'menu_translations';
+
     /**
      * Get Children of Tree
      * @param $menu_id
@@ -41,16 +55,46 @@ class MenuitemsModel extends BaseModel
      */
     public function getChildren($menu_id, &$node = [], $parent_id = null)
     {
-        $results = $this->builder()
-            ->where('menu_id', $menu_id)
+        $query = $this->where('menu_id', $menu_id)
             ->where('parent_id', $parent_id)
             ->groupBy('lft')
-            ->orderBy('lft')
-            ->get()
-            ->getResultArray();
+            ->orderBy('lft');
+
+        if ($this->translationEnabeld) {
+            $query = $query->with('menu_translations');
+        }
+
+        $results = $query->findAll();
 
         foreach ($results as $result) {
+            $result = $result->toArray();
             $result['children'] = [];
+
+            if ($this->translationEnabeld) {
+                $result['translations'] = [];
+                if (!empty($result['menu_translations'])) {
+                    foreach ($result['menu_translations'] as $translation) {
+                        $result['translations'][$translation->language] = $translation;
+                    }
+                }
+
+                $languages = array_diff(
+                    config('Admin\Config\SystemSettings')->supportedTranslations,
+                    [config('Admin\Config\SystemSettings')->language]
+                );
+                foreach ($languages as $language) {
+                    if (!isset($result['translations'][$language])) {
+                        $result['translations'][$language] = [
+                            'menuitem_id' => $result['id'],
+                            'language' => $language,
+                            'title' => '',
+                        ];
+                    }
+                }
+
+                unset($result['menu_translations']);
+            }
+
             $row = $this->builder->where('parent_id', $result['id'])->get()->getFirstRow();
             if ($row) {
                 $this->getChildren($menu_id, $result['children'], $result['id']);
@@ -203,6 +247,7 @@ class MenuitemsModel extends BaseModel
             $builder->delete("id={$item->id} AND menu_id = {$menuId}");
             $this->db->query("UPDATE menuitems SET lft=lft-2 WHERE lft>{$rgt} AND menu_id = {$menuId}");
             $this->db->query("UPDATE menuitems SET rgt=rgt-2 WHERE rgt>{$rgt} AND menu_id = {$menuId}");
+            $this->_removeTranslation($item->id);
             return true;
         } elseif (($rgt - $lft > 1) && $removeTree) {
             // remove tree
@@ -213,6 +258,7 @@ class MenuitemsModel extends BaseModel
             $this->db->query(
                 'UPDATE menuitems SET rgt=rgt-ROUND(' . ($rgt - $lft + 1) . ') WHERE rgt>' . $rgt . ' AND menu_id = ' . $menuId
             );
+            $this->_removeTranslation($item->id);
             return true;
         } elseif (($rgt - $lft > 1) && !$removeTree) {
             // remove single but keep elements below the item
@@ -223,6 +269,7 @@ class MenuitemsModel extends BaseModel
             );
             $this->db->query("UPDATE menuitems SET lft=lft-2 WHERE lft>$rgt AND menu_id = {$menuId}");
             $this->db->query("UPDATE menuitems SET rgt=rgt-2 WHERE rgt>$rgt AND menu_id = {$menuId}");
+            $this->_removeTranslation($item->id);
         }
         return false;
     }
@@ -237,9 +284,9 @@ class MenuitemsModel extends BaseModel
     {
         if (!isset($data['data']['parent_id']) || $data['data']['parent_id'] == '') {
             $menuId = $data['data']['menu_id'];
-            $max = $this->select('max(rgt) as maxRgt')
-                ->where('menu_id', $menuId)
-                ->first();
+            $max = $this->db
+                ->query('SELECT max(rgt) as maxRgt FROM menuitems WHERE menu_id = ' . $menuId)
+                ->getRow();
 
             $data['data']['lft'] = $max->maxRgt + 1;
             $data['data']['rgt'] = $max->maxRgt + 2;
@@ -264,5 +311,17 @@ class MenuitemsModel extends BaseModel
         }
 
         return $data;
+    }
+
+    /**
+     * remove all translations
+     * @param $menuitem_id
+     * @return void
+     */
+    private function _removeTranslation($menuitem_id)
+    {
+        if ($this->translationEnabeld) {
+            $this->db->simpleQuery('DELETE FROM menu_translations WHERE menuitem_id = ' . $menuitem_id);
+        }
     }
 }

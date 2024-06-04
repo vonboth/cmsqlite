@@ -60,9 +60,12 @@ class PagesController extends BaseController
     public function pages($var = null)
     {
         if (is_numeric($var)) {
-            $article = $this->Articles->find($var);
+            $article = $this->Articles
+                ->with('translations')
+                ->find($var);
         } else {
             $article = $this->Articles
+                ->with('translations')
                 ->where('alias', $var)
                 ->first();
         }

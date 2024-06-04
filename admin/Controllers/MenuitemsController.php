@@ -4,10 +4,14 @@
 namespace Admin\Controllers;
 
 use Admin\Models\Entities\Menuitem;
+use Admin\Models\Entities\MenuTranslation;
 use Admin\Models\MenuitemsModel;
 use Admin\Models\MenusModel;
+use Admin\Models\MenuTranslationsModel;
 use App\Exceptions\MethodNotAllowedException;
+use CodeIgniter\Database\Exceptions\DataException;
 use CodeIgniter\HTTP\ResponseInterface;
+use SebastianBergmann\CodeCoverage\DeadCodeDetectionNotSupportedException;
 
 /**
  * Class Menuitems
@@ -35,7 +39,6 @@ class MenuitemsController extends BaseController
     public function add()
     {
         if ($this->request->isAJAX() && $this->request->getMethod() === 'post') {
-            $item = new Menuitem();
             if ($this->validate([
                 'title' => 'required',
                 'menu_id' => 'required',
@@ -43,14 +46,30 @@ class MenuitemsController extends BaseController
                 'article_id' => 'required_if[article_id]',
                 'category_id' => 'required_if[category_id]',
                 'url' => 'required_if[url]',
-                'alias' => 'is_unique[menuitems.alias]'
+                'alias' => 'is_unique[menuitems.alias]',
+                'translations.*.title' => 'required',
             ])) {
                 $post = $this->request->getJSON(true);
                 if ($post['type'] == 'article') {
                     $post['url'] = '/pages/' . $post['article_id'];
                 }
+
+                $item = new Menuitem();
                 $item->fill($post);
+
                 if ($this->Menuitems->insert($item) !== false) {
+                    if ($this->SystemSettings->translations) {
+                        $MenuTranslations = new MenuTranslationsModel();
+                        $id = $this->Menuitems->getInsertID();
+                        foreach ($post['translations'] as $data) {
+                            $menuTranslation = new MenuTranslation();
+                            $menuTranslation->menuitem_id = $id;
+                            $menuTranslation->language = $data['language'];
+                            $menuTranslation->title = $data['title'];
+                            $MenuTranslations->insert($menuTranslation);
+                        }
+                    }
+
                     return response()->setJSON([
                         'message' => lang('General.saved'),
                         'data' => $this->Menuitems->findTree($item->menu_id)
@@ -82,38 +101,77 @@ class MenuitemsController extends BaseController
             $item = $this->Menuitems->find($id);
             $post = $this->request->getJSON(true);
 
-            if ($this->validate(
-                [
-                    'title' => 'required',
-                    'menu_id' => 'required',
-                    'type' => 'in_list[article,other]',
-                    'article_id' => 'required_if[article_id]',
-                    'cateogory_id' => 'required_if[category_id]',
-                    'url' => 'required_if[url]',
-                    'alias' => 'required|is_unique[menuitems.alias,alias,' . $item->alias . ']'
-                ]
-            )) {
+            if ($this->validate([
+                'title' => 'required',
+                'menu_id' => 'required',
+                'type' => 'in_list[article,other]',
+                'article_id' => 'required_if[article_id]',
+                'cateogory_id' => 'required_if[category_id]',
+                'url' => 'required_if[url]',
+                'alias' => 'required|is_unique[menuitems.alias,alias,' . $item->alias . ']',
+                'translations.*.title' => 'required',
+            ])) {
                 if ($post['type'] == 'article') {
                     $post['url'] = '/pages/' . $post['article_id'];
                 }
+
+                $saved = true;
+                $exception = null;
+
+                if ($this->SystemSettings->translations) {
+                    $MenuTranslations = new MenuTranslationsModel();
+                    foreach ($post['translations'] as $data) {
+                        if (!empty($data['id'])) {
+                            $menuTranslation = $MenuTranslations->find($data['id']);
+                            $menuTranslation->title = $data['title'];
+                            try {
+                                $MenuTranslations->save($menuTranslation);
+                            } catch (DataException $e) {
+                            } catch (\Exception $e) {
+                                $saved = false;
+                                $exception = $e;
+                            }
+                        } else {
+                            try {
+                                $menuTranslation = new MenuTranslation();
+                                $menuTranslation->fill($data);
+                                $MenuTranslations->insert($menuTranslation);
+                            } catch (\Exception $e) {
+                                $saved = false;
+                                $exception = $e;
+                            }
+                        }
+                    }
+
+                    // Translations failed
+                    if (!$saved && !is_null($exception)) {
+                        return response()->setStatusCode(422)->setJSON([
+                            'errors' => ['any' => $exception->getMessage()],
+                            'data' => $this->Menuitems->findTree($item->menu_id)
+                        ]);
+                    }
+                }
+
+
                 $item->fill($post);
 
                 try {
-                    if ($this->Menuitems->save($item)) {
-                        return response()->setJSON([
-                            'message' => lang('General.saved'),
-                            'data' => $this->Menuitems->findTree($item->menu_id)
-                        ]);
-                    } else {
-                        return response()->setStatusCode(422)->setJSON([
-                            'errors' => ['any' => lang('General.save_error')],
-                            'data' => $item->toArray()
-                        ]);
-                    }
-                } catch (\Exception $exception) {
-                    return response()->setStatusCode(500)->setJSON([
+                    $this->Menuitems->save($item);
+                } catch (DataException $e) {
+                } catch (\Exception $e) {
+                    $saved = false;
+                    $exception = $e;
+                }
+
+                if (!$saved && !is_null($exception)) {
+                    return response()->setStatusCode(422)->setJSON([
                         'errors' => ['any' => $exception->getMessage()],
-                        'data' => $item->toArray()
+                        'data' => $this->Menuitems->findTree($item->menu_id)
+                    ]);
+                } else {
+                    return response()->setJSON([
+                        'message' => lang('General.saved'),
+                        'data' => $this->Menuitems->findTree($item->menu_id)
                     ]);
                 }
             } else {

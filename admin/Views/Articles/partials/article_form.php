@@ -15,18 +15,19 @@ $supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->suppo
     if ($translations): ?>
         <div class="col s12">
             <ul class="tabs">
-                <li class="tab col s3"><a class="active" href="#tab_de"><?= $language ?></a></li>
-
+                <li class="tab col s2">
+                    <a class="active" href="#tab_<?= $language ?>"><?= $language ?></a>
+                </li>
                 <?php
                 foreach ($supportedTranslations as $lang): ?>
-                    <li class="tab col s3"><a href="#tab_<?= $lang ?>"><?= $lang ?></a></li>
+                    <li class="tab col s2"><a href="#tab_<?= $lang ?>"><?= $lang ?></a></li>
                 <?php
                 endforeach; ?>
             </ul>
         </div>
     <?php
     endif; ?>
-    <div id="tab_de" class="col s12">
+    <div id="tab_<?= $language ?>" class="col s12">
         <!-- Some information related to the article -->
         <div class="row">
             <div class="col s12 <?= (is_null($article['id']) ? 'hide' : '') ?>">

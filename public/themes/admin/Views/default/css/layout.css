@@ -66,6 +66,26 @@ main > .container {
   padding: 1rem;
 }
 
+.px1rem {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.py1rem {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.px2rem {
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.py2rem {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
 .m1rem {
   margin: 1rem;
 }
@@ -78,8 +98,16 @@ main > .container {
   margin-left: 1rem !important;
 }
 
-.mb1rem {
+.mt1rem {
     margin-bottom: 1rem;
+}
+
+.mb1rem {
+     margin-bottom: 1rem;
+}
+
+.bg-white {
+  background-color: #fff;
 }
 
 .navbar-fixed {

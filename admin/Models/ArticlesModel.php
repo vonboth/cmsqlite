@@ -35,6 +35,8 @@ class ArticlesModel extends BaseModel
     /** @inheritdoc  */
     protected $beforeInsert = ['setUser', 'setAlias'];
 
+    protected $afterDelete = ['deleteRelations'];
+
     /** @inheritdoc  */
     protected $allowedFields = [
         'is_startpage',
@@ -157,5 +159,18 @@ class ArticlesModel extends BaseModel
         }
 
         return $articleAsArray;
+    }
+
+    /**
+     * callback on after delete
+     * remove relations
+     *
+     * @param array $data
+     * @return array
+     */
+    protected function deleteRelations(array $data): array
+    {
+        $this->db->table('translations')->where('article_id', $data['id'])->delete();
+        return $data;
     }
 }

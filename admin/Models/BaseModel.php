@@ -37,6 +37,9 @@ class BaseModel extends Model
     {
         parent::__construct($db, $validation);
 
+        // enable foreign keys
+        // $this->db->simpleQuery('PRAGMA foreign_keys = ON;');
+
         $this->translationEnabeld = (bool)config('Admin\Config\SystemSettings')->translations;
     }
 

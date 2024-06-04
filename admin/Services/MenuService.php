@@ -1,18 +1,41 @@
 <?php
 
-if (!function_exists('menu_list')) {
+namespace Admin\Services;
+
+use CodeIgniter\Config\BaseService;
+
+class MenuService extends BaseService
+{
+    /** @var string $locale current frontend locale  */
+    protected $locale = '';
+
+    /** @var bool $translationsEnabled translations enabled in DB? */
+    protected $translationsEnabled = false;
+
     /**
-     * generates an unordered list from a nested set
+     * MenuService constructor.
+     */
+    public function __construct()
+    {
+        $this->translationsEnabled = config('Admin\Config\SystemSettings')->translations;
+        $this->locale = service('language')->getLocale();
+    }
+
+    /**
+     * generate a menu list
      *
      * @param $menuitems
      * @param array $options
      * @param string $current_path
-     * @param int $level
-     * @return mixed
-     * @deprecated use service('menu')->menu_list instead
+     * @param $level
+     * @return string
      */
-    function menu_list($menuitems, array $options = [], string $current_path = '', $level = 1): string
+    public function menu_list($menuitems, array $options = [], string $current_path = '', $level = 1): string
     {
+        if (empty($current_path)) {
+            $current_path = '/';
+        }
+
         $ulClass = $options['ulClass'] ?? 'ul_parent';
         $ulId = isset($options['ulId']) ? ' id="' . $options['ulId'] . '"' : '';
         $liClass = isset($options['liClass']) ? ' ' . $options['liClass'] : '';
@@ -36,7 +59,7 @@ if (!function_exists('menu_list')) {
                 "<a class=\"$aClass\" href=\"$url\" {$menuitem['a_attributes']}>{$menuitem['title']}</a>";
 
             if (isset($menuitem['children']) && count($menuitem['children']) > 0) {
-                $ul .= menu_list($menuitem['children'], ['ulClass' => 'ul_child'], $current_path, $level += 1);
+                $ul .= self::menu_list($menuitem['children'], ['ulClass' => 'ul_child'], $current_path, $level += 1);
             }
 
             $level = $level < 1 ? 1 : $level - 1;
@@ -47,20 +70,16 @@ if (!function_exists('menu_list')) {
 
         return $ul;
     }
-}
 
-if (!function_exists('admin_menu_list')) {
     /**
-     * generates a tree for the
-     * admin-section to change menus
+     * gernerate the admin list menu
      *
      * @param $menuitems
-     * @param string $ulClass
-     * @param int $level
+     * @param $ulClass
+     * @param $level
      * @return string
-     * @deprecated
      */
-    function admin_menu_list($menuitems, $ulClass = 'ul_parent', $level = 0)
+    public function admin_menu_list($menuitems, $ulClass = 'ul_parent', $level = 0)
     {
         $ul = "<ul class='{$ulClass} admin-menu-list'>";
         foreach ($menuitems as $menuitem) {
@@ -92,7 +111,7 @@ if (!function_exists('admin_menu_list')) {
 </div>";
 
             if (isset($menuitem['children']) && count($menuitem['children']) > 0) {
-                $ul .= admin_menu_list($menuitem['children'], 'ul_child', $level + 1);
+                $ul .= self::admin_menu_list($menuitem['children'], 'ul_child', $level + 1);
             }
 
             $ul .= '</li>';
@@ -102,18 +121,13 @@ if (!function_exists('admin_menu_list')) {
 
         return $ul;
     }
-}
 
-if (!function_exists('admin_menu_tree')) {
     /**
-     * generates a collapsible list
-     * with menus as headlines and
-     * the menus inside the collapsibles
+     * create the admin menu tree
      * @param $menus
      * @return string
-     * @deprecated
      */
-    function admin_menu_tree($menus)
+    public function admin_menu_tree($menus)
     {
         $ul = '<ul class="collapsible expandable collapsible-accordion admin-menu">';
         foreach ($menus as $menu) {
@@ -139,7 +153,7 @@ if (!function_exists('admin_menu_tree')) {
                @click="onAddMenuitem(' . $menu->id . ')">
               <i class="material-icons">add_circle_outline</i></a>
         </div>
-        <div class="clearfix">' . admin_menu_list($menu->children) . '<div>
+        <div class="clearfix">' . self::admin_menu_list($menu->children) . '<div>
     </div>
 </li>';
         }
