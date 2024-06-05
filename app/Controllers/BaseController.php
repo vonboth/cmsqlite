@@ -7,8 +7,6 @@ use Admin\Models\ArticlesModel;
 use Admin\Models\MenuitemsModel;
 use Admin\Models\MenusModel;
 use CodeIgniter\Controller;
-use CodeIgniter\HTTP\CLIRequest;
-use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\Session\Session;
@@ -32,13 +30,6 @@ use Psr\Log\LoggerInterface;
  */
 abstract class BaseController extends Controller
 {
-    /**
-     * Instance of the main Request object.
-     *
-     * @var CLIRequest|IncomingRequest
-     */
-    protected $request;
-
     /**
      * An array of helpers to be loaded automatically upon
      * class instantiation. These helpers will be available
@@ -91,11 +82,10 @@ abstract class BaseController extends Controller
 
         $this->session = Services::session();
         $this->locale = Services::language()->getLocale();
-        /*if ($this->session->lang) {
-            $lang->setLocale($this->session->lang);
-        } else {
-            $this->session->lang = $lang->getLocale();
-        }*/
+
+        if ($this->session->lang) {
+            service('language')->setLocale($this->session->lang);
+        }
 
         $this->SystemSettings = config('Admin\Config\SystemSettings');
         $this->Articles = new ArticlesModel();

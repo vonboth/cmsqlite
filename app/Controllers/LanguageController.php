@@ -3,18 +3,24 @@
 namespace App\Controllers;
 
 
+use CodeIgniter\HTTP\RedirectResponse;
+
 /**
  * Controller to switch the language
  */
 class LanguageController extends BaseController
 {
-    public function index()
+    /**
+     * @return RedirectResponse
+     */
+    public function index(): RedirectResponse
     {
-        $session = session();
-        $locale = $this->request->getLocale();
-        $session->remove('lang');
-        $session->set('lang', $locale);
-        $url = base_url();
-        return redirect()->to($url);
+        if ($lang = $this->request->getGet('lang')) {
+            $session = session();
+            $session->remove('lang');
+            $session->set('lang', $lang);
+        }
+
+        return redirect()->to(base_url());
     }
 }

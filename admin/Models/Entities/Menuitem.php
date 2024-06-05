@@ -60,4 +60,22 @@ class Menuitem extends Base
 
     /** @inheritdoc */
     protected $dates = ['created', 'updated'];
+
+    /**
+     * get the title of the menu item
+     * if the translation is enabled, return the title of the current locale
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        if ($this->translationEnabeled && !empty($this->attributes['menu_translations'])) {
+            foreach ($this->attributes['menu_translations'] as $translation) {
+                if ($translation->language === $this->locale && !empty($translation->title)) {
+                    return $translation->title;
+                }
+            }
+        }
+
+        return $this->attributes['title'];
+    }
 }

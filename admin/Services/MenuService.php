@@ -32,6 +32,7 @@ class MenuService extends BaseService
      */
     public function menu_list($menuitems, array $options = [], string $current_path = '', $level = 1): string
     {
+        $current_path = str_replace(['index.php', $this->locale], '', $current_path);
         if (empty($current_path)) {
             $current_path = '/';
         }
