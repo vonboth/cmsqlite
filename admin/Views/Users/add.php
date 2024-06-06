@@ -13,7 +13,7 @@ $this->section('main') ?>
 
 <?= $this->include('Admin\Partials\form_errors'); ?>
 
-<div class="card">
+<div class="card mh65vh">
   <div class="card-content">
     <div class="row">
       <h3><?= lang('Admin.add') ?></h3>

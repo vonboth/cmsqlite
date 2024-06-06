@@ -25,6 +25,10 @@ main > .container {
   width: 100%;
 }
 
+.mh65vh {
+  min-height: 65vh;
+}
+
 .pt1 {
   padding-top: 1em !important;
 }

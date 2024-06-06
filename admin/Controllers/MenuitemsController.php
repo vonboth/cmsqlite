@@ -39,7 +39,7 @@ class MenuitemsController extends BaseController
     public function add()
     {
         if ($this->request->isAJAX() && $this->request->getMethod() === 'post') {
-            if ($this->validate([
+            $validations = [
                 'title' => 'required',
                 'menu_id' => 'required',
                 'type' => 'in_list[article,category,other]',
@@ -47,8 +47,13 @@ class MenuitemsController extends BaseController
                 'category_id' => 'required_if[category_id]',
                 'url' => 'required_if[url]',
                 'alias' => 'is_unique[menuitems.alias]',
-                'translations.*.title' => 'required',
-            ])) {
+            ];
+
+            if ($this->SystemSettings->translations) {
+                $validations['translations.*.title'] = 'required';
+            }
+
+            if ($this->validate($validations)) {
                 $post = $this->request->getJSON(true);
                 if ($post['type'] == 'article') {
                     $post['url'] = '/pages/' . $post['article_id'];
@@ -101,16 +106,22 @@ class MenuitemsController extends BaseController
             $item = $this->Menuitems->find($id);
             $post = $this->request->getJSON(true);
 
-            if ($this->validate([
+            $validations = [
                 'title' => 'required',
                 'menu_id' => 'required',
                 'type' => 'in_list[article,other]',
                 'article_id' => 'required_if[article_id]',
                 'cateogory_id' => 'required_if[category_id]',
                 'url' => 'required_if[url]',
-                'alias' => 'required|is_unique[menuitems.alias,alias,' . $item->alias . ']',
-                'translations.*.title' => 'required',
-            ])) {
+                'alias' => 'required|is_unique[menuitems.alias,alias,' . $item->alias . ']'
+            ];
+
+            if ($this->SystemSettings->translations) {
+                $validations['translations.*.title'] = 'required';
+            }
+
+
+            if ($this->validate($validations)) {
                 if ($post['type'] == 'article') {
                     $post['url'] = '/pages/' . $post['article_id'];
                 }

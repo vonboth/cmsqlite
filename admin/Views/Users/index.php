@@ -12,7 +12,7 @@ $this->section('main') ?>
 
 <div class="row">
     <div class="col s12">
-        <div class="card">
+        <div class="card mh65vh">
             <div class="card-content">
                 <table class="responsive-table">
                     <thead>

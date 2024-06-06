@@ -314,7 +314,7 @@ function findDirectory(elements, name) {
 </script>
 
 <template>
-    <div>
+    <div class="bg-white">
         <div class="border-bottom flex">
             <div class="file-navbar">
                 <ul>

@@ -4,11 +4,30 @@ namespace Admin\Controllers;
 
 use CodeIgniter\HTTP\RedirectResponse;
 
+/**
+ * Class SystemController
+ * @package Admin\Controllers
+ */
 class SystemController extends BaseController
 {
+    /**
+     * Show index page
+     * @return string
+     */
     public function index()
     {
         return view('Admin\System\index');
+    }
+
+    /**
+     * Run an update
+     * @return RedirectResponse
+     */
+    public function update(): RedirectResponse
+    {
+        $output = command('cmsqlite:update');
+        return redirect()->to('/admin/system/index')
+            ->with('flash', preg_replace('~[[:cntrl:]]~', '', $output));
     }
 
     /**

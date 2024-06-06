@@ -1,9 +1,4 @@
 TODO: upgrade auf PHP 8.2 und CI 4.5
-TODO: Translations für Menus
-TODO: Translations auslesen
-TODO: Menu-Routes um LOCALE ergänzen?
-
-TODO: Shell Command to run updates, update table, ...
 
 TODO: Layouts für einzelne Menüpunkte / Artikel festlegen
 TODO: LogFiles anzeigen
@@ -13,10 +8,6 @@ TODO: INSTALLATION ROUTINE: EMAIL SETTINGS ...
 
 TODO: Drag&Drop Bilder in Media-Seite
 TODO: Drag&Drop Bilder über Verzeichnissen in Media
-
-
-TODO: Neue Tabellen in alte DB
-TODO: Daten in Settings aufnehmen
 
 Upgrade:
 - Migration Tabelle Translations

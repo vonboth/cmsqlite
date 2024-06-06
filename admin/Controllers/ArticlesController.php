@@ -210,7 +210,7 @@ class ArticlesController extends BaseController
             [
                 'article' => ($this->SystemSettings->translations
                     ? $this->Articles->findWithTranslations($id)
-                    : $this->Articles->find($id)),
+                    : $this->Articles->find($id)->toArray()),
                 'categories' => $this->Categories->findList(),
                 'validator' => $this->validator,
             ]

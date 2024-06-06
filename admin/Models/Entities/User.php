@@ -26,8 +26,6 @@ use Tatter\Relations\Traits\EntityTrait;
  */
 class User extends Base
 {
-    use EntityTrait;
-
     /** @inheritdoc */
     protected $attributes = [
         'id' => null,
