@@ -7,4 +7,5 @@ return [
     'maintenance' => 'Maintenance',
     'tour' => 'Tour',
     'editor_style' => 'HTML Editor Style',
+    'translations' => 'Translations',
 ];

@@ -69,6 +69,7 @@ cp htaccess $BUILD_DIR
 cp index.php $BUILD_DIR
 cp LICENSE $BUILD_DIR
 cp license.txt $BUILD_DIR
+cp prelpad.php $BUILD_DIR
 cp README.md $BUILD_DIR
 cp robots.txt $BUILD_DIR
 cp spark $BUILD_DIR

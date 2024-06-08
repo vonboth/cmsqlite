@@ -20,7 +20,7 @@ return new class extends Updates {
         if (!$row) {
             $this->db->table('settings')->insert([
                 'name' => 'translations',
-                'value' => '1',
+                'value' => '0',
                 'created' => date('Y-m-d H:i:s'),
                 'updated' => date('Y-m-d H:i:s'),
             ]);

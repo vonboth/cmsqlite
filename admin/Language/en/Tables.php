@@ -20,7 +20,10 @@ return [
         'description' => 'Description',
         'class' => 'CSS Classes',
         'category_id' => 'Category',
+        'layout' => 'Layout',
+        'user_id' => 'Author',
         'published' => 'Published',
+        'hits' => 'Hits',
         'start_publish' => 'Publishing Start Date',
         'stop_publish' => 'Publishing End Date',
     ],
@@ -31,6 +34,12 @@ return [
         'name' => 'Name',
         'description' => 'Description',
         'is_system' => 'Is System'
+    ],
+    'menu_translations' => [
+        'menu_translations' => 'Translations',
+        'menu_translation' => 'Translation',
+        'language' => 'Language',
+        'title' => 'Title',
     ],
     'menus' => [
         'menus' => 'Menus',
@@ -49,11 +58,28 @@ return [
         'type' => 'Type',
         'url' => 'Url',
         'alias' => 'Alias',
+        'additional_settings' => 'Add. Settings',
+        'li_class' => 'add. LI-CSS-Class',
+        'li_attributes' => 'add. LI-HTML-Attributes',
+        'a_class' => 'add. A-CSS-Class',
+        'a_attributes' => 'add. A-HTML-Attributes',
         'layout' => 'Layout',
         'target' => 'target',
         'article' => 'Article',
         'category' => 'Category',
         'other' => 'Other',
+    ],
+    'translations' => [
+        'translations' => 'Translations',
+        'translation' => 'Translation',
+        'article_id' => 'Article',
+        'language' => 'Language',
+        'title' => 'Title',
+        'alias' => 'Alias',
+        'doc_key' => 'Document Key',
+        'content' => 'Content',
+        'description' => 'Description',
+        'user_id' => 'Author',
     ],
     'users' => [
         'users' => 'Users',
@@ -73,8 +99,12 @@ return [
     ],
     'settings' => [
         'settings' => 'Settings',
+        'setting' => 'Setting',
         'layout' => 'Layout',
         'name' => 'Name',
         'value' => 'Value',
+    ],
+    'system' => [
+        'system' => 'System-Tasks',
     ]
 ];
