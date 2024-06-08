@@ -1,4 +1,5 @@
 TODO: upgrade auf PHP 8.2 und CI 4.5
+TODO: wechsel zu dayjs statt momentjs
 
 TODO: Layouts für einzelne Menüpunkte / Artikel festlegen
 TODO: LogFiles anzeigen

@@ -67,6 +67,9 @@ class UpdateCommand extends BaseCommand
                         'created' => date('Y-m-d H:i:s')
                     ]);
 
+                    CLI::write('Clearing cache', 'green');
+                    $this->call('cache:clear');
+
                     CLI::write("Version $version applied successfully", 'green');
                 } else {
                     CLI::write("Version $version already installed", 'yellow');
