@@ -49,7 +49,6 @@ export default {
         }
     },
     mounted() {
-        console.log(this.menus);
         this.tabsInstance = M.Tabs.init(document.querySelectorAll('.tabs'));
     },
     methods: {
@@ -195,7 +194,7 @@ export default {
             }
 
             this.hideMenuitemForm = false;
-            this.tabsInstance[0].select(`tab_${config.language}`);
+            this.tabsInstance[0]?.select(`tab_${config.language}`);
         },
 
         // edit menu item
@@ -205,7 +204,7 @@ export default {
             const menu = this.currentMenus.find(it => it.id === menuId);
             this.selectedMenuitem = Object.assign({}, findItemInMenu(menu.children, id));
             this.hideMenuitemForm = false;
-            this.tabsInstance[0].select(`tab_${config.language}`);
+            this.tabsInstance[0]?.select(`tab_${config.language}`);
         },
 
         // Menu section: auto prepare the alias
