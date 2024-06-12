@@ -90,8 +90,10 @@ then
 
   # writable folder
   mkdir -p $BUILD_DIR/writable/cache/
+  cp writable/cache/.gitignore $BUILD_DIR/writable/cache
   cp writable/cache/index.html $BUILD_DIR/writable/cache
   mkdir -p $BUILD_DIR/writable/logs/
+  cp writable/logs/.gitignore $BUILD_DIR/writable/logs
   cp writable/logs/index.html $BUILD_DIR/writable/logs
   mkdir -p $BUILD_DIR/writable/media/
   cp -R writable/media/.gitignore $BUILD_DIR/writable/media
@@ -99,6 +101,7 @@ then
   mkdir -p $BUILD_DIR/writable/session/
   cp writable/session/index.html $BUILD_DIR/writable/session
   mkdir -p $BUILD_DIR/writable/uploads/
+  cp writable/uploads/.gitignore $BUILD_DIR/writable/uploads
   cp writable/uploads/index.html $BUILD_DIR/writable/uploads
   cp writable/.htaccess $BUILD_DIR/writable
 fi
