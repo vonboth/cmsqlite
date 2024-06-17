@@ -49,10 +49,26 @@ class SystemSettings extends BaseConfig
     /** @var string[] supported translations */
     public array $supportedTranslations = ['de', 'en'];
 
+    /** @var array|string[] supported layouts */
+    public array $supportedLayouts = ['start', 'page'];
+
     /** @var string[] additional settings from the database */
     public static $registrars = [
         'Admin\Models\SettingsModel'
     ];
+
+    /**
+     * Need to overwrite to ensure arrays are unique
+     * @return void
+     * @throws \ReflectionException
+     */
+    protected function registerProperties()
+    {
+        parent::registerProperties();
+
+        $this->supportedTranslations = array_unique($this->supportedTranslations);
+        $this->supportedLayouts = array_unique($this->supportedLayouts);
+    }
 
     /**
      * magic get property from settings

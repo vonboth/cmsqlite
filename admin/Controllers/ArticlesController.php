@@ -70,13 +70,13 @@ class ArticlesController extends BaseController
     public function add()
     {
         if ($this->request->getMethod() === 'post') {
-            $translationsEnabeld = $this->SystemSettings->translations;
+            $translationsEnabled = $this->SystemSettings->translations;
             $validation = [
                 'title' => 'required',
                 'content' => 'required'
             ];
 
-            if ($translationsEnabeld) {
+            if ($translationsEnabled) {
                 $validation += [
                     'translations.*.title' => 'required',
                     'translations.*.content' => 'required',
@@ -101,7 +101,7 @@ class ArticlesController extends BaseController
 
                 if ($this->Articles->insert($article) !== false) {
                     $id = $this->Articles->getInsertID();
-                    if ($translationsEnabeld) {
+                    if ($translationsEnabled) {
                         foreach ($postData['translations'] as $formData) {
                             $translationEntity = new Translation();
                             $translationEntity->fill($formData);
@@ -142,6 +142,7 @@ class ArticlesController extends BaseController
             [
                 'categories' => $this->Categories->findList(),
                 'article' => $article,
+                'layouts' => $this->SystemSettings->supportedLayouts,
                 'validator' => $this->validator,
             ]
         );
@@ -212,6 +213,7 @@ class ArticlesController extends BaseController
                     ? $this->Articles->findWithTranslations($id)
                     : $this->Articles->find($id)->toArray()),
                 'categories' => $this->Categories->findList(),
+                'layouts' => $this->SystemSettings->supportedLayouts,
                 'validator' => $this->validator,
             ]
         );

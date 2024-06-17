@@ -45,8 +45,10 @@ class PagesController extends BaseController
         $article->user = $this->Users->findAuthor($article->user_id);
 
         $this->_setViewVars();
+        $layout = $article->layout ?: 'start';
+
         return view(
-            "Themes\\$this->theme\\start",
+            "Themes\\$this->theme\\$layout",
             [
                 'article' => $article,
             ]
@@ -79,9 +81,10 @@ class PagesController extends BaseController
 
         $this->_updateHits($article);
         $this->_setViewVars();
+        $layout = $article->layout ?: 'page';
 
         return view(
-            "Themes\\$this->theme\\page",
+            "Themes\\$this->theme\\$layout",
             [
                 'article' => $article,
             ]

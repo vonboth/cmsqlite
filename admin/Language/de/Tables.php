@@ -63,7 +63,6 @@ return [
         'li_attributes' => 'zus. LI-HTML-Attribute',
         'a_class' => 'zus. A-CSS-Klassen',
         'a_attributes' => 'zus. A-HTML-Attribute',
-        'layout' => 'Layout',
         'target' => 'Ziel',
         'article' => 'Artikel',
         'category' => 'Kategorie',

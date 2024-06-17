@@ -8,8 +8,6 @@
 <?= $this->extend("Themes\\$theme\\layouts\\default") ?>
 
 <?= $this->section('main') ?>
-
-<h1>Hallo Public</h1>
 <section>
     <?= $article->title ?>
     <?= view_cell('App\Views\Cells\Article::render', ['alias' => 'startseite']) ?>
@@ -22,7 +20,6 @@
     Slider
     <?= view_cell('App\Views\Cells\Slider::render', ['path' => 'slider']) ?>
 </section>
-
 <?= $this->endSection() ?>
 
 <?= $this->section('scripts') ?>

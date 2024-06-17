@@ -21,7 +21,6 @@ use Tatter\Relations\Traits\EntityTrait;
  * @property string $url
  * @property string $alias
  * @property string $target
- * @property string $layout
  * @property string $li_class
  * @property string $li_attributes
  * @property string $a_class
@@ -47,7 +46,6 @@ class Menuitem extends Base
         'url' => null,
         'alias' => null,
         'target' => null,
-        'layout' => null,
         'li_class' => null,
         'li_attributes' => null,
         'a_class' => null,

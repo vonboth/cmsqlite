@@ -177,7 +177,6 @@ export default {
                 li_attributes: '',
                 a_class: '',
                 a_attributes: '',
-                layout: 'default',
                 target: '_self',
                 lft: 0,
                 rgt: 0

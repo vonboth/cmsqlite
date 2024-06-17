@@ -23,8 +23,13 @@ class SettingsModel extends BaseModel
         $settings = $db->query('SELECT `name`, `value` FROM settings')->getResult();
         $return = [];
         foreach ($settings as $setting) {
+            if (strpos($setting->value, ',') !== false) {
+                $setting->value = array_map('trim', explode(',', $setting->value));
+            }
             $return[$setting->name] = $setting->value;
         }
         return $return;
     }
+
+
 }

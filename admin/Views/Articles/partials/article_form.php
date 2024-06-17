@@ -7,7 +7,8 @@
 /** @var string $theme */
 /** @var string $language default language set in DB-Settings */
 /** @var int $translations translations enabled set in DB-Settings */
-/** @var array<string> $supportedTranslations */
+/** @var string[] $supportedTranslations */
+/** @var string[] $layouts */
 $supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->supportedTranslations, [$language]);
 ?>
 <div class="row">
@@ -99,7 +100,7 @@ $supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->suppo
         </div>
 
         <div class="row">
-            <div class="input-field col s4">
+            <div class="input-field col m4 s12">
                 <?= form_dropdown(
                     'category_id',
                     ['' => '-'] + $categories,
@@ -107,6 +108,19 @@ $supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->suppo
                     ($formDisabled) ? 'disabled' : ''
                 ) ?>
                 <label><?= lang('Tables.categories.category') ?></label>
+            </div>
+            <div class="input-field col m4 s12">
+                <select name="layout" id="layout">
+                    <option>-</option>
+                    <?php
+                    foreach ($layouts as $layout): ?>
+                        <option value="<?= strtolower($layout) ?>" <?= $article['layout'] === $layout ? 'selected' : '' ?>>
+                            <?= strtolower($layout) ?>
+                        </option>
+                    <?php
+                    endforeach; ?>
+                </select>
+                <label for="layout"><?= lang('Tables.articles.layout') ?></label>
             </div>
         </div>
 
@@ -118,7 +132,6 @@ $supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->suppo
                     ) ?>
                 </div>
                 <div class="collapsible-body">
-
                     <div class="row">
                         <div class="input-field col s12 m6">
                             <input name="alias"
@@ -241,7 +254,6 @@ $supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->suppo
                             ) ?>
                         </div>
                         <div class="collapsible-body">
-
                             <div class="row">
                                 <div class="input-field col s12 m6">
                                     <input name="translations[<?= $idx ?>][alias]"
@@ -281,8 +293,8 @@ $supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->suppo
                     </li>
                 </ul>
             </div>
-        <?php
-        $idx++;
+            <?php
+            $idx++;
         endforeach; ?>
 
     <?php
@@ -308,7 +320,8 @@ $supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->suppo
     </div>
 </div>
 
-<?php $this->section('js') ?>
+<?php
+$this->section('js') ?>
 <script type="text/javascript">
     function onSubmit() {
         let hasError = false;
@@ -329,4 +342,5 @@ $supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->suppo
         }
     }
 </script>
-<?php $this->endSection() ?>
+<?php
+$this->endSection() ?>

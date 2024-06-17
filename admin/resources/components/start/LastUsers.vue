@@ -1,7 +1,7 @@
 <script>
 export default {
     name: 'LastUsers',
-    inject: ['translations', 'moment'],
+    inject: ['translations', 'dayjs'],
     props: {
         users: {
             type: Array,
@@ -19,7 +19,7 @@ export default {
             <ul class="collection">
                 <li class="collection-item" v-for="user in users">
                     <span>{{ user.firstname }} {{ user.lastname }}</span>
-                    <span class="right">{{ moment(user.lastlogin).format(translations.formats.date_time) }}</span>
+                    <span class="right">{{ dayjs(user.lastlogin).format(translations.formats.date_time) }}</span>
                 </li>
             </ul>
         </div>

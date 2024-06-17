@@ -170,7 +170,7 @@ export default {
                 const fileName = response.data?.name;
                 this.currentDirectory.children.push({
                     name: fileName,
-                    path: '/media/' + this.currentPath,
+                    path: '/media/' + (this.currentPath ? this.currentPath.join('/') + '/' : ''),
                     type: fileName.slice(fileName.lastIndexOf('.') + 1)
                 });
 
@@ -217,7 +217,8 @@ export default {
                                 }
                             });
 
-                            this.currentDirectory.children = this.currentDirectory.children.filter(it => it.name !== this.selectedFile.name);
+                            this.currentDirectory.children = this.currentDirectory.children.filter(
+                                it => it.name !== this.selectedFile.name);
                             M.toast({html: this.translations.media.file_delete_success});
                             this.selectedFile = null;
                         } catch (exception) {
@@ -241,7 +242,7 @@ export default {
                 Swal.fire({
                     icon: 'warning',
                     title: this.translations.media.delete_directory,
-                    text: this.translations.media.not_empty_dir,
+                    text: this.translations.media.not_empty_dir
                 });
             } else {
                 Swal.fire({
@@ -264,7 +265,8 @@ export default {
                                     }
                                 });
 
-                                this.currentDirectory.children = this.currentDirectory.children.filter(it => it.name !== this.selectedDirectory.name);
+                                this.currentDirectory.children = this.currentDirectory.children.filter(
+                                    it => it.name !== this.selectedDirectory.name);
                                 M.toast({html: this.translations.media.dir_delete_success});
                                 this.selectedDirectory = null;
                             } catch (exception) {
@@ -294,7 +296,46 @@ export default {
             this.$refs.directoryContextMenu.style.top = `${event.clientY}px`;
             this.$refs.directoryContextMenu.style.left = `${event.clientX}px`;
             this.showDirectoryContextMenu = true;
-        }
+        },
+        // handle file drop
+        async onDrop(event) {
+            this.$refs.dropArea.classList.remove('border-dashed');
+            event.preventDefault();
+            if(event.dataTransfer.items) {
+                [...event.dataTransfer.items].forEach(it => {
+                    if (it.kind === 'file' && allowedTypes.includes(it.type)) {
+                        const file = it.getAsFile();
+                        this.uploadFiles.push({
+                            name: file.name,
+                            uploadProgress: 0,
+                            file: file
+                        });
+                    } else {
+                        M.toast({html: this.translations.media.filetype_not_allowed});
+                    }
+                })
+            } else {
+                [...event.dataTransfer.files].forEach(it => {
+                    if (allowedTypes.includes(it.type)) {
+                        this.uploadFiles.push({
+                            name: it.name,
+                            uploadProgress: 0,
+                            file: it
+                        });
+                    } else {
+                        M.toast({html: this.translations.media.filetype_not_allowed});
+                    }
+                });
+            }
+
+            if(this.uploadFiles.length > 0) {
+                for (const file of this.uploadFiles) {
+                    await this.doFileUpload(file);
+                }
+            }
+
+            this.uploadFiles = [];
+        },
     }
 };
 
@@ -358,7 +399,11 @@ function findDirectory(elements, name) {
         </div>
         <div class="row">
             <div class="col s12">
-                <div class="file-area">
+                <div class="file-area"
+                     ref="dropArea"
+                     @dragover.prevent.stop="() => { $refs.dropArea.classList.add('border-dashed') }"
+                     @dragleave.prevent.stop="() => { $refs.dropArea.classList.remove('border-dashed') }"
+                     @drop="onDrop">
                     <div class="flex">
                         <div v-for="item in currentDirectory.children"
                              class="inline-block file-item">
@@ -374,7 +419,7 @@ function findDirectory(elements, name) {
                             </div>
                             <div v-else>
                                 <div class="flex flex-center flex-columm ">
-                                    <a class="cursor-pointer is-file"
+                                    <a class="cursor-pointer is-file flex flex-center flex-columm"
                                        @contextmenu.prevent.stop="(event) => { onRightClickFile(event, item) }">
                                         <div>
                                             <img v-if="item.type === 'png' || item.type === 'jpg'"
@@ -505,6 +550,11 @@ function findDirectory(elements, name) {
 .file-area {
     margin-top: 2em;
     min-height: 50vh;
+}
+
+.file-area.border-dashed {
+    background-color: rgba(33, 150, 243, 0.25);
+    border: 2px dashed #2196F3;
 }
 
 .border-bottom {

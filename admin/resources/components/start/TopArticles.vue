@@ -3,7 +3,7 @@ import Swal from 'sweetalert2';
 
 export default {
     name: 'TopArticles',
-    inject: ['translations', 'moment'],
+    inject: ['translations', 'dayjs'],
     props: {
         articles: {
             type: Array,
@@ -47,7 +47,7 @@ export default {
                 <li class="collection-item" v-else v-for="article in articles">
                     <span>{{ article.title }}</span>
                     <span class="ml1rem">({{ article.hits }})</span>
-                    <span class="right">{{ moment(article.updated).format(translations.formats.date_time) }}</span>
+                    <span class="right">{{ dayjs(article.updated).format(translations.formats.date_time) }}</span>
                 </li>
             </ul>
         </div>

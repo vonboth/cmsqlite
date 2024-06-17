@@ -4,7 +4,7 @@ import LastUsers from './components/start/LastUsers.vue';
 import TopArticles from './components/start/TopArticles.vue';
 import Settings from './settings/Settings.vue';
 import Menus from './menus/Menus.vue';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import MenuList from './components/menus/MenuList.vue';
 import axios from 'axios';
 import Editor from '@/components/articles/Editor.vue';
@@ -47,7 +47,7 @@ const App = {
 
 const app = createApp(App);
 app.provide('translations', translations);
-app.provide('moment', moment);
+app.provide('dayjs', dayjs);
 app.component('page-statistics', PageStatistics);
 app.component('last-users', LastUsers);
 app.component('top-articles', TopArticles);

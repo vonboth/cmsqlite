@@ -1,7 +1,7 @@
 <script>
 export default {
     name: 'PageStatistics',
-    inject: ['translations', 'moment'],
+    inject: ['translations', 'dayjs'],
     props: {
         articles: {
             type: Array,
@@ -20,7 +20,7 @@ export default {
         <li class="collection-item"
             v-for="article in articles">
           <a :href="`/admin/articles/edit/${article.id}`">{{article.title}}</a>
-          <span class="right">{{ moment(article.updated).format(translations.formats.date_time) }}</span>
+          <span class="right">{{ dayjs(article.updated).format(translations.formats.date_time) }}</span>
         </li>
       </ul>
     </div>

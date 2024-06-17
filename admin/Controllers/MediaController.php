@@ -99,9 +99,9 @@ class MediaController extends BaseController
 
                 // try to move the uploaded file to it's location
                 try {
-                    $path = $this->request->getPost('path');
-                    if (empty($path)) {
-                        $path = '';
+                    $path = $this->request->getPost('path') ?: '';
+                    if (!empty($path) && $path[0] !== '/') {
+                        $path = '/' . $path;
                     }
                     $file->move(WRITEPATH . 'media' . $path);
                     return response()->setJSON([

@@ -34,7 +34,6 @@ class MenuitemsModel extends BaseModel
         'url',
         'alias',
         'target',
-        'layout',
         'li_class',
         'li_attributes',
         'a_class',

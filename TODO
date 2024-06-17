@@ -1,20 +1,6 @@
 TODO: upgrade auf PHP 8.2 und CI 4.5
-TODO: wechsel zu dayjs statt momentjs
-
-TODO: Layouts für einzelne Menüpunkte / Artikel festlegen
 TODO: LogFiles anzeigen
-
 TODO: automatische sitemap generieren
 TODO: INSTALLATION ROUTINE: EMAIL SETTINGS ...
-
-TODO: Drag&Drop Bilder in Media-Seite
-TODO: Drag&Drop Bilder über Verzeichnissen in Media
-
 TODO: Favicon erstellen
-
 TODO: Übersetzungen zusammenführen
-
-Upgrade:
-- Migration Tabelle Translations
-- Eintrag in Tabelle Settings
-- .env Datei aufräumen
