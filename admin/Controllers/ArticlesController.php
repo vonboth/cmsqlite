@@ -38,7 +38,7 @@ class ArticlesController extends BaseController
         return view(
             'Admin\Articles\index',
             [
-                'articles' => $this->Articles->with(['categories'])->findAll(),
+                'articles' => $this->Articles->findAll(),
                 'categories' => $this->Categories->findList(),
             ]
         );
@@ -69,7 +69,7 @@ class ArticlesController extends BaseController
      */
     public function add()
     {
-        if ($this->request->getMethod() === 'post') {
+        if ($this->request->getMethod() === 'POST') {
             $translationsEnabled = $this->SystemSettings->translations;
             $validation = [
                 'title' => 'required',
@@ -156,7 +156,7 @@ class ArticlesController extends BaseController
      */
     public function edit($id = null)
     {
-        if ($this->request->getMethod() === 'post') {
+        if ($this->request->getMethod() === 'POST') {
             $article = $this->Articles->find($id);
             $translationsEnabled = $this->SystemSettings->translations;
             $validations = [

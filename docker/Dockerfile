@@ -1,4 +1,4 @@
-FROM php:8.0-apache
+FROM php:8.3-apache
 ARG DEBIAN_FRONTEND=noninteractive
 
 #COPY ./sites-available/000-default.conf /etc/apache2/sites-available

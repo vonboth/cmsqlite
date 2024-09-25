@@ -57,7 +57,7 @@ class UsersController extends BaseController
     public function add()
     {
         $user = new User();
-        if ($this->request->getMethod() == 'post') {
+        if ($this->request->getMethod() === 'POST') {
             if ($this->validate(
                 [
                     'username' => 'required',
@@ -103,7 +103,7 @@ class UsersController extends BaseController
     public function edit($id = null)
     {
         $user = $this->Users->find($id);
-        if ($this->request->getMethod() == 'post') {
+        if ($this->request->getMethod() === 'POST') {
             if ($this->validate(
                 [
                     'username' => 'required',

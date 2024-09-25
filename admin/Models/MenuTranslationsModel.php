@@ -2,8 +2,6 @@
 
 namespace Admin\Models;
 
-use Tatter\Relations\Traits\ModelTrait;
-
 /**
  * Class MenuTranslations
  * @package Admin\Models
@@ -17,8 +15,6 @@ use Tatter\Relations\Traits\ModelTrait;
  */
 class MenuTranslationsModel extends BaseModel
 {
-    use ModelTrait;
-
     /** @inheritdoc */
     protected $table = 'menu_translations';
 

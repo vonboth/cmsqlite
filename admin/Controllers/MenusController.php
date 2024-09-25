@@ -64,7 +64,7 @@ class MenusController extends BaseController
      */
     public function add()
     {
-        if ($this->request->isAJAX() && $this->request->getMethod() === 'post') {
+        if ($this->request->isAJAX() && $this->request->getMethod() === 'POST') {
             $menu = new Menu();
             if ($this->validate(['name' => 'required'])) {
                 $menu->fill($this->request->getJSON(true));
@@ -100,7 +100,7 @@ class MenusController extends BaseController
      */
     public function edit($id = null)
     {
-        if ($this->request->isAJAX() && $this->request->getMethod() === 'post') {
+        if ($this->request->isAJAX() && $this->request->getMethod() === 'POST') {
             $menu = $this->Menus->find($id);
             $post = $this->request->getJSON(true);
 

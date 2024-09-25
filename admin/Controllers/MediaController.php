@@ -70,7 +70,7 @@ class MediaController extends BaseController
     public function upload(): ResponseInterface
     {
         // method is post
-        if ($this->request->getMethod() == 'post') {
+        if ($this->request->getMethod() === 'POST') {
             // get file
             $file = $this->request->getFile('file');
 
@@ -133,7 +133,7 @@ class MediaController extends BaseController
      */
     public function removeFile(): ResponseInterface
     {
-        if ($this->request->getMethod() == 'post') {
+        if ($this->request->getMethod() === 'POST') {
             $data = $this->request->getJSON();
             $path = $data->path;
             $filename = $data->delete_file;
@@ -170,7 +170,7 @@ class MediaController extends BaseController
      */
     public function removeDir(): ResponseInterface
     {
-        if ($this->request->getMethod() == 'post') {
+        if ($this->request->getMethod() === 'POST') {
             $data = $this->request->getJSON();
             $path = $data->path;
             $dir = $data->dir_name;
@@ -258,7 +258,7 @@ class MediaController extends BaseController
      */
     public function createFolder(): ResponseInterface
     {
-        if ($this->request->getMethod() == 'post') {
+        if ($this->request->getMethod() === 'POST') {
             $data = $this->request->getJSON();
             $name = $data->dir_name;
             $path = $data->path;
@@ -316,7 +316,7 @@ class MediaController extends BaseController
      */
     public function ckupload()
     {
-        if ($this->request->getMethod() == 'post') {
+        if ($this->request->getMethod() === 'POST') {
             $file = $this->request->getFile('upload');
             $ext = $file->getExtension();
 

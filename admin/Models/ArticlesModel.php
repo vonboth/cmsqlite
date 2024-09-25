@@ -4,7 +4,6 @@ namespace Admin\Models;
 
 use Admin\Models\Entities\Translation;
 use Admin\Services\AuthService;
-use Tatter\Relations\Traits\ModelTrait;
 
 /**
  * Class ArticlesModel
@@ -12,8 +11,6 @@ use Tatter\Relations\Traits\ModelTrait;
  */
 class ArticlesModel extends BaseModel
 {
-    use ModelTrait;
-
     /** @inheritdoc  */
     protected $table = 'articles';
 

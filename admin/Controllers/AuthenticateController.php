@@ -19,7 +19,7 @@ class AuthenticateController extends BaseController
      */
     public function login()
     {
-        if ($this->request->getMethod() == 'post') {
+        if ($this->request->getMethod() === 'POST') {
             if ($this->validate(
                 [
                     'username' => 'required|authenticate[password]',

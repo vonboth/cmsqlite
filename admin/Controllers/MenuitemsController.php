@@ -38,7 +38,7 @@ class MenuitemsController extends BaseController
      */
     public function add()
     {
-        if ($this->request->isAJAX() && $this->request->getMethod() === 'post') {
+        if ($this->request->isAJAX() && $this->request->getMethod() === 'POST') {
             $validations = [
                 'title' => 'required',
                 'menu_id' => 'required',
@@ -102,7 +102,7 @@ class MenuitemsController extends BaseController
      */
     public function edit($id = null)
     {
-        if ($this->request->isAJAX() && $this->request->getMethod() === 'post') {
+        if ($this->request->isAJAX() && $this->request->getMethod() === 'POST') {
             $item = $this->Menuitems->find($id);
             $post = $this->request->getJSON(true);
 
@@ -229,7 +229,7 @@ class MenuitemsController extends BaseController
      */
     public function move($id = null)
     {
-        if ($this->request->isAJAX() && $this->request->getMethod() === 'post') {
+        if ($this->request->isAJAX() && $this->request->getMethod() === 'POST') {
             $post = $this->request->getJSON();
             $item = $this->Menuitems->find($id);
 

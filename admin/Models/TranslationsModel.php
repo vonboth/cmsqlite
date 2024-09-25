@@ -3,12 +3,9 @@
 namespace Admin\Models;
 
 use Admin\Services\AuthService;
-use Tatter\Relations\Traits\ModelTrait;
 
 class TranslationsModel extends BaseModel
 {
-    use ModelTrait;
-
     /** @inheritdoc  */
     protected $table = 'translations';
 

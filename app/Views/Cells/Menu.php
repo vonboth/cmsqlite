@@ -6,6 +6,9 @@ namespace App\Views\Cells;
 use Admin\Models\MenuitemsModel;
 use Admin\Models\MenusModel;
 use CodeIgniter\Files\Exceptions\FileNotFoundException;
+use CodeIgniter\HTTP\SiteURI;
+use CodeIgniter\HTTP\SiteURIFactory;
+use Config\Services;
 
 /**
  * Class Menu
@@ -53,7 +56,8 @@ class Menu extends AppCell
      */
     public function render(array $options = []): string
     {
-        $current_path = service('request')->uri->getRoutePath();
+        /** @var SiteURI $s */
+        $current_path = Services::get('uri')->getRoutePath();
         $templateFilePath = THEMEPATH . $this->theme . '/cells/menu/';
         $Menuitems = new MenuitemsModel();
 

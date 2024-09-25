@@ -6,12 +6,9 @@ namespace Admin\Models;
 
 use CodeIgniter\Database\ConnectionInterface;
 use CodeIgniter\Validation\ValidationInterface;
-use Tatter\Relations\Traits\ModelTrait;
 
 class MenusModel extends BaseModel
 {
-    use ModelTrait;
-
     protected $table = 'menus';
     protected $returnType = 'Admin\Models\Entities\Menu';
     protected $MenuItems;

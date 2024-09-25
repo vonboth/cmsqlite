@@ -10,11 +10,11 @@ $routes = Services::routes(true);
 $routes->group(
     'admin',
     ['namespace' => 'Admin\Controllers'],
-    function (RouteCollection $routes) {
+    static function (RouteCollection $routes) {
         $routes->add('/', 'StartController::index', ['priority' => 0]);
         $routes->group(
             'start',
-            function (RouteCollection $routes) {
+            static function (RouteCollection $routes) {
                 $routes->add('index', 'StartController::index');
                 $routes->add('reset-hits', 'StartController::resetHits');
                 $routes->add('/', 'StartController::index');
@@ -22,14 +22,14 @@ $routes->group(
         );
         $routes->group(
             'authenticate',
-            function (RouteCollection $routes) {
+            static function (RouteCollection $routes) {
                 $routes->add('login', 'AuthenticateController::login');
                 $routes->get('logout', 'AuthenticateController::logout');
             }
         );
         $routes->group(
             'articles',
-            function (RouteCollection $routes) {
+            static function (RouteCollection $routes) {
                 $routes->add('index', 'ArticlesController::index');
                 $routes->add('add', 'ArticlesController::add');
                 $routes->add('edit/(:num)', 'ArticlesController::edit/$1');
@@ -40,7 +40,7 @@ $routes->group(
         );
         $routes->group(
             'categories',
-            function (RouteCollection $routes) {
+            static function (RouteCollection $routes) {
                 $routes->add('index', 'CategoriesController::index');
                 $routes->add('add', 'CategoriesController::add');
                 $routes->add('edit/(:num)', 'CategoriesController::edit/$1');
@@ -51,7 +51,7 @@ $routes->group(
         );
         $routes->group(
             'menus',
-            function (RouteCollection $routes) {
+            static function (RouteCollection $routes) {
                 $routes->add('index', 'MenusController::index');
                 $routes->add('add', 'MenusController::add');
                 $routes->add('edit/(:num)', 'MenusController::edit/$1');
@@ -62,7 +62,7 @@ $routes->group(
         );
         $routes->group(
             'menuitems',
-            function (RouteCollection $routes) {
+            static function (RouteCollection $routes) {
                 $routes->add('index', 'MenusController::index');
                 $routes->add('add', 'MenuitemsController::add');
                 $routes->add('edit/(:num)', 'MenuitemsController::edit/$1');
@@ -74,7 +74,7 @@ $routes->group(
         );
         $routes->group(
             'users',
-            function (RouteCollection $routes) {
+            static function (RouteCollection $routes) {
                 $routes->add('index', 'UsersController::index');
                 $routes->add('add', 'UsersController::add');
                 $routes->add('edit/(:num)', 'UsersController::edit/$1');
@@ -85,7 +85,7 @@ $routes->group(
         );
         $routes->group(
             'profile',
-            function (RouteCollection $routes) {
+            static function (RouteCollection $routes) {
                 $routes->get('index', 'ProfileController::edit');
                 $routes->add('edit', 'ProfileController::edit');
                 $routes->add('/', 'ProfileController::edit');
@@ -93,7 +93,7 @@ $routes->group(
         );
         $routes->group(
             'media',
-            function (RouteCollection $routes) {
+            static function (RouteCollection $routes) {
                 $routes->add('index', 'MediaController::index');
                 $routes->post('upload', 'MediaController::upload');
                 $routes->post('remove-file', 'MediaController::removeFile');
@@ -106,7 +106,7 @@ $routes->group(
         );
         $routes->group(
             'settings',
-            function (RouteCollection $routes) {
+            static function (RouteCollection $routes) {
                 $routes->get('index', 'SettingsController::index');
                 $routes->post('save/(:num)', 'SettingsController::save/$1');
                 $routes->post('add', 'SettingsController::add');
@@ -117,7 +117,7 @@ $routes->group(
         );
         $routes->group(
             'system',
-            function (RouteCollection  $routes) {
+            static function (RouteCollection  $routes) {
                 $routes->get('index', 'SystemController::index');
                 $routes->post('update', 'SystemController::update');
                 $routes->post('clearcache', 'SystemController::clearCache');

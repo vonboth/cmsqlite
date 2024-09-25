@@ -31,7 +31,7 @@ class ProfileController extends BaseController
   public function edit()
   {
     $user = $this->AuthService->getUser();
-    if ($this->request->getMethod() == 'post') {
+    if ($this->request->getMethod() === 'POST') {
       if ($this->validate(
         [
           'firstname' => 'required',

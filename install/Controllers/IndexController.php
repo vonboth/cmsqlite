@@ -101,7 +101,7 @@ class IndexController extends BaseController
      */
     public function install()
     {
-        if ($this->request->getMethod() == 'post') {
+        if ($this->request->getMethod() === 'POST') {
             $valid = $this->validate(
                 [
                     'base_url' => 'regex_match[/^http(s?):\/\/(\w{3}?\.)?[a-z]+\.[[a-z]{2,}$/]',

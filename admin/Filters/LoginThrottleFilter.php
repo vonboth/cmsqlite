@@ -7,6 +7,8 @@ namespace Admin\Filters;
 use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
+use CodeIgniter\HTTP\SiteURI;
+use CodeIgniter\HTTP\SiteURIFactory;
 
 /**
  * Class BruteForceFilter
@@ -26,7 +28,7 @@ class LoginThrottleFilter implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         if ($request->detectPath() === 'admin/authenticate/login'
-            && $request->getMethod() === 'post') {
+            && $request->getMethod() === 'POST') {
             $session = session();
             $ipAddress = $request->getIPAddress();
             $sleep = 0;

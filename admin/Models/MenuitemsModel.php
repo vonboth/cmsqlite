@@ -3,16 +3,12 @@
 
 namespace Admin\Models;
 
-use Tatter\Relations\Traits\ModelTrait;
-
 /**
  * Class MenuitemsModel
  * @package Admin\Models
  */
 class MenuitemsModel extends BaseModel
 {
-    use ModelTrait;
-
     /** @inheritdoc */
     protected $table = 'menuitems';
 

@@ -16,7 +16,7 @@ use CodeIgniter\HTTP\RedirectResponse;
 class CategoriesController extends BaseController
 {
     /** @var CategoriesModel $Categories */
-    protected $Categories;
+    protected CategoriesModel $Categories;
 
     /**
      * init controller
@@ -62,7 +62,7 @@ class CategoriesController extends BaseController
     {
         $category = new Category();
 
-        if ($this->request->getMethod() === 'post') {
+        if ($this->request->getMethod() === 'POST') {
             if ($this->validate(['name' => 'required'])) {
                 $category->fill($this->request->getPost());
                 if ($this->Categories->insert($category) !== false) {
@@ -101,7 +101,7 @@ class CategoriesController extends BaseController
     public function edit($id = null)
     {
         $category = $this->Categories->find($id);
-        if ($this->request->getMethod() === 'post') {
+        if ($this->request->getMethod() === 'POST') {
             if ($this->validate(['name' => 'required'])) {
                 $category->fill($this->request->getPost());
                 try {

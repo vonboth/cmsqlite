@@ -6,18 +6,22 @@ use Admin\Filters\AuthenticateFilter;
 use Admin\Filters\AuthorizeFilter;
 use Admin\Filters\LoginThrottleFilter;
 use App\Filters\MaintenanceFilter;
-use CodeIgniter\Config\BaseConfig;
+use CodeIgniter\Config\Filters as BaseFilters;
+use CodeIgniter\Filters\Cors;
 use CodeIgniter\Filters\CSRF;
 use CodeIgniter\Filters\DebugToolbar;
+use CodeIgniter\Filters\ForceHTTPS;
 use CodeIgniter\Filters\Honeypot;
 use CodeIgniter\Filters\InvalidChars;
+use CodeIgniter\Filters\PageCache;
+use CodeIgniter\Filters\PerformanceMetrics;
 use CodeIgniter\Filters\SecureHeaders;
 
 /**
  * Class Filters
  * @package Config
  */
-class Filters extends BaseConfig
+class Filters extends BaseFilters
 {
     /**
      * @inheritdoc
@@ -50,7 +54,37 @@ class Filters extends BaseConfig
         'maintenance' => MaintenanceFilter::class,
         'invalidchars' => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
+        'cors' => Cors::class,
+        'forcehttps' => ForceHTTPS::class,
+        'pagecache' => PageCache::class,
+        'performance' => PerformanceMetrics::class,
     ];
+
+    /**
+     * List of special required filters.
+     *
+     * The filters listed here are special. They are applied before and after
+     * other kinds of filters, and always applied even if a route does not exist.
+     *
+     * Filters set by default provide framework functionality. If removed,
+     * those functions will no longer work.
+     *
+     * @see https://codeigniter.com/user_guide/incoming/filters.html#provided-filters
+     *
+     * @var array{before: list<string>, after: list<string>}
+     */
+    public array $required = [
+        'before' => [
+            'forcehttps', // Force Global Secure Requests
+            'pagecache',  // Web Page Caching
+        ],
+        'after' => [
+            'pagecache',   // Web Page Caching
+            'performance', // Performance Metrics
+            'toolbar',     // Debug Toolbar
+        ],
+    ];
+
 
     /**
      * List of filter aliases that are always
@@ -63,7 +97,6 @@ class Filters extends BaseConfig
             // 'invalidchars',
         ],
         'after' => [
-            'toolbar',
             // 'honeypot'
             // 'secureheaders'
         ],
@@ -89,7 +122,7 @@ class Filters extends BaseConfig
      * Example:
      * 'isLoggedIn' => ['before' => ['account/*', 'profiles/*']]
      */
-    public $filters = [
+    public array $filters = [
         'maintenance' => ['before' => ['*']],
         'loginThrottle' => ['before' => ['admin/authenticate/login']],
         'authenticate' => ['before' => ['admin', 'admin/*']],
