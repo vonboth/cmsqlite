@@ -9,8 +9,19 @@ namespace Admin\Models;
  */
 class CategoriesModel extends BaseModel
 {
+    /**
+     * @inheritdoc
+     */
     protected $table = 'categories';
+
+    /**
+     * @inheritdoc
+     */
     protected $returnType = 'Admin\Models\Entities\Category';
+
+    /**
+     * @inheritdoc
+     */
     protected $allowedFields = [
         'name',
         'description',

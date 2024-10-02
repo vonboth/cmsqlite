@@ -35,14 +35,13 @@ class PagesController extends BaseController
     {
         $article = $this->Articles
             ->with('translations')
+            ->with('user')
             ->where('is_startpage', 1)
             ->first();
 
         $article->content = remove_readon($article);
 
         $this->_updateHits($article);
-
-        $article->user = $this->Users->findAuthor($article->user_id);
 
         $this->_setViewVars();
         $layout = $article->layout ?: 'start';
@@ -63,11 +62,9 @@ class PagesController extends BaseController
     {
         if (is_numeric($var)) {
             $article = $this->Articles
-                ->with('translations')
                 ->find($var);
         } else {
             $article = $this->Articles
-                ->with('translations')
                 ->where('alias', $var)
                 ->first();
         }

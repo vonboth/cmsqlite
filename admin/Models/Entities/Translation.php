@@ -2,8 +2,6 @@
 
 namespace Admin\Models\Entities;
 
-use Tatter\Relations\Traits\EntityTrait;
-
 /**
  * @property int $id
  * @property int $article_id
@@ -19,8 +17,6 @@ use Tatter\Relations\Traits\EntityTrait;
  */
 class Translation extends Base
 {
-    use EntityTrait;
-
     /** @inheritdoc  */
     protected $attributes = [
         'id' => null,

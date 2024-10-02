@@ -7,7 +7,6 @@ namespace Admin\Models;
 use CodeIgniter\Database\ConnectionInterface;
 use CodeIgniter\Model;
 use CodeIgniter\Validation\ValidationInterface;
-use Tatter\Relations\Traits\ModelTrait;
 
 /**
  * Class BaseModel
@@ -15,8 +14,6 @@ use Tatter\Relations\Traits\ModelTrait;
  */
 class BaseModel extends Model
 {
-    use ModelTrait;
-
     /** @inheritdoc */
     protected $useTimestamps = true;
 

@@ -3,8 +3,6 @@
 
 namespace Admin\Models\Entities;
 
-use Tatter\Relations\Traits\EntityTrait;
-
 /**
  * Class Menuitem
  * @package Admin\Models\Entities
@@ -32,8 +30,6 @@ use Tatter\Relations\Traits\EntityTrait;
  */
 class Menuitem extends Base
 {
-    use EntityTrait;
-
     /** @inheritdoc */
     protected $attributes = [
         'id' => null,
@@ -75,5 +71,21 @@ class Menuitem extends Base
         }
 
         return $this->attributes['title'];
+    }
+
+    /**
+     * get menuitem translations
+     * @return array|mixed|null
+     */
+    public function getMenuTranslations()
+    {
+        if (isset($this->attributes['menu_translations']) && !empty($this->attributes['menu_translations'])) {
+            return $this->attributes['menu_translations'];
+        }
+
+        $query = $this->db->table('menu_translations');
+        return $query->where('menuitem_id', $this->attributes['id'])
+            ->get()
+            ->getResult('Admin\Models\Entities\MenuitemTranslation');
     }
 }

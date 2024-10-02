@@ -173,6 +173,9 @@ class ArticlesController extends BaseController
 
             if ($this->validate($validations)) {
                 $postData = $this->request->getPost();
+                if (empty($postData['layout'])) {
+                    $postData['layout'] = null;
+                }
                 $article->fill($postData);
                 if ($this->Articles->save($article)) {
                     if ($translationsEnabled) {

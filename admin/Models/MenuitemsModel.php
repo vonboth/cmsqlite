@@ -3,12 +3,16 @@
 
 namespace Admin\Models;
 
+use Admin\Models\Traits\RelationsTrait;
+
 /**
  * Class MenuitemsModel
  * @package Admin\Models
  */
 class MenuitemsModel extends BaseModel
 {
+    use RelationsTrait;
+
     /** @inheritdoc */
     protected $table = 'menuitems';
 
@@ -38,8 +42,16 @@ class MenuitemsModel extends BaseModel
         'rgt'
     ];
 
-    /** @inheritdoc */
-    protected $with = 'menu_translations';
+    /**
+     * @inheritdoc
+     */
+    public function initialize()
+    {
+        $this->hasMany('menu_translations', [
+            'foreign_key' => 'menuitem_id',
+            'entity' => 'Admin\Models\Entities\MenuTranslation'
+        ]);
+    }
 
     /**
      * Get Children of Tree

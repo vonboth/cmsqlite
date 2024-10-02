@@ -41,11 +41,9 @@ class Article extends AppCell
         $article = null;
         if (isset($options['id'])) {
             $article = $Articles
-                ->with('translations')
                 ->find($options['id']);
         } elseif (isset($options['alias'])) {
             $article = $Articles
-                ->with('translations')
                 ->where('alias', $options['alias'])
                 ->first();
         }

@@ -3,7 +3,8 @@
 
 namespace Admin\Models\Entities;
 
-use Tatter\Relations\Traits\EntityTrait;
+
+use Admin\Models\Traits\RelationsTrait;
 
 /**
  * Class Article
@@ -31,7 +32,7 @@ use Tatter\Relations\Traits\EntityTrait;
  */
 class Article extends Base
 {
-    use EntityTrait;
+    use RelationsTrait;
 
     /** @inheritdoc */
     protected $attributes = [
@@ -71,5 +72,51 @@ class Article extends Base
             }
         }
         return $this->attributes['content'] ?? '';
+    }
+
+    /**
+     * @return array|object|null
+     */
+    public function getUser()
+    {
+        if (isset($this->attributes['user']) && !empty($this->attributes['user'])) {
+            return $this->attributes['user'];
+        }
+
+        $query = $this->db->table('users');
+        return $query->select('id, username, firstname, lastname')
+            ->where('id', $this->attributes['user_id'])
+            ->get()
+            ->getFirstRow('Admin\Models\Entities\User');
+    }
+
+    /**
+     * @return array|object|null
+     */
+    public function getCategory()
+    {
+        if (isset($this->attributes['category']) && !empty($this->attributes['category'])) {
+            return $this->attributes['category'];
+        }
+
+        $query = $this->db->table('categories');
+        return $query->where('id', $this->attributes['category_id'])
+            ->get()
+            ->getFirstRow('Admin\Models\Entities\Category');
+    }
+
+    /**
+     * @return array
+     */
+    public function getTranslations()
+    {
+        if (isset($this->attributes['translations']) && !empty($this->attributes['translations'])) {
+            return $this->attributes['translations'];
+        }
+
+        $query = $this->db->table('translations');
+        return $query->where('article_id', $this->attributes['id'])
+            ->get()
+            ->getResult('Admin\Models\Entities\Translation');
     }
 }

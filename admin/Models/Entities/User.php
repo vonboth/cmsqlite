@@ -4,8 +4,6 @@
 namespace Admin\Models\Entities;
 
 
-use Tatter\Relations\Traits\EntityTrait;
-
 /**
  * Class User
  * @package Admin\Models\Entities
@@ -40,6 +38,8 @@ class User extends Base
         'created' => null,
         'updated' => null,
     ];
+
+
 
     /**
      * dates fields

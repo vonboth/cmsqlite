@@ -111,7 +111,7 @@ $supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->suppo
             </div>
             <div class="input-field col m4 s12">
                 <select name="layout" id="layout">
-                    <option>-</option>
+                    <option value="">-</option>
                     <?php
                     foreach ($layouts as $layout): ?>
                         <option value="<?= strtolower($layout) ?>" <?= $article['layout'] === $layout ? 'selected' : '' ?>>

@@ -3,7 +3,10 @@
 namespace Admin\Models;
 
 use Admin\Models\Entities\Translation;
+use Admin\Models\Traits\RelationsTrait;
 use Admin\Services\AuthService;
+use CodeIgniter\Database\BaseBuilder;
+use Tatter\Relations\Traits\ModelTrait;
 
 /**
  * Class ArticlesModel
@@ -11,30 +14,32 @@ use Admin\Services\AuthService;
  */
 class ArticlesModel extends BaseModel
 {
-    /** @inheritdoc  */
+    use RelationsTrait;
+
+    /** @inheritdoc */
     protected $table = 'articles';
 
-    /** @inheritdoc  */
+    /** @inheritdoc */
     protected $returnType = 'Admin\Models\Entities\Article';
 
-    /** @inheritdoc  */
+    /** @inheritdoc */
     protected $useTimestamps = true;
 
-    /** @inheritdoc  */
+    /** @inheritdoc */
     protected $updatedField = 'updated';
 
-    /** @inheritdoc  */
+    /** @inheritdoc */
     protected $createdField = 'created';
 
-    /** @inheritdoc  */
+    /** @inheritdoc */
     protected $beforeUpdate = ['setStartpageFlagToNull'];
 
-    /** @inheritdoc  */
+    /** @inheritdoc */
     protected $beforeInsert = ['setUser', 'setAlias'];
 
     protected $afterDelete = ['deleteRelations'];
 
-    /** @inheritdoc  */
+    /** @inheritdoc */
     protected $allowedFields = [
         'is_startpage',
         'title',
@@ -52,8 +57,27 @@ class ArticlesModel extends BaseModel
         'hits'
     ];
 
-    /** @var string[] $with relations */
-    protected $with = ['translations', 'users', 'categories'];
+    /**
+     * @return void
+     */
+    public function initialize()
+    {
+        $this->hasOne('users', [
+            'foreign_key' => 'user_id',
+            'finder' => function (BaseBuilder $query, $user_id) {
+                return $query->select('id, username, firstname, lastname')
+                    ->where('id', $user_id)
+                    ->get()
+                ->getFirstRow('Admin\Models\Entities\User');
+            }
+        ])->hasOne('categories', [
+            'foreign_key' => 'category_id',
+            'entity' => 'Admin\Models\Entities\Category'
+        ])->hasMany('translations', [
+            'foreign_key' => 'article_id',
+            'entity' => 'Admin\Models\Entities\Translation'
+        ]);
+    }
 
     /**
      * Reset hits for all articles
@@ -131,7 +155,7 @@ class ArticlesModel extends BaseModel
      */
     public function findWithTranslations($id): array
     {
-        $article = $this->with('translations')->find($id);
+        $article = $this->find($id);
         $articleAsArray = $article->toArray();
         $articleAsArray['translations'] = [];
         $supportedTranslations = config('Admin\Config\SystemSettings')->supportedTranslations;

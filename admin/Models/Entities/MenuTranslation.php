@@ -2,8 +2,6 @@
 
 namespace Admin\Models\Entities;
 
-use Tatter\Relations\Traits\EntityTrait;
-
 /**
  * Class MenuTranslation
  * @package Admin\Models\Entities
@@ -19,8 +17,6 @@ use Tatter\Relations\Traits\EntityTrait;
  */
 class MenuTranslation extends Base
 {
-    use EntityTrait;
-
     /** @inheritdoc */
     protected $attributes = [
         'id' => null,

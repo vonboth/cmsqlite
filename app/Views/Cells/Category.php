@@ -37,8 +37,7 @@ class Category extends AppCell
         $Categories = new CategoriesModel();
 
         $category = $Categories->find($options['id']);
-        $articles = $Articles->with('translations')
-            ->where('category_id', $options['id'])
+        $articles = $Articles->where('category_id', $options['id'])
             ->where('published', true)
             ->findAll();
 

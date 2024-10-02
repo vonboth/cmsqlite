@@ -19,6 +19,11 @@ class Base extends Entity
     protected $translationEnabeled = false;
 
     /**
+     * @var \CodeIgniter\Database\BaseBuilder|\CodeIgniter\Database\ConnectionInterface|\CodeIgniter\Database\Query|mixed
+     */
+    protected $db;
+
+    /**
      * @inheritdoc
      */
     public function __construct(?array $data = null)
@@ -27,5 +32,7 @@ class Base extends Entity
 
         $this->translationEnabeled = config('Admin\Config\SystemSettings')->translations;
         $this->locale = service('language')->getLocale();
+
+        $this->db = db_connect();
     }
 }
