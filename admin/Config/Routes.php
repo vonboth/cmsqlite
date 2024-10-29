@@ -101,6 +101,8 @@ $routes->group(
                 $routes->post('create-folder', 'MediaController::createFolder');
                 $routes->get('ckbrowse', 'MediaController::ckbrowse');
                 $routes->post('ckupload', 'MediaController::ckupload');
+                $routes->get('jo-browse', 'MediaController::joditBrowse');
+                $routes->post('jo-upload', 'MediaController::joditUpload');
                 $routes->add('/', 'MediaController::index');
             }
         );

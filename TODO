@@ -1,7 +1,11 @@
-TODO: upgrade auf PHP 8.2 und CI 4.5
-TODO: upgrade CKEditor / anderen Editor
+
+TODO: Change Materialize CSS https://github.com/materializecss/materialize
+TODO: Favicon erstellen
+TODO: CKEditor5 minimal zum Laufen bringen
 TODO: LogFiles anzeigen
 TODO: automatische sitemap generieren
 TODO: INSTALLATION ROUTINE: EMAIL SETTINGS ...
-TODO: Favicon erstellen
 TODO: Übersetzungen zusammenführen
+
+--- ??? ---
+TODO: https://getcontenttools.com/

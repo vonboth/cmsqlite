@@ -89,12 +89,11 @@ $supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->suppo
             <div class="col s12">
                 <h5><?= lang('Tables.articles.content') ?></h5>
                 <div>
-                    <editor theme="<?= $theme ?>"
-                            name="content"
-                            id="content"
-                            :disabled="<?= $formDisabled ? 'true' : 'false' ?>">
+                    <jodit-editor id="content"
+                                  name="content"
+                                  :disabled="<?= $formDisabled ? 'true' : 'false' ?>">
                         <?= esc($article['content']) ?>
-                    </editor>
+                    </jodit-editor>
                 </div>
             </div>
         </div>
@@ -234,14 +233,14 @@ $supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->suppo
                     <div class="col s12">
                         <h5><?= lang('Tables.articles.content') ?></h5>
                         <div>
-                            <editor theme="<?= $theme ?>"
+                            <jodit-editor theme="<?= $theme ?>"
                                     id="content_<?= $lang ?>"
                                     name="translations[<?= $idx ?>][content]"
                                     :disabled="<?= $formDisabled ? 'true' : 'false' ?>">
                                 <?= empty($article['translations'][$lang]['content'])
                                     ? esc($article['content'])
                                     : esc($article['translations'][$lang]['content']) ?>
-                            </editor>
+                            </jodit-editor>
                         </div>
                     </div>
                 </div>

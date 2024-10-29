@@ -135,7 +135,8 @@ return [
             'not_empty_dir' => 'Verzeichnis ist nicht leer und kann nicht gelöscht werden',
             'delete_dir' => 'Soll das Verzeichnis wirklich gelöscht werden?',
             'browse_files' => 'Dateien ansehen',
-            'upload_warning' => 'Vorsicht! Alle hochgeladenen Dateien sind öffentlich erreichbar!'
+            'upload_warning' => 'Vorsicht! Alle hochgeladenen Dateien sind öffentlich erreichbar!',
+            'select_image' => 'Bild auswählen',
         ],
         'help' => [
             'menus' => [

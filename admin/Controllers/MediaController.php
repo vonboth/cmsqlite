@@ -179,9 +179,7 @@ class MediaController extends BaseController
                 $path .= '/';
             }
 
-            $t = WRITEPATH . 'media/'. $path . $dir;
-
-            if (!$dir || !is_dir(WRITEPATH . 'media/'. $path . $dir)) {
+            if (!$dir || !is_dir(WRITEPATH . 'media/' . $path . $dir)) {
                 return response()->setStatusCode(404)
                     ->setJSON([
                         'errors' => ['not found' => lang('Media.dir_not_exist')]
@@ -337,6 +335,8 @@ class MediaController extends BaseController
                 return $this->fail($exception->getMessage(), 500);
             }
         }
+
+        return $this->fail('Method not allowed', 405);
     }
 
     /**
@@ -367,6 +367,95 @@ class MediaController extends BaseController
                 'section' => lang('Media.browse_files')
             ]
         );
+    }
+
+    /**
+     * Upload files via Jodit
+     */
+    public function joditUpload()
+    {
+        if ($this->request->getMethod() === 'POST') {
+            $files = $this->request->getFiles()['files'];
+            $uploadedFiles = [];
+            $successMessage = 'Files uploaded';
+            $errorMessage = 'Failed to upload file(s)';
+            $errorCode = 500;
+            $hasError = false;
+
+            foreach ($files as $key => $file) {
+                $ext = $file->getExtension();
+
+                if (!$file->isValid() || !in_array($ext, $this->mediaConfig->allowedExtensions)) {
+                    $hasError = true;
+                    $uploadedFiles[] = [
+                        'success' => false,
+                        'file' => [
+                            'name' => $file->getName(),
+                            'message' => 'Invalid file',
+                            'path' => null
+                        ]
+                    ];
+                }
+
+                try {
+                    $file->move($this->mediaPath);
+                    $uploadedFiles[] = [
+                        'success' => true,
+                        'file' => [
+                            'name' => $file->getName(),
+                            'message' => 'File uploaded',
+                            'path' => '/media/' . $file->getName()
+                        ]
+                    ];
+                } catch (\Exception $exception) {
+                    $hasError = true;
+                    $uploadedFiles[] = [
+                        'success' => false,
+                        'file' => [
+                            'name' => $file->getName(),
+                            'message' => $exception->getMessage(),
+                            'path' => null
+                        ]
+                    ];
+                }
+            }
+
+            $response = [
+                'message' => $successMessage,
+                'files' => $uploadedFiles
+            ];
+            if ($hasError) {
+                $response['message'] = $errorMessage;
+                $response['error'] = $errorCode;
+            }
+
+            return $this->respondCreated($response);
+        }
+
+        return $this->fail('Method not allowed', 405);
+    }
+
+    /**
+     * Browse files / images in Media via and for Jodit
+     * @return ResponseInterface
+     */
+    public function joditBrowse()
+    {
+        $directory = new \RecursiveDirectoryIterator($this->mediaPath);
+        $iterator = new \RecursiveIteratorIterator($directory);
+        $images = [];
+        foreach ($iterator as $item) {
+            if (in_array($item->getExtension(), $this->mediaConfig->allowedImages)) {
+                $images[] = [
+                    'name' => $item->getFilename(),
+                    'path' => substr($item->getRealPath(), strpos($item->getRealPath(), '/media'))
+                ];
+            }
+        }
+
+        return $this->response->setJSON([
+            'images' => $images
+        ]);
     }
 
     /**

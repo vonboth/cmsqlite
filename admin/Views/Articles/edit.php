@@ -9,12 +9,6 @@ $this->extend("AdminThemes\\$theme\\layouts\\default");
 $this->section('main');
 ?>
 
-<?php
-$this->section('headerScripts') ?>
-<script src="//cdn.ckeditor.com/4.22.1/<?= $editor_style ?>/ckeditor.js"></script>
-<?php
-$this->endSection() ?>
-
 <?= $this->include('Admin\Partials\form_errors'); ?>
 
 <div class="card mh65vh">

@@ -359,3 +359,7 @@ select.cke_dialog_ui_input_select {
 .tabs .tab a {
     color: rgba(0, 0, 0, .5);
 }
+
+.readon {
+    border: 1px dashed red;
+}

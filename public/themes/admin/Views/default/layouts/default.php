@@ -20,8 +20,14 @@
 
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link rel="stylesheet" href="/themes/admin/Views/default/css/materialize.min.css">
+    <script src="/themes/admin/Views/default/js/materialize.min.js"></script>
+
+    <!-- Compiled and minified CSS -->
+    <!--link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@materializecss/materialize@2.1.1/dist/css/materialize.min.css"-->
+    <!-- Compiled and minified JavaScript -->
+    <!--script-- src="https://cdn.jsdelivr.net/npm/@materializecss/materialize@2.1.1/dist/js/materialize.min.js"></script-->
+
 
     <?php
     if ($tour): ?>

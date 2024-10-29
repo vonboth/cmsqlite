@@ -5,13 +5,14 @@ import TopArticles from './components/start/TopArticles.vue';
 import Settings from './settings/Settings.vue';
 import Menus from './menus/Menus.vue';
 import dayjs from 'dayjs';
-import MenuList from './components/menus/MenuList.vue';
+import MenuList from '@/components/menus/MenuList.vue';
 import axios from 'axios';
-import Editor from '@/components/articles/Editor.vue';
+import CkEditor from '@/components/articles/CkEditor.vue';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import Swal from 'sweetalert2';
 import FileBrowser from '@/components/media/FileBrowser.vue';
 import ListActions from '@/components/ListActions.vue';
+import JoditEditor from '@/components/articles/JoditEditor.vue';
 
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
@@ -54,7 +55,8 @@ app.component('top-articles', TopArticles);
 app.component('settings', Settings);
 app.component('menus', Menus);
 app.component('menu-list', MenuList);
-app.component('editor', Editor);
+app.component('ck-editor', CkEditor);
+app.component('jodit-editor', JoditEditor);
 app.component('file-browser', FileBrowser);
 app.component('list-actions', ListActions)
 app.directive('click-outside', {

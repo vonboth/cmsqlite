@@ -5,16 +5,8 @@
  */
 
 $this->setData(['formDisabled' => false]);
-$this->extend("AdminThemes\\$theme\\layouts\\default") ?>
-
-<?php
-$this->section('headerScripts') ?>
-<script src="//cdn.ckeditor.com/4.22.1/<?= $editor_style ?>/ckeditor.js"></script>
-<?php
-$this->endSection() ?>
-
-<?php
-$this->section('main') ?>
+$this->extend("AdminThemes\\$theme\\layouts\\default");
+$this->section('main'); ?>
 
 <?= $this->include('Admin\Partials\form_errors'); ?>
 
@@ -29,4 +21,4 @@ $this->section('main') ?>
     </div>
 </div>
 <?php
-$this->endSection() ?>
+$this->endSection(); ?>
