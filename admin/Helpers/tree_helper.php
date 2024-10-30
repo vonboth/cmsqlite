@@ -70,21 +70,21 @@ if (!function_exists('admin_menu_list')) {
 <div class='flex space-between'>
   <a href='javascript:void(0)' 
      class='menuitem-title'
-     title='" . lang('Menu.edit_menu_item') . "'
+     title='" . lang('all.menu.edit_menu_item') . "'
      @click='onEditMenuitem({$menuitem['id']})'>{$menuitem['title']}</a>
   <div>
     <a href='/admin/menuitems/movedown/{$menuitem['id']}'
        :class='{hide: !hasAncestor({$menuitem['rgt']}, {$menuitem['menu_id']})}'
-       title='" . lang('Menu.move_item_down') . "'>
+       title='" . lang('all.menu.move_item_down') . "'>
       <i class='material-icons'>arrow_downward</i>
     </a>
     <a href='/admin/menuitems/moveup/{$menuitem['id']}'
        :class='{hide: !hasParent({$menuitem['lft']}, {$menuitem['menu_id']})}'
-       title='" . lang('Menu.move_item_up') . "'>
+       title='" . lang('all.menu.move_item_up') . "'>
       <i class='material-icons'>arrow_upward</i>
     </a>
     <span class='clickable' 
-          title='" . lang('Menu.delete_menu_item') . "'
+          title='" . lang('all.menu.delete_menu_item') . "'
           @click='onDeleteMenuitem({$menuitem['id']})'>
       <i class='material-icons'>delete</i>
     </span>
@@ -135,7 +135,7 @@ if (!function_exists('admin_menu_tree')) {
     <div class="collapsible-body">
         <div class="right">
             <a href="javascript:void(0)" 
-               title="' . lang('Menu.add_menu_item') . '" 
+               title="' . lang('all.menu.add_menu_item') . '" 
                @click="onAddMenuitem(' . $menu->id . ')">
               <i class="material-icons">add_circle_outline</i></a>
         </div>

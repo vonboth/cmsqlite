@@ -32,7 +32,7 @@ class AuthenticateController extends BaseController
                 return redirect()
                     ->back()
                     ->withInput()
-                    ->with('flash', lang('Validation.auth_failed'));
+                    ->with('flash', lang('all.validation.auth_failed'));
             }
         }
 

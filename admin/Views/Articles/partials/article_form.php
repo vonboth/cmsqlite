@@ -39,11 +39,11 @@ $supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->suppo
                     ) : lang(
                         'General.no'
                     ))
-                    . ' | ' . lang('Tables.created') . ': ' . lang(
+                    . ' | ' . lang('all.created') . ': ' . lang(
                         '{created, date} {created, time}',
                         ['created' => $article['created'] ?? new DateTime()]
                     )
-                    . ' | ' . lang('Tables.updated') . ': ' . lang(
+                    . ' | ' . lang('all.updated') . ': ' . lang(
                         '{updated, date} {updated, time}',
                         ['updated' => $article['updated'] ?? new DateTime()]
                     ) ?>
@@ -204,11 +204,11 @@ $supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->suppo
                     <div class="col s12 <?= (is_null($article['translations'][$lang]['id']) ? 'hide' : '') ?>">
                         <span class="right">
                             <?= 'ID: ' . $article['translations'][$lang]['id']
-                            . ' | ' . lang('Tables.created') . ': ' . lang(
+                            . ' | ' . lang('all.created') . ': ' . lang(
                                 '{created, date} {created, time}',
                                 ['created' => $article['translations'][$lang]['created'] ?? new DateTime()]
                             )
-                            . ' | ' . lang('Tables.updated') . ': ' . lang(
+                            . ' | ' . lang('all.updated') . ': ' . lang(
                                 '{updated, date} {updated, time}',
                                 ['updated' => $article['translations'][$lang]['updated'] ?? new DateTime()]
                             ) ?>
@@ -303,16 +303,16 @@ $supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->suppo
 <div class="row">
     <div class="col s12">
         <a href="/admin/<?= $controller ?>"
-           class="btn waves-effect waves-light"><?= lang('General.back') ?>
+           class="btn waves-effect waves-light"><?= lang('all.back') ?>
             <i class="material-icons left">arrow_back</i></a>
         <a href="/admin/articles/add"
-           class="btn waves-effect waves-light ml1rem"><?= lang('General.new') ?>
+           class="btn waves-effect waves-light ml1rem"><?= lang('all.new') ?>
             <i class="material-icons left">add</i></a>
         <?php
         if (!$formDisabled) : ?>
             <button type="button"
                     onclick="onSubmit()"
-                    class="btn waves-effect waves-light ml1rem"><?= lang('General.save') ?>
+                    class="btn waves-effect waves-light ml1rem"><?= lang('all.save') ?>
                 <i class="material-icons right">send</i></button>
         <?php
         endif; ?>
@@ -337,7 +337,7 @@ $this->section('js') ?>
         if (!hasError) {
             document.querySelector('form').submit();
         } else {
-            M.toast({html: '<?= lang('Validation.check_required') ?>'});
+            M.toast({html: '<?= lang('all.validation.check_required') ?>'});
         }
     }
 </script>

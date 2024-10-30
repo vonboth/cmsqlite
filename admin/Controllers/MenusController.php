@@ -72,12 +72,12 @@ class MenusController extends BaseController
                     $menu = $this->Menus->find($id)->toArray();
                     $menu['children'] = [];
                     return response()->setJSON([
-                        'message' => lang('General.saved'),
+                        'message' => lang('all.saved'),
                         'data' => $menu
                     ]);
                 } else {
                     return response()->setStatusCode(422)->setJSON([
-                        'errors' => ['any' => lang('General.save_error')],
+                        'errors' => ['any' => lang('all.save_error')],
                         'data' => $menu->toArray()
                     ]);
                 }
@@ -109,12 +109,12 @@ class MenusController extends BaseController
                 try {
                     if ($this->Menus->save($menu)) {
                         return response()->setJSON([
-                            'message' => lang('General.saved'),
+                            'message' => lang('all.saved'),
                             'data' => $menu->toArray()
                         ]);
                     } else {
                         return response()->setStatusCode(422)->setJSON([
-                            'errors' => ['any' => lang('General.save_error')],
+                            'errors' => ['any' => lang('all.save_error')],
                             'data' => $menu->toArray()
                         ]);
                     }
@@ -145,12 +145,12 @@ class MenusController extends BaseController
         if ($this->request->isAJAX()) {
             if ($this->Menus->delete($id)) {
                 return response()->setJSON([
-                    'message' => lang('General.deleted')
+                    'message' => lang('all.deleted')
                 ]);
             } else {
                 return response()->setStatusCode(500)
                     ->setJSON([
-                        'message' => lang('General.delete_error')
+                        'message' => lang('all.delete_error')
                     ]);
             }
         }

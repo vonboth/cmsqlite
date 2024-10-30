@@ -76,12 +76,12 @@ class MenuitemsController extends BaseController
                     }
 
                     return response()->setJSON([
-                        'message' => lang('General.saved'),
+                        'message' => lang('all.saved'),
                         'data' => $this->Menuitems->findTree($item->menu_id)
                     ]);
                 } else {
                     return response()->setStatusCode(422)->setJSON([
-                        'errors' => ['any' => lang('General.save_error')],
+                        'errors' => ['any' => lang('all.save_error')],
                         'data' => $item->toArray()
                     ]);
                 }
@@ -181,7 +181,7 @@ class MenuitemsController extends BaseController
                     ]);
                 } else {
                     return response()->setJSON([
-                        'message' => lang('General.saved'),
+                        'message' => lang('all.saved'),
                         'data' => $this->Menuitems->findTree($item->menu_id)
                     ]);
                 }
@@ -208,13 +208,13 @@ class MenuitemsController extends BaseController
             $removeFromTree = (bool)$this->request->getGet('remove_tree');
             if ($this->Menuitems->removeFromTree($id, $removeFromTree)) {
                 return response()->setJSON([
-                    'message' => lang('General.deleted'),
+                    'message' => lang('all.deleted'),
                     'data' => $this->Menuitems->findTree($item->menu_id)
                 ]);
             } else {
                 return response()->setStatusCode(422)
                     ->setJSON([
-                        'errors' => ['any' => lang('General.delete_error')]
+                        'errors' => ['any' => lang('all.delete_error')]
                     ]);
             }
         }
@@ -239,13 +239,13 @@ class MenuitemsController extends BaseController
 
             if ($result) {
                 return response()->setJSON([
-                    'message' => lang('Menu.node_move_success'),
+                    'message' => lang('all.menu.node_move_success'),
                     'data' => $this->Menuitems->findTree($item->menu_id)
                 ]);
             } else {
                 return response()->setStatusCode(422)
                     ->setJSON([
-                        'errors' => ['any' => lang('Menus.node_move_error')]
+                        'errors' => ['any' => lang('all.menu.node_move_error')]
                     ]);
             }
         }

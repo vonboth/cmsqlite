@@ -138,7 +138,11 @@ export default {
             <div class="modal-content flex">
                 <div class="images">
                     <h5>{{ translations.media.select_image }}</h5>
-                    <div class="card browse-image-card" v-for="image in images">
+                    <div v-if="!images.length" class="flex flex-center">
+                        <h5 class="inline-block">{{ translations.media.no_files_upload }}</h5>
+                        <span>{{ translations.media.how_to_upload }}</span>
+                    </div>
+                    <div v-else class="card browse-image-card" v-for="image in images">
                         <div class="card-image flex flex-center">
                             <img :src="image.path" :alt="image.name"/>
                         </div>

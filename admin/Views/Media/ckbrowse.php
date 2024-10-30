@@ -50,7 +50,7 @@
               <button type="button"
                       class="btn waves-effect waves-light green darken-2"
                       onclick="selectImage('<?= $file['path'] ?>')">
-                <?= lang('General.select') ?>
+                <?= lang('all.select') ?>
               </button>
             </div>
           </div>

@@ -9,11 +9,11 @@
 <div class=row>
     <div class="col s12 <?= (is_null($user->id) ? 'hide' : '') ?>">
         <span class="right">
-            <?= lang('Tables.created') . ': ' . lang(
+            <?= lang('all.created') . ': ' . lang(
                 '{created, date} {created, time}',
                 ['created' => $user->created ?? new DateTime()]
             )
-            . ' | ' . lang('Tables.updated') . ': ' . lang(
+            . ' | ' . lang('all.updated') . ': ' . lang(
                 '{updated, date} {updated, time}',
                 ['updated' => $user->updated ?? new DateTime()]
             ) ?>
@@ -109,11 +109,11 @@ endif; ?>
 <div class="row">
     <div class="col s12">
         <a href="/admin/<?= $controller ?>"
-           class="btn waves-effect waves-light"><?= lang('General.back') ?>
+           class="btn waves-effect waves-light"><?= lang('all.back') ?>
             <i class="material-icons left">arrow_back</i></a>
         <?php
         if (!$formDisabled) : ?>
-            <button type="submit" class="btn waves-effect waves-light ml1rem"><?= lang('General.submit') ?>
+            <button type="submit" class="btn waves-effect waves-light ml1rem"><?= lang('all.submit') ?>
                 <i class="material-icons right">send</i></button>
         <?php
         endif; ?>

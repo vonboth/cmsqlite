@@ -54,12 +54,12 @@ class ProfileController extends BaseController
             );
             return redirect()
               ->back()
-              ->with('flash', lang('General.saved'));
+              ->with('flash', lang('all.saved'));
           } else {
             return redirect()
               ->back()
               ->withInput()
-              ->with('flash', lang('General.save_error'));
+              ->with('flash', lang('all.save_error'));
           }
         } catch (\Exception $exception) {
           return redirect()
@@ -76,7 +76,7 @@ class ProfileController extends BaseController
     return view(
       'Admin\Profile\edit',
       [
-        'section' => lang('User.my_profile'),
+        'section' => lang('all.user.my_profile'),
         'user' => $user,
         'validator' => $this->validator
       ]

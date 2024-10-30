@@ -9,7 +9,7 @@
 /** @var string $version */
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="color-scheme: light" theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -25,8 +25,7 @@
 
     <!-- Compiled and minified CSS -->
     <!--link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@materializecss/materialize@2.1.1/dist/css/materialize.min.css"-->
-    <!-- Compiled and minified JavaScript -->
-    <!--script-- src="https://cdn.jsdelivr.net/npm/@materializecss/materialize@2.1.1/dist/js/materialize.min.js"></script-->
+    <!--script src="https://cdn.jsdelivr.net/npm/@materializecss/materialize@2.1.1/dist/js/materialize.min.js"></script-->
 
 
     <?php
@@ -57,12 +56,12 @@
                 <a href="/admin/<?= $controller ?>" class="brand-logo"><?= $section ?></a>
                 <ul class="right" id="profile-menu">
                     <li>
-                      <a href="/admin/profile" title="<?= lang('User.my_profile') ?>">
+                      <a href="/admin/profile" title="<?= lang('all.user.my_profile') ?>">
                         <i class="material-icons">person</i>
                       </a>
                     </li>
                     <li>
-                      <a href="/admin/authenticate/logout" title="<?= lang('User.logout') ?>">
+                      <a href="/admin/authenticate/logout" title="<?= lang('all.user.logout') ?>">
                         <i class="material-icons">power_settings_new</i>
                       </a>
                     </li>
@@ -77,7 +76,7 @@
     <!-- sidenav -->
     <ul id="sidenav-left" class="sidenav sidenav-fixed">
         <li>
-            <a href="/admin" class="logo-container"><?= lang('Menu.startpage') ?>
+            <a href="/admin" class="logo-container"><?= lang('all.menu.startpage') ?>
                 <i class="material-icons left">home</i>
             </a>
         </li>

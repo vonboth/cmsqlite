@@ -1,12 +1,6 @@
 <?php
 
 return [
-    'created' => 'created',
-    'updated' => 'updated',
-    'actions' => 'actions',
-    'start' => [
-        'start' => 'Start'
-    ],
     'articles' => [
         'id' => 'Id',
         'articles' => 'Articles',

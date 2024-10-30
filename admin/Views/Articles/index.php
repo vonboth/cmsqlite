@@ -18,14 +18,14 @@ $this->section('main') ?>
         <table class="responsive-table">
           <thead>
           <tr>
-            <th><?= lang('Tables.actions') ?></th>
+            <th><?= lang('all.actions') ?></th>
             <th>ID</th>
             <th><?= lang('Tables.articles.title') ?></th>
             <th><?= lang('Tables.articles.description') ?></th>
             <th><?= lang('Tables.articles.category_id') ?></th>
             <th><?= lang('Tables.articles.published') ?></th>
-            <th><?= lang('Tables.created') ?></th>
-            <th><?= lang('Tables.updated') ?></th>
+            <th><?= lang('all.created') ?></th>
+            <th><?= lang('all.updated') ?></th>
           </tr>
           </thead>
           <tbody>

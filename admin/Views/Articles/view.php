@@ -18,7 +18,7 @@ $this->section('main') ?>
   <div class="card mh65vh">
     <div class="card-content">
       <div class="row">
-        <h3><?= lang('Admin.view') ?></h3>
+        <h3><?= lang('all.view') ?></h3>
           <?= $this->include('Admin\Articles\partials\article_form') ?>
       </div>
     </div>

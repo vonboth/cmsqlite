@@ -112,12 +112,12 @@ class ArticlesController extends BaseController
 
                     return redirect()
                         ->to('/admin/articles/edit/' . $this->Articles->getInsertID())
-                        ->with('flash', lang('General.saved'));
+                        ->with('flash', lang('all.saved'));
                 } else {
                     return redirect()
                         ->back()
                         ->withInput()
-                        ->with('flash', lang('General.save_error'));
+                        ->with('flash', lang('all.save_error'));
                 }
             } else {
                 return redirect()
@@ -195,12 +195,12 @@ class ArticlesController extends BaseController
 
                     return redirect()
                         ->to('/admin/articles/edit/' . $id)
-                        ->with('flash', lang('General.saved'));
+                        ->with('flash', lang('all.saved'));
                 } else {
                     return redirect()
                         ->to('/admin/articles/edit/' . $id)
                         ->withInput()
-                        ->with('flash', lang('General.save_error'));
+                        ->with('flash', lang('all.save_error'));
                 }
             } else {
                 return redirect()
@@ -232,11 +232,11 @@ class ArticlesController extends BaseController
         if ($this->Articles->delete($id)) {
             return redirect()
                 ->back()
-                ->with('flash', lang('General.deleted'));
+                ->with('flash', lang('all.deleted'));
         } else {
             return redirect()
                 ->back()
-                ->with('flash', lang('General.delete_error'));
+                ->with('flash', lang('all.delete_error'));
         }
     }
 }

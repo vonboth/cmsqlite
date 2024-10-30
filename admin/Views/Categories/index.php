@@ -16,13 +16,13 @@ $this->section('main') ?>
         <table class="responsive-table">
           <thead>
           <tr>
-            <th><?= lang('Tables.actions') ?></th>
+            <th><?= lang('all.actions') ?></th>
             <th><?= lang('Tables.categories.id') ?></th>
             <th><?= lang('Tables.categories.name') ?></th>
             <th><?= lang('Tables.categories.description') ?></th>
             <th><?= lang('Tables.categories.is_system') ?></th>
-            <th><?= lang('Tables.created') ?></th>
-            <th><?= lang('Tables.updated') ?></th>
+            <th><?= lang('all.created') ?></th>
+            <th><?= lang('all.updated') ?></th>
           </tr>
           </thead>
           <tbody>

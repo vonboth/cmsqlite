@@ -22,9 +22,9 @@ $this->section('main') ?>
                         <th><?= lang('Tables.users.email') ?></th>
                         <th><?= lang('Tables.users.firstname') ?></th>
                         <th><?= lang('Tables.users.lastname') ?></th>
-                        <th><?= lang('Tables.created') ?></th>
-                        <th><?= lang('Tables.updated') ?></th>
-                        <th><?= lang('Tables.actions') ?></th>
+                        <th><?= lang('all.created') ?></th>
+                        <th><?= lang('all.updated') ?></th>
+                        <th><?= lang('all.actions') ?></th>
                     </tr>
                     </thead>
                     <tbody>

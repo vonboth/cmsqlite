@@ -4,4 +4,4 @@
 ?>
 
 <a class="btn btn-small"
-   href="/pages/<?= $cellArticleId ?>"><?= lang('General.readon') ?></a>
+   href="/pages/<?= $cellArticleId ?>"><?= lang('all.readon') ?></a>

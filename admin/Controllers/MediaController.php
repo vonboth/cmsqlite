@@ -53,7 +53,7 @@ class MediaController extends BaseController
         return view(
             'Admin\Media\index',
             [
-                'section' => lang('Menu.media'),
+                'section' => lang('all.menu.media'),
                 'currentPath' => $this->currentPath,
                 'dirs' => $contents['dirs'],
                 'files' => $contents['files'],
@@ -84,7 +84,7 @@ class MediaController extends BaseController
                     return response()
                         ->setStatusCode(422)
                         ->setJSON([
-                            'errors' => [lang('Media.filetype_not_allowed')]
+                            'errors' => [lang('all.media.filetype_not_allowed')]
                         ]);
                 }
 
@@ -93,7 +93,7 @@ class MediaController extends BaseController
                     return response()
                         ->setStatusCode(422)
                         ->setJSON([
-                            'errors' => [lang('Media.mimetype_not_allowed')]
+                            'errors' => [lang('all.media.mimetype_not_allowed')]
                         ]);
                 }
 
@@ -105,7 +105,7 @@ class MediaController extends BaseController
                     }
                     $file->move(WRITEPATH . 'media' . $path);
                     return response()->setJSON([
-                        'message' => lang('Media.upload_success'),
+                        'message' => lang('all.media.upload_success'),
                         'name' => $file->getName()
                     ]);
                 } catch (\Exception $exception) {
@@ -145,7 +145,7 @@ class MediaController extends BaseController
             if (!$filename || !file_exists(WRITEPATH . 'media/' . $path . $filename)) {
                 return response()->setStatusCode(404)
                     ->setJSON([
-                        'errors' => ['not found' => lang('Media.file_not_exist')]
+                        'errors' => ['not found' => lang('all.media.file_not_exist')]
                     ]);
             }
 
@@ -153,12 +153,12 @@ class MediaController extends BaseController
             if (!unlink(WRITEPATH . 'media/' . $path . $filename)) {
                 return $this->response->setStatusCode(500)
                     ->setJSON([
-                        'errors' => ['delete' => lang('Media.file_delete_error')]
+                        'errors' => ['delete' => lang('all.media.file_delete_error')]
                     ]);
             }
 
             return response()->setJSON([
-                'message' => lang('Media.file_delete_success')
+                'message' => lang('all.media.file_delete_success')
             ]);
         }
 
@@ -182,7 +182,7 @@ class MediaController extends BaseController
             if (!$dir || !is_dir(WRITEPATH . 'media/' . $path . $dir)) {
                 return response()->setStatusCode(404)
                     ->setJSON([
-                        'errors' => ['not found' => lang('Media.dir_not_exist')]
+                        'errors' => ['not found' => lang('all.media.dir_not_exist')]
                     ]);
             }
 
@@ -190,18 +190,18 @@ class MediaController extends BaseController
                 if (!rmdir(WRITEPATH . 'media/' . $path . $dir)) {
                     return response()->setStatusCode(500)
                         ->setJSON([
-                            'errors' => ['media_file' => lang('Media.dir_delete_error')]
+                            'errors' => ['media_file' => lang('all.media.dir_delete_error')]
                         ]);
                 }
 
                 return response()->setJSON([
-                    'message' => lang('Media.dir_delete_success')
+                    'message' => lang('all.media.dir_delete_success')
                 ]);
             } catch (\Exception $exception) {
                 return response()
                     ->setStatusCode(500)
                     ->setJSON([
-                        'errors' => ['media_file' => lang('Media.dir_not_empty')]
+                        'errors' => ['media_file' => lang('all.media.dir_not_empty')]
                     ]);
             }
         }
@@ -265,7 +265,7 @@ class MediaController extends BaseController
                 return response()
                     ->setStatusCode(422)
                     ->setJSON([
-                        'errors' => [lang('Media.create_dir_error')]
+                        'errors' => [lang('all.media.create_dir_error')]
                     ]);
             }
 
@@ -280,13 +280,13 @@ class MediaController extends BaseController
             try {
                 if (mkdir(WRITEPATH . 'media/' . $path . $name, 0755)) {
                     return response()->setJSON([
-                        'message' => lang('Media.create_dir_success')
+                        'message' => lang('all.media.create_dir_success')
                     ]);
                 } else {
                     return response()
                         ->setStatusCode(500)
                         ->setJSON([
-                            'errors' => [lang('Media.create_dir_error')]
+                            'errors' => [lang('all.media.create_dir_error')]
                         ]);
                 }
             } catch (\Exception $exception) {
@@ -364,7 +364,7 @@ class MediaController extends BaseController
             'Admin\Media\ckbrowse',
             [
                 'files' => $files,
-                'section' => lang('Media.browse_files')
+                'section' => lang('all.media.browse_files')
             ]
         );
     }

@@ -1,12 +1,6 @@
 <?php
 
 return [
-    'created' => 'Erstellt',
-    'updated' => 'Aktualisiert',
-    'actions' => 'Aktionen',
-    'start' => [
-        'start' => 'Start'
-    ],
     'articles' => [
         'id' => 'Id',
         'articles' => 'Artikel',
