@@ -18,7 +18,7 @@ $this->section('main') ?>
 <div class="card mh65vh">
     <div class="card-content">
         <div class="row">
-            <h3><?= lang('all.edit') ?></h3>
+            <h3><?= lang('admin.edit') ?></h3>
             <?= form_open('/admin/users/edit/' . $user->id, 'class="col s12"') ?>
             <?= $this->include('Admin\Users\partials\user_form') ?>
             <?= form_close() ?>

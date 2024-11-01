@@ -49,11 +49,11 @@ class SettingsController extends BaseController
             $setting->fill($this->request->getJSON(true));
             try {
                 if ($this->Settings->save($setting)) {
-                    session()->setFlashdata('flash', lang('all.saved'));
+                    session()->setFlashdata('flash', lang('admin.saved'));
                     return $this->respondUpdated($setting);
                 } else {
-                    session()->setFlashdata('flash', lang('all.save_error'));
-                    return $this->fail(lang('all.save_error'));
+                    session()->setFlashdata('flash', lang('admin.save_error'));
+                    return $this->fail(lang('admin.save_error'));
                 }
             } catch (\Exception $exception) {
                 session()->setFlashdata('flash', $exception->getMessage());
@@ -78,11 +78,11 @@ class SettingsController extends BaseController
             if ($this->Settings->insert($setting) !== false) {
                 return redirect()
                     ->to('/admin/settings/index')
-                    ->with('flash', lang('all.saved'));
+                    ->with('flash', lang('admin.saved'));
             } else {
                 return redirect()
                     ->to('/admin/settings/index')
-                    ->with('flash', lang('all.save_error'));
+                    ->with('flash', lang('admin.save_error'));
             }
         } else {
             return redirect()
@@ -101,11 +101,11 @@ class SettingsController extends BaseController
     {
         $setting = $this->Settings->find($id);
         if ($setting && $this->Settings->delete($id)) {
-            session()->setFlashdata('flash', lang('all.deleted'));
+            session()->setFlashdata('flash', lang('admin.deleted'));
             return $this->respondDeleted($setting);
         } else {
-            session()->setFlashdata('flash', lang('all.delete_error'));
-            return $this->fail(lang('all.delete_error'));
+            session()->setFlashdata('flash', lang('admin.delete_error'));
+            return $this->fail(lang('admin.delete_error'));
         }
     }
 

@@ -26,7 +26,7 @@ class AuthorizeFilter implements FilterInterface
 
         // pass generally allowed URLs
         if (!$AuthService->passTrough($request->detectPath())) {
-            throw new ForbiddenException(lang('Error.not_authorized'));
+            throw new ForbiddenException(lang('app.error.not_authorized'));
         }
     }
 

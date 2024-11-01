@@ -68,12 +68,12 @@ class CategoriesController extends BaseController
                 if ($this->Categories->insert($category) !== false) {
                     return redirect()
                         ->to('/admin/categories/edit/' . $this->Categories->getInsertID())
-                        ->with('flash', lang('all.saved'));
+                        ->with('flash', lang('admin.saved'));
                 } else {
                     return redirect()
                         ->back()
                         ->withInput()
-                        ->with('flash', lang('all.save_error'));
+                        ->with('flash', lang('admin.save_error'));
                 }
             } else {
                 return redirect()
@@ -108,12 +108,12 @@ class CategoriesController extends BaseController
                     if ($this->Categories->save($category)) {
                         return redirect()
                             ->to('/admin/categories/edit/' . $id)
-                            ->with('flash', lang('all.saved'));
+                            ->with('flash', lang('admin.saved'));
                     } else {
                         return redirect()
                             ->to('/admin/categories/edit/' . $id)
                             ->withInput()
-                            ->with('flash', lang('all.save_error'));
+                            ->with('flash', lang('admin.save_error'));
                     }
                 } catch (\Exception $exception) {
                     return redirect()
@@ -146,11 +146,11 @@ class CategoriesController extends BaseController
         if ($this->Categories->delete($id)) {
             return redirect()
                 ->back()
-                ->with('flash', lang('all.deleted'));
+                ->with('flash', lang('admin.deleted'));
         } else {
             return redirect()
                 ->back()
-                ->with('flash', lang('all.delete_error'));
+                ->with('flash', lang('admin.delete_error'));
         }
     }
 }

@@ -19,11 +19,11 @@
     <div class="col s12">
         <div class="card welcome-box">
             <div class="card-content" id="start__welcome">
-                <span class="card-title"><?= lang('all.admin.welcome.welcome_to_cmsqlite') ?></span>
+                <span class="card-title"><?= lang('admin.admin.welcome.welcome_to_cmsqlite') ?></span>
                 <p></p>
                 <div class="row">
                     <div class="col s4">
-                        <p><?= lang('all.admin.welcome.next_steps') ?></p>
+                        <p><?= lang('admin.admin.welcome.next_steps') ?></p>
                         <ul>
                             <li>
                                 <a href="/admin/articles/edit/1">
@@ -34,7 +34,7 @@
                             </li>
                             <li class="clearfix">
                                 <a href="/admin/articles/add">
-                                    <i class="material-icons left">add</i> <?= lang('all.admin.welcome.create_page') ?>
+                                    <i class="material-icons left">add</i> <?= lang('admin.admin.welcome.create_page') ?>
                                 </a>
                             </li>
                             <li class="clearfix">
@@ -48,21 +48,21 @@
                     </div>
 
                     <div class="col s4">
-                        <p><?= lang('all.admin.welcome.other_actions') ?></p>
+                        <p><?= lang('admin.admin.welcome.other_actions') ?></p>
                         <ul>
                             <li class="clearfix">
                                 <a href="/admin/profile">
-                                    <i class="material-icons left">person</i> <?= lang('all.admin.welcome.edit_profile') ?>
+                                    <i class="material-icons left">person</i> <?= lang('admin.admin.welcome.edit_profile') ?>
                                 </a>
                             </li>
                             <li>
                                 <a href="/admin/menus">
-                                    <i class="material-icons left">list</i> <?= lang('all.admin.welcome.edit_menus') ?>
+                                    <i class="material-icons left">list</i> <?= lang('admin.admin.welcome.edit_menus') ?>
                                 </a>
                             </li>
                             <li class="clearfix">
                                 <a href="/admin/media">
-                                    <i class="material-icons left">image</i> <?= lang('all.admin.welcome.media_admin') ?>
+                                    <i class="material-icons left">image</i> <?= lang('admin.admin.welcome.media_admin') ?>
                                 </a>
                             </li>
                         </ul>

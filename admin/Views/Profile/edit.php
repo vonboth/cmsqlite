@@ -20,14 +20,14 @@ $this->section('main'); ?>
                  value="<?= old('firstname', $user['firstname']) ?>"
                  type="text"
                  class="validate">
-          <label for="firstname"><?= lang('Tables.users.firstname') ?></label>
+          <label for="firstname"><?= lang('admin.tables.users.firstname') ?></label>
         </div>
         <div class="input-field col s12 m6">
           <input id="lastname"
                  name="lastname"
                  value="<?= old('lastname', $user['lastname']) ?>"
                  type="text">
-          <label for="lastname"><?= lang('Tables.users.lastname') ?></label>
+          <label for="lastname"><?= lang('admin.tables.users.lastname') ?></label>
         </div>
       </div>
 
@@ -49,7 +49,7 @@ $this->section('main'); ?>
                  name="password"
                  type="password"
                  class="validate">
-          <label for="password"><?= lang('Tables.users.password') ?></label>
+          <label for="password"><?= lang('admin.tables.users.password') ?></label>
         </div>
 
         <div class="input-field col s12 m6">
@@ -57,16 +57,16 @@ $this->section('main'); ?>
                  name="password_confirm"
                  type="password"
                  class="validate">
-          <label for="password-confirm"><?= lang('Tables.users.confirm_password') ?></label>
+          <label for="password-confirm"><?= lang('admin.tables.users.confirm_password') ?></label>
         </div>
       </div>
 
       <div class="row">
         <div class="col s12">
           <a href="/admin"
-             class="btn waves-effect waves-light"><?= lang('all.back') ?>
+             class="btn waves-effect waves-light"><?= lang('admin.back') ?>
             <i class="material-icons left">arrow_back</i></a>
-          <button type="submit" class="btn waves-effect waves-light ml1rem"><?= lang('all.submit') ?>
+          <button type="submit" class="btn waves-effect waves-light ml1rem"><?= lang('admin.submit') ?>
             <i class="material-icons right">send</i></button>
         </div>
       </div>

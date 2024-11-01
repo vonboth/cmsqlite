@@ -16,13 +16,13 @@ $this->section('main') ?>
         <table class="responsive-table">
           <thead>
           <tr>
-            <th><?= lang('all.actions') ?></th>
-            <th><?= lang('Tables.categories.id') ?></th>
-            <th><?= lang('Tables.categories.name') ?></th>
-            <th><?= lang('Tables.categories.description') ?></th>
-            <th><?= lang('Tables.categories.is_system') ?></th>
-            <th><?= lang('all.created') ?></th>
-            <th><?= lang('all.updated') ?></th>
+            <th><?= lang('admin.actions') ?></th>
+            <th><?= lang('admin.tables.id') ?></th>
+            <th><?= lang('admin.tables.name') ?></th>
+            <th><?= lang('admin.tables.description') ?></th>
+            <th><?= lang('admin.tables.categories.is_system') ?></th>
+            <th><?= lang('admin.created') ?></th>
+            <th><?= lang('admin.updated') ?></th>
           </tr>
           </thead>
           <tbody>

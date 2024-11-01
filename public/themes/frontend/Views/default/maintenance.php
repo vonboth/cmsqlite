@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
   <meta charset="utf-8">
-  <title><?= lang('Pages.maintenance.title') ?></title>
+  <title><?= lang('app.maintenance.title') ?></title>
   <style>
       div.logo {
           height: 200px;
@@ -76,9 +76,9 @@
 </head>
 <body>
 <div class="wrap">
-  <h1><?= lang('Pages.maintenance.headline') ?></h1>
+  <h1><?= lang('app.maintenance.headline') ?></h1>
   <p>
-    <?= lang('Pages.maintenance.text') ?>
+    <?= lang('app.maintenance.text') ?>
   </p>
 </div>
 </body>

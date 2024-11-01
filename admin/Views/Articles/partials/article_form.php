@@ -34,16 +34,16 @@ $supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->suppo
             <div class="col s12 <?= (is_null($article['id']) ? 'hide' : '') ?>">
                 <span class="right">
                     <?= 'ID: ' . $article['id']
-                    . ' | ' . lang('Tables.articles.published') . ': ' . (($article['published']) ? lang(
+                    . ' | ' . lang('admin.tables.articles.published') . ': ' . (($article['published']) ? lang(
                         'General.yes'
                     ) : lang(
                         'General.no'
                     ))
-                    . ' | ' . lang('all.created') . ': ' . lang(
+                    . ' | ' . lang('admin.created') . ': ' . lang(
                         '{created, date} {created, time}',
                         ['created' => $article['created'] ?? new DateTime()]
                     )
-                    . ' | ' . lang('all.updated') . ': ' . lang(
+                    . ' | ' . lang('admin.updated') . ': ' . lang(
                         '{updated, date} {updated, time}',
                         ['updated' => $article['updated'] ?? new DateTime()]
                     ) ?>
@@ -60,7 +60,7 @@ $supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->suppo
                        id="title"
                        type="text"
                        value="<?= esc(old('title', $article['title'])) ?>"/>
-                <label for="title"><?= lang('Tables.articles.title') ?></label>
+                <label for="title"><?= lang('admin.tables.title') ?></label>
             </div>
 
             <div class="input-field col s12 m2">
@@ -69,7 +69,7 @@ $supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->suppo
                         <?= ($formDisabled) ? 'disabled' : '' ?>
                            type="checkbox"
                            value="1" <?= (old('is_startpage', $article['is_startpage'])) ? 'checked' : '' ?>/>
-                    <span><?= lang('Tables.articles.is_startpage') ?></span>
+                    <span><?= lang('admin.tables.articles.is_startpage') ?></span>
                 </label>
             </div>
 
@@ -80,14 +80,14 @@ $supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->suppo
                         <?= ($formDisabled) ? 'disabled' : '' ?>
                            type="checkbox"
                            value="1" <?= (old('published', $article['published'])) ? 'checked' : '' ?> />
-                    <span><?= lang('Tables.articles.published') ?></span>
+                    <span><?= lang('admin.tables.articles.published') ?></span>
                 </label>
             </div>
         </div>
 
         <div class="row">
             <div class="col s12">
-                <h5><?= lang('Tables.articles.content') ?></h5>
+                <h5><?= lang('admin.tables.articles.content') ?></h5>
                 <div>
                     <jodit-editor id="content"
                                   name="content"
@@ -106,7 +106,7 @@ $supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->suppo
                     $article['category_id'],
                     ($formDisabled) ? 'disabled' : ''
                 ) ?>
-                <label><?= lang('Tables.categories.category') ?></label>
+                <label><?= lang('admin.tables.categories.category') ?></label>
             </div>
             <div class="input-field col m4 s12">
                 <select name="layout" id="layout">
@@ -119,7 +119,7 @@ $supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->suppo
                     <?php
                     endforeach; ?>
                 </select>
-                <label for="layout"><?= lang('Tables.articles.layout') ?></label>
+                <label for="layout"><?= lang('admin.tables.articles.layout') ?></label>
             </div>
         </div>
 
@@ -127,7 +127,7 @@ $supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->suppo
             <li>
                 <div class="collapsible-header">
                     <i class="material-icons">add_circle_outline</i><?= lang(
-                        'Tables.articles.additional_information'
+                        'admin.tables.articles.additional_information'
                     ) ?>
                 </div>
                 <div class="collapsible-body">
@@ -138,7 +138,7 @@ $supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->suppo
                                    id="alias"
                                    type="text"
                                    value="<?= esc(old('alias', $article['alias'])) ?>"/>
-                            <label for="alias"><?= lang('Tables.articles.alias') ?></label>
+                            <label for="alias"><?= lang('admin.tables.alias') ?></label>
                         </div>
 
                         <div class="input-field col s12 m6">
@@ -147,7 +147,7 @@ $supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->suppo
                                    id="doc_key"
                                    type="text"
                                    value="<?= esc(old('doc_key', $article['doc_key'])) ?>"/>
-                            <label for="doc_key"><?= lang('Tables.articles.doc_key') ?></label>
+                            <label for="doc_key"><?= lang('admin.tables.articles.doc_key') ?></label>
                         </div>
                     </div>
 
@@ -157,9 +157,9 @@ $supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->suppo
                               name="description"
                               <?= ($formDisabled) ? 'disabled' : '' ?>
                               class="materialize-textarea"
-                              placeholder="<?= lang('Tables.articles.description') ?>"><?=
+                              placeholder="<?= lang('admin.tables.description') ?>"><?=
                         esc(old('description', $article['description'])) ?></textarea>
-                            <label for="description"><?= lang('Tables.articles.description') ?></label>
+                            <label for="description"><?= lang('admin.tables.description') ?></label>
                         </div>
                     </div>
 
@@ -171,7 +171,7 @@ $supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->suppo
                                    id="start_publish"
                                    type="text"
                                    value="<?= old('start_publish', $article['start_publish']) ?>"/>
-                            <label for="start_publish"><?= lang('Tables.articles.start_publish') ?></label>
+                            <label for="start_publish"><?= lang('admin.tables.articles.start_publish') ?></label>
                         </div>
                         <div class="input-field col s12 m6">
                             <input name="stop_publish"
@@ -180,7 +180,7 @@ $supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->suppo
                                    id="stop_publish"
                                    type="text"
                                    value="<?= old('stop_publish', $article['stop_publish']) ?>"/>
-                            <label for="stop_publish"><?= lang('Tables.articles.stop_publish') ?></label>
+                            <label for="stop_publish"><?= lang('admin.tables.articles.stop_publish') ?></label>
                         </div>
                     </div>
                 </div>
@@ -204,11 +204,11 @@ $supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->suppo
                     <div class="col s12 <?= (is_null($article['translations'][$lang]['id']) ? 'hide' : '') ?>">
                         <span class="right">
                             <?= 'ID: ' . $article['translations'][$lang]['id']
-                            . ' | ' . lang('all.created') . ': ' . lang(
+                            . ' | ' . lang('admin.created') . ': ' . lang(
                                 '{created, date} {created, time}',
                                 ['created' => $article['translations'][$lang]['created'] ?? new DateTime()]
                             )
-                            . ' | ' . lang('all.updated') . ': ' . lang(
+                            . ' | ' . lang('admin.updated') . ': ' . lang(
                                 '{updated, date} {updated, time}',
                                 ['updated' => $article['translations'][$lang]['updated'] ?? new DateTime()]
                             ) ?>
@@ -225,13 +225,13 @@ $supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->suppo
                                id="title_<?= $lang ?>"
                                type="text"
                                value="<?= esc(old('title', $article['translations'][$lang]['title'])) ?>"/>
-                        <label for="title"><?= lang('Tables.articles.title') ?></label>
+                        <label for="title"><?= lang('admin.tables.title') ?></label>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col s12">
-                        <h5><?= lang('Tables.articles.content') ?></h5>
+                        <h5><?= lang('admin.tables.articles.content') ?></h5>
                         <div>
                             <jodit-editor theme="<?= $theme ?>"
                                     id="content_<?= $lang ?>"
@@ -249,7 +249,7 @@ $supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->suppo
                     <li>
                         <div class="collapsible-header">
                             <i class="material-icons">add_circle_outline</i><?= lang(
-                                'Tables.articles.additional_information'
+                                'admin.tables.articles.additional_information'
                             ) ?>
                         </div>
                         <div class="collapsible-body">
@@ -260,7 +260,7 @@ $supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->suppo
                                            id="alias_<?= $lang ?>"
                                            type="text"
                                            value="<?= esc(old('alias', $article['translations'][$lang]['alias'])) ?>"/>
-                                    <label for="alias"><?= lang('Tables.articles.alias') ?></label>
+                                    <label for="alias"><?= lang('admin.tables.alias') ?></label>
                                 </div>
 
                                 <div class="input-field col s12 m6">
@@ -271,7 +271,7 @@ $supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->suppo
                                            value="<?= esc(
                                                old('doc_key', $article['translations'][$lang]['doc_key'])
                                            ) ?>"/>
-                                    <label for="doc_key"><?= lang('Tables.articles.doc_key') ?></label>
+                                    <label for="doc_key"><?= lang('admin.tables.articles.doc_key') ?></label>
                                 </div>
                             </div>
 
@@ -281,11 +281,11 @@ $supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->suppo
                                               name="translations[<?= $idx ?>][description]"
                                               <?= ($formDisabled) ? 'disabled' : '' ?>
                                               class="materialize-textarea"
-                                              placeholder="<?= lang('Tables.articles.description') ?>"><?=
+                                              placeholder="<?= lang('admin.tables.description') ?>"><?=
                                         esc(
                                             old('description', $article['translations'][$lang]['description'])
                                         ) ?></textarea>
-                                    <label for="description"><?= lang('Tables.articles.description') ?></label>
+                                    <label for="description"><?= lang('admin.tables.description') ?></label>
                                 </div>
                             </div>
                         </div>
@@ -303,16 +303,16 @@ $supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->suppo
 <div class="row">
     <div class="col s12">
         <a href="/admin/<?= $controller ?>"
-           class="btn waves-effect waves-light"><?= lang('all.back') ?>
+           class="btn waves-effect waves-light"><?= lang('admin.back') ?>
             <i class="material-icons left">arrow_back</i></a>
         <a href="/admin/articles/add"
-           class="btn waves-effect waves-light ml1rem"><?= lang('all.new') ?>
+           class="btn waves-effect waves-light ml1rem"><?= lang('admin.new') ?>
             <i class="material-icons left">add</i></a>
         <?php
         if (!$formDisabled) : ?>
             <button type="button"
                     onclick="onSubmit()"
-                    class="btn waves-effect waves-light ml1rem"><?= lang('all.save') ?>
+                    class="btn waves-effect waves-light ml1rem"><?= lang('admin.save') ?>
                 <i class="material-icons right">send</i></button>
         <?php
         endif; ?>
@@ -337,7 +337,7 @@ $this->section('js') ?>
         if (!hasError) {
             document.querySelector('form').submit();
         } else {
-            M.toast({html: '<?= lang('all.validation.check_required') ?>'});
+            M.toast({html: '<?= lang('admin.validation.check_required') ?>'});
         }
     }
 </script>

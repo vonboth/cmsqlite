@@ -18,14 +18,14 @@ $this->section('main') ?>
         <table class="responsive-table">
           <thead>
           <tr>
-            <th><?= lang('all.actions') ?></th>
+            <th><?= lang('admin.actions') ?></th>
             <th>ID</th>
-            <th><?= lang('Tables.articles.title') ?></th>
-            <th><?= lang('Tables.articles.description') ?></th>
-            <th><?= lang('Tables.articles.category_id') ?></th>
-            <th><?= lang('Tables.articles.published') ?></th>
-            <th><?= lang('all.created') ?></th>
-            <th><?= lang('all.updated') ?></th>
+            <th><?= lang('admin.tables.title') ?></th>
+            <th><?= lang('admin.tables.description') ?></th>
+            <th><?= lang('admin.tables.articles.category_id') ?></th>
+            <th><?= lang('admin.tables.articles.published') ?></th>
+            <th><?= lang('admin.created') ?></th>
+            <th><?= lang('admin.updated') ?></th>
           </tr>
           </thead>
           <tbody>
@@ -39,7 +39,7 @@ $this->section('main') ?>
               </td>
               <td><?= $article->id ?></td>
               <td><?= $article->title ?> <?= $article->is_startpage ?
-                  '(<span title="' . lang('Tables.articles.is_startpage') . '"><i class="material-icons tiny">check</i></span>)'
+                  '(<span title="' . lang('admin.tables.articles.is_startpage') . '"><i class="material-icons tiny">check</i></span>)'
                   : '' ?></td>
               <td><?= $article->description ?></td>
               <td>

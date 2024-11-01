@@ -34,19 +34,19 @@
                      name="username"
                      type="text"
                      class="validate">
-              <label for="username" class=""><?= lang('all.user.username') ?></label>
+              <label for="username" class=""><?= lang('admin.user.username') ?></label>
             </div>
             <div class="input-field">
               <input id="password" required
                      name="password"
                      type="password"
                      class="validate">
-              <label for="password"><?= lang('all.user.password') ?></label>
+              <label for="password"><?= lang('admin.user.password') ?></label>
             </div>
             <br>
             <div>
               <button class="btn right indigo waves-effect waves-light white-text"
-                      type="submit"><?= lang('all.user.login') ?></button>
+                      type="submit"><?= lang('admin.user.login') ?></button>
             </div>
           </form>
         </div>

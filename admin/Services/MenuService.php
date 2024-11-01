@@ -90,21 +90,21 @@ class MenuService extends BaseService
 <div class='flex space-between'>
   <a href='javascript:void(0)' 
      class='menuitem-title'
-     title='" . lang('all.menu.edit_menu_item') . "'
+     title='" . lang('admin.menu.edit_menu_item') . "'
      @click='onEditMenuitem({$menuitem['id']})'>{$menuitem['title']}</a>
   <div>
     <a href='/admin/menuitems/movedown/{$menuitem['id']}'
        :class='{hide: !hasAncestor({$menuitem['rgt']}, {$menuitem['menu_id']})}'
-       title='" . lang('all.menu.move_item_down') . "'>
+       title='" . lang('admin.menu.move_item_down') . "'>
       <i class='material-icons'>arrow_downward</i>
     </a>
     <a href='/admin/menuitems/moveup/{$menuitem['id']}'
        :class='{hide: !hasParent({$menuitem['lft']}, {$menuitem['menu_id']})}'
-       title='" . lang('all.menu.move_item_up') . "'>
+       title='" . lang('admin.menu.move_item_up') . "'>
       <i class='material-icons'>arrow_upward</i>
     </a>
     <span class='clickable' 
-          title='" . lang('all.menu.delete_menu_item') . "'
+          title='" . lang('admin.menu.delete_menu_item') . "'
           @click='onDeleteMenuitem({$menuitem['id']})'>
       <i class='material-icons'>delete</i>
     </span>
@@ -150,7 +150,7 @@ class MenuService extends BaseService
     <div class="collapsible-body">
         <div class="right">
             <a href="javascript:void(0)" 
-               title="' . lang('all.menu.add_menu_item') . '" 
+               title="' . lang('admin.menu.add_menu_item') . '" 
                @click="onAddMenuitem(' . $menu->id . ')">
               <i class="material-icons">add_circle_outline</i></a>
         </div>

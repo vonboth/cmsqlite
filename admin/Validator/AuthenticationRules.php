@@ -24,7 +24,7 @@ class AuthenticationRules
         if (service('auth')->authenticate($data['username'], $data['password'])) {
             return true;
         } else {
-            $error = lang('all.validation.auth_failed');
+            $error = lang('admin.validation.auth_failed');
             return false;
         }
     }

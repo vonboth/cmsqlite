@@ -72,12 +72,12 @@ class UsersController extends BaseController
                 if ($this->Users->insert($user) !== false) {
                     return redirect()
                         ->to('/admin/users/edit/' . $this->Users->getInsertID())
-                        ->with('flash', lang('all.saved'));
+                        ->with('flash', lang('admin.saved'));
                 } else {
                     return redirect()
                         ->back()
                         ->withInput()
-                        ->with('flash', lang('all.save_error'));
+                        ->with('flash', lang('admin.save_error'));
                 }
             } else {
                 return redirect()
@@ -126,12 +126,12 @@ class UsersController extends BaseController
                     if ($this->Users->save($user)) {
                         return redirect()
                             ->to('/admin/users/edit/' . $id)
-                            ->with('flash', lang('all.saved'));
+                            ->with('flash', lang('admin.saved'));
                     } else {
                         return redirect()
                             ->to('/admin/users/edit/' . $id)
                             ->withInput()
-                            ->with('flash', lang('all.save_error'));
+                            ->with('flash', lang('admin.save_error'));
                     }
                 } catch (\Exception $exception) {
                     return redirect()
@@ -164,11 +164,11 @@ class UsersController extends BaseController
         if ($this->Users->delete($id)) {
             return redirect()
                 ->back()
-                ->with('flash', lang('all.deleted'));
+                ->with('flash', lang('admin.deleted'));
         } else {
             return redirect()
                 ->back()
-                ->with('flash', lang('all.delete_error'));
+                ->with('flash', lang('admin.delete_error'));
         }
     }
 }

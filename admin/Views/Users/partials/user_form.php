@@ -9,11 +9,11 @@
 <div class=row>
     <div class="col s12 <?= (is_null($user->id) ? 'hide' : '') ?>">
         <span class="right">
-            <?= lang('all.created') . ': ' . lang(
+            <?= lang('admin.created') . ': ' . lang(
                 '{created, date} {created, time}',
                 ['created' => $user->created ?? new DateTime()]
             )
-            . ' | ' . lang('all.updated') . ': ' . lang(
+            . ' | ' . lang('admin.updated') . ': ' . lang(
                 '{updated, date} {updated, time}',
                 ['updated' => $user->updated ?? new DateTime()]
             ) ?>
@@ -30,7 +30,7 @@
                type="text"
                class="validate"
                required="required">
-        <label for="username"><?= lang('Tables.users.username') ?></label>
+        <label for="username"><?= lang('admin.tables.users.username') ?></label>
     </div>
     <div class="input-field col s12 m6">
         <input id="email"
@@ -40,7 +40,7 @@
                type="text"
                required="required"
                class="validate">
-        <label for="email"><?= lang('Tables.users.email') ?></label>
+        <label for="email"><?= lang('admin.tables.users.email') ?></label>
     </div>
 </div>
 <?php
@@ -54,7 +54,7 @@ if (!$formDisabled): ?>
                    class="validate"
                 <?= (!$edit) ? 'required' : '' ?>
             >
-            <label for="password"><?= lang('Tables.users.password') ?></label>
+            <label for="password"><?= lang('admin.tables.users.password') ?></label>
         </div>
         <div class="input-field col s12 m6">
             <input id="password-confirm"
@@ -64,7 +64,7 @@ if (!$formDisabled): ?>
                    class="validate"
                 <?= (!$edit) ? 'required' : '' ?>
             >
-            <label for="password-confirm"><?= lang('Tables.users.confirm_password') ?></label>
+            <label for="password-confirm"><?= lang('admin.tables.users.confirm_password') ?></label>
         </div>
     </div>
 <?php
@@ -78,7 +78,7 @@ endif; ?>
                value="<?= old('firstname', $user->firstname) ?>"
                type="text"
                class="validate">
-        <label for="firstname"><?= lang('Tables.users.firstname') ?></label>
+        <label for="firstname"><?= lang('admin.tables.users.firstname') ?></label>
     </div>
     <div class="input-field col s12 m6">
         <input id="lastname"
@@ -86,7 +86,7 @@ endif; ?>
             <?= ($formDisabled) ? 'disabled' : '' ?>
                value="<?= old('lastname', $user->lastname) ?>"
                type="text">
-        <label for="lastname"><?= lang('Tables.users.lastname') ?></label>
+        <label for="lastname"><?= lang('admin.tables.users.lastname') ?></label>
     </div>
 </div>
 
@@ -95,25 +95,25 @@ endif; ?>
         <?= form_dropdown(
             'role',
             [
-                'guest' => lang('Tables.users.roles.guest'),
-                'author' => lang('Tables.users.roles.author'),
-                'admin' => lang('Tables.users.roles.admin')
+                'guest' => lang('admin.tables.users.roles.guest'),
+                'author' => lang('admin.tables.users.roles.author'),
+                'admin' => lang('admin.tables.users.roles.admin')
             ],
             $user->role,
             ($formDisabled) ? 'disabled' : ''
         ) ?>
-        <label for="role"><?= lang('Tables.users.role') ?></label>
+        <label for="role"><?= lang('admin.tables.users.role') ?></label>
     </div>
 </div>
 
 <div class="row">
     <div class="col s12">
         <a href="/admin/<?= $controller ?>"
-           class="btn waves-effect waves-light"><?= lang('all.back') ?>
+           class="btn waves-effect waves-light"><?= lang('admin.back') ?>
             <i class="material-icons left">arrow_back</i></a>
         <?php
         if (!$formDisabled) : ?>
-            <button type="submit" class="btn waves-effect waves-light ml1rem"><?= lang('all.submit') ?>
+            <button type="submit" class="btn waves-effect waves-light ml1rem"><?= lang('admin.submit') ?>
                 <i class="material-icons right">send</i></button>
         <?php
         endif; ?>

@@ -20,7 +20,7 @@ class UserRules
             if (strlen($data['password']) >= $args) {
                 return true;
             }
-            $error = lang('all.validation.password_length', ['param' => $args]);
+            $error = lang('admin.validation.password_length', ['param' => $args]);
         } elseif (!empty($data['id']) && empty($data['password'])) {
           return true;
         }
@@ -43,7 +43,7 @@ class UserRules
             if (preg_match($regex, $str)) {
                 return true;
             }
-            $error = lang('all.validation.password_rule', ['param' => $args]);
+            $error = lang('admin.validation.password_rule', ['param' => $args]);
         } elseif (!empty($data['id']) && empty($data['password'])) {
           return true;
         }

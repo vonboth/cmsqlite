@@ -48,7 +48,7 @@ class Article extends AppCell
                 ->first();
         }
         if ($article) {
-            $output = $article->content ?? lang('all.errors.no_content');
+            $output = $article->content ?? lang('admin.errors.no_content');
 
             if ($options['readon'] === true) {
                 $pos = strpos($output, '<hr class="readon" />');

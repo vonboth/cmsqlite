@@ -36,7 +36,8 @@
     endif; ?>
 
     <script type="text/javascript">
-      const translations = <?= json_encode(lang('Javascript.all')) ?>;
+      const translations = <?= json_encode(lang('admin.javascript')) ?>;
+      console.log(translations);
     </script>
 
     <?= link_tag('themes/admin/Views/default/css/layout.css') ?>
@@ -56,12 +57,12 @@
                 <a href="/admin/<?= $controller ?>" class="brand-logo"><?= $section ?></a>
                 <ul class="right" id="profile-menu">
                     <li>
-                      <a href="/admin/profile" title="<?= lang('all.user.my_profile') ?>">
+                      <a href="/admin/profile" title="<?= lang('admin.user.my_profile') ?>">
                         <i class="material-icons">person</i>
                       </a>
                     </li>
                     <li>
-                      <a href="/admin/authenticate/logout" title="<?= lang('all.user.logout') ?>">
+                      <a href="/admin/authenticate/logout" title="<?= lang('admin.user.logout') ?>">
                         <i class="material-icons">power_settings_new</i>
                       </a>
                     </li>
@@ -76,7 +77,7 @@
     <!-- sidenav -->
     <ul id="sidenav-left" class="sidenav sidenav-fixed">
         <li>
-            <a href="/admin" class="logo-container"><?= lang('all.menu.startpage') ?>
+            <a href="/admin" class="logo-container"><?= lang('admin.menu.startpage') ?>
                 <i class="material-icons left">home</i>
             </a>
         </li>

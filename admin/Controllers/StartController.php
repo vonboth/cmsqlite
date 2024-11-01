@@ -62,7 +62,7 @@ class StartController extends BaseController
             && getenv('CI_ENVIRONMENT' === 'production')
             && file_exists(ROOTPATH . '.env')
         ) {
-            $this->session->setFlashdata(['flash' => lang('all.admin.remove_install_folder')]);
+            $this->session->setFlashdata(['flash' => lang('admin.admin.remove_install_folder')]);
         }
 
         return view(
@@ -78,9 +78,9 @@ class StartController extends BaseController
     {
         $redirect = redirect();
         if ($this->Articles->resetHits()) {
-            $redirect->with('flash', lang('all.admin.success_reset_hits'));
+            $redirect->with('flash', lang('admin.admin.success_reset_hits'));
         } else {
-            $redirect->with('flash', lang('all.admin.failed_reset_hits'));
+            $redirect->with('flash', lang('admin.admin.failed_reset_hits'));
         }
 
         return $redirect->to('/admin');
