@@ -45,8 +45,8 @@ export default {
                     this.images = response.data.images;
                     M.Modal.getInstance(this.$refs.modalMediaBrowser).open();
                 })
-                .catch((errror) => {
-                    console.log(error);
+                .catch((error) => {
+                    console.error(error);
                 });
         },
         selectImage(image) {
@@ -98,7 +98,7 @@ export default {
                     }
                 },
                 error: function(error) {
-                    console.log('error', error);
+                    console.error('error', error);
                     M.toast({html: error.getMessage()});
                     this.message.message(error.getMessage(), 'error', 500);
                 }

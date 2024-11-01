@@ -39,7 +39,7 @@ export default {
                     window.location.reload();
                 })
                 .catch((error) => {
-                    console.log(error);
+                    console.error(error);
                 });
         },
 
@@ -72,7 +72,7 @@ export default {
                             window.location.reload();
                         })
                         .catch((error) => {
-                            console.log(error);
+                            console.error(error);
                         });
                 }
             });
@@ -98,7 +98,7 @@ export default {
 <template>
     <div class="row">
         <div class="col s12">
-            <a @click="() => { addNewSetting = true; console.log(addNewSetting) }"
+            <a @click="() => { addNewSetting = true }"
                class="btn-floating waves-effect waves-light blue pointer">
                 <i class="material-icons">add</i>
             </a>

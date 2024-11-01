@@ -37,7 +37,6 @@
 
     <script type="text/javascript">
       const translations = <?= json_encode(lang('admin.javascript')) ?>;
-      console.log(translations);
     </script>
 
     <?= link_tag('themes/admin/Views/default/css/layout.css') ?>
