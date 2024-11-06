@@ -1,1 +1,7 @@
 DEV PW: secret
+
+
+[remote "origin"]
+	url = ssh://stoffel@ccdiskstation/volume1/Christoph/git/cmsqlite/
+	fetch = +refs/heads/*:refs/remotes/origin/*
+
