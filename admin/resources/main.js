@@ -7,7 +7,6 @@ import Menus from './menus/Menus.vue';
 import dayjs from 'dayjs';
 import MenuList from '@/components/menus/MenuList.vue';
 import axios from 'axios';
-import CkEditor from '@/components/articles/CkEditor.vue';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import Swal from 'sweetalert2';
 import FileBrowser from '@/components/media/FileBrowser.vue';
@@ -55,7 +54,6 @@ app.component('top-articles', TopArticles);
 app.component('settings', Settings);
 app.component('menus', Menus);
 app.component('menu-list', MenuList);
-app.component('ck-editor', CkEditor);
 app.component('jodit-editor', JoditEditor);
 app.component('file-browser', FileBrowser);
 app.component('list-actions', ListActions)

@@ -6,6 +6,7 @@ if (!function_exists('vite')) {
      * for either develop or production mode
      * @param $script
      * @return string
+     * @throws Exception
      */
     function vite($script)
     {

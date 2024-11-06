@@ -58,7 +58,7 @@ class BaseController extends AppBase
         $this->View->setData(
             [
                 'controller' => ($this->controllerName),
-                'section' => lang("Tables.{$this->controllerName}.{$this->controllerName}"),
+                'section' => lang("admin.tables.{$this->controllerName}.{$this->controllerName}"),
                 'title' => 'CMSQLite',
                 'theme' => $this->theme,
                 'version' => $this->_getVersion(),

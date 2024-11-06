@@ -64,6 +64,9 @@ export default {
         // Make Jodit editor
         this.editor = Jodit.make(`#${this.id}`, {
             buttons: 'undo,redo,|,bold,italic,eraser,|,copy,paste,|,paragraph,align,|,ol,ul,|,table,image,imageBrowser,link,readon,|,source',
+            buttonsMD: 'undo,redo,|,bold,italic,eraser,|,copy,paste,|,paragraph,align,|,ol,ul,|,table,image,imageBrowser,link,readon,|,source',
+            buttonsXS: 'undo,redo,|,bold,italic,eraser,|,copy,paste,|,paragraph,align,|,ol,ul,|,table,image,imageBrowser,link,readon,|,source',
+            toolbarButtonSize: 'middle',
             enter: 'DIV',
             language: 'de',
             uploader: {

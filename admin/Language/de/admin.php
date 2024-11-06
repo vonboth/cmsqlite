@@ -278,6 +278,10 @@ return [
             'category' => 'Kategorie',
             'is_system' => 'Ist System'
         ],
+        'menus' => ['menus' => 'Menüs', 'menu' => 'Menü'],
+        'start' => ['start' => 'Startseite'],
+        'settings' => ['settings' => 'Einstellungen', 'setting' => 'Einstellung'],
+        'system' => ['system' => 'System'],
         'users' => [
             'users' => 'Benutzer',
             'user' => 'Benutzer',
