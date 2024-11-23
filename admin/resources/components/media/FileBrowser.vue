@@ -343,8 +343,27 @@ export default {
     }
 };
 
+/**
+ * Find a directory by name
+ * @param elements
+ * @param name
+ * @returns {*}
+ */
 function findDirectory(elements, name) {
     for (const item of elements) {
+        if (item.type === 'dir' && item.name === name) {
+            return item;
+        }
+
+        if (item.type === 'dir' && item.children.length > 0) {
+            const found = findDirectory(item.children, name);
+            if (found) {
+                return found;
+            }
+        }
+    }
+    return null;
+    /*for (const item of elements) {
         if (item.name === name) {
             return item;
         }
@@ -352,9 +371,7 @@ function findDirectory(elements, name) {
         if (item.children.length > 0) {
             return findDirectory(item.children, name);
         }
-    }
-
-    return elements[0];
+    }*/
 }
 </script>
 

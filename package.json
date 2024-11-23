@@ -11,13 +11,13 @@
     "axios": "^1.7.7",
     "ckeditor5": "^43.3.1",
     "dayjs": "^1.11.13",
-    "jodit": "^4.2.41",
+    "jodit": "^4.2.43",
     "sweetalert2": "^11.14.5",
-    "vue": "^3.5.12"
+    "vue": "^3.5.13"
   },
   "devDependencies": {
     "copy": "^0.3.2",
-    "@vitejs/plugin-vue": "^5.1.4",
-    "vite": "^5.4.10"
+    "@vitejs/plugin-vue": "^5.2.0",
+    "vite": "^5.4.11"
   }
 }
