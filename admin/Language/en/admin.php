@@ -265,6 +265,7 @@ return [
             'article' => 'Article',
             'category_id' => 'Category',
             'content' => 'Content',
+            'class' => 'CSS Class',
             'doc_key' => 'Document Key',
             'is_startpage' => 'Is Startpage',
             'layout' => 'Layout',

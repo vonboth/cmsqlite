@@ -311,7 +311,9 @@ export default {
                             file: file
                         });
                     } else {
-                        M.toast({html: this.translations.media.filetype_not_allowed});
+                        if (it.kind && it.kind !== 'string') {
+                            M.toast({html: this.translations.media.filetype_not_allowed});
+                        }
                     }
                 })
             } else {
@@ -323,7 +325,9 @@ export default {
                             file: it
                         });
                     } else {
-                        M.toast({html: this.translations.media.filetype_not_allowed});
+                        if (it.kind && it.kind !== 'string') {
+                            M.toast({html: this.translations.media.filetype_not_allowed});
+                        }
                     }
                 });
             }

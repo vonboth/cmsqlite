@@ -12,7 +12,7 @@
 <?= $this->extend("Themes\\$theme\\layouts\\default") ?>
 
 <?= $this->section('main') ?>
-  <section class="some">
+  <section class="some <?= $article->class ?>">
       <?= $article->content ?>
   </section>
 <?= $this->endSection() ?>

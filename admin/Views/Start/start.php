@@ -28,7 +28,7 @@
                             <li>
                                 <a href="/admin/articles/edit/1">
                                     <i class="material-icons left">create</i> <?= lang(
-                                        'all.admin.welcome.edit_startpage'
+                                        'admin.admin.welcome.edit_startpage'
                                     ) ?>
                                 </a>
                             </li>
@@ -40,7 +40,7 @@
                             <li class="clearfix">
                                 <a href="/" target="_blank">
                                     <i class="material-icons left">remove_red_eye</i> <?= lang(
-                                        'all.admin.welcome.view_website'
+                                        'admin.admin.welcome.view_website'
                                     ) ?>
                                 </a>
                             </li>

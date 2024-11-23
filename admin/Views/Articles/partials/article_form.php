@@ -132,33 +132,42 @@ $supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->suppo
                 </div>
                 <div class="collapsible-body">
                     <div class="row">
-                        <div class="input-field col s12 m6">
+                        <div class="input-field col s12 m4">
                             <input name="alias"
-                                <?= ($formDisabled) ? 'disabled' : '' ?>
+                                   <?= ($formDisabled) ? 'disabled' : '' ?>
                                    id="alias"
                                    type="text"
                                    value="<?= esc(old('alias', $article['alias'])) ?>"/>
                             <label for="alias"><?= lang('admin.tables.alias') ?></label>
                         </div>
 
-                        <div class="input-field col s12 m6">
+                        <div class="input-field col s12 m4">
                             <input name="doc_key"
-                                <?= ($formDisabled) ? 'disabled' : '' ?>
+                                   <?= ($formDisabled) ? 'disabled' : '' ?>
                                    id="doc_key"
                                    type="text"
                                    value="<?= esc(old('doc_key', $article['doc_key'])) ?>"/>
                             <label for="doc_key"><?= lang('admin.tables.articles.doc_key') ?></label>
                         </div>
+
+                        <div class="input-field col s12 m4">
+                            <input name="class"
+                                   <?= ($formDisabled) ? 'disabled' : '' ?>
+                                   id="class"
+                                   type="text"
+                                   value="<?= esc(old('class', $article['class'])) ?>"/>
+                            <label for="class"><?= lang('admin.tables.articles.class') ?></label>
+                        </div>
                     </div>
 
                     <div class="row">
                         <div class="input-field col s12">
-                    <textarea id="description"
-                              name="description"
-                              <?= ($formDisabled) ? 'disabled' : '' ?>
-                              class="materialize-textarea"
-                              placeholder="<?= lang('admin.tables.description') ?>"><?=
-                        esc(old('description', $article['description'])) ?></textarea>
+                            <textarea id="description"
+                                      name="description"
+                                      <?= ($formDisabled) ? 'disabled' : '' ?>
+                                      class="materialize-textarea"
+                                      placeholder="<?= lang('admin.tables.description') ?>"><?=
+                                esc(old('description', $article['description'])) ?></textarea>
                             <label for="description"><?= lang('admin.tables.description') ?></label>
                         </div>
                     </div>
@@ -167,7 +176,7 @@ $supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->suppo
                         <div class="input-field col s12 m6">
                             <input name="start_publish"
                                    class="datepicker"
-                                <?= ($formDisabled) ? 'disabled' : '' ?>
+                                   <?= ($formDisabled) ? 'disabled' : '' ?>
                                    id="start_publish"
                                    type="text"
                                    value="<?= old('start_publish', $article['start_publish']) ?>"/>
@@ -176,7 +185,7 @@ $supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->suppo
                         <div class="input-field col s12 m6">
                             <input name="stop_publish"
                                    class="datepicker"
-                                <?= ($formDisabled) ? 'disabled' : '' ?>
+                                   <?= ($formDisabled) ? 'disabled' : '' ?>
                                    id="stop_publish"
                                    type="text"
                                    value="<?= old('stop_publish', $article['stop_publish']) ?>"/>
@@ -193,11 +202,14 @@ $supportedTranslations = array_diff(config('Admin\Config\SystemSettings')->suppo
         $idx = 0;
         foreach ($supportedTranslations as $lang): ?>
             <div id="tab_<?= $lang ?>" class="col s12">
-                <input type="hidden" name="translations[<?= $idx ?>][article_id]"
+                <input type="hidden"
+                       name="translations[<?= $idx ?>][article_id]"
                        value="<?= $article['translations'][$lang]['article_id'] ?? $article['id'] ?>"/>
-                <input type="hidden" name="translations[<?= $idx ?>][id]"
+                <input type="hidden"
+                       name="translations[<?= $idx ?>][id]"
                        value="<?= $article['translations'][$lang]['id'] ?? '' ?>"/>
-                <input type="hidden" name="translations[<?= $idx ?>][language]"
+                <input type="hidden"
+                       name="translations[<?= $idx ?>][language]"
                        value="<?= $article['translations'][$lang]['lang'] ?? $lang ?>"/>
 
                 <div class="row">

@@ -264,6 +264,7 @@ return [
             'articles' => 'Artikel',
             'article' => 'Artikel',
             'category_id' => 'Kategorie',
+            'class' => 'CSS-Klasse',
             'content' => 'Inhalt',
             'doc_key' => 'Dokument Schlüssel',
             'is_startpage' => 'Ist Startseite',
