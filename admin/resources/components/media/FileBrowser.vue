@@ -435,7 +435,7 @@ function findDirectory(elements, name) {
                                    :title="item.name">
                                     <div class="flex flex-center flex-columm">
                                         <div><i class="medium material-icons">folder</i></div>
-                                        <span class="item-name"></span>
+                                        <span class="item-name">{{ item.name }}</span>
                                     </div>
                                 </a>
                             </div>

@@ -1,6 +1,6 @@
 {
   "name": "cmsqlite",
-  "version": "2.3.4",
+  "version": "2.3.5",
   "description": "CMSQLite easy SQLite based CMS",
   "scripts": {
     "dev": "vite",
