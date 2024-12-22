@@ -301,7 +301,7 @@ export default {
         async onDrop(event) {
             this.$refs.dropArea.classList.remove('border-dashed');
             event.preventDefault();
-            if(event.dataTransfer.items) {
+            if (event.dataTransfer.items) {
                 [...event.dataTransfer.items].forEach(it => {
                     if (it.kind === 'file' && allowedTypes.includes(it.type)) {
                         const file = it.getAsFile();
@@ -315,7 +315,7 @@ export default {
                             M.toast({html: this.translations.media.filetype_not_allowed});
                         }
                     }
-                })
+                });
             } else {
                 [...event.dataTransfer.files].forEach(it => {
                     if (allowedTypes.includes(it.type)) {
@@ -332,14 +332,14 @@ export default {
                 });
             }
 
-            if(this.uploadFiles.length > 0) {
+            if (this.uploadFiles.length > 0) {
                 for (const file of this.uploadFiles) {
                     await this.doFileUpload(file);
                 }
             }
 
             this.uploadFiles = [];
-        },
+        }
     }
 };
 
@@ -425,23 +425,25 @@ function findDirectory(elements, name) {
                      @dragover.prevent.stop="() => { $refs.dropArea.classList.add('border-dashed') }"
                      @dragleave.prevent.stop="() => { $refs.dropArea.classList.remove('border-dashed') }"
                      @drop="onDrop">
-                    <div class="flex">
+                    <div class="flex flex-wrap">
                         <div v-for="item in currentDirectory.children"
                              class="inline-block file-item">
                             <div v-if="item.type === 'dir'">
                                 <a class="cursor-pointer is-directory"
                                    @contextmenu.prevent.stop="(event) => { onRightClickDirectory(event, item) }"
-                                   @click="selectDirectory(item.name)">
+                                   @click="selectDirectory(item.name)"
+                                   :title="item.name">
                                     <div class="flex flex-center flex-columm">
                                         <div><i class="medium material-icons">folder</i></div>
-                                        <span>{{ item.name }}</span>
+                                        <span class="item-name"></span>
                                     </div>
                                 </a>
                             </div>
                             <div v-else>
                                 <div class="flex flex-center flex-columm ">
                                     <a class="cursor-pointer is-file flex flex-center flex-columm"
-                                       @contextmenu.prevent.stop="(event) => { onRightClickFile(event, item) }">
+                                       @contextmenu.prevent.stop="(event) => { onRightClickFile(event, item) }"
+                                       :title="item.name">
                                         <div>
                                             <img v-if="item.type === 'png' || item.type === 'jpg'"
                                                  class="preview-image"
@@ -451,7 +453,7 @@ function findDirectory(elements, name) {
                                                 <i class="medium material-icons">insert_drive_file</i>
                                             </span>
                                         </div>
-                                        <span>{{ item.name }}</span>
+                                        <span class="item-name">{{ item.name }}</span>
                                     </a>
                                 </div>
                             </div>
@@ -606,6 +608,15 @@ function findDirectory(elements, name) {
     width: 7.5em;
     height: 7.5em;
     display: inline-block;
+}
+
+.item-name {
+    width: 7.5em;
+    padding: 0 .25em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
 }
 
 .preview-image {

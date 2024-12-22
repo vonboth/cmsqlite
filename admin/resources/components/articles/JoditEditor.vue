@@ -18,6 +18,8 @@ Jodit.plugins.add('readon', imageBrowser);
 Jodit.modules.Icon.set('readon', readonIcon);
 Jodit.modules.Icon.set('imageBrowser', folderIcon);
 
+const toolbar = "undo,redo,|,bold,italic,|,eraser,|,copy,paste,|,font,fontsize,brush,paragraph,align,|,ol,ul,|,table,image,imageBrowser,link,readon,|,source,|,preview,fullsize,print";
+
 export default {
     name: 'JoditEditor',
     inject: ['translations'],
@@ -63,9 +65,9 @@ export default {
 
         // Make Jodit editor
         this.editor = Jodit.make(`#${this.id}`, {
-            buttons: 'undo,redo,|,bold,italic,eraser,|,copy,paste,|,paragraph,align,|,ol,ul,|,table,image,imageBrowser,link,readon,|,source',
-            buttonsMD: 'undo,redo,|,bold,italic,eraser,|,copy,paste,|,paragraph,align,|,ol,ul,|,table,image,imageBrowser,link,readon,|,source',
-            buttonsXS: 'undo,redo,|,bold,italic,eraser,|,copy,paste,|,paragraph,align,|,ol,ul,|,table,image,imageBrowser,link,readon,|,source',
+            buttons: toolbar,
+            buttonsMD: toolbar,
+            buttonsXS: toolbar,
             toolbarButtonSize: 'middle',
             enter: 'DIV',
             language: 'de',
