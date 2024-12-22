@@ -12,7 +12,7 @@
     "ckeditor5": "^43.3.1",
     "dayjs": "^1.11.13",
     "jodit": "^4.2.47",
-    "sweetalert2": "^11.15.2",
+    "sweetalert2": "^11.15.3",
     "vue": "^3.5.13"
   },
   "devDependencies": {
