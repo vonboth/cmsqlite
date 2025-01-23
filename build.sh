@@ -109,3 +109,4 @@ fi
 # Install dependencies
 cd $BUILD_DIR
 docker run --rm -v $(pwd):/app -u 1000:1000 -w /app --env PHP_VERSION=8.3 composer install --ignore-platform-reqs --no-dev --no-interaction --no-progress --no-suggest --no-scripts
+echo 'build complete'
