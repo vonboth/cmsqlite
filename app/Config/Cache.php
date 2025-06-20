@@ -20,7 +20,7 @@ class Cache extends BaseConfig
      * The name of the preferred handler that should be used. If for some reason
      * it is not available, the $backupHandler will be used in its place.
      *
-     * CMSQLITE: IMPORTNAT HAS TO BE dummy to allow install routine
+     * CMSQLITE: IMPORTANT HAS TO BE dummy to allow install routine
      */
     public string $handler = 'dummy';
 
