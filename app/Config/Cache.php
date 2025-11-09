@@ -2,6 +2,7 @@
 
 namespace Config;
 
+use CodeIgniter\Cache\CacheInterface;
 use CodeIgniter\Cache\Handlers\DummyHandler;
 use CodeIgniter\Cache\Handlers\FileHandler;
 use CodeIgniter\Cache\Handlers\MemcachedHandler;
@@ -34,18 +35,6 @@ class Cache extends BaseConfig
      * always available, though that's not always practical for the app.
      */
     public string $backupHandler = 'dummy';
-
-    /**
-     * --------------------------------------------------------------------------
-     * Cache Directory Path
-     * --------------------------------------------------------------------------
-     *
-     * The path to where cache files should be stored, if using a file-based
-     * system.
-     *
-     * @deprecated Use the driver-specific variant under $file
-     */
-    public string $storePath = WRITEPATH . 'cache/';
 
     /**
      * --------------------------------------------------------------------------
@@ -87,10 +76,11 @@ class Cache extends BaseConfig
      * --------------------------------------------------------------------------
      * File settings
      * --------------------------------------------------------------------------
+     *
      * Your file storage preferences can be specified below, if you are using
      * the File driver.
      *
-     * @var array<string, int|string|null>
+     * @var array{storePath?: string, mode?: int}
      */
     public array $file = [
         'storePath' => WRITEPATH . 'cache/',
@@ -101,12 +91,13 @@ class Cache extends BaseConfig
      * -------------------------------------------------------------------------
      * Memcached settings
      * -------------------------------------------------------------------------
+     *
      * Your Memcached servers can be specified below, if you are using
      * the Memcached drivers.
      *
      * @see https://codeigniter.com/user_guide/libraries/caching.html#memcached
      *
-     * @var array<string, bool|int|string>
+     * @var array{host?: string, port?: int, weight?: int, raw?: bool}
      */
     public array $memcached = [
         'host'   => '127.0.0.1',
@@ -119,10 +110,11 @@ class Cache extends BaseConfig
      * -------------------------------------------------------------------------
      * Redis settings
      * -------------------------------------------------------------------------
+     *
      * Your Redis server can be specified below, if you are using
      * the Redis or Predis drivers.
      *
-     * @var array<string, int|string|null>
+     * @var array{host?: string, password?: string|null, port?: int, timeout?: int, database?: int}
      */
     public array $redis = [
         'host'     => '127.0.0.1',

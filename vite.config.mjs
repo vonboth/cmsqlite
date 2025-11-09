@@ -26,13 +26,15 @@ export default defineConfig({
         }
     },
     server: {
-        host: true,
+        host: '0.0.0.0',
         hmr: {
             host: 'cmsqlite.local'
         },
-        origin: 'http://cmsqlite.local',
         port: 3000,
-        strictPort: true
+        strictPort: true,
+        cors: {
+            origin: '*',
+        },
     },
     resolve: {
         alias: {

@@ -17,32 +17,16 @@ use CodeIgniter\Filters\PageCache;
 use CodeIgniter\Filters\PerformanceMetrics;
 use CodeIgniter\Filters\SecureHeaders;
 
-/**
- * Class Filters
- * @package Config
- */
 class Filters extends BaseFilters
 {
     /**
-     * @inheritdoc
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-        /**
-         * CMSQLITE NEEDS THIS TO ENSURE INSTALLATION
-         */
-        // If Install-Dir exists, we want to have some Filters to ensure Installation
-        if (is_dir(ROOTPATH . 'install')) {
-            $this->aliases += ['install' => \Install\Filters\InstallationFilter::class];
-            $this->filters += ['install' => ['before' => ['/', 'install', 'install/*']]];
-        }
-    }
-
-    /**
      * Configures aliases for Filter classes to
      * make reading things nicer and simpler.
+     *
+     * @var array<string, class-string|list<class-string>>
+     *
+     * [filter_name => classname]
+     * or [filter_name => [classname1, classname2, ...]]
      */
     public array $aliases = [
         'csrf' => CSRF::class,
@@ -85,20 +69,24 @@ class Filters extends BaseFilters
         ],
     ];
 
-
     /**
      * List of filter aliases that are always
      * applied before and after every request.
+     *
+     * @var array{
+     *     before: array<string, array{except: list<string>|string}>|list<string>,
+     *     after: array<string, array{except: list<string>|string}>|list<string>
+     * }
      */
     public array $globals = [
         'before' => [
-            // 'honeypot'
+            // 'honeypot',
             'csrf',
             // 'invalidchars',
         ],
         'after' => [
-            // 'honeypot'
-            // 'secureheaders'
+            // 'honeypot',
+            // 'secureheaders',
         ],
     ];
 
@@ -107,11 +95,13 @@ class Filters extends BaseFilters
      * particular HTTP method (GET, POST, etc.).
      *
      * Example:
-     * 'post' => ['foo', 'bar']
+     * 'POST' => ['foo', 'bar']
      *
      * If you use this, you should disable auto-routing because auto-routing
      * permits any HTTP method to access a controller. Accessing the controller
-     * with a method you don’t expect could bypass the filter.
+     * with a method you don't expect could bypass the filter.
+     *
+     * @var array<string, list<string>>
      */
     public array $methods = [];
 
@@ -121,6 +111,8 @@ class Filters extends BaseFilters
      *
      * Example:
      * 'isLoggedIn' => ['before' => ['account/*', 'profiles/*']]
+     *
+     * @var array<string, array<string, list<string>>>
      */
     public array $filters = [
         'maintenance' => ['before' => ['*']],

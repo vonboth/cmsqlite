@@ -10,7 +10,7 @@ use CodeIgniter\Config\BaseConfig;
 class Feature extends BaseConfig
 {
     /**
-     * Use improved new auto routing instead of the default legacy version.
+     * Use improved new auto routing instead of the legacy version.
      */
     public bool $autoRoutesImproved = true;
 
